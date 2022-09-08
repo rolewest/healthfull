@@ -31,8 +31,19 @@
 
     <q-page-container>
       <router-view />
-    </q-page-container>
-  </q-layout>
+    </q-page-container> </q-layout
+  >...
+  <span
+    class="mdi mdi-comment-quote-outline citation"
+    @click="
+      citation(
+        1,
+        'RMR',
+        'Resting Metabolic Rate',
+        `We use the Oxford method to get your base RMR.`
+      )
+    "
+  ></span>
 </template>
 
 <script>

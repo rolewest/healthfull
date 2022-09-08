@@ -1,4 +1,4 @@
-<template>
+<template @citation="citation">
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
@@ -66,7 +66,60 @@
     </q-drawer>
 
     <div v-show="showModal">
-      <Modal @close="toggleModal"><BaseMeasure /> </Modal>
+      <Modal @close="toggleModal"><BaseMeasure @citation="citation" /> </Modal>
+    </div>
+
+    <div v-if="showCitationModal">
+      <Modal @close="toggleCitationModal" :theme="citationTheme" cite="cite">
+        <template></template>
+        <template v-slot:cite>
+          <h4 class="title-h4">{{ citationName }}</h4>
+          <div class="title-h4">
+            {{ citationCaption }}
+          </div>
+          <div class="paperSheetFlat">
+            <div class="text-center">
+              <a :href="baseURL + '/citations/' + citationID" target="_blank"
+                >see full citations & sources here</a
+              ><br />
+              <div class="text-h5">Basic Overview</div>
+              <span class="text-negative">
+                {{
+                  citationTheme === "theme-red"
+                    ? "WARNING: this method's use is questionable"
+                    : ""
+                }}</span
+              >
+              <span class="text-negative">
+                {{
+                  citationTheme === "theme-notice"
+                    ? "WARNING: your data could be inaccurate"
+                    : ""
+                }}</span
+              >
+              <br />
+            </div>
+
+            <p>
+              {{ citationShort }}
+            </p>
+            <p>
+              {{ citationWhy }}
+            </p>
+          </div>
+          <div class="paperSheetFlat" v-show="citationSummary">
+            <!-- [<router-link to="/about">abooot</router-link>] {{ citationName }} |
+            {{ citationID }} | {{ citationCaption }} | {{ citationShort }} -->
+            <div class="text-center text-h5">Sources / Excerpts</div>
+            <kbd class="cite-text">
+              {{ citationSummaryFormat }} <br />
+              <a :href="baseURL + '/citations/' + citationID" target="_blank"
+                >full citations are here</a
+              >
+            </kbd>
+          </div>
+        </template>
+      </Modal>
     </div>
 
     <q-page-container>
@@ -76,11 +129,19 @@
     <q-footer elevated class="bg-grey-8 text-white">
       <q-toolbar>
         <q-toolbar-title class="float-right">
-          <button
-            class="mdi mdi-weight-lifter btn-info btn-primary travelModeButton text-h1"
+          <!-- <button
+            class="mdi mdi-weight-lifter btn-info btn-primary travelModeButton text-h1 text-center"
             @click="this.toggleModal"
-          ></button>
-          |{{ showModal }}| |{{ leftDrawerOpen }}|
+          ></button> -->
+          <button
+            class="btn-info btn-primary travelModeButton text-h1"
+            @click="this.toggleModal"
+          >
+            <q-icon name="ti-ruler-pencil"></q-icon>
+          </button>
+          <router-link :to="{ name: 'base' }"
+            ><q-icon name="ti-ruler-pencil"></q-icon
+          ></router-link>
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>
@@ -242,7 +303,16 @@ export default defineComponent({
     const leftDrawerOpen = ref(false);
 
     return {
+      baseURL: ref("https://rmatter.com/health-full"),
       showModal: ref(false),
+      showCitationModal: ref(false),
+      citationName: ref(""),
+      citationID: ref(""),
+      citationCaption: ref(""),
+      citationShort: ref(""),
+      citationSummary: ref(""),
+      citationWhy: ref(""),
+      citationTheme: ref(""),
       essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer() {
@@ -251,10 +321,54 @@ export default defineComponent({
     };
   },
   methods: {
+    citation(id, name, caption, short, summary, why, theme, show = true) {
+      // this.showModal = false;
+      // window.scroll({
+      //   top: top,
+      //   left: 0,
+      //   behavior: "smooth",
+      // });
+      console.log("CITE:", name, id, this.showCitationModal);
+      this.showCitationModal = show;
+      this.citationName = name;
+      this.citationID = id;
+      this.citationCaption = caption;
+      this.citationShort = short;
+      this.citationSummary = summary;
+      this.citationWhy = why;
+      this.citationTheme = theme;
+    },
     toggleModal() {
       console.log("togglin!");
-      this.showModal = !this.showModal;
+      if (this.showModal) {
+        setTimeout(() => {
+          this.showModal = !this.showModal;
+        }, 250);
+      } else {
+        this.showModal = !this.showModal;
+      }
+
       console.log("toggleMod:", this.showModal, this.showModal);
+    },
+    toggleCitationModal() {
+      if (this.showCitationModal) {
+        setTimeout(() => {
+          this.showCitationModal = !this.showCitationModal;
+        }, 500);
+      } else {
+        this.showCitationModal = !this.showCitationModal;
+      }
+
+      console.log(
+        "toggleCITMod:",
+        this.showCitationModal,
+        this.showCitationModal
+      );
+    },
+  },
+  computed: {
+    citationSummaryFormat() {
+      return this.citationSummary.replaceAll("''", '"');
     },
   },
 });
@@ -368,6 +482,13 @@ body {
   border: 1px solid #999999 !important;
   padding: 5px;
   overflow: scroll;
+}
+.paperSheetFlat {
+  background: #e8ebe6;
+  border: 1px solid #777777 !important;
+  padding: 1em;
+  margin: 1em;
+  // overflow-y: scroll;
 }
 table tr {
   border-bottom: 2px dotted #96ade9 !important;
@@ -516,6 +637,7 @@ label {
   cursor: url("data:image/x-icon;base64,AAACAAEAICACAAAAAAAwAQAAFgAAACgAAAAgAAAAQAAAAAEAAQAAAAAAgAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8AAAAPAAAADAAAAAwAAAA8AAAAPAAAADAAAAAwAAAM8AAADPAAAA/wAAAP8AAAD/wAAA/8AAAP8AAAD/AAAA/AAAAPwAAADwAAAA8AAAAMAAAADAAAAAAAAAAAAAAAAAAAAAAAAAA///////////////////////D////w////wD///8A////A////wP//zwD//88A///DA///wwP//8AD///AA///wAA//8AAP//AAP//wAD//8AD///AA///wA///8AP///AP///wD///8D////A////w////8P////P////z////8="),
     auto;
 }
+a,
 .blockCursor:hover,
 input:hover,
 button:hover,
@@ -712,5 +834,18 @@ button:hover {
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
   // border-right: 1px solid $primary;
+}
+.pressStartArrow {
+  font-size: 0.75em;
+}
+.pressStartArrow::before {
+  content: "▶";
+  // right: -2em;
+  right: 0.25em;
+  // top: -0.25em;
+  position: relative;
+  font-size: 2em;
+  animation: blinker 2s steps(1, end) infinite;
+  // color: $info;
 }
 </style>

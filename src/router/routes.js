@@ -2,12 +2,19 @@ const routes = [
   {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "", component: () => import("pages/Index.vue") }],
+    children: [{ path: "/", component: () => import("pages/Index.vue") }],
   },
   {
     path: "/about",
     name: "about",
-    component: () => import("src/components/LogoSVG.vue"),
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "/about", component: () => import("pages/About.vue") }],
+  },
+  {
+    path: "/base",
+    name: "base",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "/base", component: () => import("components/BaseMeasure.vue") }],
   },
 
   // Always leave this as last one,

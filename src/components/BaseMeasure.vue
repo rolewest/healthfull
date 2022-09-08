@@ -20,7 +20,7 @@
         </div>
 
         <input
-          type="number"
+          type="text"
           id="userHeight"
           ref="userHeight"
           class="form-control graphPaper-2"
@@ -107,7 +107,7 @@
       <div class="input-group mb-3 w-75 shadow-sm">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-speedometer-medium text-h3"></span
+            ><span class="mdi mdi-shape-plus text-h3"></span
           ></span>
         </div>
         <select
@@ -130,20 +130,23 @@
           <option value="2">I'm a trainer</option>
           <option value="3">I'm a professional athlete</option>
         </select> -->
-          <option value="-10">Bed Ridden</option>
-          <option value="-7">Unable to stand</option>
-          <option value="-6">-6</option>
-          <option value="-5">-5</option>
-          <option value="-4">-4</option>
-          <option value="-3">Joint Pain</option>
-          <option value="-2">-2</option>
-          <option value="-1">Weak muscles</option>
-          <option value="0">I don't get exercise</option>
-          <option value="1">I'm active at work all day</option>
-          <option value="2">I work up a sweat every day</option>
 
-          <option value="3">Stand/Walk at work/hobbie 2+ hours</option>
-          <option value="3">Stand/Walk at work/hobbie 2+ hours</option>
+          <option value="-10">Unable to stand</option>
+          <option value="-6">Mobility issus</option>
+          <option value="-5">Obesely overweight</option>
+          <option value="-3">Very overweight</option>
+          <option value="-2">Overweight</option>
+          <option value="1.5">A bit overweight</option>
+          <option value="1.3">Skinny-Fat</option>
+          <option value="1">Very thin</option>
+          <option value="0">A bit underweight</option>
+          <option value="2">Average Build</option>
+          <option value="3">Athletic</option>
+          <option value="4">Body Builder</option>
+          <option value="5">Fitness trainer</option>
+
+          slim average athletic obese
+          <!-- slim average athletic obese -->
         </select>
         <!-- could be check box collective such as:
                       -at work/school I: am on my feet all day, sit all day, don't work, work up a sweat for 10 minutes every day,
@@ -161,7 +164,58 @@
       </div>
       <!-- <button class="mdi mdi-male" @click="flipGender(0)"><span class="mdi mdi-human-male h2"></span></button>
         <button class="mdi mdi-male" @click="flipGender(1)"><span class="mdi mdi-human-female h2"></span></button> -->
-      <label for="userSkill">Current Weekly Exercise Amount</label>
+      <label for="userSkill">Body Shape</label>
+      <div class="input-group mb-3 w-75 shadow-sm">
+        <div class="input-group-prepend">
+          <details>
+            <summary><span>Have a tape measure handy?</span></summary>
+            <fieldset>
+              <div>
+                We can get more details if you have a tape measure (cloth is
+                best)
+              </div>
+              <span class="mdi mdi-tape-measure text-h3"></span>
+              <span class="mdi mdi-arrow-left-right-bold text-h3"></span>
+              <span class="mdi mdi-human text-h3"></span>
+              <div class="">
+                <input
+                  type="number"
+                  id="userNeck"
+                  class="form-control graphPaper-2"
+                  v-model="userNeck"
+                  placeholder="Neck Size"
+                  aria-label="Neck circumference"
+                  aria-describedby="basic-addon1"
+                  @focus="$event.target.select()"
+                />
+                <br /><label for="userNeck">Neck Circumference</label><br />
+                <input
+                  type="number"
+                  id="userWaist"
+                  class="form-control graphPaper-2"
+                  v-model="userWaist"
+                  placeholder="Neck Size"
+                  aria-label="Waist circumference"
+                  aria-describedby="basic-addon1"
+                  @focus="$event.target.select()"
+                />
+                <br /><label for="userWaist">Waist Circumference</label><br />
+                <input
+                  type="number"
+                  id="userHip"
+                  class="form-control graphPaper-2"
+                  v-model="userHip"
+                  placeholder="Hip Size"
+                  aria-label="Hip circumference"
+                  aria-describedby="basic-addon1"
+                  @focus="$event.target.select()"
+                />
+                <br /><label for="userHip">Hip Circumference</label>
+              </div>
+            </fieldset>
+          </details>
+        </div>
+      </div>
     </div>
 
     <!-- Work & Play -->
@@ -475,13 +529,24 @@
       <div class="paperSheet shadow">
         <table class="table">
           <thead>
-            <tr>
+            <tr class="text-center">
               <th scope="col">#</th>
               <th scope="col" class="maleChart">Male</th>
               <th scope="col" class="femaleChart">Female</th>
+              <th scope="col">Info</th>
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <th
+                scope="row"
+                class="text-center font-weight-bold text-primary"
+                colspan="4"
+              >
+                <span class="mdi mdi-account-search text-h5"></span>
+                Estimated Body Composition
+              </th>
+            </tr>
             <tr>
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
@@ -581,6 +646,60 @@
             </tr>
             <tr>
               <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BF% -
+                Body Fat Percent
+              </th>
+              <td class="maleChart">{{ estBodyFatFromBMI(0) }}%</td>
+              <td class="femaleChart">{{ estBodyFatFromBMI(1) }}%</td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BF%',
+                      'Body Fat Percentage',
+                      `Your body fat percentage can tell a lot about about your health. Levels above 25.8% for men and 37.1% for women were shown to have higher risk of cardiovascular and other diseases such as diabetes and cancer.`,
+                      `Being overweight and obesity are commonly acknowledged key risk factors for non-communicable diseases (NCDs).1,2 Obesity is deemed an independent cardiovascular risk factor (CRF).2 Other CRFs: age, gender, hypertension, dyslipidemia, diabetes mellitus, smoking, unhealthy diet, physical inactivity, and family history[1].`,
+                      `We use the CUN-BAE formula developed in 2012 that has been tested on over 6,500 subjects from 18-80 years of age. Measure your neck, waist & hips for more accurate results.`,
+
+                      'theme-notice'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> LBM -
+                Lean Body Mass
+              </th>
+              <td class="maleChart">
+                {{ estBodyFatFromBMI(2) }} {{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="femaleChart">
+                {{ estBodyFatFromBMI(3) }} {{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'LBM',
+                      'Lean Body Mass',
+                      ``,
+                      ``,
+                      ``,
+
+                      'theme-notice'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
                 <span v-if="showIdealWeight(4) > -14 && showIdealWeight(4) < 5">
                   <span class="mdi mdi-check-outline text-success"></span>
                 </span>
@@ -603,14 +722,53 @@
               </td>
               <td></td>
             </tr>
+
             <tr>
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> BMI
               </th>
               <td>{{ getBMI(0) }}</td>
               <td>{{ getBMI(0) }}</td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BMI',
+                      'Body Mass Index',
+                      `This figure isn't very reliable at all, as it doesn't take in to account muscle mass, bone density and others, but if other data is lacking it is unavailable it can be a place to start.`,
+                      `Hopefully both detractors and proponents of BMI can agree that the measure is imperfect – not unlike any other measure of health – but if and when better framed as a holistic assessment of health relative to weight, it can provide valuable insights into obesity as an individual and social condition [1].`,
+                      ``,
+                      'theme-red'
+                    )
+                  "
+                ></span>
+              </td>
             </tr>
-
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> RMR
+              </th>
+              <td>{{ getRMR(0) }}</td>
+              <td>{{ getRMR(1) }}</td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'RMR',
+                      'Resting Metabolic Rate',
+                      `This is the amount of Calories your body uses at complete rest. We use the Oxford method to get your base RMR.`,
+                      `Three equations stood out because the absolute difference between predicted and reference RMR was equal or lower than 200 kcal/d for >60% of individuals (Mifflin, Oxford and Müller equations). From them, only Oxford equation performed better in males and females separately. Conclusion: Oxford equation is a valid alternative to predict RMR in healthy adult humans. Gas exchange correction appears a good practice for reliable assessment of RMR [1].`,
+                      ``,
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
             <tr>
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> BMR -
@@ -618,7 +776,24 @@
               </th>
               <td class="maleChart">{{ getBMR(0) }}</td>
               <td class="femaleChart">{{ getBMR(1) }}</td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BMR',
+                      'Basal Metabolic Rate',
+                      `Similar to RMR, BMR is the number of Calories your body needs for basic life sustaining functions. It is also the basis or additive for many other formulas.`,
+                      `Harris-Benedict predicted the average BMR with acceptable precision for clinical use and was better fitting than most of the currently available predictive equations for basal metabolic rate (BMR). However, the recalculated version (by Roza et al.) was more accurate and should therefore be used instead of the original equation. [1].`,
+                      `BMR can tell you a lot but at it's most basic it shows you how to cut Calories, or add them, to loose fat or gain muscle.`,
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </td>
             </tr>
+
             <tr>
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> BMR -
@@ -643,13 +818,15 @@
               <td class="maleChart">{{ getBMR(4) }}</td>
               <td class="femaleChart">{{ getBMR(5) }}</td>
             </tr>
+
             <tr>
               <th
                 scope="row"
                 class="text-center font-weight-bold text-primary"
-                colspan="3"
+                colspan="4"
               >
-                Calories Burned in 1 Minute
+                <span class="mdi mdi-fire text-h5"></span> Calories Burned in 1
+                Minute
               </th>
             </tr>
             <tr>
@@ -676,7 +853,7 @@
                 Standing
               </th>
               <td colspan="2" class="text-center">
-                ~{{ getMetToCal((type = 0), "sit") }} Cal
+                ~{{ getMetToCal((type = 0), "stand") }} Cal
               </td>
             </tr>
             <tr>
@@ -744,30 +921,56 @@
                 ~{{ getMetToCal((type = 0), "jog") }} Cal
               </td>
             </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> Jump
+                Rope / Skipping
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "jumprope") }} Cal
+              </td>
+            </tr>
             <!-- cardio -->
             <tr>
               <th
                 scope="row"
                 class="text-center font-weight-bold text-primary"
-                colspan="3"
+                colspan="4"
               >
-                Cardio
+                <span class="mdi mdi-heart-pulse text-h5"></span> Cardio
               </th>
             </tr>
 
             <tr>
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 100%
+                HRmax - Heart Rate @ 100%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(100) }} BPM
               </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'HRmax',
+                      'Max Heart Rate',
+                      `Doing certain exercises at certain percentages of HRmax burns more Calories with less time wasted.`,
+                      `the traditional equation underestimates HRmaxpast age 40 years, markedly so in older adults. On the basis of the cross-confirmatory findings of our meta-analysis and complementary prospective study, we present a new equation for future use that should provide more precise results. These findings have important clinical implications related to exercise testing and prescription.`,
+                      `This is the estimated maximum beats/minute that your heart could perform. The standard formula for this is proven to be inaccurate, but is still used often, we use an updated formula from 2001 that is more accurate and we formulate this from your Metabolic Age for added safety.`,
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </td>
             </tr>
+
             <tr :class="{ 'border-selection': userSkill >= 10 }">
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 90%
+                HRmax - Heart Rate @ 90%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(90) }} BPM
@@ -778,7 +981,7 @@
             >
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 85%
+                HRmax - Heart Rate @ 85%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(85) }} BPM
@@ -789,7 +992,7 @@
             >
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 80%
+                HRmax - Heart Rate @ 80%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(80) }} BPM
@@ -800,7 +1003,7 @@
             >
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 75%
+                HRmax - Heart Rate @ 75%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(75) }} BPM
@@ -811,7 +1014,7 @@
             >
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 70%
+                HRmax - Heart Rate @ 70%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(70) }} BPM
@@ -820,7 +1023,7 @@
             <tr :class="{ 'border-selection': userSkill == 1 }">
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 65%
+                HRmax - Heart Rate @ 65%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(65) }} BPM
@@ -829,7 +1032,7 @@
             <tr :class="{ 'border-selection': userSkill == 0 }">
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 60%
+                HRmax - Heart Rate @ 60%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(60) }} BPM
@@ -842,7 +1045,7 @@
             >
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 55%
+                HRmax - Heart Rate @ 55%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(55) }} BPM
@@ -855,7 +1058,7 @@
             >
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 50%
+                HRmax - Heart Rate @ 50%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(50) }} BPM
@@ -868,7 +1071,7 @@
             >
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span>
-                Max. Heart Rate @ 45%
+                HRmax - Heart Rate @ 45%
               </th>
               <td colspan="2" class="text-center">
                 ~{{ showMaxHeartRate(45) }} BPM
@@ -879,9 +1082,9 @@
               <th
                 scope="row"
                 class="text-center font-weight-bold text-primary"
-                colspan="3"
+                colspan="4"
               >
-                Strength
+                <span class="mdi mdi-dumbbell text-h5"></span> Strength
               </th>
             </tr>
 
@@ -898,6 +1101,24 @@
               </th>
               <td class="maleChart">~{{ show1RM(4) }}</td>
               <td class="femaleChart">~{{ show1RM(5) }}</td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      '1RM',
+                      '1 Repetitions Maximum',
+                      `Many studies seem to show that doing exercises at percentages of 1RM (~50% to ~80%) show fast results.`,
+
+                      `Once the 1RM is known (whether measured or predicted), our equations can be used to estimate the load
+needed for sets to failure for a specific repetition number[1].`,
+                      `This is the maximum amount of weight you can lift while still keeping form and not injuring yourself. We've based our calculations off studies of out the University of New Mexico, although precisely calculating 1RM is never easy.`,
+                      'theme-notice'
+                    )
+                  "
+                ></span>
+              </td>
             </tr>
             <tr :class="{ 'border-selection': userSkill >= 10 }">
               <th scope="row">
@@ -1170,9 +1391,23 @@ export default {
       userWeightImp: localStorage.getItem("userWeightImp") || null,
       userPlanPrefs: [],
       userHealthPoints: [],
+      userNeck: 0,
+      userWaist: 0,
+      userHip: 0,
     };
   },
   methods: {
+    citation(
+      id = 0,
+      name = "",
+      caption = "",
+      short = "",
+      summary = "",
+      why = "",
+      theme = ""
+    ) {
+      this.$emit("citation", id, name, caption, short, summary, why, theme);
+    },
     saveUserData() {
       localStorage.setItem("userHeight", this.userHeight); //save it
       localStorage.setItem("userWeight", this.userWeight); //save it
@@ -1193,9 +1428,9 @@ export default {
       }
     },
     convertHeightToCM() {
-      if (String(this?.userHeight).includes("'")) {
+      if (String(this.userHeight).includes("'")) {
         let usrhv = String(this.userHeight).split("'");
-        this.saveUserData();
+
         return usrhv[0] * 30.48 + usrhv[1] * 2.54;
       } else {
         this.saveUserData();
@@ -1263,8 +1498,10 @@ export default {
         return (met * minutes).toFixed(2);
       }
     },
+
     showMaxHeartRate(percent = 100) {
-      let maxHR = 220 - this.getMetabolicAge();
+      // let maxHR = 220 - this.getMetabolicAge();
+      let maxHR = 208 - 0.7 * this.getMetabolicAge();
       // console.log(
       //   "maxHR:",
       //   percent,
@@ -1275,7 +1512,7 @@ export default {
       return (maxHR * percent * 0.01).toFixed(0);
     },
     show1RM(type = 0) {
-      let useLB = this.userKG ? 1 : 2.20462;
+      let useLB = this.userKG ? 1 : 1; //
       let guessMale =
         this.userWeight *
         (0.676 * (0.149 * (this.userSkill * 0.46) + 1)) *
@@ -1395,9 +1632,21 @@ export default {
         6.25 * userHeight -
         5 * this.userAge +
         161;
+      let bmrRosaMale =
+        88.362 +
+        4.799 * this.userHeight +
+        13.397 * this.userWeight * useLB -
+        5.677 * this.userAge;
+      let bmrRosaFemale =
+        447.593 +
+        3.098 * this.userHeight +
+        9.247 * this.userWeight * useLB -
+        4.33 * this.userAge;
 
-      let bmrAvgMale = (bmrHarMale + bmrMifMale) / 2;
-      let bmrAvgFemale = (bmrHarFemale + bmrMifFemale) / 2;
+      let bmrAvgMale = (bmrHarMale + bmrMifMale + bmrRosaMale) / 3;
+      let bmrAvgFemale = (bmrHarFemale + bmrMifFemale + bmrRosaFemale) / 3;
+      bmrAvgMale = bmrRosaMale;
+      bmrAvgFemale = bmrRosaFemale;
       let maxLooseMale = bmrAvgMale + bmrAvgMale * -0.25;
       let maxLooseFemale = bmrAvgFemale + bmrAvgFemale * -0.25;
       let looseMale = bmrAvgMale + bmrAvgMale * -0.15;
@@ -1421,6 +1670,146 @@ export default {
 
       if (type === 4) return gainMale.toFixed(0) + unit;
       if (type === 5) return gainFemale.toFixed(0) + unit;
+    },
+    //get rmr ?
+    getRMR(type = 0) {
+      let useLB = this.userKG ? 1 : 0.453592;
+      const fOxfordMale = [
+        "61.0:-33.7",
+        "23.3:514",
+        "18.4:581",
+        "16.0:545",
+        "14.2:593",
+        "13.5:514",
+      ];
+      const fOxfordFemale = [
+        "58.9:-23.1",
+        "20.1:507",
+        "11.1:761",
+        "13.1:558",
+        "9.74:694",
+        "10.1:569",
+      ];
+      if (type == 0) {
+        //oxford male
+        if (this.userAge >= 60) {
+          const formula = fOxfordMale[5].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+        if (this.userAge >= 30) {
+          const formula = fOxfordMale[4].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+        if (this.userAge >= 18) {
+          const formula = fOxfordMale[3].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+        if (this.userAge >= 10) {
+          const formula = fOxfordMale[2].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+        if (this.userAge >= 3) {
+          const formula = fOxfordMale[1].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+        if (this.userAge >= 0) {
+          const formula = fOxfordMale[0].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+      }
+      if (type == 1) {
+        //oxford female
+        if (this.userAge >= 60) {
+          const formula = fOxfordFemale[5].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+        if (this.userAge >= 30) {
+          const formula = fOxfordFemale[4].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+        if (this.userAge >= 18) {
+          const formula = fOxfordFemale[3].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+        if (this.userAge >= 10) {
+          const formula = fOxfordFemale[2].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+        if (this.userAge >= 3) {
+          const formula = fOxfordFemale[1].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+        if (this.userAge >= 0) {
+          const formula = fOxfordFemale[0].split(":");
+          return (
+            parseFloat(formula[0]) * (this.userWeight * useLB) +
+            parseFloat(formula[1])
+          ).toFixed(0);
+        }
+      }
+    },
+    estBodyFatFromBMI(type = 0) {
+      //https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3263863/#s5title
+      // BF% = –44.988 + (0.503 × age) + (10.689 × sex) + (3.172 × BMI) – (0.026 × BMI2) + (0.181 × BMI × sex) – (0.02 × BMI × age) – (0.005 ×BMI2 × sex) + (0.00021 × BMI2 × age)
+
+      let bmi = this.getBMI();
+      let age = this.getMetabolicAge();
+      let weight = this.userWeight;
+      let baseBF = 1.2 * bmi + 0.23 * this.userAge;
+      // let male = (baseBF - 16.2).toFixed(1);
+      // let female = (baseBF - 5.4).toFixed(1);
+      // if (type === 0) return male;
+      // if (type === 1) return female;
+      let sex = type;
+      if (sex > 1) sex -= 2;
+      let bfp =
+        -44.988 +
+        0.503 * age +
+        10.689 * sex +
+        3.172 * bmi -
+        0.026 * bmi * bmi +
+        0.181 * bmi * sex -
+        0.02 * bmi * age -
+        0.005 * (bmi * bmi) * sex +
+        0.00021 * (bmi * bmi) * age;
+      // console.log("sex:", type, sex, bmi, age, "!!");
+      if (type <= 1) return bfp.toFixed(2);
+
+      //show lean mass
+      if (type > 1) return (weight - weight * (bfp * 0.01)).toFixed(2);
     },
     getMetabolicAge() {
       let useLB = this.userKG ? 1 : 0.453592;
@@ -1474,7 +1863,7 @@ export default {
         this.$refs.userCMObj.classList.add("bg-secondary");
         this.userHeight = this.convertHeightToFT();
         this.userHeightImp = this.convertHeightToFT();
-        this.$refs.userHeight.type = "string";
+        this.$refs.userHeight.type = "text";
       }
     },
     toggleKG(yes) {
@@ -1578,6 +1967,7 @@ label {
   animation: blinker 2s steps(1, end) infinite;
   // color: $info;
 }
+
 .border-selection .mdi {
   position: relative;
   color: #ffffff;
@@ -1594,6 +1984,9 @@ table td {
   padding: 0.5em;
   border-right: 1px dotted $primary;
   position: relative;
+}
+table th {
+  border-right: 1px dotted $primary;
 }
 .text-is-stamp {
   font-family: "Saira Stencil One", cursive;
@@ -1631,17 +2024,55 @@ table td {
 .border-info {
   border-color: $info;
 }
+@keyframes glower {
+  // 0% {
+  //   -webkit-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
+  //   -moz-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
+  //   box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
+  // }
+  0% {
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
+    box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
+    box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $info,
+      0px 0px 20px 0px $secondary, inset 5px 5px 15px 5px $warning;
+  }
+  50% {
+    -webkit-box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
+      0px 0px 20px 0px $negative, inset 5px 5px 15px 5px $positive;
+    -moz-box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
+      0px 0px 20px 0px $negative, inset 5px 5px 15px 5px $positive;
+    box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
+      0px 0px 20px 0px $negative, inset 5px 5px 15px 5px $positive;
+  }
+  75% {
+    -webkit-box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
+      0px 0px 20px 0px $negative, inset 5px 5px 15px 5px $positive;
+    -moz-box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
+      0px 0px 20px 0px $negative, inset 5px 5px 15px 5px $positive;
+    box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
+      0px 0px 20px 0px $positive, inset 5px 5px 15px 5px $dark;
+  }
+  100% {
+    -webkit-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
+    -moz-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
+    box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
+    box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $info,
+      0px 0px 20px 0px $secondary, inset 5px 5px 15px 5px $warning;
+  }
+}
 @keyframes blinker {
   50% {
     opacity: 0;
   }
 }
+
 @keyframes colorCycle {
   0% {
     color: $primary;
   }
   25% {
-    color: $secondary;
+    color: $accent;
   }
   50% {
     color: $warning;
@@ -1651,7 +2082,7 @@ table td {
   }
 
   75% {
-    color: $accent;
+    color: $positive;
   }
   100% {
     color: $info;
@@ -1705,5 +2136,62 @@ input[type="checkbox"]:checked:after {
   position: relative;
   font-size: 1.5em;
   // top: -0.5em;
+}
+
+.citation {
+  position: relative;
+  color: $primary;
+  font-size: 1em;
+  border: 1px solid $primary;
+  border-radius: 5px;
+  padding: 0.2em;
+  opacity: 0.7;
+  filter: grayscale(100%);
+  transition: all 1s ease;
+}
+.citation:hover,
+.citation:active {
+  opacity: 1;
+
+  filter: grayscale(0%);
+  // font-size: 1.1em;
+  // padding: 0.1em;
+  background: $accent;
+  animation: colorCycle 2s ease infinite, glower 3s ease forwards infinite;
+  box-shadow: inset 5px 5px 15px 5px #000000;
+}
+.row td .citation {
+  position: relative;
+  background: #ff9900;
+}
+details {
+  // margin: 1em;
+}
+details > summary {
+  // content: "dffdfdfd1112";
+}
+summary::before {
+  content: "▶";
+  // right: -2em;
+  right: 0.25em;
+  // top: -0.25em;
+  position: relative;
+  font-size: 2em;
+  animation: blinker 2s steps(1, end) infinite;
+  // color: $info;
+}
+details[open] > summary::after {
+  content: "hide this";
+  border: 1px solid $negative;
+  padding: 0.25em;
+  background: $secondary;
+  animation: blinker 2s steps(1, end) infinite;
+}
+details[open] > summary::before {
+  content: "▼";
+  animation: none;
+}
+details[open] > summary span {
+  display: none;
 }
 </style>
