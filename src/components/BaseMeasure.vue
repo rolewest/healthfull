@@ -1426,30 +1426,15 @@ needed for sets to failure for a specific repetition number[1].`,
 
 <script>
 import Modal from "src/components/Modal.vue";
-import { defineComponent, ref } from "vue";
 
-export default defineComponent({
-  name: "MainLayout",
-
-  components: {
-    Modal,
-  },
-
-  setup() {
+export default {
+  data() {
     return {
       components: {
         Modal,
       },
-      baseURL: ref("https://rmatter.com/health-full"),
-      showCitationModal: ref(false),
-      citationName: ref(""),
-      citationID: ref(""),
-      citationCaption: ref(""),
-      citationShort: ref(""),
-      citationSummary: ref(""),
-      citationWhy: ref(""),
-      citationTheme: ref(""),
       showModal: false,
+      showCitationModal: true,
       userAge: localStorage.getItem("userAge") || 29,
       userHeight:
         localStorage.getItem("userHeightImp") != "null"
@@ -1470,21 +1455,6 @@ export default defineComponent({
     };
   },
   methods: {
-    toggleCitationModal() {
-      if (this.showCitationModal) {
-        setTimeout(() => {
-          this.showCitationModal = !this.showCitationModal;
-        }, 500);
-      } else {
-        this.showCitationModal = !this.showCitationModal;
-      }
-
-      console.log(
-        "toggleCITMod:",
-        this.showCitationModal,
-        this.showCitationModal
-      );
-    },
     citation(
       id = 0,
       name = "",
@@ -1494,14 +1464,6 @@ export default defineComponent({
       why = "",
       theme = ""
     ) {
-      this.showCitationModal = true;
-      this.citationName = name;
-      this.citationID = id;
-      this.citationCaption = caption;
-      this.citationShort = short;
-      this.citationSummary = summary;
-      this.citationWhy = why;
-      this.citationTheme = theme;
       console.log("seding emitter", this.$route, this.$router);
       console.log("CITE:", name, id, this.showCitationModal);
       console.log("citation", id, name, caption, short, summary, why, theme);
@@ -1988,12 +1950,7 @@ export default defineComponent({
     // this.toggleCM(this.userCM);
     // this.toggleKG(this.userKG);
   },
-  computed: {
-    citationSummaryFormat() {
-      return this.citationSummary.replaceAll("''", '"');
-    },
-  },
-});
+};
 </script>
 
 <style lang="scss">
