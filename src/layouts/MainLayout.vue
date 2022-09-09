@@ -37,7 +37,31 @@
           <q-item-section
             clickable
             @click="
-              this.toggleModal();
+              this.$router.push('/');
+              this.toggleLeftDrawer();
+            "
+            avatar
+          >
+            <q-icon name="ti-home" />
+          </q-item-section>
+
+          <q-item-section
+            @click="
+              // this.toggleModal();
+              this.$router.push('/');
+              this.toggleLeftDrawer();
+            "
+          >
+            <q-item-label>New Game</q-item-label>
+            <q-item-label caption>Back to the start page</q-item-label>
+          </q-item-section>
+        </q-item>
+        <!--  -->
+        <q-item class="menu-option">
+          <q-item-section
+            clickable
+            @click="
+              this.$router.push('base');
               this.toggleLeftDrawer();
             "
             avatar
@@ -47,7 +71,8 @@
 
           <q-item-section
             @click="
-              this.toggleModal();
+              // this.toggleModal();
+              this.$router.push('base');
               this.toggleLeftDrawer();
             "
           >
@@ -133,15 +158,18 @@
             class="mdi mdi-weight-lifter btn-info btn-primary travelModeButton text-h1 text-center"
             @click="this.toggleModal"
           ></button> -->
-          <button
+          <!-- <button
             class="btn-info btn-primary travelModeButton text-h1"
             @click="this.toggleModal"
           >
             <q-icon name="ti-ruler-pencil"></q-icon>
+          </button> -->
+          <button
+            class="btn-info btn-primary travelModeButton text-h1"
+            @click="$router.push('base')"
+          >
+            <q-icon name="ti-ruler-pencil"></q-icon>
           </button>
-          <router-link to="/base"
-            ><q-icon name="ti-ruler-pencil"></q-icon
-          ></router-link>
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>

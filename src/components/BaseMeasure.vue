@@ -1428,13 +1428,15 @@ needed for sets to failure for a specific repetition number[1].`,
 import Modal from "src/components/Modal.vue";
 
 export default {
+  props: ["baseURL"],
+  components: {
+    Modal,
+  },
   data() {
     return {
-      components: {
-        Modal,
-      },
       showModal: false,
-      showCitationModal: true,
+      showCitationModal: false,
+
       userAge: localStorage.getItem("userAge") || 29,
       userHeight:
         localStorage.getItem("userHeightImp") != "null"
@@ -1455,6 +1457,21 @@ export default {
     };
   },
   methods: {
+    toggleCitationModal() {
+      if (this.showCitationModal) {
+        setTimeout(() => {
+          this.showCitationModal = !this.showCitationModal;
+        }, 500);
+      } else {
+        this.showCitationModal = !this.showCitationModal;
+      }
+
+      console.log(
+        "toggleCITMod:",
+        this.showCitationModal,
+        this.showCitationModal
+      );
+    },
     citation(
       id = 0,
       name = "",
@@ -1464,6 +1481,14 @@ export default {
       why = "",
       theme = ""
     ) {
+      this.showCitationModal = true;
+      this.citationName = name;
+      this.citationID = id;
+      this.citationCaption = caption;
+      this.citationShort = short;
+      this.citationSummary = summary;
+      this.citationWhy = why;
+      this.citationTheme = theme;
       console.log("seding emitter", this.$route, this.$router);
       console.log("CITE:", name, id, this.showCitationModal);
       console.log("citation", id, name, caption, short, summary, why, theme);
@@ -1949,6 +1974,11 @@ export default {
       this.toggleCM(false);
     // this.toggleCM(this.userCM);
     // this.toggleKG(this.userKG);
+  },
+  computed: {
+    citationSummaryFormat() {
+      return this.citationSummary.replaceAll("''", '"');
+    },
   },
 };
 </script>

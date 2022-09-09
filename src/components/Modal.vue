@@ -33,6 +33,7 @@ export default {
   props: ["links", "theme", "cite"],
   methods: {
     closeModal() {
+      console.log("isax");
       this.$emit("close");
     },
   },
