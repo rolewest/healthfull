@@ -1369,13 +1369,86 @@ needed for sets to failure for a specific repetition number[1].`,
       {{ userCM }}
       [{{ userAge * userWeight }}]
     </div>
+    <div v-if="showCitationModal">
+      <Modal @close="toggleCitationModal" :theme="citationTheme" cite="cite">
+        <template></template>
+        <template v-slot:cite>
+          <h4 class="title-h4">{{ citationName }}</h4>
+          <div class="title-h4">
+            {{ citationCaption }}
+          </div>
+          <div class="paperSheetFlat">
+            <div class="text-center">
+              <a :href="baseURL + '/citations/' + citationID" target="_blank"
+                >see full citations & sources here</a
+              ><br />
+              <div class="text-h5">Basic Overview</div>
+              <span class="text-negative">
+                {{
+                  citationTheme === "theme-red"
+                    ? "WARNING: this method's use is questionable"
+                    : ""
+                }}</span
+              >
+              <span class="text-negative">
+                {{
+                  citationTheme === "theme-notice"
+                    ? "WARNING: your data could be inaccurate"
+                    : ""
+                }}</span
+              >
+              <br />
+            </div>
+
+            <p>
+              {{ citationShort }}
+            </p>
+            <p>
+              {{ citationWhy }}
+            </p>
+          </div>
+          <div class="paperSheetFlat" v-show="citationSummary">
+            <!-- [<router-link to="/about">abooot</router-link>] {{ citationName }} |
+            {{ citationID }} | {{ citationCaption }} | {{ citationShort }} -->
+            <div class="text-center text-h5">Sources / Excerpts</div>
+            <kbd class="cite-text">
+              {{ citationSummaryFormat }} <br />
+              <a :href="baseURL + '/citations/' + citationID" target="_blank"
+                >full citations are here</a
+              >
+            </kbd>
+          </div>
+        </template>
+      </Modal>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-  data() {
+import Modal from "src/components/Modal.vue";
+import { defineComponent, ref } from "vue";
+
+export default defineComponent({
+  name: "MainLayout",
+
+  components: {
+    Modal,
+  },
+
+  setup() {
     return {
+      components: {
+        Modal,
+      },
+      baseURL: ref("https://rmatter.com/health-full"),
+      showCitationModal: ref(false),
+      citationName: ref(""),
+      citationID: ref(""),
+      citationCaption: ref(""),
+      citationShort: ref(""),
+      citationSummary: ref(""),
+      citationWhy: ref(""),
+      citationTheme: ref(""),
       showModal: false,
       userAge: localStorage.getItem("userAge") || 29,
       userHeight:
@@ -1397,6 +1470,21 @@ export default {
     };
   },
   methods: {
+    toggleCitationModal() {
+      if (this.showCitationModal) {
+        setTimeout(() => {
+          this.showCitationModal = !this.showCitationModal;
+        }, 500);
+      } else {
+        this.showCitationModal = !this.showCitationModal;
+      }
+
+      console.log(
+        "toggleCITMod:",
+        this.showCitationModal,
+        this.showCitationModal
+      );
+    },
     citation(
       id = 0,
       name = "",
@@ -1406,6 +1494,18 @@ export default {
       why = "",
       theme = ""
     ) {
+      this.showCitationModal = true;
+      this.citationName = name;
+      this.citationID = id;
+      this.citationCaption = caption;
+      this.citationShort = short;
+      this.citationSummary = summary;
+      this.citationWhy = why;
+      this.citationTheme = theme;
+      console.log("seding emitter", this.$route, this.$router);
+      console.log("CITE:", name, id, this.showCitationModal);
+      console.log("citation", id, name, caption, short, summary, why, theme);
+      console.log("parent:", JSON.parse(JSON.stringify(this.$parent.$data)));
       this.$emit("citation", id, name, caption, short, summary, why, theme);
     },
     saveUserData() {
@@ -1888,7 +1988,12 @@ export default {
     // this.toggleCM(this.userCM);
     // this.toggleKG(this.userKG);
   },
-};
+  computed: {
+    citationSummaryFormat() {
+      return this.citationSummary.replaceAll("''", '"');
+    },
+  },
+});
 </script>
 
 <style lang="scss">

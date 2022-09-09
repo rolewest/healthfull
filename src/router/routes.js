@@ -1,8 +1,15 @@
+
+
 const routes = [
   {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "/", component: () => import("pages/Index.vue") }],
+    children: [
+      { path: "/", component: () => import("pages/Index.vue") },
+      { path: "/base", component: () => import("components/BaseMeasure.vue") },
+      { path: "/about", component: () => import("pages/About.vue") }
+    ],
+
   },
   {
     path: "/about",
@@ -10,12 +17,13 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "/about", component: () => import("pages/About.vue") }],
   },
-  {
-    path: "/base",
-    name: "base",
-    component: () => import("layouts/MainLayout.vue"),
-    children: [{ path: "/base", component: () => import("components/BaseMeasure.vue") }],
-  },
+
+  // {
+  //   path: "/base",
+  //   name: "base",
+  //   component: () => import("layouts/MainLayout.vue"),
+  //   children: [{ path: "/base", component: () => import("components/BaseMeasure.vue") }],
+  // },
 
   // Always leave this as last one,
   // but you can also remove it

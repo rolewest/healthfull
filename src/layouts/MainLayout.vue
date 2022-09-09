@@ -139,7 +139,7 @@
           >
             <q-icon name="ti-ruler-pencil"></q-icon>
           </button>
-          <router-link :to="{ name: 'base' }"
+          <router-link to="/base"
             ><q-icon name="ti-ruler-pencil"></q-icon
           ></router-link>
         </q-toolbar-title>
