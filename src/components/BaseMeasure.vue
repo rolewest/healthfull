@@ -11,7 +11,6 @@
         </p>
         <div class="mdi mdi-scale-bathroom text-h2 pr-5 text-right"></div>
       </div>
-
       <div class="input-group mb-3 w-75 shadow-sm">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"
@@ -32,22 +31,22 @@
         />
 
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button
+          <q-btn
             type="button"
             class="btn btn-primary bg-info"
             ref="userCMObj"
             @click="toggleCM(true)"
           >
             CM
-          </button>
-          <button
+          </q-btn>
+          <q-btn
             type="button"
             class="btn btn-secondary bg-secondary"
             ref="userFTObj"
             @click="toggleCM(false)"
           >
             FT
-          </button>
+          </q-btn>
         </div>
       </div>
       <label for="userHeight">Height</label>
@@ -68,22 +67,22 @@
           @focus="$event.target.select()"
         />
         <div class="btn-group" role="group" aria-label="Basic example">
-          <button
+          <q-btn
             type="button"
             class="btn btn-primary bg-info"
             ref="userKGObj"
             @click="toggleKG(true)"
           >
             KG
-          </button>
-          <button
+          </q-btn>
+          <q-btn
             type="button"
             class="btn btn-secondary bg-secondary"
             ref="userLBObj"
             @click="toggleKG(false)"
           >
             LBS
-          </button>
+          </q-btn>
         </div>
       </div>
       <label for="userWeight">Weight</label>
@@ -112,7 +111,7 @@
         </div>
         <select
           id="userSkill"
-          class="form-control graphPaper-2"
+          class="form-control"
           v-model="userSkill"
           placeholder="Skill Level"
           aria-label="Skill"
@@ -167,57 +166,96 @@
       <label for="userSkill">Body Shape</label>
       <div class="input-group mb-3 w-75 shadow-sm">
         <div class="input-group-prepend">
-          <details>
+          <details :open="userNeck > 0">
             <summary><span>Have a tape measure handy?</span></summary>
             <fieldset>
               <div>
-                We can get more details if you have a tape measure (cloth is
-                best)
+                We can get more details if you have a tape measure (non-stretch
+                & cloth is best.)
               </div>
               <span class="mdi mdi-tape-measure text-h3"></span>
               <span class="mdi mdi-arrow-left-right-bold text-h3"></span>
               <span class="mdi mdi-human text-h3"></span>
-              <div class="">
-                <input
-                  type="number"
-                  id="userNeck"
-                  class="form-control graphPaper-2"
-                  v-model="userNeck"
-                  placeholder="Neck Size"
-                  aria-label="Neck circumference"
-                  aria-describedby="basic-addon1"
-                  @focus="$event.target.select()"
-                />
-                <br /><label for="userNeck">Neck Circumference</label><br />
-                <input
-                  type="number"
-                  id="userWaist"
-                  class="form-control graphPaper-2"
-                  v-model="userWaist"
-                  placeholder="Neck Size"
-                  aria-label="Waist circumference"
-                  aria-describedby="basic-addon1"
-                  @focus="$event.target.select()"
-                />
-                <br /><label for="userWaist">Waist Circumference</label><br />
-                <input
-                  type="number"
-                  id="userHip"
-                  class="form-control graphPaper-2"
-                  v-model="userHip"
-                  placeholder="Hip Size"
-                  aria-label="Hip circumference"
-                  aria-describedby="basic-addon1"
-                  @focus="$event.target.select()"
-                />
-                <br /><label for="userHip">Hip Circumference</label>
+              <div class="row">
+                <div
+                  class="border-double-1 border-accent vertical-top width-100"
+                >
+                  <div class="title-h4">Neck</div>
+                  Measure neck circumference from below the larynx, with the
+                  tape angled downward to the front.
+                  <div>
+                    <input
+                      type="number"
+                      id="userNeck"
+                      class="form-control graphPaper-2"
+                      v-model="userNeck"
+                      placeholder="Neck Size"
+                      aria-label="Neck circumference"
+                      aria-describedby="basic-addon1"
+                      @focus="$event.target.select()"
+                    />
+                    <br /><label for="userNeck">Neck Circumference</label><br />
+                  </div>
+                </div>
+                <div
+                  class="border-double-1 border-accent vertical-top width-100"
+                >
+                  <div class="title-h4">Waist</div>
+                  <div>
+                    <b>Male:</b> Measure waist around the navel (belly button)
+                  </div>
+                  <div>
+                    <b>Female:</b> Measure waist around smallest part of torso
+                  </div>
+                  <div>
+                    <input
+                      type="number"
+                      id="userWaist"
+                      class="form-control graphPaper-2"
+                      v-model="userWaist"
+                      placeholder="Waist Size"
+                      aria-label="Waist circumference"
+                      aria-describedby="basic-addon1"
+                      @focus="$event.target.select()"
+                    />
+                    <br /><label for="userWaist">Waist Circumference </label>
+                  </div>
+                </div>
+                <div
+                  class="border-double-1 border-accent vertical-top width-100"
+                >
+                  <div class="title-h4">Hips</div>
+                  <b>Women Only:</b>Measure hips at the widest part, usually
+                  around buttocks/crotch, where you bend over from.
+                  <div>
+                    <input
+                      type="number"
+                      id="userHip"
+                      class="form-control graphPaper-2"
+                      v-model="userHip"
+                      placeholder="Hip Size"
+                      aria-label="Hip circumference"
+                      aria-describedby="basic-addon1"
+                      @focus="$event.target.select()"
+                    />
+
+                    <br /><label for="userHip">Hip Circumference</label>
+                  </div>
+                </div>
+                <span v-if="userNeck > 0"
+                  ><br />
+                  {{
+                    `Male:${navyBFP(0).toFixed(1)}  Female:${navyBFP(1).toFixed(
+                      1
+                    )}`
+                  }}
+                </span>
               </div>
             </fieldset>
           </details>
         </div>
       </div>
     </div>
-
     <!-- Work & Play -->
     <div class="questItem shadow-sm p-3" id="statsInput">
       <div class="is-card-type">
@@ -239,10 +277,10 @@
         <div class="mdi mdi-face-agent text-h2 pr-5 text-right"></div>
         <div class="mdi mdi-dog-service text-h2 pr-5 text-right"></div>
       </div>
-      <label>
+      <!-- <label>
         <select
           id="userSkill"
-          class="form-control graphPaper-2"
+          class="form-control"
           v-model="userSkill"
           placeholder="Skill Level"
           aria-label="Skill"
@@ -251,79 +289,153 @@
           <option value="-10">Bed Ridden</option>
           <option value="-7">Unable to stand</option>
         </select>
-      </label>
+      </label> -->
       <fieldset class="with-title is-centered">
-        <legend class="title">How I Eat</legend>
+        <legend class="title">How I Work</legend>
+        <p>How do you spend your days?</p>
         <label>
           <input
-            type="checkbox"
-            class="nes-checkbox"
+            type="radio"
+            class="nes-radio"
             value="-1"
-            v-model="userHealthPoints"
+            v-model="userBaseWork"
           />
-          <span class="check-label">Always Takeout/Delivery</span>
+          <span class="check-label">Mostly Sitting (desk job)</span>
         </label>
         <br />
         <label>
           <input
-            type="checkbox"
-            class="nes-checkbox"
-            value="0.5"
-            v-model="userHealthPoints"
+            type="radio"
+            class="nes-radio"
+            value="stand"
+            v-model="userBaseWork"
           />
-          <span class="check-label">Home Cooked/I Cook</span>
+          <span class="check-label">Mostly Standing (sales person)</span>
         </label>
         <br />
         <label>
           <input
-            type="checkbox"
-            class="nes-checkbox"
-            value="0.7"
-            v-model="userHealthPoints"
+            type="radio"
+            class="nes-radio"
+            value="walk"
+            v-model="userBaseWork"
           />
-          <span class="check-label">I'm Vegan</span>
+          <span class="check-label">Mostly Walking (food server)</span>
         </label>
+        <br />
         <label>
           <input
-            type="checkbox"
-            class="nes-checkbox"
-            value="0.3"
-            v-model="userHealthPoints"
+            type="radio"
+            class="nes-radio"
+            value="move"
+            v-model="userBaseWork"
           />
-          <span class="check-label">I'm Vegetarian</span>
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            class="nes-checkbox"
-            value="-1"
-            v-model="userHealthPoints"
-          />
-          <span class="check-label">I Eat Red Meat</span>
+          <span class="check-label">Very Active (bike courier)</span>
         </label>
       </fieldset>
-      <br />
+      <!-- play -->
+      <fieldset class="with-title is-centered">
+        <legend class="title">How I Play</legend>
+        <p>Do You Get <b>Daily</b> Exercise?</p>
 
-      <label>
-        <input
-          type="checkbox"
-          class="nes-checkbox"
-          value="overall"
-          v-model="userPlanPrefs"
-        />
-        <span class="check-label">Overall Health & Wellness</span>
-      </label>
-      <br />
-      <label>
-        <input
-          type="checkbox"
-          class="nes-checkbox"
-          value="loose"
-          v-model="userPlanPrefs"
-        />
-        <span class="check-label">Loose Weight</span> </label
-      ><br />
+        <label>
+          <input
+            type="checkbox"
+            class="nes-radio"
+            value="none"
+            v-model="userBaseExercise"
+            @click="userBaseExercise = []"
+          />
+          <span class="check-label">Not Really</span>
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            class="nes-radio"
+            value="sports"
+            v-model="userBaseExercise"
+          />
+          <span class="check-label">I Play Active Sports</span>
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            class="nes-radio"
+            value="tv"
+            v-model="userBaseExercise"
+          />
+          <span class="check-label">2+ Hours Watching TV/Phone/Computer</span>
+        </label>
+        <br />
+        <label>
+          <input
+            type="checkbox"
+            class="nes-radio"
+            value="walk5"
+            v-model="userBaseExercise"
+          />
+          <span class="check-label">I Walk for 5+ Minutes</span> </label
+        ><br />
+        <label>
+          <input
+            type="checkbox"
+            class="nes-radio"
+            value="jog"
+            v-model="userBaseExercise"
+          />
+          <span class="check-label">I Jog/Bike for 5+ minutes</span> </label
+        ><br />
+        <label>
+          <input
+            type="checkbox"
+            class="nes-radio"
+            value="sweat"
+            v-model="userBaseExercise"
+          />
+          <span class="check-label">I Work Up a Sweat</span> </label
+        ><br />
+        <label>
+          <input
+            type="checkbox"
+            class="nes-radio"
+            value="gym"
+            v-model="userBaseExercise"
+          />
+          <span class="check-label">I Go To The Gym</span> </label
+        ><br />
+        <label>
+          <input
+            type="checkbox"
+            class="nes-radio"
+            value="yoga"
+            v-model="userBaseExercise"
+          />
+          <span class="check-label">I Do Yoga</span> </label
+        ><br />
+        <label>
+          <input
+            type="checkbox"
+            class="nes-radio"
+            value="mma"
+            v-model="userBaseExercise"
+          />
+          <span class="check-label">I Do Martial Arts</span> </label
+        ><br />
+        <label>
+          <input
+            type="checkbox"
+            class="nes-radio"
+            value="arts"
+            v-model="userBaseExercise"
+          />
+          <span class="check-label">Pottery, Painting, Chess</span>
+        </label>
+        {{ userBaseExercise }}
+      </fieldset>
     </div>
+
     <!-- Diet & Lifestyle -->
     <div class="questItem shadow-sm p-3" id="statsInput">
       <div class="is-card-type">
@@ -345,60 +457,81 @@
         <div class="mdi mdi-sausage text-h2 pr-5 text-right"></div>
       </div>
 
-      <fieldset class="with-title is-centered">
-        <legend class="title">How I Eat</legend>
+      <fieldset class="">
+        <legend class="">How I Eat Most Weeks</legend>
+        <p>In general how do you prepare your food?</p>
+
         <label>
           <input
-            type="checkbox"
+            type="radio"
             class="nes-checkbox"
             value="togo"
-            v-model="userPlanPrefs"
+            v-model="userCooks"
           />
-          <span class="check-label">Always Takeout/Delivery</span>
-        </label>
-        <br />
+          <span class="check-label">Delivery/Restaurant</span> </label
+        ><br />
         <label>
           <input
-            type="checkbox"
+            type="radio"
             class="nes-checkbox"
             value="cook"
-            v-model="userPlanPrefs"
+            v-model="userCooks"
           />
-          <span class="check-label">Home Cooked/I Cook</span>
+          <span class="check-label">Home Cooked</span> </label
+        ><br />
+        <label>
+          <input
+            type="radio"
+            class="nes-checkbox"
+            value="packaged"
+            v-model="userCooks"
+          />
+          <span class="check-label">Frozen/Packaged</span>
+        </label>
+        <!--  -->
+        <hr />
+        <p>What kinds of foods do you usually eat?</p>
+        <label>
+          <input
+            type="radio"
+            class="nes-radio"
+            value="whole"
+            v-model="userWholeFood"
+          />
+          <span class="check-label">Usually Whole Foods</span>
         </label>
         <br />
         <label>
           <input
-            type="checkbox"
-            class="nes-checkbox"
-            value="vegan"
-            v-model="userPlanPrefs"
+            type="radio"
+            class="nes-radio"
+            value="processed"
+            v-model="userWholeFood"
           />
-          <span class="check-label">I'm Vegan</span>
-        </label>
+          <span class="check-label">Usually Processed Foods</span> </label
+        ><br />
         <label>
           <input
-            type="checkbox"
-            class="nes-checkbox"
-            value="veggie"
-            v-model="userPlanPrefs"
+            type="radio"
+            class="nes-radio"
+            value="half"
+            v-model="userWholeFood"
           />
-          <span class="check-label">I'm Vegetarian</span>
+          <span class="check-label">About 50/50</span>
         </label>
+        <br />
         <label>
           <input
-            type="checkbox"
-            class="nes-checkbox"
-            value="redmeat"
-            v-model="userPlanPrefs"
+            type="radio"
+            class="nes-radio"
+            value="notsure"
+            v-model="userWholeFood"
           />
-          <span class="check-label">I'm Eat Red Meat</span>
+          <span class="check-label">I Have No Idea</span>
         </label>
-      </fieldset>
-      <br />
-      <fieldset class="">
-        <legend class="">How ddI Eat Most Weeks</legend>
-        <label>
+        <hr />
+        <!--  -->
+        <!-- <label>
           <input
             type="checkbox"
             class="nes-checkbox"
@@ -407,7 +540,7 @@
           />
           <span class="check-label">Takeout/Delivery</span>
         </label>
-        <br />
+        <span> </span>
         <label>
           <input
             type="checkbox"
@@ -422,7 +555,7 @@
           <input
             type="checkbox"
             class="nes-checkbox"
-            value="vegan"
+            value="whole"
             v-model="userPlanPrefs"
           />
           <span class="check-label">I Eat Whole Foods</span>
@@ -432,7 +565,7 @@
           <input
             type="checkbox"
             class="nes-checkbox"
-            value="vegan"
+            value="processed"
             v-model="userPlanPrefs"
           />
           <span class="check-label">I Eat Processed Foods</span>
@@ -452,27 +585,18 @@
           <input
             type="checkbox"
             class="nes-checkbox"
-            value="vegan"
+            value="veggies"
             v-model="userPlanPrefs"
           />
           <span class="check-label">I Eat Lots of Veggies</span>
         </label>
         <br />
+
         <label>
           <input
             type="checkbox"
             class="nes-checkbox"
-            value="vegan"
-            v-model="userPlanPrefs"
-          />
-          <span class="check-label">I'm Vegan</span>
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            class="nes-checkbox"
-            value="veggie"
+            value="vegetarian"
             v-model="userPlanPrefs"
           />
           <span class="check-label">I'm Vegetarian</span>
@@ -486,43 +610,10 @@
             v-model="userPlanPrefs"
           />
           <span class="check-label">I Eat Red Meat</span>
-        </label>
+        </label> -->
       </fieldset>
-      <br />
-
-      <label>
-        <select
-          id="userSkill"
-          class="form-control graphPaper-2"
-          v-model="userSkill"
-          placeholder="Skill Level"
-          aria-label="Skill"
-          aria-describedby="basic-addon1"
-        >
-          <option value="-10">Bed Ridden</option>
-          <option value="0">none</option>
-        </select>
-      </label>
-
-      <label>
-        <input
-          type="checkbox"
-          class="nes-checkbox"
-          value="overall"
-          v-model="userPlanPrefs"
-        />
-        <span class="check-label">Overall Health & Wellness</span> </label
-      ><br />
-      <label>
-        <input
-          type="checkbox"
-          class="nes-checkbox"
-          value="loose"
-          v-model="userPlanPrefs"
-        />
-        <span class="check-label">Loose Weight</span> </label
-      ><br />
     </div>
+
     <!--  -->
     <div class="clip shadow"></div>
     <div class="clipBoard table-responsive">
@@ -552,8 +643,41 @@
                 <span class="mdi mdi-check-outline text-success"></span>
                 Metabolic Age
               </th>
-              <td class="maleChart">{{ getMetabolicAge() }}</td>
-              <td class="femaleChart">{{ getMetabolicAge() }}</td>
+              <td
+                class="maleChart"
+                :class="{
+                  'text-negative': getMetabolicAge() > userAge,
+                  'text-positive': getMetabolicAge() < userAge,
+                }"
+              >
+                {{ getMetabolicAge() }}
+              </td>
+              <td
+                class="femaleChart"
+                :class="{
+                  'text-negative': getMetabolicAge() > userAge,
+                  'text-positive': getMetabolicAge() < userAge,
+                }"
+              >
+                {{ getMetabolicAge() }}
+              </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'Met-Age',
+                      'Metabolic Age',
+                      `Met-age is highly associated with and is an indicator of high-risk of developing Metabolic Syndromes such as heart disease, stroke and type 2 diabetes.`,
+                      `Met-age showed a higher discriminatory capacity for CVR than chronological age (1).Metabolic age can be a useful tool for assessing the metabolic status of individuals. A study by the European Society of Cardiology used metabolic age as one of the predictors for cardiovascular disorders in people hav-ing a higher metabolic age than their chronological age (2).`,
+                      `A higher metabolic age than chronological age indicates a level of basic metabolism with low physical activity.`,
+
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </td>
             </tr>
             <tr>
               <th scope="row" class="">
@@ -646,18 +770,95 @@
             </tr>
             <tr>
               <th scope="row">
-                <span class="mdi mdi-check-outline text-success"></span> BF% -
-                Body Fat Percent
+                <span class="mdi mdi-check-outline text-success"></span> BMI -
+                Body Mass Index
+                <div></div>
               </th>
-              <td class="maleChart">{{ estBodyFatFromBMI(0) }}%</td>
-              <td class="femaleChart">{{ estBodyFatFromBMI(1) }}%</td>
+              <td>{{ getBMI(0) }}</td>
+              <td>
+                <span
+                  class="text-is-stamp"
+                  :class="
+                    showIdealWeight(4) > -14 && showIdealWeight(4) < 5
+                      ? 'text-info'
+                      : 'border-negative'
+                  "
+                  >{{ getBMI(1) }}</span
+                >
+              </td>
               <td class="text-center">
                 <span
                   class="mdi mdi-comment-quote-outline citation"
                   @click="
                     citation(
                       1,
-                      'BF%',
+                      'BMI',
+                      'Body Mass Index',
+                      `This figure isn't very reliable at all, as it doesn't take in to account muscle mass, bone density and others, but if other data is lacking it is unavailable it can be a place to start.`,
+                      `Hopefully both detractors and proponents of BMI can agree that the measure is imperfect – not unlike any other measure of health – but if and when better framed as a holistic assessment of health relative to weight, it can provide valuable insights into obesity as an individual and social condition [1].`,
+                      ``,
+                      'theme-red'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+
+            <tr v-if="userNeck && userWaist">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BF% -
+                Measured
+              </th>
+              <td class="maleChart">
+                {{ navyBFP(0).toFixed(2) }}% ({{
+                  bfpToCategory(0, navyBFP(0))
+                }})
+              </td>
+              <td class="femaleChart">
+                {{ navyBFP(1).toFixed(2) }}% ({{
+                  bfpToCategory(1, navyBFP(1))
+                }})
+              </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BF% - Tested Formula',
+                      'Body Fat Percentage',
+                      `A more reliable measure of body fat to avoid levels above 25.8% for men and 37.1% for women will have lower risk of disease and lower mortality rates.`,
+                      `Navy-seal formula and bioelectrical impedance are both simple and reliable instruments to measure body composition in adults. The navy-seal formula can be used to screen individuals with high-fat body fat ratio whereas bioelectric impedance can be used to measure the body composition for personal monitoring[1]. The real test of these equations for classifying individuals for excess fat or insufficient muscle mass would be the strength of the association with physical readiness and physical fitness performance[2].`,
+                      `This method is using your measurements has been used for decades by the US Navy and is proven to be more reliable than the BMI approach.`,
+
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+            <tr :class="{ unHighlight: userNeck && userWaist }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BF% -
+                Body Fat Percent - BMI Based
+              </th>
+              <td class="maleChart">
+                {{ estBodyFatFromBMI(0) }}% ({{
+                  bfpToCategory(0, estBodyFatFromBMI(0))
+                }})
+              </td>
+              <td class="femaleChart">
+                {{ estBodyFatFromBMI(1) }}% ({{
+                  bfpToCategory(1, estBodyFatFromBMI(1))
+                }})
+              </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BF% - BMI Based',
                       'Body Fat Percentage',
                       `Your body fat percentage can tell a lot about about your health. Levels above 25.8% for men and 37.1% for women were shown to have higher risk of cardiovascular and other diseases such as diabetes and cancer.`,
                       `Being overweight and obesity are commonly acknowledged key risk factors for non-communicable diseases (NCDs).1,2 Obesity is deemed an independent cardiovascular risk factor (CRF).2 Other CRFs: age, gender, hypertension, dyslipidemia, diabetes mellitus, smoking, unhealthy diet, physical inactivity, and family history[1].`,
@@ -669,16 +870,80 @@
                 ></span>
               </td>
             </tr>
-            <tr>
+            <tr v-if="userNeck && userWaist && userHip">
               <th scope="row">
-                <span class="mdi mdi-check-outline text-success"></span> LBM -
-                Lean Body Mass
+                <span class="mdi mdi-check-outline text-success"></span> BFM -
+                Measured
               </th>
               <td class="maleChart">
-                {{ estBodyFatFromBMI(2) }} {{ userKG ? " KG" : " LB" }}
+                {{ navyBFP(4) }} {{ userKG ? " KG" : " LB" }}
               </td>
               <td class="femaleChart">
-                {{ estBodyFatFromBMI(3) }} {{ userKG ? " KG" : " LB" }}
+                {{ navyBFP(5) }} {{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="text-center"></td>
+            </tr>
+            <tr :class="{ unHighlight: userNeck && userWaist }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BFM -
+                Body Fat Mass - BMI Based
+              </th>
+              <td class="maleChart">
+                {{ estBodyFatFromBMI(4) }} {{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="femaleChart">
+                {{ estBodyFatFromBMI(5) }} {{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BFM',
+                      'Body Fat Mass',
+                      ``,
+                      ``,
+                      ``,
+
+                      'theme-notice'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+            <tr v-if="userNeck && userWaist && userHip">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> LBM -
+                Measured
+              </th>
+              <td class="maleChart">
+                {{ navyBFP(2) }} {{ userKG ? " KG" : " LB" }} ({{
+                  ((navyBFP(2) / userWeight) * 100).toFixed(0)
+                }}%)
+              </td>
+              <td class="femaleChart">
+                {{ navyBFP(3) }} {{ userKG ? " KG" : " LB" }} ({{
+                  ((navyBFP(3) / userWeight) * 100).toFixed(0)
+                }}%)
+              </td>
+              <td class="text-center"></td>
+            </tr>
+
+            <tr :class="{ unHighlight: userNeck && userWaist }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> LBM -
+                Lean Body Mass - BMI Based
+              </th>
+              <td class="maleChart">
+                {{ estBodyFatFromBMI(2) }} {{ userKG ? " KG" : " LB" }} ({{
+                  ((estBodyFatFromBMI(2) / userWeight) * 100).toFixed(0)
+                }}%)
+              </td>
+              <td class="femaleChart">
+                {{ estBodyFatFromBMI(3) }} {{ userKG ? " KG" : " LB" }}({{
+                  ((estBodyFatFromBMI(3) / userWeight) * 100).toFixed(0)
+                }}%)
               </td>
               <td class="text-center">
                 <span
@@ -698,54 +963,7 @@
                 ></span>
               </td>
             </tr>
-            <tr>
-              <th scope="row">
-                <span v-if="showIdealWeight(4) > -14 && showIdealWeight(4) < 5">
-                  <span class="mdi mdi-check-outline text-success"></span>
-                </span>
-                <span v-else>
-                  <span class="mdi mdi-alert text-warning"></span>
-                </span>
-                BMI Class Rating:
-              </th>
 
-              <td colspan="2" class="">
-                <span
-                  class="text-is-stamp"
-                  :class="
-                    showIdealWeight(4) > -14 && showIdealWeight(4) < 5
-                      ? 'text-info'
-                      : 'border-negative'
-                  "
-                  >{{ getBMI(1) }}</span
-                >
-              </td>
-              <td></td>
-            </tr>
-
-            <tr>
-              <th scope="row">
-                <span class="mdi mdi-check-outline text-success"></span> BMI
-              </th>
-              <td>{{ getBMI(0) }}</td>
-              <td>{{ getBMI(0) }}</td>
-              <td class="text-center">
-                <span
-                  class="mdi mdi-comment-quote-outline citation"
-                  @click="
-                    citation(
-                      1,
-                      'BMI',
-                      'Body Mass Index',
-                      `This figure isn't very reliable at all, as it doesn't take in to account muscle mass, bone density and others, but if other data is lacking it is unavailable it can be a place to start.`,
-                      `Hopefully both detractors and proponents of BMI can agree that the measure is imperfect – not unlike any other measure of health – but if and when better framed as a holistic assessment of health relative to weight, it can provide valuable insights into obesity as an individual and social condition [1].`,
-                      ``,
-                      'theme-red'
-                    )
-                  "
-                ></span>
-              </td>
-            </tr>
             <tr>
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> RMR
@@ -772,7 +990,7 @@
             <tr>
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> BMR -
-                Current
+                Basal Metabolic Rate
               </th>
               <td class="maleChart">{{ getBMR(0) }}</td>
               <td class="femaleChart">{{ getBMR(1) }}</td>
@@ -947,6 +1165,11 @@
                 HRmax - Heart Rate @ 100%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(100))"
+                />
                 ~{{ showMaxHeartRate(100) }} BPM
               </td>
               <td class="text-center">
@@ -973,6 +1196,11 @@
                 HRmax - Heart Rate @ 90%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(90))"
+                />
                 ~{{ showMaxHeartRate(90) }} BPM
               </td>
             </tr>
@@ -984,6 +1212,11 @@
                 HRmax - Heart Rate @ 85%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(85))"
+                />
                 ~{{ showMaxHeartRate(85) }} BPM
               </td>
             </tr>
@@ -995,6 +1228,11 @@
                 HRmax - Heart Rate @ 80%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(80))"
+                />
                 ~{{ showMaxHeartRate(80) }} BPM
               </td>
             </tr>
@@ -1006,6 +1244,11 @@
                 HRmax - Heart Rate @ 75%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(75))"
+                />
                 ~{{ showMaxHeartRate(75) }} BPM
               </td>
             </tr>
@@ -1017,6 +1260,11 @@
                 HRmax - Heart Rate @ 70%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(70))"
+                />
                 ~{{ showMaxHeartRate(70) }} BPM
               </td>
             </tr>
@@ -1026,6 +1274,11 @@
                 HRmax - Heart Rate @ 65%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(65))"
+                />
                 ~{{ showMaxHeartRate(65) }} BPM
               </td>
             </tr>
@@ -1035,6 +1288,11 @@
                 HRmax - Heart Rate @ 60%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(60))"
+                />
                 ~{{ showMaxHeartRate(60) }} BPM
               </td>
             </tr>
@@ -1048,6 +1306,11 @@
                 HRmax - Heart Rate @ 55%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(55))"
+                />
                 ~{{ showMaxHeartRate(55) }} BPM
               </td>
             </tr>
@@ -1061,6 +1324,11 @@
                 HRmax - Heart Rate @ 50%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(50))"
+                />
                 ~{{ showMaxHeartRate(50) }} BPM
               </td>
             </tr>
@@ -1074,6 +1342,11 @@
                 HRmax - Heart Rate @ 45%
               </th>
               <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(45))"
+                />
                 ~{{ showMaxHeartRate(45) }} BPM
               </td>
             </tr>
@@ -1437,7 +1710,7 @@ export default {
       showModal: false,
       showCitationModal: false,
 
-      userAge: localStorage.getItem("userAge") || 29,
+      userAge: localStorage.getItem("userAge") || null,
       userHeight:
         localStorage.getItem("userHeightImp") != "null"
           ? localStorage.getItem("userHeightImp")
@@ -1449,14 +1722,107 @@ export default {
       userCM: localStorage.getItem("userKG") || true,
       userHeightImp: localStorage.getItem("userHeightImp") || null,
       userWeightImp: localStorage.getItem("userWeightImp") || null,
+      // user setup values (prefs/settings)
       userPlanPrefs: [],
       userHealthPoints: [],
-      userNeck: 0,
-      userWaist: 0,
-      userHip: 0,
+      userCooks: "",
+      userWholeFood: "",
+      userBaseWork: "",
+      userBaseExercise: [],
+      userNeck: localStorage.getItem("userNeck") || 0,
+      userWaist: localStorage.getItem("userWaist") || 0,
+      userHip: localStorage.getItem("userHip") || 0,
     };
   },
   methods: {
+    bfpToCategory(type = 0, bfp = 0) {
+      const cats = [
+        "Essential Fat",
+        "Athletic",
+        "Fitness",
+        "Average",
+        "Obese",
+        "Obese+",
+      ];
+      const maleVals = [5, 13, 17, 24, 32, 100]; //just upper limits needed
+      const femaleVals = [13, 20, 24, 31, 40, 100];
+
+      let foundAtIndex = null;
+      let curGender = null;
+
+      if (type === 0) curGender = maleVals;
+      if (type === 1) curGender = femaleVals;
+      console.log("CURG:", curGender, type);
+      for (let index = 0; index < curGender.length; index++) {
+        if (bfp <= curGender[index] && foundAtIndex === null) {
+          foundAtIndex = index;
+          break;
+        }
+      }
+      return cats[foundAtIndex];
+      //       Essential fat	10-13%	2-5%
+      // Athletes	14-20%	6-13%
+      // Fitness	21-24%	14-17%
+      // Average	25-31%	18-24%
+      // Obese	32+%	25+%
+    },
+    navyBFP(type = 0) {
+      //https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6650177/
+      //https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9008774/
+      const cmToInch = 0.393701;
+      const inchToCm = 2.54;
+      let userNeckInch = this.userNeck * cmToInch; //to inch
+      let userWaistInch = this.userWaist * cmToInch; //to inch
+      let userHipInch = this.userHip ? this.userHip * cmToInch : 0; //to inch
+      let userHeightInch = this.userHeight * cmToInch; //to inch
+      let weight = this.userWeight;
+      let maleBFP =
+        86.01 * Math.log10(userWaistInch - userNeckInch) -
+        70.041 * Math.log10(userHeightInch) +
+        36.76;
+      let femaleBFP =
+        163.205 * Math.log10(userWaistInch + userHipInch - userNeckInch) -
+        97.684 * Math.log10(userHeightInch) -
+        78.387;
+
+      if (type === 0) {
+        return maleBFP;
+      }
+      if (type === 1) {
+        if (userHipInch === 0) return 0;
+        return femaleBFP;
+      }
+      if (type === 2) {
+        //LBM
+        return (weight - weight * (maleBFP * 0.01)).toFixed(2);
+      }
+      if (type === 3) {
+        //LBM
+        if (userHipInch === 0) return 0;
+        return (weight - weight * (femaleBFP * 0.01)).toFixed(2);
+      }
+      if (type === 4) {
+        //BFM
+        return (weight - (weight - weight * (maleBFP * 0.01))).toFixed(2);
+      }
+      if (type === 5) {
+        //BFM
+        if (userHipInch === 0) return 0;
+        return (weight - (weight - weight * (femaleBFP * 0.01))).toFixed(2);
+      }
+    },
+    bmpToVibrate(bpm) {
+      let vibPerSecond = 60 / bpm;
+      let vibOn = vibPerSecond * 200;
+      let vibOff = vibPerSecond * 800;
+      let vibData = [];
+      for (let i = 0; i < 22; i += 2) {
+        vibData[i] = vibOn;
+        vibData[i + 1] = vibOff;
+      }
+      // console.log("Vibration Data:", vibData);
+      window.navigator.vibrate(vibData);
+    },
     toggleCitationModal() {
       if (this.showCitationModal) {
         setTimeout(() => {
@@ -1504,6 +1870,9 @@ export default {
       localStorage.setItem("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
       localStorage.setItem("userKG", this.userKG);
       localStorage.setItem("userCM", this.userCM);
+      localStorage.setItem("userNeck", this.userNeck);
+      localStorage.setItem("userWaist", this.userWaist);
+      localStorage.setItem("userHip", this.userHip);
     },
     flipGender(type = 0) {
       if (type === 0) {
@@ -1868,6 +2237,7 @@ export default {
         }
       }
     },
+
     estBodyFatFromBMI(type = 0) {
       //https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3263863/#s5title
       // BF% = –44.988 + (0.503 × age) + (10.689 × sex) + (3.172 × BMI) – (0.026 × BMI2) + (0.181 × BMI × sex) – (0.02 × BMI × age) – (0.005 ×BMI2 × sex) + (0.00021 × BMI2 × age)
@@ -1881,7 +2251,8 @@ export default {
       // if (type === 0) return male;
       // if (type === 1) return female;
       let sex = type;
-      if (sex > 1) sex -= 2;
+      if (type > 1 && type <= 3) sex -= 2;
+      if (type > 3) sex -= 4;
       let bfp =
         -44.988 +
         0.503 * age +
@@ -1896,13 +2267,22 @@ export default {
       if (type <= 1) return bfp.toFixed(2);
 
       //show lean mass
-      if (type > 1) return (weight - weight * (bfp * 0.01)).toFixed(2);
+      if (type > 1 && type <= 3)
+        return (weight - weight * (bfp * 0.01)).toFixed(2);
+      //show body fat mass
+      if (type > 3)
+        return (weight - (weight - weight * (bfp * 0.01))).toFixed(2);
     },
     getMetabolicAge() {
+      //https://pubmed.ncbi.nlm.nih.gov/33666897/
       let useLB = this.userKG ? 1 : 0.453592;
       let userHeight = this.convertHeightToCM();
       let bmi = ((this.userWeight * useLB) / (userHeight * userHeight)) * 10000;
       let userAge = parseInt(this.userAge);
+
+      if (bmi < 16) {
+        return userAge + (17 - parseInt(bmi));
+      }
 
       if (bmi < 18) {
         return userAge + 1; // underweight
@@ -1974,6 +2354,8 @@ export default {
       this.toggleCM(false);
     // this.toggleCM(this.userCM);
     // this.toggleKG(this.userKG);
+
+    console.log("this.$store.", this.$store);
   },
   computed: {
     citationSummaryFormat() {
@@ -2028,7 +2410,7 @@ export default {
 input,
 select {
   width: auto;
-  max-width: 100%;
+  max-width: 90%;
 }
 .mdi-check-outline {
   color: $positive;
@@ -2104,18 +2486,7 @@ table th {
   // -webkit-box-shadow: inset 1px 1px 7px -2px #000000;
   // box-shadow: inset 1px 1px 2px -1px #000000;
 }
-.border-positive {
-  border-color: $positive;
-}
-.border-negative {
-  border-color: $negative;
-}
-.border-primary {
-  border-color: $primary;
-}
-.border-info {
-  border-color: $info;
-}
+
 @keyframes glower {
   // 0% {
   //   -webkit-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
@@ -2189,7 +2560,46 @@ legend {
   font-size: 1.7em;
   padding: 4px;
 }
-input[type="checkbox"] {
+
+select,
+input[type="number"],
+input[type="text"] {
+  // -moz-appearance: none;
+  // -webkit-appearance: none;
+  // appearance: none;
+  vertical-align: middle;
+  outline: none;
+  font-size: inherit;
+  outline: none !important;
+  box-shadow: none;
+  // width: 30px;
+  min-height: 30px;
+  // background: white;
+  border-radius: 0% !important;
+  // outline: 3px solid $dark !important;
+  position: relative;
+  margin: 8px;
+  padding: 2px;
+  box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
+    -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;
+}
+select {
+  // text-align: center;
+  padding: 1em;
+}
+select::after {
+  content: "▼";
+  right: 1px;
+  top: -1px;
+  position: relative;
+  font-size: 2em;
+  background: #ff9900;
+}
+input[type="checkbox"]:checked {
+  background: $info;
+}
+input[type="checkbox"],
+input[type="radio"] {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
@@ -2209,10 +2619,44 @@ input[type="checkbox"] {
   box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
     -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;
 }
-input[type="checkbox"]:checked {
-  background: $info;
+input[type="checkbox"]:not(:checked):hover + span,
+input[type="checkbox"]:not(:checked):active + span,
+input[type="checkbox"]:not(:checked):hover,
+input[type="radio"]:not(:checked):hover + span,
+input[type="radio"]:not(:checked):active + span,
+input[type="radio"]:not(:checked):hover {
+  // color: #ff9900;
+  // background: #ff0000;
+  // border: 1px solid greenyellow;
+  // animation: colorCycle 2s ease infinite, glower 3s ease forwards infinite;
+  // content: "▶";
+  animation: blinker 2s steps(2, end) infinite;
 }
-input[type="checkbox"]:checked:after {
+input[type="checkbox"]:checked:hover + span,
+input[type="checkbox"]:checked:active + span,
+input[type="checkbox"]:checked:hover,
+input[type="radio"]:checked:hover + span,
+input[type="radio"]:checked:active + span,
+input[type="radio"]:checked:hover {
+  // color: #ff9900;
+  // background: #ff0000;
+  // border: 1px solid greenyellow;
+  // animation: colorCycle 2s ease infinite, glower 3s ease forwards infinite;
+  // content: "▶";
+  animation: colorCycle 2s ease infinite;
+}
+input[type="checkbox"]:not(:checked):hover::before,
+input[type="radio"]:not(:checked):hover::before {
+  box-shadow: none !important;
+  content: "▶";
+  position: relative;
+  left: 0em;
+  top: -0.5em;
+  font-size: 3em;
+  transition: none !important;
+}
+input[type="checkbox"]:checked:after,
+input[type="radio"]:checked:after {
   content: "✕";
   position: absolute;
   font-size: 4em;
@@ -2223,6 +2667,24 @@ input[type="checkbox"]:checked:after {
   text-align: center;
   color: $positive;
   justify-content: center;
+}
+input[type="checkbox"]:checked:hover:after,
+input[type="radio"]:checked:hover:after {
+  animation: colorCycle 2s ease infinite;
+}
+input[type="radio"] {
+  // transform: rotate(45deg);
+  margin-right: 2em;
+}
+input[type="radio"]:checked:after {
+  content: "*";
+}
+
+input[type="radio"]:checked {
+  background: $accent;
+}
+input[type="radio"]:not(:checked) {
+  // background: $warning;
 }
 .check-label {
   position: relative;
@@ -2285,5 +2747,43 @@ details[open] > summary::before {
 }
 details[open] > summary span {
   display: none;
+}
+hr {
+  height: 1em;
+  background: $secondary;
+}
+.pulseVibrate {
+  font-size: 2em;
+}
+.pulseVibrate:hover {
+  color: $info;
+}
+.pulseVibrate:active {
+  color: $negative;
+}
+.unHighlight {
+  // filter: grayscale(100%);
+  filter: contrast(0%);
+}
+.border-double-1 {
+  border: 4px double $primary;
+}
+.border-positive {
+  border-color: $positive;
+}
+.border-negative {
+  border-color: $negative;
+}
+.border-primary {
+  border-color: $primary;
+}
+.border-info {
+  border-color: $info;
+}
+.border-accent {
+  border-color: $accent;
+}
+.width-100 {
+  width: 100%;
 }
 </style>

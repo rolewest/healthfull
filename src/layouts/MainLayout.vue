@@ -42,7 +42,7 @@
             "
             avatar
           >
-            <q-icon name="ti-home" />
+            <q-icon name="ti-game" />
           </q-item-section>
 
           <q-item-section
@@ -52,8 +52,9 @@
               this.toggleLeftDrawer();
             "
           >
-            <q-item-label>New Game</q-item-label>
-            <q-item-label caption>Back to the start page</q-item-label>
+            <q-item-label>Title Screen</q-item-label>
+            <!-- should also have ability to add another character here -->
+            <q-item-label caption>Start a new game</q-item-label>
           </q-item-section>
         </q-item>
         <!--  -->
@@ -76,8 +77,12 @@
               this.toggleLeftDrawer();
             "
           >
-            <q-item-label>Update Measurements</q-item-label>
-            <q-item-label caption>Everyone's unique!</q-item-label>
+            <q-item-label
+              >{{ isNewUser ? "Enter" : "Update" }} Measurements</q-item-label
+            >
+            <q-item-label caption>{{
+              isNewUser ? "Let's see what you're made of!" : "Keep it current!"
+            }}</q-item-label>
           </q-item-section>
         </q-item>
 
@@ -151,9 +156,21 @@
       <router-view />
     </q-page-container>
 
-    <q-footer elevated class="bg-grey-8 text-white">
+    <q-footer elevated class="bottomBar text-white">
       <q-toolbar>
         <q-toolbar-title class="float-right">
+          <div class="row justify-center">
+            <button
+              class="btn-info btn-primary travelModeButton text-h1"
+              @click="$router.push('base')"
+            >
+              <q-icon
+                name="ti-ruler-pencil baseButtonIcon"
+                class="text-h1"
+              ></q-icon>
+            </button>
+            <HeartPulse />
+          </div>
           <!-- <button
             class="mdi mdi-weight-lifter btn-info btn-primary travelModeButton text-h1 text-center"
             @click="this.toggleModal"
@@ -164,12 +181,6 @@
           >
             <q-icon name="ti-ruler-pencil"></q-icon>
           </button> -->
-          <button
-            class="btn-info btn-primary travelModeButton text-h1"
-            @click="$router.push('base')"
-          >
-            <q-icon name="ti-ruler-pencil"></q-icon>
-          </button>
         </q-toolbar-title>
       </q-toolbar>
     </q-footer>
@@ -184,6 +195,8 @@ import Modal from "src/components/Modal.vue";
 import { defineComponent, ref } from "vue";
 import JustHeart from "../components/JustHeart.vue";
 import BaseMeasure from "../components/BaseMeasure.vue";
+
+import HeartPulse from "src/components/HeartPulse.vue";
 // import LogoSVGSmall from "src/components/LogoSVGSmall.vue";
 
 const linksList = [
@@ -203,105 +216,105 @@ const linksList = [
   },
   {
     title: "Resistance Training",
-    caption: "quasar.dev",
+    caption: "in progress...",
     icon: "mdi-weight-lifter",
     link: "#",
     outside: 0,
   },
   {
     title: "Cardio Training",
-    caption: "quasar.dev",
+    caption: "in progress...",
     icon: "las la-heartbeat", //fa-solid fa-heart-circle-bolt
     link: "https://quasar.dev",
     outside: 0,
   },
   {
     title: "My Progress",
-    caption: "github.com/quasarframework",
+    caption: "in progress",
     icon: "fas fa-tasks", // fa-weight  fa-stethoscope fa-microscope ti-bar-chart las la-certificate la-chart-bar
     link: "https://github.com/quasarframework",
     outside: 0,
   },
   {
     title: "Test Eva icons",
-    caption: "github.com/quasarframework",
+    caption: "in progress",
     icon: "eva-heart-outline",
     link: "https://github.com/quasarframework",
     outside: 1,
   },
   {
     title: "Test line-awesome icons",
-    caption: "github.com/quasarframework",
+    caption: "...",
     icon: "las la-weight",
     link: "https://github.com/quasarframework",
     outside: 1,
   },
   {
     title: "Battle the bulge",
-    caption: "github.com/quasarframework",
+    caption: "...",
     icon: "restaurant_menu", // fa-weight  fa-stethoscope fa-microscope
     link: "https://github.com/quasarframework",
     outside: 1,
   },
   {
     title: "Cooking",
-    caption: "github.com/quasarframework",
+    caption: "...",
     icon: "mdi-stove", // fa-weight  fa-stethoscope fa-microscope
     link: "https://github.com/quasarframework",
     outside: 1,
   },
   {
     title: "Discord Chat Channel",
-    caption: "chat.quasar.dev",
+    caption: "in progress",
     icon: "directions_bike",
     link: "https://chat.quasar.dev",
     outside: 1,
   },
   {
     title: "Discord Chat Channel",
-    caption: "chat.quasar.dev",
+    caption: "in progress",
     icon: "auto_awesome",
     link: "https://chat.quasar.dev",
     outside: 1,
   },
   {
     title: "Change Difficulty",
-    caption: "chat.quasar.dev",
+    caption: "in progress...",
     icon: "speed",
     link: "https://chat.quasar.dev",
     outside: 1,
   },
   {
     title: "Journeys & Adventures",
-    caption: "chat.quasar.dev",
+    caption: "",
     icon: "fas la-route",
     link: "https://chat.quasar.dev",
     outside: 1,
   },
   {
     title: "Journeys & Adventures",
-    caption: "chat.quasar.dev",
+    caption: "",
     icon: "fas la-hiking",
     link: "https://chat.quasar.dev",
     outside: 1,
   },
   {
     title: "Play Game", //las la-file-medical-alt las la-hat-wizard
-    caption: "chat.quasar.dev",
+    caption: "",
     icon: "las la-dice-d6", //las la-dice
     link: "https://chat.quasar.dev",
     outside: 1,
   },
   {
     title: "Play Game", //las la-file-medical-alt las la-hat-wizard
-    caption: "chat.quasar.dev",
+    caption: "",
     icon: "restaurant_menu", //las la-dice
     link: "https://chat.quasar.dev",
     outside: 1,
   },
   {
     title: "Twitter",
-    caption: "@quasarframework",
+    caption: "",
     icon: "fitness_center",
     link: "https://twitter.quasar.dev",
     outside: 1,
@@ -309,7 +322,7 @@ const linksList = [
 
   {
     title: "Quasar Awesome",
-    caption: "Community Quasar projects",
+    caption: "Community projects",
     icon: "mdi-clipboard-list-outline",
     link: "https://awesome.quasar.dev",
     outside: 1,
@@ -325,6 +338,7 @@ export default defineComponent({
     Modal,
     JustHeart,
     BaseMeasure,
+    HeartPulse,
   },
 
   setup() {
@@ -342,6 +356,7 @@ export default defineComponent({
       citationWhy: ref(""),
       citationTheme: ref(""),
       essentialLinks: linksList,
+      isNewUser: localStorage.getItem("userAge") === "null",
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
@@ -875,5 +890,8 @@ button:hover {
   font-size: 2em;
   animation: blinker 2s steps(1, end) infinite;
   // color: $info;
+}
+.baseButtonIcon:active {
+  color: $warning;
 }
 </style>
