@@ -2532,23 +2532,23 @@ table th {
 
 @keyframes colorCycle {
   0% {
-    color: $primary;
+    color: $primary !important;
   }
   25% {
-    color: $accent;
+    color: $accent !important;
   }
   50% {
-    color: $warning;
+    color: $warning !important;
   }
   60% {
-    color: $dark;
+    color: $dark !important;
   }
 
   75% {
-    color: $positive;
+    color: $positive !important;
   }
   100% {
-    color: $info;
+    color: $info !important;
   }
 }
 fieldset {
@@ -2767,6 +2767,12 @@ hr {
 }
 .border-double-1 {
   border: 4px double $primary;
+}
+.border-double-2 {
+  border: 6px double $primary;
+}
+.border-double-3 {
+  border: 8px double $primary;
 }
 .border-positive {
   border-color: $positive;
