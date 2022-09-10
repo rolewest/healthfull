@@ -31,22 +31,22 @@
         />
 
         <div class="btn-group" role="group" aria-label="Basic example">
-          <q-btn
+          <button
             type="button"
             class="btn btn-primary bg-info"
             ref="userCMObj"
             @click="toggleCM(true)"
           >
             CM
-          </q-btn>
-          <q-btn
+          </button>
+          <button
             type="button"
             class="btn btn-secondary bg-secondary"
             ref="userFTObj"
             @click="toggleCM(false)"
           >
             FT
-          </q-btn>
+          </button>
         </div>
       </div>
       <label for="userHeight">Height</label>
@@ -67,22 +67,22 @@
           @focus="$event.target.select()"
         />
         <div class="btn-group" role="group" aria-label="Basic example">
-          <q-btn
+          <button
             type="button"
             class="btn btn-primary bg-info"
             ref="userKGObj"
             @click="toggleKG(true)"
           >
             KG
-          </q-btn>
-          <q-btn
+          </button>
+          <button
             type="button"
             class="btn btn-secondary bg-secondary"
             ref="userLBObj"
             @click="toggleKG(false)"
           >
             LBS
-          </q-btn>
+          </button>
         </div>
       </div>
       <label for="userWeight">Weight</label>
