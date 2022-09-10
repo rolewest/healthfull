@@ -32,13 +32,10 @@
             </div>
 
             <div class="bg-check quote-holder border-double-3 border-positive">
-              <p class="on-the-floor bg-accent">
-                {{
-                  Math.random >= 0.5
-                    ? " You notice an esoteric piece of a scientific script on the floor..."
-                    : "At your feet looks like a torn page from some science journal..."
-                }}
-              </p>
+              <p
+                class="on-the-floor bg-accent"
+                v-html="randomAtYourFeetMsg"
+              ></p>
               <div class="bg-dark border-torn-holder">
                 <div class="border-torn">
                   <span v-html="randomQuote"></span>
@@ -249,6 +246,19 @@ export default {
     },
   },
   computed: {
+    randomAtYourFeetMsg() {
+      const atfeet = [
+        "You notice an esoteric piece of a scientific script on the floor...",
+        "At your feet looks like a torn page from some forgotten science journal...",
+        "In front of you is a ripped fragment of some neglected treatise...",
+        "You notice a small paper with some bygone wisdom imprinted upon it...",
+        "Wedged between two floor panels you notice a tiny shred from some antiquated and cryptic tome...",
+        "A gust of wind blows an enigmatic scrap of some perplexing scroll that you snatch from the air...",
+      ];
+
+      let itemNum = Math.floor(Math.random() * atfeet.length);
+      return atfeet[itemNum];
+    },
     randomWelcome() {
       const welcomes = [
         "Everything is all setup, just click start to begin your training.",
