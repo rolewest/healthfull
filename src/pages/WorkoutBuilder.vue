@@ -7,12 +7,13 @@
     <div class="questItem">
       <!--  -->
       <div class="table-responsive">
-        <div class="paperSheet shadow">
+        <div class="shadow">
           <div class="q-pa-md">
+            {{ rowCount }} sets in your inventory
             <q-table
               grid
-              size="xl"
-              title="Found Tomes"
+              selected-row-size="xl"
+              title="Tomes"
               :rows="rows"
               :columns="columns"
               row-key="name"
@@ -166,7 +167,9 @@ export default {
             <li>Keep your back as straight as you can</li>
             <li>March by lifting up your knees and moving your arms</li>
             <li>Go at your own pace</li>
-            <li>If you feel you can do 1 extra rep, go for it!</li>
+            <li>If you feel you can do ${Math.floor(
+              Math.random() * (4 - 1 + 1) + 1
+            )} extra reps, go for it!</li>
 
             </ol>`,
         },
@@ -174,13 +177,13 @@ export default {
           id: 2,
           video: { id: "Z1IvxI8YcUM", start: 100, end: 10000 },
           title: "Seated Arm Raise",
-          caption: "Low Impact Cardio",
+          caption: "Low Impact Resistance",
           icon: { name: null, color: "accent", font: "" },
 
           badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 3, cp: 1, xp: 11, sp: 4 },
+          points: { hp: 2, cp: 1, xp: 11, sp: 4 },
           tags: [
-            "Cardio",
+            "Resistance Training",
             "Low Impact",
             "Sitting Only",
             "All Ages",
@@ -201,7 +204,9 @@ export default {
               </ul>
             </li>
             <li>Go at your own pace</li>
-            <li>If you feel you can do 1 extra rep, go for it!</li>
+            <li>If you feel you can do ${Math.floor(
+              Math.random() * (4 - 1 + 1) + 1
+            )} extra reps, go for it!</li>
 
             </ol>`,
         },
@@ -209,11 +214,9 @@ export default {
           id: 3,
           video: { id: "azv8eJgoGLk", start: 308, end: 374 },
           title: "Seated Leg Extension",
-          caption: "Low Impact Cardio",
-          icon: { name: null, color: "accent", font: "" },
+          caption: "Low Impact Resistance",
 
-          badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 7, cp: 1, xp: 15, sp: 5 },
+          points: { hp: 8, cp: 6, xp: 17, sp: 2 },
           tags: [
             "Lower Body",
             "Full Body",
@@ -224,15 +227,15 @@ export default {
             "Legs",
             "Glutes",
             "Strength",
-            "",
+            "Resistance Training",
           ],
-          reps: 2,
+          reps: 7,
           mobility: 2,
-          mets: 3.7,
+          mets: 7,
           // sitting
           body: `<h5 class="text-center">How to do it:</h5><ol>
             <li>Sit at the front half of your chair</li>
-            <li>Grab the side of the chair, near the back with both hands</li>
+
             <li>Lean back to engage your core while holding yourself up with your hands</li>
             <li>From the knee lift one leg and then lower it more slowly
               <ul>
@@ -245,19 +248,21 @@ export default {
               </ul>
             </li>
             <li>Go at your own pace</li>
-            <li>If you feel you can do 1 extra rep, go for it!</li>
+            <li>If you feel you can do ${Math.floor(
+              Math.random() * (4 - 1 + 1) + 1
+            )} extra reps, go for it!</li>
 
             </ol>`,
         },
         {
           id: 4,
-          video: { id: "azv8eJgoGLk", start: 308, end: 374 },
-          title: "Seated Leg Lift",
+          video: { id: "azv8eJgoGLk", start: 633, end: 709 },
+          title: "Seated No Rope Jump Rope",
           caption: "Low Impact Cardio",
           icon: { name: null, color: "accent", font: "" },
 
           badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 7, cp: 1, xp: 15, sp: 5 },
+          points: { hp: 9, cp: 8, xp: 18, sp: 4 },
           tags: [
             "Cardio",
             "Low Impact",
@@ -266,24 +271,103 @@ export default {
             "Legs",
             "Glutes",
             "Strength",
-            "",
+            "Ab Workout",
           ],
           reps: 5,
           mobility: 2,
           mets: 3,
           // sitting
           body: `<h5 class="text-center">How to do it:</h5><ol>
-            <li>Sit at the back of the chair</li>
+            <li>Sit on the front half of your chair</li>
+            <li>Lean back slightly to engage your core</li>
+            <li>Either choose to "bounce on the spot," or to do a calf raise</li>
+            <li>At the same time rotate your arms in circles
+              <ul>
+                <li>1 full arm rotation and raise up, or bounce counts as 1 rep</li>
+                <li>for a real challenge hold some food cans in each hand</li>
+              </ul>
+            </li>
+            <li>Go at your own pace</li>
+            <li>${Math.floor(
+              Math.random() * (4 - 1 + 1) + 1
+            )} extra reps, go for it!</li>
+
+            </ol>`,
+        },
+        {
+          id: 5,
+          video: { id: "azv8eJgoGLk", start: 893, end: 957 },
+          title: "Seated Row & Calf Raise",
+          caption: "Low Impact Resistance",
+          icon: { name: null, color: "accent", font: "" },
+
+          badge: { caption: null, color: "red", font: "blue" },
+          points: { hp: 5, cp: 1, xp: 17, sp: 5 },
+          tags: [
+            "Resistance Training",
+            "Low Impact",
+            "Sitting Only",
+            "All Ages",
+            "Legs",
+            "Arms",
+            "Back",
+            "Shoulders",
+            "Strength",
+            "Ab Workout",
+          ],
+          reps: 4,
+          mobility: 2,
+          mets: 4,
+          // sitting
+          body: `<h5 class="text-center">How to do it:</h5><ol>
+            <li>Sit at the front of the chair</li>
             <li>Keep your back as straight as you can</li>
-            <li>Lift one arm directly above your head</li>
-            <li>Return your arm to your side</li>
-            <li>Repeat with the opposite side
+            <li>Pretend strings are attached from your arms to your knees</li>
+            <li>Lift your arms (like rowing) and raise on to the balls of your feet
+              <ul>
+                <li>try to pinch your shoulder blades at the top for better results</li>
+              </ul>
+            </li>
+
+            <li>Return your arms to your side while you lower your feet back to the floor
               <ul>
                 <li>this counts as 1 rep (repitition)</li>
               </ul>
             </li>
             <li>Go at your own pace</li>
-            <li>If you feel you can do 1 extra rep, go for it!</li>
+            <li>If you feel you can do ${Math.floor(
+              Math.random() * (4 - 1 + 1) + 1
+            )} extra rep, go for it!</li>
+
+            </ol>`,
+        },
+        {
+          id: 6,
+          video: { id: "azv8eJgoGLk", start: 956, end: 1020, mute: 0 },
+          title: "Seated Chair Jog",
+          caption: "Low Impact Cardio",
+          icon: { name: null, color: "accent", font: "" },
+
+          badge: { caption: null, color: "red", font: "blue" },
+          points: { hp: 7, cp: 6, xp: 20, sp: 1 },
+          tags: ["Cardio", "Low Impact", "Sitting Only", "All Ages"],
+          reps: 14,
+          mobility: 2,
+          mets: 3.2,
+          // sitting
+          body: `<h5 class="text-center">How to do it:</h5><ol>
+            <li>Sit on the front half of the chair</li>
+            <li>Keep your back as straight as you can</li>
+            <li>Use your arms and legs to run on the spot
+              <ul>
+                <li>One rep is when the same foot lands the second time, or around 1 second</li>
+              </ul>
+            </li>
+
+            <li>Go at your own pace</li>
+            <li>If you feel you can do ${Math.floor(
+              Math.random() * (4 - 1 + 1) + 1
+            )} extra reps, go for it!</li>
 
             </ol>`,
         },
@@ -402,6 +486,11 @@ export default {
           }, rate); //
         }, delay);
       }
+    },
+  },
+  computed: {
+    rowCount() {
+      return this.rows.length;
     },
   },
   mounted() {

@@ -49,7 +49,7 @@
       <div v-if="this.currentStep == -1" class="q-ma-lg">
         <div class="title-h4">You Did It!!!</div>
         <div class="row justify-center q-ma-md">
-          <q-chip class="q-ma-md"
+          <q-chip ref="chip4hp" class="q-ma-md whiteToYellow"
             ><q-avatar
               icon="fas fa-shield-heart"
               color="info"
@@ -59,7 +59,7 @@
             </q-avatar
             >+{{ pointsEarned("hp") }} HP
           </q-chip>
-          <q-chip class="q-ma-md"
+          <q-chip ref="chip4cp" class="q-ma-md whiteToYellow"
             ><q-avatar
               icon="fas fa-heart-pulse"
               color="negative"
@@ -69,7 +69,7 @@
             </q-avatar
             >+{{ pointsEarned("cp") }} CP
           </q-chip>
-          <q-chip class="q-ma-md"
+          <q-chip ref="chip4xp" class="q-ma-md whiteToYellow"
             ><q-avatar
               icon="mdi-star-shooting"
               color="warning"
@@ -79,7 +79,7 @@
             </q-avatar
             >+{{ pointsEarned("xp") }} XP
           </q-chip>
-          <q-chip class="q-ma-md"
+          <q-chip ref="chip4sp" class="q-ma-md whiteToYellow"
             ><q-avatar
               icon="mdi-dumbbell"
               color="accent"
@@ -134,7 +134,7 @@
         </div>
 
         <fieldset class="justify-center row bg-primary display-block">
-          <legend class="text-center title-h4">Your Updated Stats</legend>
+          <legend class="text-center title-h4">Your Updated Points</legend>
           <div class="border-double-2 text-center q-pa-md">
             <q-chip class="q-ma-xs"
               ><q-avatar
@@ -217,6 +217,9 @@
                 text-color="accent"
                 >start!</q-btn
               >
+              <q-btn color="info" class="info" @click="showCompleted">
+                finished!
+              </q-btn>
             </div>
 
             <div class="quote-holder">
@@ -285,7 +288,7 @@
                 >
                 </q-avatar>
 
-                {{ xstep.points.xp }}
+                {{ xstep.points.xp }}fgdfg
               </q-chip>
               <q-chip class=""
                 ><q-avatar
@@ -296,7 +299,7 @@
                 >
                 </q-avatar>
 
-                {{ xstep.points.hp }}
+                {{ xstep.points.sp }}
               </q-chip>
 
               <!-- end points -->
@@ -381,13 +384,14 @@
               </q-btn>
             </div>
           </div>
-
-          <div class="row justify-between">
+          <div class="q-ma-lg"></div>
+          <div class="row justify-between q-mt-xl">
             <q-btn
               color="negative"
               class="negative"
               v-if="this.currentStep < this.stepsList.length"
               @click="this.currentStep++"
+              size="xs"
             >
               skip this
             </q-btn>
@@ -399,6 +403,7 @@
                 this.currentStep = 0;
                 ytUrl = null;
               "
+              size="xs"
             >
               cancel all
             </q-btn>
@@ -477,6 +482,18 @@ export default {
       this.bmpToVibrate(vibdata, 1);
       this.pointsAdd();
     },
+    animateValue(obj, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    },
     bmpToVibrate(bpm, type = 0) {
       //this is duplicated code! (look in baseMeasure)
       let vibPerSecond = 60 / bpm;
@@ -541,7 +558,7 @@ export default {
         if (alldata[index].points.xp != null) {
           xpx += parseFloat(alldata[index].points.xp);
         }
-        if (alldata[index].points.p != null) {
+        if (alldata[index].points.sp != null) {
           spx += parseFloat(alldata[index].points.sp);
         }
       }

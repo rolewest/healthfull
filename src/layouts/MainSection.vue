@@ -76,6 +76,6 @@ export default {
 
 <style>
 body {
-  background: #cfcfcf;
+  background: #cfcfcf !important;
 }
 </style>

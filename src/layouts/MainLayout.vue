@@ -160,13 +160,19 @@
       <q-toolbar>
         <q-toolbar-title class="float-right">
           <div class="row justify-center">
-            <button
+            <!-- <button
               class="btn-info btn-primary travelModeButton text-h2"
               @click="$router.push({ name: 'measure' })"
             >
               <q-icon name="mdi-clipboard-pulse" class="text-h2 baseButtonIcon"
                 ><div class="statsString"></div
               ></q-icon>
+            </button> -->
+            <button
+              class="btn-info btn-primary travelModeButton text-h2"
+              @click="$router.push({ name: 'home' })"
+            >
+              <q-icon name="mdi-home-heart" class="text-h2"></q-icon>
             </button>
 
             <!--  -->
@@ -763,6 +769,18 @@ select:hover,
     #f9f06b,
     #99c1f1,
     #1a5fb4,
+    #f9f06b
+  );
+  background-size: 500% 100%;
+}
+.whiteToYellow {
+  animation: animateBgReward 3s linear infinite;
+  background-image: linear-gradient(
+    90deg,
+    #dcfaff,
+    #f9f06b,
+    #dcfaff,
+    #ffffff,
     #f9f06b
   );
   background-size: 500% 100%;
