@@ -6,6 +6,31 @@
     <iframe width="560" height="315" src="http://www.youtube.com/embed/azv8eJgoGLk?autoplay=1&loop=0&playlist=azv8eJgoGLk&start=956&end=1020&rel=0" frameborder="0" allowfullscreen></iframe>
     <iframe width="560" height="315" src="http://www.youtube.com/embed/Z1IvxI8YcUM?autoplay=1&loop=0&playlist=Z1IvxI8YcUM&start=205&end=236&rel=0&mute=1" frameborder="0" allowfullscreen></iframe>
     <iframe width="560" height="315" src="http://www.youtube.com/embed/PdnZTxKIe9g?autoplay=1&loop=0&playlist=PdnZTxKIe9g&start=205&end=236&rel=0&mute=1" frameborder="0" allowfullscreen></iframe> -->
+  <q-dialog v-model="alert">
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">
+          <q-icon name="mdi-order-alphabetical-descending" size="2em"></q-icon>
+          First Thing's First
+        </div>
+      </q-card-section>
+
+      <q-card-section class="q-pt-none">
+        Oops! You need to build a set list first...
+      </q-card-section>
+
+      <q-card-actions align="right">
+        <q-btn
+          flat
+          label="Let's Do it!"
+          @click="this.$router.push({ name: 'builder' })"
+          color="primary"
+          v-close-popup
+        />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+
   <div class="fireworks-display hidden" ref="fireworks" id="fireworks">
     <div class="before"></div>
     <div class="after"></div>
@@ -192,13 +217,6 @@
                 text-color="accent"
                 >start!</q-btn
               >
-              <!--todo: delete this test button  -->
-              <q-btn
-                @click="showCompleted()"
-                color="positive"
-                text-color="accent"
-                >done!</q-btn
-              >
             </div>
 
             <div class="quote-holder">
@@ -321,6 +339,28 @@
               </q-btn>
             </div>
           </div>
+
+          <div class="row justify-between">
+            <q-btn
+              color="negative"
+              class="negative"
+              v-if="this.currentStep < this.stepsList.length"
+              @click="this.currentStep++"
+            >
+              skip this
+            </q-btn>
+            <q-btn
+              color="negative"
+              class="negative"
+              v-if="this.currentStep <= this.stepsList.length"
+              @click="
+                this.currentStep = 0;
+                ytUrl = null;
+              "
+            >
+              cancel all
+            </q-btn>
+          </div>
         </div>
 
         <!-- <q-step
@@ -355,6 +395,7 @@ import { ref } from "vue";
 export default {
   data() {
     return {
+      alert: false,
       userBasePoints: {
         xp: window.localStorage.getItem("user.points.xp") || 0,
         hp: window.localStorage.getItem("user.points.hp") || 0,
@@ -553,10 +594,11 @@ export default {
     },
   },
   mounted() {
-    console.log(
-      "vidddd:",
-      JSON.parse(window.localStorage.getItem("userCurrentSetlist"))
-    );
+    console.log("!!!:", window.localStorage.getItem("userCurrentSetlist"));
+    if (window.localStorage.getItem("userCurrentSetlist") == "[]") {
+      this.alert = true;
+    }
+    //
 
     this.stepsList = JSON.parse(
       window.localStorage.getItem("userCurrentSetlist")

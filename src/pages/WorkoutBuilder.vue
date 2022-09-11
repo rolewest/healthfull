@@ -23,12 +23,73 @@
             />
           </div>
         </div>
-        <q-btn @click="saveSetList"> Save Setlist </q-btn>
+        <div class="row justify-center">
+          <q-btn @click="showSaveDialog = true" color="info">
+            Save Setlist
+          </q-btn>
+        </div>
+        <!-- alert window for save list -->
+        <q-dialog v-model="showSaveDialog">
+          <q-card>
+            <q-card-section>
+              <div class="text-h6">
+                <q-icon name="mdi-folder-heart" size="2em"></q-icon>
+                {{ popupTitle || "Save Your Setlist?" }}
+              </div>
+            </q-card-section>
+
+            <q-card-section class="q-pt-none">
+              {{
+                popupCaption ||
+                "Are you sure? This will overwrite any saved setlists, currently."
+              }}
+            </q-card-section>
+
+            <q-card-actions align="right">
+              <div v-if="popupTitle != 'Saved!'">
+                <q-btn flat label="Cancel" color="negative" v-close-popup />
+                <q-btn
+                  flat
+                  label="Let's Save it!"
+                  @click="saveSetList()"
+                  color="primary"
+                  v-close-popup
+                />
+              </div>
+              <div v-else>
+                <!-- saved -->
+                <q-btn
+                  flat
+                  label="Close"
+                  color="negative"
+                  v-close-popup
+                  @click="
+                    popupTitle = 'Save Your Setlist?';
+                    popupCaption =
+                      'Are you sure? This will overwrite any saved setlists, currently.';
+                    showSaveDialog = false;
+                  "
+                />
+                <q-btn
+                  flat
+                  label="Let's Do it!"
+                  @click="
+                    this.$router.push({
+                      name: 'player',
+                    })
+                  "
+                  color="positive"
+                  v-close-popup
+                />
+              </div>
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
         <!--  -->
       </div>
     </div>
   </div>
-  <div class="q-mt-md">Selected: {{ JSON.stringify(selected) }}</div>
+  <!-- <div class="q-mt-md">Selected: {{ JSON.stringify(selected) }}</div> -->
 </template>
 <!-- setList will need to have steps added -->
 <script>
@@ -57,6 +118,7 @@ const columns = [
   },
 
   { name: "cals", label: "Calories in 1 Min", field: "cals" },
+  { name: "tags", label: "Tags", field: "tags" },
   {
     name: "points",
     label: "Points @ Level " + window.localStorage.getItem("userLevel"),
@@ -72,13 +134,17 @@ export default {
   data() {
     const selected = ref([]);
     return {
+      showSaveDialog: false,
+      popupCaption:
+        "Are you sure? This will overwrite any saved setlists, currently.",
+      popupTitle: "Save your setlist?",
       selected,
       columns,
       rows,
       getSelectedString() {
         return selected.value.length === 0
           ? ""
-          : `${selected.value.length} record${
+          : `${selected.value.length} set${
               selected.value.length > 1 ? "s" : ""
             } selected of ${rows.length}`;
       },
@@ -92,8 +158,8 @@ export default {
           icon: { name: null, color: "accent", font: "" },
 
           badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 21.3, cp: 2.5, xp: 20, sp: 0 },
-          tags: ["Cardio", "Low Impact", "Sitting Only", "All Ages"],
+          points: { hp: 6, cp: 6, xp: 20, sp: 1 },
+          tags: ["Cardio", "Low Impact", "Sitting Only", "All Ages", "Tone"],
           baseReps: 5,
           mobility: 2,
           mets: 2.1,
@@ -110,12 +176,12 @@ export default {
         {
           id: 2,
           video: { id: "Z1IvxI8YcUM", start: 100, end: 10000 },
-          title: "Seated Arm",
+          title: "Seated Arm Raise",
           caption: "Low Impact Cardio",
           icon: { name: null, color: "accent", font: "" },
 
           badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 21.3, cp: 2.5, xp: 20, sp: 0 },
+          points: { hp: 3, cp: 1, xp: 11, sp: 4 },
           tags: [
             "Cardio",
             "Low Impact",
@@ -144,11 +210,85 @@ export default {
         },
         {
           id: 3,
-          video: { id: "uKYZIC-67gY", start: 100, end: 100000 },
-          title: "dsffd",
-          caption: "2Low Impact",
-          icon: "home",
-          points: { hp: 10 },
+          video: { id: "azv8eJgoGLk", start: 308, end: 374 },
+          title: "Seated Leg Extension",
+          caption: "Low Impact Cardio",
+          icon: { name: null, color: "accent", font: "" },
+
+          badge: { caption: null, color: "red", font: "blue" },
+          points: { hp: 7, cp: 1, xp: 15, sp: 5 },
+          tags: [
+            "Lower Body",
+            "Full Body",
+            "Ab Workout",
+            "Low Impact",
+            "Sitting Only",
+            "All Ages",
+            "Legs",
+            "Glutes",
+            "Strength",
+            "",
+          ],
+          baseReps: 5,
+          mobility: 2,
+          mets: 3.7,
+          // sitting
+          body: `<h5 class="text-center">How to do it:</h5><ol>
+            <li>Sit at the front half of your chair</li>
+            <li>Grab the side of the chair, near the back with both hands</li>
+            <li>Lean back to engage your core</li>
+            <li>From the knee lift one leg
+              <ul>
+                <li>for a real challenge use both legs</li>
+              </ul>
+            </li>
+            <li>Repeat with the opposite side
+              <ul>
+                <li>this counts as 1 rep (repitition)</li>
+              </ul>
+            </li>
+            <li>Go at your own pace</li>
+            <li>If you feel you can do 1 extra rep, go for it!</li>
+
+            </ol>`,
+        },
+        {
+          id: 4,
+          video: { id: "azv8eJgoGLk", start: 308, end: 374 },
+          title: "Seated Leg Lift",
+          caption: "Low Impact Cardio",
+          icon: { name: null, color: "accent", font: "" },
+
+          badge: { caption: null, color: "red", font: "blue" },
+          points: { hp: 7, cp: 1, xp: 15, sp: 5 },
+          tags: [
+            "Cardio",
+            "Low Impact",
+            "Sitting Only",
+            "All Ages",
+            "Legs",
+            "Glutes",
+            "Strength",
+            "",
+          ],
+          baseReps: 5,
+          mobility: 2,
+          mets: 3,
+          // sitting
+          body: `<h5 class="text-center">How to do it:</h5><ol>
+            <li>Sit at the back of the chair</li>
+            <li>Keep your back as straight as you can</li>
+            <li>Lift one arm directly above your head</li>
+            <li>Return your arm to your side</li>
+            <li>Repeat with the opposite side
+              <ul>
+                <li>this counts as 1 rep (repitition)</li>
+              </ul>
+            </li>
+            <li>Go at your own pace</li>
+            <li>If you feel you can do 1 extra rep, go for it!</li>
+
+            </ol>`,
         },
       ],
     };
@@ -198,6 +338,8 @@ export default {
         "localastore",
         window.localStorage.getItem("userCurrentSetlist")
       );
+      this.popupTitle = "Saved!";
+      this.popupCaption = "Your set list was saved!.";
     },
     initTableData() {
       this.rows = [];
@@ -211,6 +353,7 @@ export default {
           difficulty: alldata[index].mobility,
           cals: this.convertMetToCal(alldata[index].mets, 1),
           points: `HP:${alldata[index].points.hp} | CP:${alldata[index].points.cp} | XP:${alldata[index].points.xp} | SP:${alldata[index].points.sp}`,
+          tags: JSON.stringify(alldata[index].tags),
         });
       }
     },
