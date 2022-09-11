@@ -108,4 +108,10 @@ export default {
   position: absolute;
   bottom: 0;
 }
+.statsString {
+  position: absolute;
+  bottom: -2.5em;
+  // color: #ff9900;
+  font-size: 10px;
+}
 </style>

@@ -1545,7 +1545,8 @@ needed for sets to failure for a specific repetition number[1].`,
               <option value="1">Standing only</option>
               <option value="2">Standing & lying on the floor</option>
               <option value="3">On the floor only</option>
-              <option value="4">No mobility issues</option>
+              <option value="4">Weights or Bands</option>
+              <option value="10">No mobility issues</option>
             </select>
           </div> </label
         ><br />
@@ -1709,19 +1710,19 @@ export default {
     return {
       showModal: false,
       showCitationModal: false,
-
-      userAge: localStorage.getItem("userAge") || null,
+      userLevel: window.localStorage.getItem("userLevel") || 1,
+      userAge: window.localStorage.getItem("userAge") || null,
       userHeight:
-        localStorage.getItem("userHeightImp") != "null"
-          ? localStorage.getItem("userHeightImp")
-          : localStorage.getItem("userHeight") || 170,
-      userWeight: localStorage.getItem("userWeight") || 55,
-      userSkill: localStorage.getItem("userSkill") || 0,
+        window.localStorage.getItem("userHeightImp") != "null"
+          ? window.localStorage.getItem("userHeightImp")
+          : window.localStorage.getItem("userHeight") || 170,
+      userWeight: window.localStorage.getItem("userWeight") || 55,
+      userSkill: window.localStorage.getItem("userSkill") || 0,
       baseMobility: 4,
-      userKG: localStorage.getItem("userKG") || true,
-      userCM: localStorage.getItem("userKG") || true,
-      userHeightImp: localStorage.getItem("userHeightImp") || null,
-      userWeightImp: localStorage.getItem("userWeightImp") || null,
+      userKG: window.localStorage.getItem("userKG") || true,
+      userCM: window.localStorage.getItem("userKG") || true,
+      userHeightImp: window.localStorage.getItem("userHeightImp") || null,
+      userWeightImp: window.localStorage.getItem("userWeightImp") || null,
       // user setup values (prefs/settings)
       userPlanPrefs: [],
       userHealthPoints: [],
@@ -1729,9 +1730,14 @@ export default {
       userWholeFood: "",
       userBaseWork: "",
       userBaseExercise: [],
-      userNeck: localStorage.getItem("userNeck") || 0,
-      userWaist: localStorage.getItem("userWaist") || 0,
-      userHip: localStorage.getItem("userHip") || 0,
+      userNeck: window.localStorage.getItem("userNeck") || 0,
+      userWaist: window.localStorage.getItem("userWaist") || 0,
+      userHip: window.localStorage.getItem("userHip") || 0,
+      userBasePoints: {
+        xp: window.localStorage.getItem("user.points.xp"),
+        hp: window.localStorage.getItem("user.points.hp"),
+        cp: window.localStorage.getItem("user.points.cp"),
+      } || { xp: 0, hp: 0, cp: 0 },
     };
   },
   methods: {
@@ -1811,15 +1817,22 @@ export default {
         return (weight - (weight - weight * (femaleBFP * 0.01))).toFixed(2);
       }
     },
-    bmpToVibrate(bpm) {
+    bmpToVibrate(bpm, type = 0) {
       let vibPerSecond = 60 / bpm;
       let vibOn = vibPerSecond * 200;
       let vibOff = vibPerSecond * 800;
       let vibData = [];
+
+      if (type === 1) {
+        vibData = bpm;
+        window.navigator.vibrate(vibData);
+      }
+
       for (let i = 0; i < 22; i += 2) {
         vibData[i] = vibOn;
         vibData[i + 1] = vibOff;
       }
+
       // console.log("Vibration Data:", vibData);
       window.navigator.vibrate(vibData);
     },
@@ -1862,17 +1875,22 @@ export default {
       this.$emit("citation", id, name, caption, short, summary, why, theme);
     },
     saveUserData() {
-      localStorage.setItem("userHeight", this.userHeight); //save it
-      localStorage.setItem("userWeight", this.userWeight); //save it
-      localStorage.setItem("userAge", this.userAge); //save it
-      localStorage.setItem("userSkill", this.userSkill); //save it
-      localStorage.setItem("userHeightImp", this.userHeightImp); // save imperial (feet) measure
-      localStorage.setItem("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
-      localStorage.setItem("userKG", this.userKG);
-      localStorage.setItem("userCM", this.userCM);
-      localStorage.setItem("userNeck", this.userNeck);
-      localStorage.setItem("userWaist", this.userWaist);
-      localStorage.setItem("userHip", this.userHip);
+      window.localStorage.setItem("userHeight", this.userHeight); //save it
+      window.localStorage.setItem("userWeight", this.userWeight); //save it
+      window.localStorage.setItem("userAge", this.userAge); //save it
+      window.localStorage.setItem("userSkill", this.userSkill); //save it
+      window.localStorage.setItem("userHeightImp", this.userHeightImp); // save imperial (feet) measure
+      window.localStorage.setItem("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
+      window.localStorage.setItem("userKG", this.userKG);
+      window.localStorage.setItem("userCM", this.userCM);
+      window.localStorage.setItem("userNeck", this.userNeck);
+      window.localStorage.setItem("userWaist", this.userWaist);
+      window.localStorage.setItem("userHip", this.userHip);
+      window.localStorage.setItem("userLevel", this.userLevel);
+      //points
+      window.localStorage.setItem("user.points.xp", this.userBasePoints.xp);
+      window.localStorage.setItem("user.points.hp", this.userBasePoints.hp);
+      window.localStorage.setItem("user.points.cp", this.userBasePoints.cp);
     },
     flipGender(type = 0) {
       if (type === 0) {
@@ -1905,6 +1923,8 @@ export default {
       }
     },
     activityToMet(type = "sleep") {
+      //  https://onlinelibrary.wiley.com/doi/pdf/10.1002/clc.4960130809
+      // https://community.plu.edu/~chasega/met.html
       if (type === "sleep") return 0.9;
       if (type === "sit") return 1.3;
       if (type === "stand") return 1.8;
@@ -2036,6 +2056,7 @@ export default {
       if (type === 6) return (userWeight * 1).toFixed(2) + `${unitKG}`;
     },
     getBMI(type = 0) {
+      this.saveUserData();
       let useLB = this.userKG ? 1 : 0.453592;
       let userHeight = this.convertHeightToCM();
       let bmi = ((this.userWeight * useLB) / (userHeight * userHeight)) * 10000;

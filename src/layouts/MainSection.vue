@@ -5,7 +5,7 @@
       <div class="powerBar powerBarGlow"></div> -->
       <span
         class="pressStartArrow rpgClickCursor"
-        @click="this.$router.push('base')"
+        @click="this.$router.push({ name: 'measure' })"
         >{{ isNewUser ? "Start" : "Continue" }}
         <!-- {{
           window.localStorage.getItem("userHeight") ? "Continue" : "Start new"
@@ -45,6 +45,23 @@ export default {
     },
     citation(id, name, caption, short, show = true) {
       this.$emit("citation", id, name, caption, short, show);
+    },
+    saveUserData() {
+      localStorage.setItem("userHeight", this.userHeight); //save it
+      localStorage.setItem("userWeight", this.userWeight); //save it
+      localStorage.setItem("userAge", this.userAge); //save it
+      localStorage.setItem("userSkill", this.userSkill); //save it
+      localStorage.setItem("userHeightImp", this.userHeightImp); // save imperial (feet) measure
+      localStorage.setItem("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
+      localStorage.setItem("userKG", this.userKG);
+      localStorage.setItem("userCM", this.userCM);
+      localStorage.setItem("userNeck", this.userNeck);
+      localStorage.setItem("userWaist", this.userWaist);
+      localStorage.setItem("userHip", this.userHip);
+      //points
+      localStorage.setItem("user.points.xp", this.userBasePoints.xp);
+      localStorage.setItem("user.points.hp", this.userBasePoints.hp);
+      localStorage.setItem("user.points.cp", this.userBasePoints.cp);
     },
   },
   mounted() {

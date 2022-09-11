@@ -37,7 +37,7 @@
           <q-item-section
             clickable
             @click="
-              this.$router.push('/');
+              this.$router.push({ name: 'root' });
               this.toggleLeftDrawer();
             "
             avatar
@@ -48,7 +48,7 @@
           <q-item-section
             @click="
               // this.toggleModal();
-              this.$router.push('/');
+              this.$router.push({ name: 'root' });
               this.toggleLeftDrawer();
             "
           >
@@ -62,7 +62,7 @@
           <q-item-section
             clickable
             @click="
-              this.$router.push('base');
+              this.$router.push({ name: 'measure' });
               this.toggleLeftDrawer();
             "
             avatar
@@ -73,7 +73,7 @@
           <q-item-section
             @click="
               // this.toggleModal();
-              this.$router.push('base');
+              this.$router.push({ name: 'measure' });
               this.toggleLeftDrawer();
             "
           >
@@ -152,7 +152,7 @@
       </Modal>
     </div>
 
-    <q-page-container>
+    <q-page-container class="q-ma-sm">
       <router-view />
     </q-page-container>
 
@@ -162,13 +162,34 @@
           <div class="row justify-center">
             <button
               class="btn-info btn-primary travelModeButton text-h1"
-              @click="$router.push('base')"
+              @click="$router.push({ name: 'measure' })"
             >
-              <q-icon
-                name="ti-ruler-pencil baseButtonIcon"
-                class="text-h1"
+              <q-icon name="mdi-clipboard-pulse" class="text-h1 baseButtonIcon"
+                ><div class="statsString"></div
               ></q-icon>
             </button>
+
+            <!--  -->
+            <button
+              class="btn-info btn-primary travelModeButton text-h1"
+              @click="$router.push({ name: 'builder' })"
+            >
+              <q-icon name="mdi-hammer-wrench" class="text-h1"></q-icon>
+            </button>
+
+            <button
+              class="btn-info btn-primary travelModeButton text-h1"
+              @click="$router.push({ name: 'player' })"
+            >
+              <q-icon name="mdi-fire-circle" class="text-h1"></q-icon>
+            </button>
+            <button
+              class="btn-info btn-primary travelModeButton text-h1"
+              @click="$router.push({ name: 'planner' })"
+            >
+              <q-icon name="restaurant_menu" class="text-h1"></q-icon>
+            </button>
+            <!--  -->
             <HeartPulse />
           </div>
           <!-- <button
@@ -893,5 +914,38 @@ button:hover {
 }
 .baseButtonIcon:active {
   color: $warning;
+}
+ul {
+  list-style: none;
+}
+
+ul li:before {
+  content: "▶";
+  padding-right: 5px;
+  font-size: 1.5em;
+}
+li:before {
+}
+ul li:nth-child(1):before {
+  animation: blinker 2s steps(1, end) infinite;
+}
+ul li:nth-child(2):before {
+  animation: blinker 2s steps(1, end) 0.25s infinite;
+}
+ul li:nth-child(3):before {
+  animation: blinker 2s steps(1, end) 0.5s infinite;
+  // animation: name duration timing-function delay iteration-count direction fill-mode;
+}
+ul li:nth-child(4):before {
+  animation: blinker 2s steps(1, end) 0.75s infinite;
+  // animation: name duration timing-function delay iteration-count direction fill-mode;
+}
+ul li:nth-child(5):before {
+  animation: blinker 2s steps(1, end) 1s infinite;
+  // animation: name duration timing-function delay iteration-count direction fill-mode;
+}
+ul li:nth-child(6):before {
+  animation: blinker 2s steps(1, end) 1.25s infinite;
+  // animation: name duration timing-function delay iteration-count direction fill-mode;
 }
 </style>
