@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn-info btn-primary travelModeButton text-h1"
+    class="btn-info btn-primary travelModeButton text-h2"
     @click="tapTempo()"
   >
     <q-icon name="mdi-heart-pulse pulseIcon"

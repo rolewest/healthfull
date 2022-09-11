@@ -47,19 +47,17 @@
 
             <q-card-actions align="right">
               <div v-if="popupTitle != 'Saved!'">
-                <q-btn flat label="Cancel" color="negative" v-close-popup />
+                <q-btn label="Cancel" color="negative" v-close-popup />
                 <q-btn
-                  flat
                   label="Let's Save it!"
                   @click="saveSetList()"
-                  color="primary"
+                  color="info"
                   v-close-popup
                 />
               </div>
               <div v-else>
                 <!-- saved -->
                 <q-btn
-                  flat
                   label="Close"
                   color="negative"
                   v-close-popup
@@ -71,7 +69,6 @@
                   "
                 />
                 <q-btn
-                  flat
                   label="Let's Do it!"
                   @click="
                     this.$router.push({
@@ -146,7 +143,7 @@ export default {
           ? ""
           : `${selected.value.length} set${
               selected.value.length > 1 ? "s" : ""
-            } selected of ${rows.length}`;
+            } selected`;
       },
       workingSetlist: [],
       setList: [
@@ -160,7 +157,7 @@ export default {
           badge: { caption: null, color: "red", font: "blue" },
           points: { hp: 6, cp: 6, xp: 20, sp: 1 },
           tags: ["Cardio", "Low Impact", "Sitting Only", "All Ages", "Tone"],
-          baseReps: 5,
+          reps: 8,
           mobility: 2,
           mets: 2.1,
           // sitting
@@ -189,7 +186,7 @@ export default {
             "All Ages",
             "Ab Workout",
           ],
-          baseReps: 5,
+          reps: 8,
           mobility: 2,
           mets: 2,
           // sitting
@@ -229,17 +226,17 @@ export default {
             "Strength",
             "",
           ],
-          baseReps: 5,
+          reps: 2,
           mobility: 2,
           mets: 3.7,
           // sitting
           body: `<h5 class="text-center">How to do it:</h5><ol>
             <li>Sit at the front half of your chair</li>
             <li>Grab the side of the chair, near the back with both hands</li>
-            <li>Lean back to engage your core</li>
-            <li>From the knee lift one leg
+            <li>Lean back to engage your core while holding yourself up with your hands</li>
+            <li>From the knee lift one leg and then lower it more slowly
               <ul>
-                <li>for a real challenge use both legs</li>
+                <li>for a real challenge lift both legs at the same time</li>
               </ul>
             </li>
             <li>Repeat with the opposite side
@@ -271,7 +268,7 @@ export default {
             "Strength",
             "",
           ],
-          baseReps: 5,
+          reps: 5,
           mobility: 2,
           mets: 3,
           // sitting

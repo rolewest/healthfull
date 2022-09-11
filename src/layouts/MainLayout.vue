@@ -161,33 +161,33 @@
         <q-toolbar-title class="float-right">
           <div class="row justify-center">
             <button
-              class="btn-info btn-primary travelModeButton text-h1"
+              class="btn-info btn-primary travelModeButton text-h2"
               @click="$router.push({ name: 'measure' })"
             >
-              <q-icon name="mdi-clipboard-pulse" class="text-h1 baseButtonIcon"
+              <q-icon name="mdi-clipboard-pulse" class="text-h2 baseButtonIcon"
                 ><div class="statsString"></div
               ></q-icon>
             </button>
 
             <!--  -->
             <button
-              class="btn-info btn-primary travelModeButton text-h1"
+              class="btn-info btn-primary travelModeButton text-h2"
               @click="$router.push({ name: 'builder' })"
             >
-              <q-icon name="mdi-hammer-wrench" class="text-h1"></q-icon>
+              <q-icon name="mdi-hammer-wrench" class="text-h2"></q-icon>
             </button>
 
             <button
-              class="btn-info btn-primary travelModeButton text-h1"
+              class="btn-info btn-primary travelModeButton text-h2"
               @click="$router.push({ name: 'player' })"
             >
-              <q-icon name="mdi-fire-circle" class="text-h1"></q-icon>
+              <q-icon name="mdi-fire-circle" class="text-h2"></q-icon>
             </button>
             <button
-              class="btn-info btn-primary travelModeButton text-h1"
+              class="btn-info btn-primary travelModeButton text-h2"
               @click="$router.push({ name: 'planner' })"
             >
-              <q-icon name="restaurant_menu" class="text-h1"></q-icon>
+              <q-icon name="restaurant_menu" class="text-h2"></q-icon>
             </button>
             <!--  -->
             <HeartPulse />

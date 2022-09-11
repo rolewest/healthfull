@@ -203,7 +203,7 @@
           >
         </div>
       </div>
-
+      <!-- end of congrats screen -->
       <!-- Initialization step / Welcome! STEP 0 -->
       <div v-if="this.currentStep == 0">
         <div class="step">
@@ -244,43 +244,85 @@
           :id="`rstep_${xstep.step}`"
         >
           <div>
-            <div class="row justify-center">
-              <q-chip class="video-icon"
+            <div class="row justify-center video-icon">
+              <!-- start of floating points upper left -->
+
+              <q-chip class=""
                 ><q-avatar
-                  :icon="xstep.icon?.name || 'fas fa-shield-heart'"
-                  :color="xstep.icon?.color || 'info'"
-                  :text-color="xstep.icon?.font || 'white'"
-                  size="40px"
+                  :icon="'fas fa-shield-heart'"
+                  :color="'info'"
+                  :text-color="'white'"
+                  size="20px"
                 >
-                  <q-badge
+                  <!-- <q-badge
                     floating
                     :color="xstep?.badge?.color"
                     :text-color="xstep?.badge?.font"
                     v-if="xstep.badge && xstep?.badge?.caption"
                     >{{ xstep.badge.caption }}</q-badge
-                  >
+                  > -->
                 </q-avatar>
-                <div v-if="xstep.points.xp">
-                  {{ `${xstep.points.xp} XP` }}
-                </div>
-                <div v-else-if="xstep.points.cp">
-                  {{
-                    xstep.points.cp
-                      ? `${xstep.points.cp} CP`
-                      : `${xstep.points.hp} HP`
-                  }}
-                </div>
-                <div v-else>
-                  {{ `${xstep.points.sp} SP` }}
-                </div></q-chip
-              >
+
+                {{ xstep.points.cp }}
+              </q-chip>
+              <q-chip class=""
+                ><q-avatar
+                  icon="fas fa-heart-pulse"
+                  color="negative"
+                  text-color="white"
+                  size="20px"
+                >
+                </q-avatar>
+
+                {{ xstep.points.hp }}
+              </q-chip>
+              <q-chip class=""
+                ><q-avatar
+                  icon="mdi-star-shooting"
+                  color="warning"
+                  text-color="white"
+                  size="20px"
+                >
+                </q-avatar>
+
+                {{ xstep.points.xp }}
+              </q-chip>
+              <q-chip class=""
+                ><q-avatar
+                  icon="mdi-dumbbell"
+                  color="accent"
+                  text-color="white"
+                  size="20px"
+                >
+                </q-avatar>
+
+                {{ xstep.points.hp }}
+              </q-chip>
+
+              <!-- end points -->
             </div>
 
-            <div class="title-h4">
+            <div class="title-h4 q-mt-lg">
               {{ xstep.title }}
             </div>
             <div class="text-center">{{ xstep.caption }}</div>
           </div>
+
+          <div class="row justify-center q-ma-md">
+            <q-chip class=""
+              >{{ xstep.reps }}x &nbsp;
+              <q-avatar
+                icon="mdi-rotate-360"
+                color="dark"
+                text-color="white"
+                size="40px"
+              >
+              </q-avatar>
+
+              reps
+            </q-chip>
+          </div>
+
           <p v-html="xstep.body"></p>
           <!-- navigation -->
           <div class="text-center">
@@ -674,7 +716,7 @@ template {
   position: absolute;
   left: 3px;
   opacity: 0.95;
-  top: -15px;
+  top: -10px;
 }
 .quote-holder {
   padding: 1em;
