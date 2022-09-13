@@ -5,7 +5,7 @@
       <div class="powerBar powerBarGlow"></div> -->
       <span
         class="pressStartArrow rpgClickCursor"
-        @click="this.$router.push({ name: 'measure' })"
+        @click="this.$router.push({ name: 'home' })"
         >{{ isNewUser ? "Start" : "Continue" }}
         <!-- {{
           window.localStorage.getItem("userHeight") ? "Continue" : "Start new"

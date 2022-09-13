@@ -447,7 +447,7 @@
               </td>
             </tr>
 
-            <tr v-if="userNeck && userWaist">
+            <tr v-if="userNeck > 0 && userWaist > 0">
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> BF% -
                 Measured
@@ -480,7 +480,7 @@
                 ></span>
               </td>
             </tr>
-            <tr :class="{ unHighlight: userNeck && userWaist }">
+            <tr :class="{ unHighlight: userNeck > 0 && userWaist > 0 }">
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> BF% -
                 Body Fat Percent - BMI Based
@@ -513,7 +513,7 @@
                 ></span>
               </td>
             </tr>
-            <tr v-if="userNeck && userWaist && userHip">
+            <tr v-if="userNeck > 0 && userWaist > 0 && userHip > 0">
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> BFM -
                 Measured
@@ -526,7 +526,7 @@
               </td>
               <td class="text-center"></td>
             </tr>
-            <tr :class="{ unHighlight: userNeck && userWaist }">
+            <tr :class="{ unHighlight: userNeck > 0 && userWaist > 0 }">
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> BFM -
                 Body Fat Mass - BMI Based
@@ -555,7 +555,7 @@
                 ></span>
               </td>
             </tr>
-            <tr v-if="userNeck && userWaist && userHip">
+            <tr v-if="userNeck > 0 && userWaist > 0 && userHip > 0">
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> LBM -
                 Measured
@@ -573,7 +573,7 @@
               <td class="text-center"></td>
             </tr>
 
-            <tr :class="{ unHighlight: userNeck && userWaist }">
+            <tr :class="{ unHighlight: userNeck > 0 && userWaist > 0 }">
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> LBM -
                 Lean Body Mass - BMI Based

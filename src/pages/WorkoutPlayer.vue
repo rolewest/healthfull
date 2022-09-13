@@ -6,7 +6,7 @@
     <iframe width="560" height="315" src="http://www.youtube.com/embed/azv8eJgoGLk?autoplay=1&loop=0&playlist=azv8eJgoGLk&start=956&end=1020&rel=0" frameborder="0" allowfullscreen></iframe>
     <iframe width="560" height="315" src="http://www.youtube.com/embed/Z1IvxI8YcUM?autoplay=1&loop=0&playlist=Z1IvxI8YcUM&start=205&end=236&rel=0&mute=1" frameborder="0" allowfullscreen></iframe>
     <iframe width="560" height="315" src="http://www.youtube.com/embed/PdnZTxKIe9g?autoplay=1&loop=0&playlist=PdnZTxKIe9g&start=205&end=236&rel=0&mute=1" frameborder="0" allowfullscreen></iframe> -->
-  <q-dialog v-model="alert">
+  <q-dialog v-model="alert" persistent>
     <q-card>
       <q-card-section>
         <div class="text-h6">
@@ -69,16 +69,6 @@
             </q-avatar
             >+{{ pointsEarned("cp") }} CP
           </q-chip>
-          <q-chip ref="chip4xp" class="q-ma-md whiteToYellow"
-            ><q-avatar
-              icon="mdi-star-shooting"
-              color="warning"
-              text-color="white"
-              size="40px"
-            >
-            </q-avatar
-            >+{{ pointsEarned("xp") }} XP
-          </q-chip>
           <q-chip ref="chip4sp" class="q-ma-md whiteToYellow"
             ><q-avatar
               icon="mdi-dumbbell"
@@ -88,6 +78,16 @@
             >
             </q-avatar
             >+{{ pointsEarned("sp") }} SP
+          </q-chip>
+          <q-chip ref="chip4xp" class="q-ma-md whiteToYellow"
+            ><q-avatar
+              icon="mdi-star-shooting"
+              color="warning"
+              text-color="white"
+              size="40px"
+            >
+            </q-avatar
+            >+{{ pointsEarned("xp") }} XP
           </q-chip>
         </div>
         <div class="row justify-center">
@@ -113,21 +113,21 @@
             </li>
             <li>
               You earned
-              <span color="warning" class="" text-color="white" size="2em"
-                ><span class="text-sm text-white border-radius-sm bg-warning">{{
-                  pointsEarned("xp")
-                }}</span>
-              </span>
-              XP (eXercise Points)
-            </li>
-            <li>
-              You earned
               <span color="accent" class="" text-color="white" size="2em"
                 ><span class="text-sm text-white border-radius-sm bg-accent">{{
                   pointsEarned("sp")
                 }}</span>
               </span>
               SP (Strength Points)
+            </li>
+            <li>
+              You earned
+              <span color="warning" class="" text-color="white" size="2em"
+                ><span class="text-sm text-white border-radius-sm bg-warning">{{
+                  pointsEarned("xp")
+                }}</span>
+              </span>
+              XP (eXercise Points)
             </li>
           </ul>
           <!-- your stats -->
@@ -162,18 +162,6 @@
           <div class="border-double-2 text-center q-pa-md">
             <q-chip class="q-ma-xs"
               ><q-avatar
-                icon="mdi-star-shooting"
-                color="warning"
-                text-color="white"
-                size="40px"
-              >
-              </q-avatar>
-              {{ userBasePoints.xp }} XP
-            </q-chip>
-          </div>
-          <div class="border-double-2 text-center q-pa-md">
-            <q-chip class="q-ma-xs"
-              ><q-avatar
                 icon="mdi-dumbbell"
                 color="accent"
                 text-color="white"
@@ -181,6 +169,18 @@
               >
               </q-avatar>
               {{ userBasePoints.sp }} SP
+            </q-chip>
+          </div>
+          <div class="border-double-2 text-center q-pa-md">
+            <q-chip class="q-ma-xs"
+              ><q-avatar
+                icon="mdi-star-shooting"
+                color="warning"
+                text-color="white"
+                size="40px"
+              >
+              </q-avatar>
+              {{ userBasePoints.xp }} XP
             </q-chip>
           </div>
         </fieldset>
@@ -217,9 +217,9 @@
                 text-color="accent"
                 >start!</q-btn
               >
-              <q-btn color="info" class="info" @click="showCompleted">
+              <!-- <q-btn color="info" class="info" @click="showCompleted">
                 finished!
-              </q-btn>
+              </q-btn> -->
             </div>
 
             <div class="quote-holder">
@@ -238,7 +238,8 @@
       </div>
       <!-- <q-stepper v-model="step" vertical color="primary" animated> -->
       <!-- exercise steps -->
-      <div v-for="xstep in stepsList.slice().reverse()" :key="xstep.step">
+      <!-- .slice().reverse() was removed because we no longer use quasars step progression -->
+      <div v-for="xstep in stepsList" :key="xstep.step">
         <div
           :class="{
             'border-double-1 step': true,
@@ -266,7 +267,7 @@
                   > -->
                 </q-avatar>
 
-                {{ xstep.points.cp }}
+                {{ xstep.points.hp }}
               </q-chip>
               <q-chip class=""
                 ><q-avatar
@@ -277,7 +278,7 @@
                 >
                 </q-avatar>
 
-                {{ xstep.points.hp }}
+                {{ xstep.points.cp }}
               </q-chip>
               <q-chip class=""
                 ><q-avatar
@@ -288,7 +289,7 @@
                 >
                 </q-avatar>
 
-                {{ xstep.points.xp }}fgdfg
+                {{ xstep.points.xp }}
               </q-chip>
               <q-chip class=""
                 ><q-avatar
@@ -310,7 +311,7 @@
             </div>
             <div class="text-center">{{ xstep.caption }}</div>
           </div>
-
+          <!-- Click to add number of reps -->
           <div class="row justify-center q-ma-md">
             <q-chip class=""
               >{{ xstep.reps }}x &nbsp;
@@ -389,7 +390,7 @@
             <q-btn
               color="negative"
               class="negative"
-              v-if="this.currentStep < this.stepsList.length"
+              v-if="this.currentStep <= this.stepsList.length"
               @click="this.currentStep++"
               size="xs"
             >
@@ -654,7 +655,10 @@ export default {
   },
   mounted() {
     console.log("!!!:", window.localStorage.getItem("userCurrentSetlist"));
-    if (window.localStorage.getItem("userCurrentSetlist") == "[]") {
+    if (
+      window.localStorage.getItem("userCurrentSetlist") == "[]" ||
+      window.localStorage.getItem("userCurrentSetlist") == null
+    ) {
       this.alert = true;
     }
     //

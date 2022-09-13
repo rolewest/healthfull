@@ -42,7 +42,9 @@
             "
             avatar
           >
-            <q-icon name="ti-game" />
+            <q-icon
+              name="ti-game"
+            /><!-- should also have ability to add another character here -->
           </q-item-section>
 
           <q-item-section
@@ -53,11 +55,40 @@
             "
           >
             <q-item-label>Title Screen</q-item-label>
-            <!-- should also have ability to add another character here -->
+
             <q-item-label caption>Start a new game</q-item-label>
           </q-item-section>
         </q-item>
         <!--  -->
+        <!--  -->
+        <q-item class="menu-option">
+          <q-item-section
+            clickable
+            @click="
+              this.$router.push({ name: 'home' });
+              this.toggleLeftDrawer();
+            "
+            avatar
+          >
+            <q-icon
+              name="mdi-home-heart"
+            /><!-- should also have ability to add another character here -->
+          </q-item-section>
+
+          <q-item-section
+            @click="
+              // this.toggleModal();
+              this.$router.push({ name: 'home' });
+              this.toggleLeftDrawer();
+            "
+          >
+            <q-item-label>Home Base</q-item-label>
+
+            <q-item-label caption>{{ randomCaption("home") }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <!--  -->
+
         <q-item class="menu-option">
           <q-item-section
             clickable
@@ -85,7 +116,36 @@
             }}</q-item-label>
           </q-item-section>
         </q-item>
+        <!--  -->
+        <q-item class="menu-option">
+          <q-item-section
+            clickable
+            @click="
+              this.$router.push({ name: 'planner' });
+              this.toggleLeftDrawer();
+            "
+            avatar
+          >
+            <q-icon
+              name="mdi-bag-personal"
+            /><!-- should also have ability to add another character here -->
+          </q-item-section>
 
+          <q-item-section
+            @click="
+              // this.toggleModal();
+              this.$router.push({ name: 'planner' });
+              this.toggleLeftDrawer();
+            "
+          >
+            <q-item-label>Inventory</q-item-label>
+
+            <q-item-label caption>{{
+              randomCaption("inventory")
+            }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <!--  -->
         <!--  -->
         <EssentialLink
           v-for="link in essentialLinks"
@@ -151,8 +211,8 @@
         </template>
       </Modal>
     </div>
-
-    <q-page-container class="q-ma-sm">
+    <!-- q-ma-sm and remove margin from HomeBase -->
+    <q-page-container class="">
       <router-view />
     </q-page-container>
 
@@ -226,7 +286,7 @@ import BaseMeasure from "../components/BaseMeasure.vue";
 import HeartPulse from "src/components/HeartPulse.vue";
 // import LogoSVGSmall from "src/components/LogoSVGSmall.vue";
 
-const linksList = [
+let linksList = [
   {
     title: "Size Me Up!",
     caption: "Let's get started!",
@@ -355,7 +415,7 @@ const linksList = [
     outside: 1,
   },
 ];
-
+linksList = [];
 export default defineComponent({
   name: "MainLayout",
 
@@ -391,6 +451,20 @@ export default defineComponent({
     };
   },
   methods: {
+    random(min = 0, max = 1) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    },
+    randomCaption(route = "home") {
+      const home = [
+        "Where the magic happens",
+        "Challenges & Quests",
+        "See your stats",
+      ];
+      const inventory = ["Nothing here yet..."];
+      let index = this.random(0, eval(route).length - 1);
+
+      return eval(route)[index];
+    },
     citation(id, name, caption, short, summary, why, theme, show = true) {
       // this.showModal = false;
       // window.scroll({
@@ -779,6 +853,24 @@ select:hover,
     90deg,
     #dcfaff,
     #f9f06b,
+    #dcfaff,
+    #ffffff,
+    #f9f06b
+  );
+  background-size: 500% 100%;
+}
+.rainbowToRainbow {
+  animation: animateBgReward 3s linear infinite;
+  background-image: linear-gradient(
+    90deg,
+    #dcfaff,
+    #f9f06b,
+    $warning $primary,
+    $info,
+    $secondary,
+    $accent,
+    $negative,
+    $positive,
     #dcfaff,
     #ffffff,
     #f9f06b

@@ -11,7 +11,11 @@
       </div>
     </type-writer>
     <!--  Welcome to your home base, like all your data, it only belongs to you, not us. -->
-    <h1>😳</h1>
+
+    <!-- Like measurements, we take in info here too, and give you things like: daily suggested sugar, salt, fruit, protein, carbs etc. intake,
+    -->
+    <div class="emoji-transition"></div>
+    <h1 class="">😳</h1>
   </div>
 </template>
 
@@ -47,6 +51,11 @@ type-writer .text {
 }
 
 @keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+@keyframes emoji {
   50% {
     border-color: transparent;
   }

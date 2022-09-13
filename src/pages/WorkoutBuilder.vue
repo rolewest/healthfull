@@ -21,7 +21,29 @@
               :selected-rows-label="getSelectedString"
               selection="multiple"
               v-model:selected="selected"
-            />
+              :pagination="initialPagination"
+            >
+              <template v-slot:body="props">
+                <q-tr :props="props">
+                  <q-td key="name" :props="props">
+                    {{ props.row.name }}
+                  </q-td>
+                  <q-td key="cals" :props="props">
+                    <q-badge color="green" v-if="props.row.cals > 2">
+                      {{ props.row.cals }}
+                    </q-badge>
+                    <q-badge color="red" v-else>
+                      {{ props.row.cals }}
+                    </q-badge>
+                  </q-td>
+                  <q-td key="mobility" :props="props">
+                    <q-badge color="purple">
+                      {{ props.row.mobility }}
+                    </q-badge>
+                  </q-td>
+                </q-tr>
+              </template>
+            </q-table>
           </div>
         </div>
         <div class="row justify-center">
@@ -132,6 +154,13 @@ export default {
   data() {
     const selected = ref([]);
     return {
+      initialPagination: {
+        sortBy: "desc",
+        descending: false,
+        page: 0,
+        rowsPerPage: 25,
+        // rowsNumber: xx if getting data from a server
+      },
       showSaveDialog: false,
       popupCaption:
         "Are you sure? This will overwrite any saved setlists, currently.",
@@ -434,7 +463,7 @@ export default {
           difficulty: alldata[index].mobility,
           cals: this.convertMetToCal(alldata[index].mets, 1),
           points: `HP:${alldata[index].points.hp} | CP:${alldata[index].points.cp} | XP:${alldata[index].points.xp} | SP:${alldata[index].points.sp}`,
-          tags: JSON.stringify(alldata[index].tags),
+          tags: eval(JSON.stringify(alldata[index].tags)).join(", "),
         });
       }
     },
