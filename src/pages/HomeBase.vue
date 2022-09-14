@@ -345,6 +345,13 @@
       </div>
     </fieldset>
     <!-- end of daily challenge -->
+
+    <!-- need section here for users stats (fat lost, muscle gained, etc.) charts etc. -->
+    <!-- Suggested workout plan summary in details element could go here too -->
+    <!-- your plan here, e.g. You only have 10 minutes alloted to Maximize your health
+(are you Max Health?) you are focusing on Hypertrphy, currently, and your suggested 1RM and HRmax is...
+ -->
+
     <!-- MY CHALLENGES ;| -->
     <!-- {{ userChallenges.daily.accepted }}|{{ userChallenges.daily.rolled }}|{{
       userChallenges.daily.accepted

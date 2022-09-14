@@ -1099,7 +1099,7 @@ needed for sets to failure for a specific repetition number[1].`,
             <tr :class="{ 'border-selection': userSkill <= -7 }">
               <th scope="row">
                 <span class="mdi mdi-check-outline text-success"></span> 1RM 40%
-                maxreps
+                @40reps
               </th>
               <td class="maleChart">~{{ show1RM(140) }}</td>
               <td class="femaleChart">~{{ show1RM(240) }}</td>
@@ -1111,9 +1111,71 @@ needed for sets to failure for a specific repetition number[1].`,
             These stats show an estimated <i>Reps Max 1 (1RM)</i> of
             {{ show1RM(2) }} for a male, and {{ show1RM(3) }} for a female.
           </p>
+          <p>It also shows...</p>
+
           <p>
-            Your body composition, from your info, looks like... choose what you
-            want to do next:
+            ...[]Your body composition, from your info, looks like... choose
+            what you want to do next:
+          </p>
+          <p>
+            You noted that you only have 5 minutes a day to exercise, your
+            standard mobility level, for strength we have designed a program
+            with rest-pause sets, and jump rope for cardio
+          </p>
+          <p>
+            You noted that you only have 5 minutes a day to exercise, your lower
+            mobility level, for strength we have designed a program with
+            progressively decreasing rest breaks (1min-20s), and seated jump
+            rope for cardio
+          </p>
+          <p>
+            You noted that you only have 5 minutes a day to exercise, your very
+            lower mobility level, for strength we have designed a program with
+            progressively decreasing rest breaks (1min-20s), and seated jump
+            rope for cardio
+          </p>
+
+          <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8449772/#Sec4title -->
+          <p>
+            Because of your standard mobility level your suggested resistance
+            training for hypertrophy is 8-12 reps at 70-80% 1RM, 2-3 minutes
+            rest to start, then rest-pause reps at 80+%, 3-6 (up to 10) sets 3-5
+            days per week, utilize relatively fast (1–2 s: 1–2 s) repetition
+            velocities,
+          </p>
+          <p>
+            Because of your lower mobility level your suggested resistance
+            training for hypertrophy: 10-40 reps at 40-50% 1RM, 1-2 min rest,
+            and 2-4 sets 1-3 days per week,utilize relatively slow (2 s
+            concentric: 4 s eccentric) to start and we can increase this if you
+            feel ready later...
+          </p>
+          <p>
+            Warming up with minimal light movement of the same exercises we'll
+            perform, just make sure nothing is tight or sore feeling before you
+            start. Stretching isn't needed
+            [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8449772/#Sec19title]
+          </p>
+          <p>
+            we've build a suggested, very low impact, exercise setlist for you
+            consisting of: half-chair-stands, seated puppeteer-rows, and
+            wall-presses or table presses to avoid standing,
+          </p>
+          <p>
+            Once your desired goal is met, you can scale back to [e.g.70%
+            (-30%)] of your current sets, as maintenance is easier than getting
+            to that new baseline. Add more resistance to get there sooner
+          </p>
+          <p>
+            Missed a day? That's okay, you can just make up for it. Studies show
+            that strength, hypertrophy (muscle), and even metabolic functions
+            because weekly volume seems to win out over frequency
+          </p>
+          <p>
+            You'll need to lift [(Xreps * XRM) * Xsets * X days =
+            suggested_volume] KG/LB every week (don't do it all at once!) to
+            continue to reap the benefits (you'll receive them in your
+            <em>body</em> 2-3 weeks after completing the exercise)
           </p>
         </div>
       </div>
@@ -2277,7 +2339,15 @@ hr {
 }
 .pulseVibrate {
   font-size: 2em;
+  animation: pulse-animate 2s linear infinite;
+  border-radius: 100%;
 }
+.pulseBPMTap {
+  // font-size: 2em;
+  animation: pulse-animate 2s linear infinite;
+  // border-radius: 100%;
+}
+
 .pulseVibrate:hover {
   color: $info;
 }
@@ -2314,5 +2384,25 @@ hr {
 }
 .width-100 {
   width: 100%;
+}
+@keyframes pulse-animate {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1);
+  }
+
+  70% {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+  90% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 }
 </style>

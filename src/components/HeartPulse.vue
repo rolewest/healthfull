@@ -1,16 +1,18 @@
 <template>
-  <button
-    class="btn-info btn-primary travelModeButton text-h2"
-    @click="tapTempo()"
-  >
-    <q-icon name="mdi-heart-pulse pulseIcon"
-      ><span class="pulseCountString" v-if="userLastBPM > 0">
-        {{ userLastBPM.toFixed(0) }}
-      </span>
-      <br />
-      <span class="bpmString">bpm</span>
-    </q-icon>
-  </button>
+  <div ref="bpmIcon">
+    <button
+      class="btn-info btn-primary travelModeButton text-h2"
+      @click="tapTempo()"
+    >
+      <q-icon name="mdi-heart-pulse pulseIcon"
+        ><span class="pulseCountString" v-if="userLastBPM > 0">
+          {{ userLastBPM.toFixed(0) }}
+        </span>
+        <br />
+        <span class="bpmString">bpm</span>
+      </q-icon>
+    </button>
+  </div>
 </template>
 
 <script>
@@ -55,7 +57,8 @@ export default {
       let tapCount = this.userLastBPMData["tapCount"];
       // console.log("lastBPM:", this.userLastBPM, "data:", this.userLastBPMData);
       this.userLastBPMData["tapCount"]++;
-
+      console.log("whatthe", this.$refs.bpmIcon.classList);
+      this.$refs.bpmIcon.classList.add("pulseBPMTap");
       if (startTime === 0) {
         this.userLastBPMData["startTime"] = Date.now();
       }
@@ -67,9 +70,13 @@ export default {
           // window.navigator.vibrate(300);
           // console.log("whyzero", this.userLastBPM);
         }
+
         this.userLastBPMData["tapCount"] = 0;
         this.userLastBPMData["startTime"] = Date.now();
       }
+      setTimeout(() => {
+        this.$refs.bpmIcon.classList.remove("pulseBPMTap");
+      }, 1000);
     },
   },
   mounted() {

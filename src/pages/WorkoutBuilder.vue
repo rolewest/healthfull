@@ -188,6 +188,8 @@ export default {
           points: { hp: 6, cp: 6, xp: 20, sp: 1 },
           tags: ["Cardio", "Low Impact", "Sitting Only", "All Ages", "Tone"],
           reps: 8,
+          sets: 3,
+          rest: 60,
           mobility: 2,
           mets: 2.1,
           // sitting
