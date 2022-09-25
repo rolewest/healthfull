@@ -10,8 +10,19 @@
         </div>
       </div>
     </type-writer>
-    <!--  Welcome to your home base, like all your data, it only belongs to you, not us. -->
-
+    Select what you want:
+    <ul>
+      <li>Maintain weight</li>
+      <li>Loose fat/weight</li>
+      <li>Gain muscle</li>
+      <li>Increase health</li>
+    </ul>
+    <p>
+      To loose weight below are the foods you are recommended to only eat, if
+      it's not on the list: don't eat or drink it:
+    </p>
+    <p>Food: Whole vegetables & fruit (frozen or fresh),</p>
+    <p>Drink: Water, Green Tea, Hibiscus Tea, Black Tea, Black Coffee</p>
     <!-- Like measurements, we take in info here too, and give you things like: daily suggested sugar, salt, fruit, protein, carbs etc. intake,
     -->
     <div class="emoji-transition"></div>

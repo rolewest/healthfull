@@ -518,7 +518,7 @@ export default defineComponent({
 });
 </script>
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Saira+Stencil+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Saira+Stencil+One&display=swap&family=Ms+Madi");
 * {
   font-family: "Press Start 2P", cursive;
   font-size: 10px;
@@ -1029,12 +1029,24 @@ ul {
   list-style: none;
 }
 
+ul ol li:before {
+  content: "";
+  padding-right: 5px;
+  font-size: 1.5em;
+}
+.normal-ul li:before {
+  content: "i";
+  padding-right: 5px;
+  font-size: 1.5em;
+  animation: none;
+}
+
 ul li:before {
   content: "▶";
   padding-right: 5px;
   font-size: 1.5em;
 }
-li:before {
+ul li:before {
 }
 ul li:nth-child(1):before {
   animation: blinker 2s steps(1, end) infinite;
@@ -1057,5 +1069,15 @@ ul li:nth-child(5):before {
 ul li:nth-child(6):before {
   animation: blinker 2s steps(1, end) 1.25s infinite;
   // animation: name duration timing-function delay iteration-count direction fill-mode;
+}
+.normal-ul li:before {
+  content: "•";
+  list-style-type: circle;
+  padding-right: 5px;
+  font-size: 1.5em;
+  animation: none !important;
+}
+.noblink-ul li:before {
+  animation: none !important;
 }
 </style>

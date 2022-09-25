@@ -1,7 +1,7 @@
 <template>
   <div class="q-ma-sm">
     <div id="buildTitle" ref="buildTitle" class="title-h4 typeOut">
-      Build A Training Regime
+      Build A Training Regimen
     </div>
 
     <div class="questItem">
@@ -262,7 +262,7 @@ export default {
           ],
           reps: 7,
           mobility: 2,
-          mets: 7,
+          mets: 2,
           // sitting
           body: `<h5 class="text-center">How to do it:</h5><ol>
             <li>Sit at the front half of your chair</li>
@@ -306,7 +306,7 @@ export default {
           ],
           reps: 5,
           mobility: 2,
-          mets: 3,
+          mets: 7,
           // sitting
           body: `<h5 class="text-center">How to do it:</h5><ol>
             <li>Sit on the front half of your chair</li>
@@ -402,6 +402,120 @@ export default {
 
             </ol>`,
         },
+        {
+          id: 7,
+          video: { id: "PdnZTxKIe9g", start: 9, end: 30, mute: 1 },
+          title: "Lying Bridge",
+          caption: "Low Impact Resistance",
+          icon: { name: null, color: "accent", font: "" },
+
+          badge: { caption: null, color: "red", font: "blue" },
+          points: { hp: 4, cp: 4, xp: 20, sp: 2 },
+          tags: [
+            "Resistance",
+            "Ultra Low Impact",
+            "Lying Down Only",
+            "All Ages",
+            "In Bed",
+            "On Floor",
+          ],
+          reps: 25,
+          mobility: 0.9,
+          mets: 3.2,
+          // sitting
+          body: `<h5 class="text-center">How to do it:</h5><ol>
+            <li>Lie in bed (or on the floor) facing the ceiling</li>
+            <li>Put your hands below your buttocks</li>
+            <li>Bend your knees so legs are at 45 degree angle (about 2 foot lengths from buttocks)</li>
+            <li>Lift up your buttocks off the floor until your knees and shoulders create a straight line</li>
+            <li>Hold for a quick pause (1-2 seconds) and bring your buttocks back to almost touching the floor
+              <ul>
+                <li>This counts as one rep.</li>
+              </ul>
+            </li>
+
+            <li>Go at your own pace</li>
+            <li>If you feel you can do ${Math.floor(
+              Math.random() * (4 - 1 + 1) + 1
+            )} extra reps, go for it!</li>
+
+            </ol>`,
+        },
+        {
+          id: 8,
+          video: { id: "zsly6y-wr7k", start: 560, end: 588, mute: 1 },
+          title: "Lying Squeeze",
+          caption: "Low Impact Resistance",
+          icon: { name: null, color: "accent", font: "" },
+
+          badge: { caption: null, color: "red", font: "blue" },
+          points: { hp: 4, cp: 4, xp: 22, sp: 3 },
+          tags: [
+            "Resistance",
+            "Ultra Low Impact",
+            "Lying Down Only",
+            "All Ages",
+            "In Bed",
+            "On Floor",
+          ],
+          reps: 20,
+          mobility: 0.5,
+          mets: 3.1,
+          // sitting
+          body: `<h5 class="text-center">How to do it:</h5><ol>
+            <li>Lie in bed (or on the floor) facing the ceiling</li>
+            <li>Put your hands below your buttocks</li>
+
+            <li>Lift legs slightly off the floor, trying to keep legs straight</li>
+            <li>Hold for 1 second
+              <ul>
+                <li>This counts as one rep.</li>
+              </ul>
+            </li>
+
+            <li>Go at your own pace</li>
+            <li>If you feel you can do ${Math.floor(
+              Math.random() * (4 - 1 + 1) + 1
+            )} extra reps, go for it!</li>
+
+            </ol>`,
+        },
+        {
+          //https://ars.els-cdn.com/content/image/1-s2.0-S2589004222011415-mmc1.pdf
+          id: 9,
+          video: { id: "yaK6TThRMdE", start: 36, end: 48, mute: 1 },
+          title: "Soleus Push-up",
+          caption: "Ultra Low Impact Cardio",
+          icon: { name: null, color: "accent", font: "" },
+
+          badge: { caption: null, color: "red", font: "blue" },
+          points: { hp: 20, cp: 8, xp: 21, sp: 2 },
+          tags: ["Cardio", "Low Impact", "Sitting Only", "All Ages"],
+          reps: 100,
+          mobility: 2,
+          mets: 2,
+          // sitting
+          body: `<h5 class="text-center">How to do it:</h5><ol>
+            <li>Sit comfortably of the chair</li>
+            <li>Keep your back as straight as you can</li>
+            <li>Keep your legs at 75-85 degrees, with your feet just behind your knees</li>
+            <li>Put weight on your toes (push into and slightly forward the floor) as you raise your knees and heels off the floor</li>
+            <li>Keep your toes planted on the floor</li>
+            <li>Once you reach the top relax to let gravity bring your heel back towards the floor
+              <ul>
+                <li>This counts a 1 repitition and should take about 1 second to complete</li>
+              </ul>
+            </li>
+            <li>If done correctly you could do this exercise for hours without fatigue</li>
+
+
+            <li>Go at your own pace</li>
+            <li>If you feel you can do ${Math.floor(
+              Math.random() * (4 - 1 + 1) + 1
+            )} extra reps, go for it!</li>
+
+            </ol>`,
+        },
       ],
     };
   },
@@ -461,7 +575,10 @@ export default {
         this.rows.push({
           name: alldata[index].title,
           alldata: alldata[index],
-          mobility: this.mobilityConverter(0, alldata[index].mobility),
+          mobility: this.mobilityConverter(
+            0,
+            Math.floor(alldata[index].mobility)
+          ),
           difficulty: alldata[index].mobility,
           cals: this.convertMetToCal(alldata[index].mets, 1),
           points: `HP:${alldata[index].points.hp} | CP:${alldata[index].points.cp} | XP:${alldata[index].points.xp} | SP:${alldata[index].points.sp}`,
@@ -549,5 +666,12 @@ export default {
   font-weight: 400;
 
   /* border-right:2px solid rgba(255,165,0,.75); */
+}
+.q-dialog__inner .q-card,
+.q-btn {
+  // background: #45df32;
+  border-radius: 0%;
+  box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
+    -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;
 }
 </style>

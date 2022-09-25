@@ -1,4 +1,5 @@
 <template>
+  <!--  Welcome to your home base, like all your data, it only belongs to you, not us. -->
   <div class="q-pa-lg questItem">
     <div class="text-center text-h3">
       Home B<q-icon
@@ -302,7 +303,8 @@
             this.userChallenges.daily.accepted = null;
           "
         >
-          Come back tomorrow to play again...{{ userChallenges.daily }}
+          Come back tomorrow to play again...
+          <!-- {{ userChallenges.daily }} -->
         </p>
       </div>
       <div
@@ -913,13 +915,14 @@ export default {
 }
 body {
   // background: #e8dcb8 !important;
-  background-image: linear-gradient(135deg, $primary 25%, transparent 25%),
-    linear-gradient(225deg, $primary 25%, transparent 25%),
-    linear-gradient(45deg, $primary 25%, transparent 25%),
-    linear-gradient(315deg, $primary 25%, #e5e5f7 25%) !important;
-  background-position: 34px 0, 34px 0, 0 0, 0 0 !important;
-  background-size: 34px 34px !important;
-  background-repeat: repeat !important;
+
+  // background-image: linear-gradient(135deg, $primary 25%, transparent 25%),
+  //   linear-gradient(225deg, $primary 25%, transparent 25%),
+  //   linear-gradient(45deg, $primary 25%, transparent 25%),
+  //   linear-gradient(315deg, $primary 25%, #e5e5f7 25%) !important;
+  // background-position: 34px 0, 34px 0, 0 0, 0 0 !important;
+  // background-size: 34px 34px !important;
+  // background-repeat: repeat !important;
 }
 .relative {
   position: relative;

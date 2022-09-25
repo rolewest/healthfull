@@ -518,9 +518,10 @@ export default {
     },
     switchToVideoId(id, mute = 0, startAt = 0, endAt = 0, autoplay = 0) {
       console.log("localStore:", localStorage.getItem("userAge"));
-      mute = mute === true ? "mute=1" : "mute=0";
+      mute = mute == 1 ? "mute=1" : "mute=0";
       this.ytUrl = `https://www.youtube.com/embed/${id}?autoplay=${autoplay}&loop=0&playlist=${id}&start=${startAt}&end=${endAt}&rel=0${mute}`;
-      console.log(this.ytUrl);
+
+      console.log("PLAYINGT:", this.ytUrl);
     },
 
     getNextVideoId() {
@@ -958,6 +959,7 @@ blockquote cite:before {
     2.5% 8.6%,
     1.1% 5.5%
   );
+  padding: 1px 1px 5px 1px;
 }
 .bg-check {
   opacity: 0.8;

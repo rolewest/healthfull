@@ -78,4 +78,9 @@ export default {
 body {
   background: #cfcfcf !important;
 }
+.q-page-container {
+  margin: auto;
+  max-width: 900px;
+  /* background: hotpink; */
+}
 </style>
