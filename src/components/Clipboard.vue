@@ -1232,7 +1232,7 @@ needed for sets to failure for a specific repetition number[1].`,
 
 <script>
 export default {
-  props: ["baseURL"],
+  props: [],
   components: {},
   data() {
     return {
@@ -1303,6 +1303,9 @@ export default {
         window.localStorage.getItem("user.lifestyle.dairy.freq") || 52.177457,
       userLifestyleSedentary:
         window.localStorage.getItem("user.lifestyle.sedentary.count") || 0,
+      userLifestyleSedentaryFreq:
+        window.localStorage.getItem("user.lifestyle.sedentary.freq") ||
+        52.177457,
       userBodyGoal: window.localStorage.getItem("user.body.goal") || 0,
     };
   },
@@ -1833,7 +1836,7 @@ export default {
         this.userExerciseEffort +
         this.userExerciseFrequency +
         this.userExerciseLength;
-      let wc = this.userW;
+      let wc = this.userWaist;
       //https://codeberg.org/Freeyourgadget/Gadgetbridge/issues/1905
       let maleBMI =
         92.05 - 0.327 * age - 0.933 * bmi - 0.167 * rhr + 0.257 * pai;

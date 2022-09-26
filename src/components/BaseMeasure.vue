@@ -675,11 +675,7 @@
     <div class="q-ma-sm">
       <Prescription />
     </div>
-    <div class="text-center">
-      <q-btn @click="this.$router.push({ name: 'home' })" color="info"
-        >Back to Home Base</q-btn
-      >
-    </div>
+
     <div v-if="showCitationModal">
       <Modal @close="toggleCitationModal" :theme="citationTheme" cite="cite">
         <template></template>
@@ -737,7 +733,7 @@
 
 <script>
 import Modal from "src/components/Modal.vue";
-import heartbeat from "src/components/heartbeatvideo.js";
+// import heartbeat from "src/components/heartbeatvideo.js";
 import Prescription from "src/components/PrescriptionComponent.vue";
 import Clipboard from "src/components/Clipboard.vue";
 
@@ -817,6 +813,9 @@ export default {
         window.localStorage.getItem("user.lifestyle.dairy.freq") || 52.177457,
       userLifestyleSedentary:
         window.localStorage.getItem("user.lifestyle.sedentary.count") || 0,
+      userLifestyleSedentaryFreq:
+        window.localStorage.getItem("user.lifestyle.sedentary.freq") ||
+        52.177457,
       userBodyGoal: window.localStorage.getItem("user.body.goal") || 0,
     };
   },

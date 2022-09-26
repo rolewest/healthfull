@@ -58,9 +58,7 @@
           <div class="border-double-1 graphPaper-2">
             <span v-html="computeDifficultyFromDoctorMouthFood"></span>
           </div>
-          <span class="text-h6"
-            >Recommended Weekly <i>{{ user }}</i> Exercise Plan</span
-          >
+          <span class="text-h6">Recommended Weekly <i></i> Exercise Plan</span>
           <div class="border-double-1 graphPaper-2 q-pa-sm">
             I've put together a few different impact levels, as we all have
             different energy levels on different days. You find them with the
@@ -341,6 +339,9 @@ export default {
         window.localStorage.getItem("user.lifestyle.dairy.freq") || 52.177457,
       userLifestyleSedentary:
         window.localStorage.getItem("user.lifestyle.sedentary.count") || 0,
+      userLifestyleSedentaryFreq:
+        window.localStorage.getItem("user.lifestyle.sedentary.freq") ||
+        52.177457,
       userBodyGoal: window.localStorage.getItem("user.body.goal") || 0,
     };
   },
