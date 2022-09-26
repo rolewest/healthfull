@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { LocalStorage } from "quasar";
 // import JustHeart from "../components/JustHeart.vue";
 export default {
   props: [],
@@ -36,7 +37,7 @@ export default {
   },
   data() {
     return {
-      isNewUser: localStorage.getItem("userAge") === "null",
+      isNewUser: LocalStorage.getItem("userAge") === "null",
     };
   },
   methods: {

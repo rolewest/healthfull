@@ -330,6 +330,9 @@ import HeartPulse from "src/components/HeartPulse.vue";
 import NewPrescriptionButton from "src/components/NewPrescriptionButton.vue";
 // import LogoSVGSmall from "src/components/LogoSVGSmall.vue";
 
+// inside of a Vue file
+import { useQuasar } from "quasar";
+
 let linksList = [
   {
     title: "Size Me Up!",
@@ -460,6 +463,8 @@ let linksList = [
   },
 ];
 linksList = [];
+import { LocalStorage } from "quasar";
+
 export default defineComponent({
   name: "MainLayout",
 
@@ -477,6 +482,9 @@ export default defineComponent({
     const leftDrawerOpen = ref(false);
 
     return {
+      framework: {
+        plugins: ["LocalStorage"],
+      },
       baseURL: ref("https://rmatter.com/health-full"),
       showModal: ref(false),
       showCitationModal: ref(false),
@@ -488,7 +496,7 @@ export default defineComponent({
       citationWhy: ref(""),
       citationTheme: ref(""),
       essentialLinks: linksList,
-      isNewUser: localStorage.getItem("userAge") === "null",
+      isNewUser: LocalStorage.getItem("userAge") === "null",
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

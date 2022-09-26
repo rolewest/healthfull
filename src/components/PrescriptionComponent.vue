@@ -13,18 +13,16 @@
     <div class="questItem shadow">
       <div class="alert alert-primary">
         Doctor: {{ riskFromDoctorMouth("all") }}
-        <div class="q-pl-sm q-ma-xs">
-          <details>
-            <summary>Show full assessment</summary>
+        <div class="">
+          <!-- <summary>Show full assessment</summary> -->
 
-            <p>
-              Doctor: {{ riskFromDoctorMouth("heart") }}
-              {{ riskFromDoctorMouth("alzheimers") }}
-              {{ riskFromDoctorMouth("diabetes") }}
-              {{ riskFromDoctorMouth("prediabetes") }}
-              {{ riskFromDoctorMouth("cancer") }}
-            </p>
-          </details>
+          <p>
+            Doctor: {{ riskFromDoctorMouth("heart") }}
+            {{ riskFromDoctorMouth("alzheimers") }}
+            {{ riskFromDoctorMouth("diabetes") }}
+            {{ riskFromDoctorMouth("prediabetes") }}
+            {{ riskFromDoctorMouth("cancer") }}
+          </p>
         </div>
         <hr />
 
@@ -264,6 +262,7 @@
 
 <script>
 import Modal from "src/components/Modal.vue";
+import { LocalStorage } from "quasar";
 
 export default {
   props: ["baseURL"],
@@ -274,20 +273,20 @@ export default {
     return {
       showModal: false,
       showCitationModal: false,
-      userGender: window.localStorage.getItem("userGender") || null,
-      userLevel: window.localStorage.getItem("userLevel") || 1,
-      userAge: window.localStorage.getItem("userAge") || null,
+      userGender: LocalStorage.getItem("userGender") || null,
+      userLevel: LocalStorage.getItem("userLevel") || 1,
+      userAge: LocalStorage.getItem("userAge") || null,
       userHeight:
-        window.localStorage.getItem("userHeightImp") != "null"
-          ? window.localStorage.getItem("userHeightImp")
-          : window.localStorage.getItem("userHeight") || 170,
-      userWeight: window.localStorage.getItem("userWeight") || 55,
-      userSkill: window.localStorage.getItem("userSkill") || 0,
+        LocalStorage.getItem("userHeightImp") != "null"
+          ? LocalStorage.getItem("userHeightImp")
+          : LocalStorage.getItem("userHeight") || 170,
+      userWeight: LocalStorage.getItem("userWeight") || 55,
+      userSkill: LocalStorage.getItem("userSkill") || 0,
       baseMobility: 4,
-      userKG: window.localStorage.getItem("userKG") || true,
-      userCM: window.localStorage.getItem("userKG") || true,
-      userHeightImp: window.localStorage.getItem("userHeightImp") || null,
-      userWeightImp: window.localStorage.getItem("userWeightImp") || null,
+      userKG: LocalStorage.getItem("userKG") || true,
+      userCM: LocalStorage.getItem("userKG") || true,
+      userHeightImp: LocalStorage.getItem("userHeightImp") || null,
+      userWeightImp: LocalStorage.getItem("userWeightImp") || null,
       // user setup values (prefs/settings)
       userPlanPrefs: [],
       userHealthPoints: [],
@@ -295,54 +294,48 @@ export default {
       userWholeFood: "",
       userBaseWork: "",
       userBaseExercise: [],
-      userNeck: window.localStorage.getItem("userNeck") || 0,
-      userWaist: window.localStorage.getItem("userWaist") || 0,
-      userHip: window.localStorage.getItem("userHip") || 0,
-      userRHR: window.localStorage.getItem("userRHR") || 0,
-      userExerciseFrequency:
-        window.localStorage.getItem("userExerciseFrequency") || 0,
-      userExerciseEffort:
-        window.localStorage.getItem("userExerciseEffort") || 0,
-      userExerciseLength:
-        window.localStorage.getItem("userExerciseLength") || 0,
+      userNeck: LocalStorage.getItem("userNeck") || 0,
+      userWaist: LocalStorage.getItem("userWaist") || 0,
+      userHip: LocalStorage.getItem("userHip") || 0,
+      userRHR: LocalStorage.getItem("userRHR") || 0,
+      userExerciseFrequency: LocalStorage.getItem("userExerciseFrequency") || 0,
+      userExerciseEffort: LocalStorage.getItem("userExerciseEffort") || 0,
+      userExerciseLength: LocalStorage.getItem("userExerciseLength") || 0,
       userBasePoints: {
-        xp: window.localStorage.getItem("user.points.xp"),
-        hp: window.localStorage.getItem("user.points.hp"),
-        cp: window.localStorage.getItem("user.points.cp"),
+        xp: LocalStorage.getItem("user.points.xp"),
+        hp: LocalStorage.getItem("user.points.hp"),
+        cp: LocalStorage.getItem("user.points.cp"),
       } || { xp: 0, hp: 0, cp: 0 },
-      userConcerns: Array.isArray(window.localStorage.getItem("userConcerns"))
-        ? window.localStorage.getItem("userConcerns")
-        : JSON.parse(window.localStorage.getItem("userConcerns")) || [],
+      userConcerns: Array.isArray(LocalStorage.getItem("userConcerns"))
+        ? LocalStorage.getItem("userConcerns")
+        : LocalStorage.getItem("userConcerns") || [],
       userLifestyleAlcohol:
-        window.localStorage.getItem("user.lifestyle.alcohol.count") || 0,
+        LocalStorage.getItem("user.lifestyle.alcohol.count") || 0,
       userLifestyleAlcoholFreq:
-        window.localStorage.getItem("user.lifestyle.alcohol.freq") || 52.177457,
-      userLifestyleSoda:
-        window.localStorage.getItem("user.lifestyle.soda.count") || 0,
+        LocalStorage.getItem("user.lifestyle.alcohol.freq") || 52.177457,
+      userLifestyleSoda: LocalStorage.getItem("user.lifestyle.soda.count") || 0,
       userLifestyleSodaFreq:
-        window.localStorage.getItem("user.lifestyle.soda.freq") || 52.177457,
+        LocalStorage.getItem("user.lifestyle.soda.freq") || 52.177457,
       userLifestyleSmokes:
-        window.localStorage.getItem("user.lifestyle.smokes.count") || 0,
+        LocalStorage.getItem("user.lifestyle.smokes.count") || 0,
       userLifestyleSmokesFreq:
-        window.localStorage.getItem("user.lifestyle.smokes.freq") || 52.177457,
-      userLifestyleMeat:
-        window.localStorage.getItem("user.lifestyle.meat.count") || 0,
+        LocalStorage.getItem("user.lifestyle.smokes.freq") || 52.177457,
+      userLifestyleMeat: LocalStorage.getItem("user.lifestyle.meat.count") || 0,
       userLifestyleMeatFreq:
-        window.localStorage.getItem("user.lifestyle.meat.freq") || 52.177457,
+        LocalStorage.getItem("user.lifestyle.meat.freq") || 52.177457,
       userLifestyleSeafood:
-        window.localStorage.getItem("user.lifestyle.seafood.count") || 0,
+        LocalStorage.getItem("user.lifestyle.seafood.count") || 0,
       userLifestyleSeafoodFreq:
-        window.localStorage.getItem("user.lifestyle.seafood.freq") || 52.177457,
+        LocalStorage.getItem("user.lifestyle.seafood.freq") || 52.177457,
       userLifestyleDairy:
-        window.localStorage.getItem("user.lifestyle.dairy.count") || 0,
+        LocalStorage.getItem("user.lifestyle.dairy.count") || 0,
       userLifestyleDairyFreq:
-        window.localStorage.getItem("user.lifestyle.dairy.freq") || 52.177457,
+        LocalStorage.getItem("user.lifestyle.dairy.freq") || 52.177457,
       userLifestyleSedentary:
-        window.localStorage.getItem("user.lifestyle.sedentary.count") || 0,
+        LocalStorage.getItem("user.lifestyle.sedentary.count") || 0,
       userLifestyleSedentaryFreq:
-        window.localStorage.getItem("user.lifestyle.sedentary.freq") ||
-        52.177457,
-      userBodyGoal: window.localStorage.getItem("user.body.goal") || 0,
+        LocalStorage.getItem("user.lifestyle.sedentary.freq") || 52.177457,
+      userBodyGoal: LocalStorage.getItem("user.body.goal") || 0,
     };
   },
   methods: {
@@ -433,6 +426,7 @@ export default {
       }
     },
     getHabitRisk(risk = "alzheimers", type = 0) {
+      console.log("doinnn habitrisk", risk, type);
       let writtenLevel = null;
       let numeralLevel = 0;
       let level = (
@@ -472,6 +466,7 @@ export default {
         ) *
           0.0001
       ).toFixed(2);
+
       // console.log(
       //   "sed:",
       //   this.microLivesLostInYear(
@@ -590,6 +585,14 @@ export default {
         writtenLevel = "";
         numeralLevel = 0;
       }
+      console.log(
+        "doinnn habitrisk_level:",
+        risk,
+        type,
+        "level = ",
+        level,
+        numeralLevel
+      );
       // return risks
       if (risk == "alzheimers") {
         if (type == 0) return writtenLevel;
@@ -1084,94 +1087,64 @@ export default {
       this.$emit("citation", id, name, caption, short, summary, why, theme);
     },
     saveUserData() {
-      window.localStorage.setItem("userHeight", this.userHeight); //save it
-      window.localStorage.setItem("userWeight", this.userWeight); //save it
-      window.localStorage.setItem("userAge", this.userAge); //save it
-      window.localStorage.setItem("userSkill", this.userSkill); //save it
-      window.localStorage.setItem("userHeightImp", this.userHeightImp); // save imperial (feet) measure
-      window.localStorage.setItem("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
-      window.localStorage.setItem("userKG", this.userKG);
-      window.localStorage.setItem("userCM", this.userCM);
-      window.localStorage.setItem("userNeck", this.userNeck);
-      window.localStorage.setItem("userWaist", this.userWaist);
-      window.localStorage.setItem("userHip", this.userHip);
-      window.localStorage.setItem("userRHR", this.userRHR);
-      window.localStorage.setItem(
-        "userExerciseFrequency",
-        this.userExerciseFrequency
-      );
-      window.localStorage.setItem(
-        "userExerciseEffort",
-        this.userExerciseEffort
-      );
-      window.localStorage.setItem(
-        "userExerciseLength",
-        this.userExerciseLength
-      );
-      window.localStorage.setItem("userLevel", this.userLevel);
-      window.localStorage.setItem("userGender", this.userGender);
+      LocalStorage.set("userHeight", this.userHeight); //save it
+      LocalStorage.set("userWeight", this.userWeight); //save it
+      LocalStorage.set("userAge", this.userAge); //save it
+      LocalStorage.set("userSkill", this.userSkill); //save it
+      LocalStorage.set("userHeightImp", this.userHeightImp); // save imperial (feet) measure
+      LocalStorage.set("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
+      LocalStorage.set("userKG", this.userKG);
+      LocalStorage.set("userCM", this.userCM);
+      LocalStorage.set("userNeck", this.userNeck);
+      LocalStorage.set("userWaist", this.userWaist);
+      LocalStorage.set("userHip", this.userHip);
+      LocalStorage.set("userRHR", this.userRHR);
+      LocalStorage.set("userExerciseFrequency", this.userExerciseFrequency);
+      LocalStorage.set("userExerciseEffort", this.userExerciseEffort);
+      LocalStorage.set("userExerciseLength", this.userExerciseLength);
+      LocalStorage.set("userLevel", this.userLevel);
+      LocalStorage.set("userGender", this.userGender);
       //points
-      window.localStorage.setItem("user.points.xp", this.userBasePoints.xp);
-      window.localStorage.setItem("user.points.hp", this.userBasePoints.hp);
-      window.localStorage.setItem("user.points.cp", this.userBasePoints.cp);
-      window.localStorage.setItem(
-        "userConcerns",
-        JSON.stringify(this.userConcerns)
-      );
+      LocalStorage.set("user.points.xp", this.userBasePoints.xp);
+      LocalStorage.set("user.points.hp", this.userBasePoints.hp);
+      LocalStorage.set("user.points.cp", this.userBasePoints.cp);
+      LocalStorage.set("userConcerns", this.userConcerns);
 
-      window.localStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.alcohol.count",
         this.userLifestyleAlcohol
       );
-      window.localStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.alcohol.freq",
         this.userLifestyleAlcoholFreq
       );
-      window.localStorage.setItem(
-        "user.lifestyle.soda.count",
-        this.userLifestyleSoda
-      );
-      window.localStorage.setItem(
-        "user.lifestyle.soda.freq",
-        this.userLifestyleSodaFreq
-      );
-      window.localStorage.setItem(
-        "user.lifestyle.smokes.count",
-        this.userLifestyleSmokes
-      );
-      window.localStorage.setItem(
+      LocalStorage.set("user.lifestyle.soda.count", this.userLifestyleSoda);
+      LocalStorage.set("user.lifestyle.soda.freq", this.userLifestyleSodaFreq);
+      LocalStorage.set("user.lifestyle.smokes.count", this.userLifestyleSmokes);
+      LocalStorage.set(
         "user.lifestyle.smokes.freq",
         this.userLifestyleSmokesFreq
       );
-      window.localStorage.setItem(
-        "user.lifestyle.meat.count",
-        this.userLifestyleMeat
-      );
-      window.localStorage.setItem(
-        "user.lifestyle.meat.freq",
-        this.userLifestyleMeatFreq
-      );
-      window.localStorage.setItem(
+      LocalStorage.set("user.lifestyle.meat.count", this.userLifestyleMeat);
+      LocalStorage.set("user.lifestyle.meat.freq", this.userLifestyleMeatFreq);
+      LocalStorage.set(
         "user.lifestyle.seafood.count",
         this.userLifestyleSeafood
       );
-      window.localStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.seafood.freq",
         this.userLifestyleSeafoodFreq
       );
-      window.localStorage.setItem(
-        "user.lifestyle.dairy.count",
-        this.userLifestyleDairy
-      );
-      window.localStorage.setItem(
+      LocalStorage.set("user.lifestyle.dairy.count", this.userLifestyleDairy);
+      LocalStorage.set(
         "user.lifestyle.dairy.freq",
         this.userLifestyleDairyFreq
       );
-      window.localStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.sedentary.count",
         this.userLifestyleSedentary
       );
-      window.localStorage.setItem("user.body.goal", this.userBodyGoal);
+      LocalStorage.set("user.body.goal", this.userBodyGoal);
     },
     flipGender(type = 0) {
       console.log("flipping to:", type);
@@ -1179,7 +1152,7 @@ export default {
         console.log(
           "GettingGender:",
           this.userGender,
-          window.localStorage.getItem("userGender"),
+          LocalStorage.getItem("userGender"),
           document.querySelectorAll(".maleChart")[3]
         );
         type = this.userGender;
