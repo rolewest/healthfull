@@ -6,12 +6,13 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       { path: "/", name: "root", component: () => import("pages/Index.vue") },
-      { path: "/base", name: "measure", component: () => import("components/BaseMeasure.vue") },
+      { path: "/base", name: "measure", component: () => import("components/BaseMeasure.vue") },//src/pages/BaseMeasure.vue
       { path: "/about", name: "about", component: () => import("pages/About.vue") },
       { path: "/player", name: "player", component: () => import("pages/WorkoutPlayer.vue") },
       { path: "/builder", name: "builder", component: () => import("pages/WorkoutBuilder.vue") },
       { path: "/planner", name: "planner", component: () => import("pages/MealPlanner.vue") },
       { path: "/home", name: "home", component: () => import("pages/HomeBase.vue") },
+      { path: "/prescription", name: "prescription", component: () => import("pages/Prescription.vue") },
     ],
 
   },

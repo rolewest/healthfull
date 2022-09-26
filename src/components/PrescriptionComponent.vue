@@ -5,681 +5,210 @@
       <canvas id="canvas" width="640" height="480"></canvas>
     </div> -->
 
-    <div class="questItem shadow-sm p-3" id="statsInput">
-      <div class="is-card-type">
-        <span class="title-text">Baseline Measurements</span>
-      </div>
-      <div class="row no-wrap justify-between is-retro-icon">
-        <div class="mdi mdi-tape-measure text-h2 pr-5 text-left"></div>
-        <p class="text-center text-h5">
-          Let's find out some of your basic info so you can tell me your health
-          goals!
-        </p>
-        <div class="mdi mdi-scale-bathroom text-h2 pr-5 text-right"></div>
-      </div>
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-human-male-height text-h3"></span
-          ></span>
-        </div>
-
-        <input
-          type="text"
-          id="userHeight"
-          ref="userHeight"
-          class="form-control graphPaper-2"
-          v-model="userHeight"
-          placeholder="Height"
-          aria-label="height"
-          aria-describedby="basic-addon1"
-          @focus="$event.target.select()"
-        />
-
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button
-            type="button"
-            class="btn btn-primary bg-info"
-            ref="userCMObj"
-            @click="toggleCM(true)"
-          >
-            CM
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary bg-secondary"
-            ref="userFTObj"
-            @click="toggleCM(false)"
-          >
-            FT
-          </button>
-        </div>
-      </div>
-      <label for="userHeight">Height</label>
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-weight text-h3"></span
-          ></span>
-        </div>
-        <input
-          type="number"
-          id="userWeight"
-          class="form-control graphPaper-2"
-          v-model="userWeight"
-          placeholder="Weight"
-          aria-label="Weight"
-          aria-describedby="basic-addon1"
-          @focus="$event.target.select()"
-        />
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button
-            type="button"
-            class="btn btn-primary bg-info"
-            ref="userKGObj"
-            @click="toggleKG(true)"
-          >
-            KG
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary bg-secondary"
-            ref="userLBObj"
-            @click="toggleKG(false)"
-          >
-            LBS
-          </button>
-        </div>
-      </div>
-      <label for="userWeight">Weight</label>
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-cake-variant text-h3"></span
-          ></span>
-        </div>
-        <input
-          type="number"
-          class="form-control graphPaper-2"
-          v-model="userAge"
-          placeholder="Age"
-          aria-label="Age"
-          aria-describedby="basic-addon1"
-          @focus="$event.target.select()"
-        /><br />
-        <label for="userAge">Age</label>
-      </div>
-      <!-- Current Gender -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="text-h3"><q-icon name="fas fa-venus-mars" /></span
-          ></span>
-        </div>
-        <q-btn
-          ref="flipMale"
-          :class="{
-            'btn btn-secondary': true,
-            'bg-secondary': this.userGender == 1,
-            'bg-info': this.userGender == 0,
-          }"
-          @click="flipGender(0)"
-        >
-          <q-icon name="mdi-human-male" size="25px" /> male&nbsp;
-        </q-btn>
-        <q-btn
-          ref="flipFemale"
-          :class="{
-            'btn btn-secondary': true,
-            'bg-secondary': this.userGender == 0,
-            'bg-info': this.userGender == 1,
-          }"
-          @click="flipGender(1)"
-        >
-          <q-icon name="mdi-human-female" size="25px" /> female&nbsp;
-        </q-btn>
-
-        <br />
-        <label for="userAge">Gender</label>
-      </div>
-
-      <!-- User Resting Heart Rate -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span
-              class="mdi mdi-heart-pulse text-h3"
-              ref="smBpmIcon"
-              style="border-radius: 100%"
-            ></span
-          ></span>
-          <div style="font-size: 8px; max-width: 40%">
-            You can use the BPM button on the lower right to record the value
-            below when you are in a relaxed state, or
-            <a
-              href="https://prouast.github.io/heartbeat-js/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >tap here</a
-            >
-            to track via video.
-          </div>
-        </div>
-        <input
-          type="number"
-          class="form-control graphPaper-2"
-          v-model="userRHR"
-          placeholder="Resting Heart Rate"
-          aria-label="Age"
-          aria-describedby="basic-addon1"
-          @focus="
-            $event.target.select();
-            this.$refs.smBpmIcon.classList.add('pulseBPMTap');
-          "
-          v-on:blur="$refs.smBpmIcon.classList.remove('pulseBPMTap')"
-        /><br />
-        <label for="userRHR">Resting Heart Rate</label>
-      </div>
-
-      <!-- Mobility level -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-shape-plus text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userSkill"
-          class="form-control"
-          v-model="userSkill"
-          placeholder="Skill Level"
-          aria-label="Skill"
-          aria-describedby="basic-addon1"
-        >
-          <!-- <option value="0">No exercise, or occasional</option>
-          <option value="1.1">1 day every week</option>
-          <option value="1.1">~1-2 days</option>
-          <option value="1.2">2 days</option>
-          <option value="1.3">3 days</option>
-          <option value="1.4">4 days</option>
-          <option value="1.5">5 days</option>
-          <option value="1.6">6 days</option>
-          <option value="1.7">7 days</option>
-          <option value="2">I'm a trainer</option>
-          <option value="3">I'm a professional athlete</option>
-        </select> -->
-
-          <option value="-10">Unable to stand</option>
-          <option value="-6">Mobility issus</option>
-          <option value="-5">Obesely overweight</option>
-          <option value="-3">Very overweight</option>
-          <option value="-2">Overweight</option>
-          <option value="2.0">A bit overweight</option>
-          <option value="0">Very thin</option>
-          <option value="1.0">Skinny but overweight (skinny-fat)</option>
-          <option value="1">A bit underweight</option>
-          <option value="2">Average Build</option>
-          <option value="3">Athletic</option>
-          <option value="7">Body Builder</option>
-          <option value="9">Fitness trainer</option>
-
-          slim average athletic obese
-          <!-- slim average athletic obese -->
-        </select>
-        <!-- could be check box collective such as:
-                      -at work/school I: am on my feet all day, sit all day, don't work, work up a sweat for 10 minutes every day,
-                      I don't work
-
-                      at home I: sit around most days, play outdoor sports (for how many min X 0.01), I am out and about driving everyday,
-                      I'm out mostly walk/jog/biking/
-
-                      I cook, Takeout/delivery,
-                      frozen/packaged-prepared (percent) vs fresh/frozen-whole
-
-                      My hobbies include, for more than 30 minutes at a time: moderate exercise [ ] days/week
-                      sitting watching tv/phone [ ] days per week
-        -->
-        <br />
-        <label for="userSkill">Body Shape</label>
-      </div>
-
-      <!-- Exercise frequency -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-calendar-heart text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userExerciseFrequency"
-          class="form-control"
-          v-model="userExerciseFrequency"
-          placeholder="Exercise Frequency"
-          aria-label="Exercise Frequency"
-          aria-describedby="basic-addon1"
-        >
-          <option value="0">Never</option>
-          <option value="0.0">Less than once a week</option>
-          <option value="1">Once a week</option>
-          <option value="2">Two to three times a week</option>
-          <option value="3">Almost every day</option>
-        </select>
-
-        <br />
-        <label for="userSkill">Exercise Frequency</label>
-      </div>
-
-      <!-- Exercise Effort -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-gauge text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userExerciseEffort"
-          class="form-control"
-          v-model="userExerciseEffort"
-          placeholder="Exercise Effort"
-          aria-label="Exercise Effort"
-          aria-describedby="basic-addon1"
-        >
-          <option value="0">I Take it easy</option>
-          <option value="5">Heavy Breathing & Sweating</option>
-          <option value="10">I push near exhaustion</option>
-        </select>
-
-        <br />
-        <label for="userSkill">Exercise Effort</label>
-      </div>
-      <!-- Exercise Length -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-clock text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userExerciseLength"
-          class="form-control"
-          v-model="userExerciseLength"
-          placeholder="Exercise Length"
-          aria-label="Exercise Length"
-          aria-describedby="basic-addon1"
-        >
-          <option value="1">Less than 15 min.</option>
-          <option value="1.01">16 to 30 min.</option>
-          <option value="1.5">30 to 60 min.</option>
-          <option value="1.5">more than 60 min.</option>
-        </select>
-
-        <br />
-        <label for="userSkill">Exercise Length</label>
-      </div>
-
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <details :open="userNeck > 0">
-            <summary><span>Have a tape measure handy?</span></summary>
-            <fieldset>
-              <div>
-                We can get more details if you have a tape measure (non-stretch
-                & cloth is best.) but feel free to skip this if you don't.
-              </div>
-              <span class="mdi mdi-tape-measure text-h3"></span>
-              <span class="mdi mdi-arrow-left-right-bold text-h3"></span>
-              <span class="mdi mdi-human text-h3"></span>
-              <div class="row">
-                <div
-                  class="border-double-1 border-accent vertical-top width-100"
-                >
-                  <div class="title-h4">Neck</div>
-                  Measure neck circumference from below the larynx, with the
-                  tape angled downward to the front.
-                  <div>
-                    <input
-                      type="number"
-                      id="userNeck"
-                      class="form-control graphPaper-2"
-                      v-model="userNeck"
-                      placeholder="Neck Size"
-                      aria-label="Neck circumference"
-                      aria-describedby="basic-addon1"
-                      @focus="$event.target.select()"
-                    />
-                    <br /><label for="userNeck">Neck Circumference</label><br />
-                  </div>
-                </div>
-                <div
-                  class="border-double-1 border-accent vertical-top width-100"
-                >
-                  <div class="title-h4">Waist</div>
-                  <div>
-                    <b>Male:</b> Measure waist around the navel (belly button)
-                  </div>
-                  <div>
-                    <b>Female:</b> Measure waist around smallest part of torso
-                  </div>
-                  <div>
-                    <input
-                      type="number"
-                      id="userWaist"
-                      class="form-control graphPaper-2"
-                      v-model="userWaist"
-                      placeholder="Waist Size"
-                      aria-label="Waist circumference"
-                      aria-describedby="basic-addon1"
-                      @focus="$event.target.select()"
-                    />
-                    <br /><label for="userWaist">Waist Circumference </label>
-                  </div>
-                </div>
-                <div
-                  class="border-double-1 border-accent vertical-top width-100"
-                >
-                  <div class="title-h4">Hips</div>
-                  <b>Both:</b>Measure hips at the widest part, usually around
-                  buttocks/crotch, where you bend over from.
-                  <div>
-                    <input
-                      type="number"
-                      id="userHip"
-                      class="form-control graphPaper-2"
-                      v-model="userHip"
-                      placeholder="Hip Size"
-                      aria-label="Hip circumference"
-                      aria-describedby="basic-addon1"
-                      @focus="$event.target.select()"
-                    />
-
-                    <br /><label for="userHip">Hip Circumference</label>
-                  </div>
-                </div>
-                <span v-if="userNeck > 0"
-                  ><br />
-                  {{
-                    `Male:${navyBFP(0).toFixed(1)}  Female:${navyBFP(1).toFixed(
-                      1
-                    )}`
-                  }}
-                </span>
-              </div>
-            </fieldset>
-          </details>
-        </div>
-      </div>
-    </div>
-    <!-- your personal goals -->
-    <div class="questItem shadow-sm p-3" id="statsInput">
-      <div class="is-card-type">
-        <span class="title-text">Personal Health Goals</span>
-      </div>
-      <div class="row no-wrap justify-between is-retro-icon">
-        <div class="mdi mdi-account-heart text-h2 pr-5 text-left"></div>
-        <p class="text-center text-h5">
-          Now tell me what's the reason for your visit today, and how you want
-          to improve your health?
-        </p>
-        <div class="mdi mdi-calendar-star text-h2 pr-5 text-right"></div>
-      </div>
-      <div>
-        <q-icon class="text-h3" name="mdi-human-edit"></q-icon><br />
-        <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8145781/ -->
-        <select
-          id="userBodyGoal"
-          class="form-control"
-          v-model="userBodyGoal"
-          placeholder="Body Goal"
-          aria-label="Body Type Goal"
-          aria-describedby="basic-addon1"
-        >
-          <option value="-2">Loose a lot of body fat</option>
-          <option value="-1">Loose a bit of body fat</option>
-          <option value="0">Maintain my current weight</option>
-          <option value="1">Get an athletic body</option>
-          <option value="2">Get a muscular body</option>
-          <option value="3">Get a bodybuilder body</option></select
-        ><br />
-        <label for="userBodyGoal">Desired Body Improvement</label>
-      </div>
-      <br />
-      <fieldset>
-        <legend>
-          <q-icon class="text-h3" name="mdi-head-dots-horizontal"></q-icon> My
-          Health Concerns
-        </legend>
-        <div>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="heart"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Heart Disease</span> </label
-          ><br />
-
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="cancer"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Cancer</span> </label
-          ><br />
-
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="diabetes"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Diabetes</span> </label
-          ><br />
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="alzheimers"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Alzheimers</span> </label
-          ><br />
-          <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8702655/#sec0060title -->
-          <!-- <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="immunity"
-              v-model="userConcerns"
-            />
-            <span class="check-label">General Immunity</span> </label
-          ><br /> -->
-          check back soon for more...
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>
-          <q-icon class="text-h3" name="medical_information"></q-icon> My
-          Lifestyle
-        </legend>
-        <div>
-          <br />
-
-          <label>
-            I drink alcoholic
-            <input type="number" v-model="userLifestyleAlcohol" />
-            <span class="check-label"></span>
-          </label>
-          drinks every
-          <select
-            id="userLifestyleAlcoholFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleAlcoholFreq"
-            placeholder="Frequency"
-            aria-label="Alcohol Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-
-          <label>
-            I drink soda pop or fruit juice
-            <input type="number" v-model="userLifestyleSoda" />
-            <span class="check-label"></span>
-          </label>
-          drinks every
-          <select
-            id="userLifestyleSodaFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleSodaFreq"
-            placeholder="Frequency"
-            aria-label="Soda Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-
-          <label>
-            I smoke
-            <input type="number" v-model="userLifestyleSmokes" />
-            <span class="check-label"></span>
-          </label>
-          cigarettes every
-          <select
-            id="userLifestyleSmokesFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleSmokesFreq"
-            placeholder="Frequency"
-            aria-label="Smoking Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            I eat meat
-            <input type="number" v-model="userLifestyleMeat" />
-            <span class="check-label"></span>
-          </label>
-          times every
-          <select
-            id="userLifestyleMeatFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleMeatFreq"
-            placeholder="Frequency"
-            aria-label="Meat Eat Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            I eat seafood
-            <input type="number" v-model="userLifestyleSeafood" />
-            <span class="check-label"></span>
-          </label>
-          times every
-          <select
-            id="userLifestyleSeafoodFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleSeafoodFreq"
-            placeholder="Frequency"
-            aria-label="Seafood Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            I eat dairy or eggs
-            <input type="number" v-model="userLifestyleDairy" />
-            <span class="check-label"></span>
-          </label>
-          times every
-          <select
-            id="userLifestyleDairyFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleDairyFreq"
-            placeholder="Frequency"
-            aria-label="Dairy Eat or Eggs Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            Usually, I sit/lie around (sedentary) for
-            <input type="number" v-model="userLifestyleSedentary" />
-            <span class="check-label"></span>
-          </label>
-          hours every <b>day</b> (at home, work/school, watching tv, sitting,
-          etc. don't include your regular sleep)
-
-          <hr />
-        </div>
-      </fieldset>
-    </div>
     <!-- Then diagnosis: things to avoid, things to eat, things to do/exercise -->
     <!-- Avoid: smoke of any kind, all meat products,  -->
     <!-- you get: no smoking (+10 years) -->
     <!-- https://understandinguncertainty.org/microlives -->
-    <Clipboard />
-    <div class="q-ma-sm">
-      <Prescription />
+
+    <div class="questItem shadow">
+      <div class="alert alert-primary">
+        Doctor: {{ riskFromDoctorMouth("all") }}
+        <div class="q-pl-sm q-ma-xs">
+          <details>
+            <summary>Show full assessment</summary>
+
+            <p>
+              Doctor: {{ riskFromDoctorMouth("heart") }}
+              {{ riskFromDoctorMouth("alzheimers") }}
+              {{ riskFromDoctorMouth("diabetes") }}
+              {{ riskFromDoctorMouth("prediabetes") }}
+              {{ riskFromDoctorMouth("cancer") }}
+            </p>
+          </details>
+        </div>
+        <hr />
+
+        <p>
+          Doctor: See your science backed prescription below to
+          {{ riskFromDoctorMouth("bodytype", userBodyGoal) }}, as quickly and
+          effortlessly as possible{{
+            riskFromDoctorMouth("all", "number") > 1
+              ? `, as well to help fight off disease and build immunity.`
+              : ", as well to help build general immunity and avoid NCD's (Non Communicable Diseases) like Hypertension, Strokes, Type 2 Diabetes, and Cancer."
+          }}
+        </p>
+        <p>
+          Doctor: Let's start you off easy and when you complete a level we'll
+          push it up a notch and fill a new prescription, sound good? You're
+          currently at level {{ userLevel }}.
+        </p>
+
+        <!-- <p>
+            Doctor: See your prescribed meal plan and exercise guide below...
+          </p> -->
+        <fieldset>
+          <span class="float-right text-h3 opacity-50 rx-float"
+            ><q-icon name="fas fa-prescription"></q-icon
+          ></span>
+          <legend class="text-center">
+            <q-icon class="text-h3" name="medication"></q-icon
+            >Prescription<q-icon class="text-h3" name="medication"></q-icon>
+          </legend>
+          <span class="text-h6">Recommended Weekly Meal Plan</span>
+          <div class="border-double-1 graphPaper-2">
+            <span v-html="computeDifficultyFromDoctorMouthFood"></span>
+          </div>
+          <span class="text-h6"
+            >Recommended Weekly <i>{{ user }}</i> Exercise Plan</span
+          >
+          <div class="border-double-1 graphPaper-2 q-pa-sm">
+            I've put together a few different impact levels, as we all have
+            different energy levels on different days. You find them with the
+            <q-btn
+              @click="this.$router.push({ name: 'player' })"
+              color=""
+              text-color="black"
+              icon="mdi-fire-circle"
+            >
+              <span>&nbsp;Setlists </span>
+            </q-btn>
+          </div>
+          <span
+            class="text-h6"
+            v-if="
+              userLifestyleSmokes > 0 ||
+              (userLifestyleAlcohol >= 2 && userLifestyleAlcoholFreq >= 12) ||
+              (userLifestyleSoda >= 2 && userLifestyleSodaFreq >= 12)
+            "
+          >
+            Recommended Lifestyle Changes<br />
+          </span>
+
+          <ul class="q-pa-sm normal-ul">
+            <li v-if="userLifestyleSmokes > 0"><span>Stop smoking</span></li>
+
+            <li
+              v-if="userLifestyleAlcohol >= 2 && userLifestyleAlcoholFreq >= 12"
+            >
+              <span>Reduce alcohol intake</span>
+            </li>
+            <li
+              class=""
+              v-if="userLifestyleSoda >= 2 && userLifestyleSodaFreq >= 12"
+            >
+              <span
+                >Try to drink only
+                <ul class="normal-ul">
+                  <li>water</li>
+                  <li>green tea</li>
+                  <li>black coffee</li>
+                </ul></span
+              >
+            </li>
+          </ul>
+          <div style="width: 99%; border-bottom: 1px solid">
+            <span class="text-h5"
+              ><q-icon name="fas fa-prescription"></q-icon></span
+            >:<span class="cursive-text">Dr. Doctor</span>
+          </div>
+        </fieldset>
+        <!-- <p>{{ riskFromDoctorMouth("all", "number") }}</p>
+          {{ showIdealWeight("guess") }}
+          <hr /> -->
+        <br /><br />
+        <details>
+          <summary>More details</summary>
+          <h4>In Progress...</h4>
+          <p>
+            These stats show an estimated <i>Reps Max 1 (1RM)</i> of
+            {{ show1RM(2) }} for a male, and {{ show1RM(3) }} for a female.
+          </p>
+          <p>It also shows...</p>
+
+          <p>
+            ...[]Your body composition, from your info, looks like... choose
+            what you want to do next:
+          </p>
+          <p>
+            You noted that you only have 5 minutes a day to exercise, your
+            standard mobility level, for strength we have designed a program
+            with rest-pause sets, and jump rope for cardio
+          </p>
+          <p>
+            You noted that you only have 5 minutes a day to exercise, your lower
+            mobility level, for strength we have designed a program with
+            progressively decreasing rest breaks (1min-20s), and seated jump
+            rope for cardio
+          </p>
+          <p>
+            You noted that you only have 5 minutes a day to exercise, your very
+            lower mobility level, for strength we have designed a program with
+            progressively decreasing rest breaks (1min-20s), and seated jump
+            rope for cardio
+          </p>
+
+          <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8449772/#Sec4title -->
+          <p>
+            Because of your standard mobility level your suggested resistance
+            training for hypertrophy is 8-12 reps at 70-80% 1RM, 2-3 minutes
+            rest to start, then rest-pause reps at 80+%, 3-6 (up to 10) sets 3-5
+            days per week, utilize relatively fast (1–2 s: 1–2 s) repetition
+            velocities,
+          </p>
+          <p>
+            Because of your lower mobility level your suggested resistance
+            training for hypertrophy: 10-40 reps at 40-50% 1RM, 1-2 min rest,
+            and 2-4 sets 1-3 days per week,utilize relatively slow (2 s
+            concentric: 4 s eccentric) to start and we can increase this if you
+            feel ready later...
+          </p>
+          <p>
+            Warming up with minimal light movement of the same exercises we'll
+            perform, just make sure nothing is tight or sore feeling before you
+            start. Stretching isn't needed [PMC8449772/#Sec19title]
+          </p>
+          <p>
+            we've build a suggested, very low impact, exercise setlist for you
+            consisting of: half-chair-stands, seated puppeteer-rows, and
+            wall-presses or table presses to avoid standing,
+          </p>
+          <p>
+            Once your desired goal is met, you can scale back to [e.g.70%
+            (-30%)] of your current sets, as maintenance is easier than getting
+            to that new baseline. Add more resistance to get there sooner
+          </p>
+          <p>
+            Missed a day? That's okay, you can just make up for it. Studies show
+            that strength, hypertrophy (muscle), and even metabolic functions
+            because weekly volume seems to win out over frequency
+          </p>
+          <p>
+            You'll need to lift [(Xreps * XRM) * Xsets * X days =
+            suggested_volume] KG/LB every week (don't do it all at once!) to
+            continue to reap the benefits (you'll receive them in your
+            <em>body</em> 2-3 weeks after completing the exercise)
+          </p>
+        </details>
+      </div>
     </div>
-    <div class="text-center">
-      <q-btn @click="this.$router.push({ name: 'home' })" color="info"
-        >Back to Home Base</q-btn
-      >
-    </div>
+
+    <!-- <div>
+        {{ userHealthPoints }} ({{
+          userHealthPoints.reduce(
+            (partialSum, a) => parseFloat(partialSum) + parseFloat(a),
+            0
+          )
+        }})
+        {{ userPlanPrefs }}
+        {{ userAge }}
+        {{ convertHeightToCM() }}
+        {{ userWeight }}
+        {{ userSkill }}
+        {{ userKG }}
+        {{ userCM }}
+        [{{ userAge * userWeight }}]
+      </div> -->
+
     <div v-if="showCitationModal">
       <Modal @close="toggleCitationModal" :theme="citationTheme" cite="cite">
         <template></template>
@@ -737,16 +266,11 @@
 
 <script>
 import Modal from "src/components/Modal.vue";
-import heartbeat from "src/components/heartbeatvideo.js";
-import Prescription from "src/components/PrescriptionComponent.vue";
-import Clipboard from "src/components/Clipboard.vue";
 
 export default {
   props: ["baseURL"],
   components: {
     Modal,
-    Prescription,
-    Clipboard,
   },
   data() {
     return {
@@ -831,7 +355,7 @@ export default {
           parseFloat(this.getHabitRisk("alzheimers", 1));
         if (type == "number") return allRisk;
         if (allRisk < 1) {
-          return `According to my readings you're in excellent health!`;
+          return `According to my readings you're in good health!`;
         }
         if (allRisk < 2) {
           return `You seem to be taking care of yourself fairly well!`;
@@ -1650,6 +1174,15 @@ export default {
     },
     flipGender(type = 0) {
       console.log("flipping to:", type);
+      if (type == -1) {
+        console.log(
+          "GettingGender:",
+          this.userGender,
+          window.localStorage.getItem("userGender"),
+          document.querySelectorAll(".maleChart")[3]
+        );
+        type = this.userGender;
+      }
       if (type === 0) {
         let allMale = document.querySelectorAll(".maleChart");
         let allFemale = document.querySelectorAll(".femaleChart");
@@ -2183,10 +1716,16 @@ export default {
 
     // setTimeout(() => {
     //   console.log("filp!!?");
-    //   this.flipGender(this.userGender);
+    //   this.flipGender(this.userGender - 1);
     // }, 3000);
-    if (this.userGender == 0) this.$refs.flipMale.click();
-    if (this.userGender == 1) this.$refs.flipFemale.click();
+    // console.log("gendered:", this.userGender);
+    // this.flipGender(-1);
+    // if (this.$refs?.flipMale) {
+    //   if (this.userGender == 0) this.$refs.flipMale.click();
+    //   if (this.userGender == 1) this.$refs.flipFemale.click();
+    // } else {
+    //   console.log("noBUTTONS");
+    // }
   },
   computed: {
     citationSummaryFormat() {
@@ -2208,7 +1747,7 @@ export default {
               " This study demonstrates that consumption of a 568 ml water preload immediately before a meal reduces energy intake in non-obese young males. This might therefore be an effective strategy to suppress energy intake in this population and possibly assist with weight management [PMID: 25893719]. "
               </blockquote>
           </details>
-          <details class="q-ml-md noblink-details"><summary>A simple salad or serving of fruit</summary>Before every meal eat a salad with a 1 tbsp vinegar, or if short on time, 1 piece of whole fruit (e.g. apple, orange, banana).<br/>Vinegar Boosts AMPK which boosts your metabolism, and a healthy salad, or piece of fruit, reduces your hunger:
+          <details class="q-ml-md noblink-details"><summary>A simple salad or serving of fruit</summary>Before every meal eat a salad with a 1 tbsp apple vinegar, or if short on time, 1 piece of whole fruit (e.g. apple, orange, banana).<br/>Vinegar Boosts AMPK which boosts your metabolism, and a healthy salad, or piece of fruit, reduces your hunger:
             <blockquote>"salads reduced meal energy intake (by 7% for the small portion and 12% for the large)[PMID: 19661687]."</blockquote>
             <blockquote>"Body weight, BMI, visceral fat area, waist circumference, and serum triglyceride levels were significantly lower in both vinegar intake groups than in the placebo group.
               In conclusion, daily intake of vinegar might be useful in the prevention of metabolic syndrome by reducing obesity [PMID: 19661687]."
@@ -2737,5 +2276,12 @@ hr {
 }
 .noblink-details summary::before {
   animation: none !important;
+}
+.opacity-50 {
+  opacity: 0.5;
+}
+.rx-float {
+  position: relative;
+  top: -0.5em;
 }
 </style>

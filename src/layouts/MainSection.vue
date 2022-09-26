@@ -80,7 +80,11 @@ body {
 }
 .q-page-container {
   margin: auto;
-  max-width: 900px;
+  /* max-width: 1000px; */
   /* background: hotpink; */
+  max-width: 95%;
+}
+.opacity-50 {
+  opacity: 0.5;
 }
 </style>

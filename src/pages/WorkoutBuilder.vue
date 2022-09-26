@@ -15,6 +15,7 @@
               selected-row-size="xl"
               title="Tomes"
               :rows="rows"
+              @row-click="rowClick"
               :columns="columns"
               row-key="name"
               hide-header
@@ -114,6 +115,7 @@
 <!-- setList will need to have steps added -->
 <script>
 import { ref } from "vue";
+import { setList, doctorSets } from "../scripts/setlist.js";
 const columns = [
   {
     name: "name",
@@ -150,6 +152,7 @@ const columns = [
 
 const rows = [];
 // do more/harder to get more points
+
 export default {
   data() {
     const selected = ref([]);
@@ -176,350 +179,22 @@ export default {
             } selected`;
       },
       workingSetlist: [],
-      setList: [
-        {
-          id: 1,
-          video: { id: "azv8eJgoGLk", start: 44, end: 107, mute: 0 },
-          title: "Seated Chair March",
-          caption: "Low Impact Cardio",
-          icon: { name: null, color: "accent", font: "" },
-
-          badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 6, cp: 6, xp: 20, sp: 1 },
-          tags: ["Cardio", "Low Impact", "Sitting Only", "All Ages", "Tone"],
-          reps: 8,
-          sets: 3,
-          rest: 60,
-          mobility: 2,
-          mets: 2.1,
-          // sitting
-          body: `<h5 class="text-center">How to do it:</h5><ol>
-            <li>Sit on the front half of the chair</li>
-            <li>Keep your back as straight as you can</li>
-            <li>March by lifting up your knees and moving your arms</li>
-            <li>Go at your own pace</li>
-            <li>If you feel you can do ${Math.floor(
-              Math.random() * (4 - 1 + 1) + 1
-            )} extra reps, go for it!</li>
-
-            </ol>`,
-        },
-        {
-          id: 2,
-          video: { id: "Z1IvxI8YcUM", start: 100, end: 10000 },
-          title: "Seated Arm Raise",
-          caption: "Low Impact Resistance",
-          icon: { name: null, color: "accent", font: "" },
-
-          badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 2, cp: 1, xp: 11, sp: 4 },
-          tags: [
-            "Resistance Training",
-            "Low Impact",
-            "Sitting Only",
-            "All Ages",
-            "Ab Workout",
-          ],
-          reps: 8,
-          mobility: 2,
-          mets: 2,
-          // sitting
-          body: `<h5 class="text-center">How to do it:</h5><ol>
-            <li>Sit at the back of the chair</li>
-            <li>Keep your back as straight as you can</li>
-            <li>Lift one arm directly above your head</li>
-            <li>Return your arm to your side</li>
-            <li>Repeat with the opposite side
-              <ul>
-                <li>this counts as 1 rep (repitition)</li>
-              </ul>
-            </li>
-            <li>Go at your own pace</li>
-            <li>If you feel you can do ${Math.floor(
-              Math.random() * (4 - 1 + 1) + 1
-            )} extra reps, go for it!</li>
-
-            </ol>`,
-        },
-        {
-          id: 3,
-          video: { id: "azv8eJgoGLk", start: 308, end: 374 },
-          title: "Seated Leg Extension",
-          caption: "Low Impact Resistance",
-
-          points: { hp: 8, cp: 6, xp: 17, sp: 2 },
-          tags: [
-            "Lower Body",
-            "Full Body",
-            "Ab Workout",
-            "Low Impact",
-            "Sitting Only",
-            "All Ages",
-            "Legs",
-            "Glutes",
-            "Strength",
-            "Resistance Training",
-          ],
-          reps: 7,
-          mobility: 2,
-          mets: 2,
-          // sitting
-          body: `<h5 class="text-center">How to do it:</h5><ol>
-            <li>Sit at the front half of your chair</li>
-
-            <li>Lean back to engage your core while holding yourself up with your hands</li>
-            <li>From the knee lift one leg and then lower it more slowly
-              <ul>
-                <li>for a real challenge lift both legs at the same time</li>
-              </ul>
-            </li>
-            <li>Repeat with the opposite side
-              <ul>
-                <li>this counts as 1 rep (repitition)</li>
-              </ul>
-            </li>
-            <li>Go at your own pace</li>
-            <li>If you feel you can do ${Math.floor(
-              Math.random() * (4 - 1 + 1) + 1
-            )} extra reps, go for it!</li>
-
-            </ol>`,
-        },
-        {
-          id: 4,
-          video: { id: "azv8eJgoGLk", start: 633, end: 709 },
-          title: "Seated No Rope Jump Rope",
-          caption: "Low Impact Cardio",
-          icon: { name: null, color: "accent", font: "" },
-
-          badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 9, cp: 8, xp: 18, sp: 4 },
-          tags: [
-            "Cardio",
-            "Low Impact",
-            "Sitting Only",
-            "All Ages",
-            "Legs",
-            "Glutes",
-            "Strength",
-            "Ab Workout",
-          ],
-          reps: 5,
-          mobility: 2,
-          mets: 7,
-          // sitting
-          body: `<h5 class="text-center">How to do it:</h5><ol>
-            <li>Sit on the front half of your chair</li>
-            <li>Lean back slightly to engage your core</li>
-            <li>Either choose to "bounce on the spot," or to do a calf raise</li>
-            <li>At the same time rotate your arms in circles
-              <ul>
-                <li>1 full arm rotation and raise up, or bounce counts as 1 rep</li>
-                <li>for a real challenge hold some food cans in each hand</li>
-              </ul>
-            </li>
-            <li>Go at your own pace</li>
-            <li>${Math.floor(
-              Math.random() * (4 - 1 + 1) + 1
-            )} extra reps, go for it!</li>
-
-            </ol>`,
-        },
-        {
-          id: 5,
-          video: { id: "azv8eJgoGLk", start: 893, end: 957 },
-          title: "Seated Row & Calf Raise",
-          caption: "Low Impact Resistance",
-          icon: { name: null, color: "accent", font: "" },
-
-          badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 5, cp: 1, xp: 17, sp: 5 },
-          tags: [
-            "Resistance Training",
-            "Low Impact",
-            "Sitting Only",
-            "All Ages",
-            "Legs",
-            "Arms",
-            "Back",
-            "Shoulders",
-            "Strength",
-            "Ab Workout",
-          ],
-          reps: 4,
-          mobility: 2,
-          mets: 4,
-          // sitting
-          body: `<h5 class="text-center">How to do it:</h5><ol>
-            <li>Sit at the front of the chair</li>
-            <li>Keep your back as straight as you can</li>
-            <li>Pretend strings are attached from your arms to your knees</li>
-            <li>Lift your arms (like rowing) and raise on to the balls of your feet
-              <ul>
-                <li>try to pinch your shoulder blades at the top for better results</li>
-              </ul>
-            </li>
-
-            <li>Return your arms to your side while you lower your feet back to the floor
-              <ul>
-                <li>this counts as 1 rep (repitition)</li>
-              </ul>
-            </li>
-            <li>Go at your own pace</li>
-            <li>If you feel you can do ${Math.floor(
-              Math.random() * (4 - 1 + 1) + 1
-            )} extra rep, go for it!</li>
-
-            </ol>`,
-        },
-        {
-          id: 6,
-          video: { id: "azv8eJgoGLk", start: 956, end: 1020, mute: 0 },
-          title: "Seated Chair Jog",
-          caption: "Low Impact Cardio",
-          icon: { name: null, color: "accent", font: "" },
-
-          badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 7, cp: 6, xp: 20, sp: 1 },
-          tags: ["Cardio", "Low Impact", "Sitting Only", "All Ages"],
-          reps: 14,
-          mobility: 2,
-          mets: 3.2,
-          // sitting
-          body: `<h5 class="text-center">How to do it:</h5><ol>
-            <li>Sit on the front half of the chair</li>
-            <li>Keep your back as straight as you can</li>
-            <li>Use your arms and legs to run on the spot
-              <ul>
-                <li>One rep is when the same foot lands the second time, or around 1 second</li>
-              </ul>
-            </li>
-
-            <li>Go at your own pace</li>
-            <li>If you feel you can do ${Math.floor(
-              Math.random() * (4 - 1 + 1) + 1
-            )} extra reps, go for it!</li>
-
-            </ol>`,
-        },
-        {
-          id: 7,
-          video: { id: "PdnZTxKIe9g", start: 9, end: 30, mute: 1 },
-          title: "Lying Bridge",
-          caption: "Low Impact Resistance",
-          icon: { name: null, color: "accent", font: "" },
-
-          badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 4, cp: 4, xp: 20, sp: 2 },
-          tags: [
-            "Resistance",
-            "Ultra Low Impact",
-            "Lying Down Only",
-            "All Ages",
-            "In Bed",
-            "On Floor",
-          ],
-          reps: 25,
-          mobility: 0.9,
-          mets: 3.2,
-          // sitting
-          body: `<h5 class="text-center">How to do it:</h5><ol>
-            <li>Lie in bed (or on the floor) facing the ceiling</li>
-            <li>Put your hands below your buttocks</li>
-            <li>Bend your knees so legs are at 45 degree angle (about 2 foot lengths from buttocks)</li>
-            <li>Lift up your buttocks off the floor until your knees and shoulders create a straight line</li>
-            <li>Hold for a quick pause (1-2 seconds) and bring your buttocks back to almost touching the floor
-              <ul>
-                <li>This counts as one rep.</li>
-              </ul>
-            </li>
-
-            <li>Go at your own pace</li>
-            <li>If you feel you can do ${Math.floor(
-              Math.random() * (4 - 1 + 1) + 1
-            )} extra reps, go for it!</li>
-
-            </ol>`,
-        },
-        {
-          id: 8,
-          video: { id: "zsly6y-wr7k", start: 560, end: 588, mute: 1 },
-          title: "Lying Squeeze",
-          caption: "Low Impact Resistance",
-          icon: { name: null, color: "accent", font: "" },
-
-          badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 4, cp: 4, xp: 22, sp: 3 },
-          tags: [
-            "Resistance",
-            "Ultra Low Impact",
-            "Lying Down Only",
-            "All Ages",
-            "In Bed",
-            "On Floor",
-          ],
-          reps: 20,
-          mobility: 0.5,
-          mets: 3.1,
-          // sitting
-          body: `<h5 class="text-center">How to do it:</h5><ol>
-            <li>Lie in bed (or on the floor) facing the ceiling</li>
-            <li>Put your hands below your buttocks</li>
-
-            <li>Lift legs slightly off the floor, trying to keep legs straight</li>
-            <li>Hold for 1 second
-              <ul>
-                <li>This counts as one rep.</li>
-              </ul>
-            </li>
-
-            <li>Go at your own pace</li>
-            <li>If you feel you can do ${Math.floor(
-              Math.random() * (4 - 1 + 1) + 1
-            )} extra reps, go for it!</li>
-
-            </ol>`,
-        },
-        {
-          //https://ars.els-cdn.com/content/image/1-s2.0-S2589004222011415-mmc1.pdf
-          id: 9,
-          video: { id: "yaK6TThRMdE", start: 36, end: 48, mute: 1 },
-          title: "Soleus Push-up",
-          caption: "Ultra Low Impact Cardio",
-          icon: { name: null, color: "accent", font: "" },
-
-          badge: { caption: null, color: "red", font: "blue" },
-          points: { hp: 20, cp: 8, xp: 21, sp: 2 },
-          tags: ["Cardio", "Low Impact", "Sitting Only", "All Ages"],
-          reps: 100,
-          mobility: 2,
-          mets: 2,
-          // sitting
-          body: `<h5 class="text-center">How to do it:</h5><ol>
-            <li>Sit comfortably of the chair</li>
-            <li>Keep your back as straight as you can</li>
-            <li>Keep your legs at 75-85 degrees, with your feet just behind your knees</li>
-            <li>Put weight on your toes (push into and slightly forward the floor) as you raise your knees and heels off the floor</li>
-            <li>Keep your toes planted on the floor</li>
-            <li>Once you reach the top relax to let gravity bring your heel back towards the floor
-              <ul>
-                <li>This counts a 1 repitition and should take about 1 second to complete</li>
-              </ul>
-            </li>
-            <li>If done correctly you could do this exercise for hours without fatigue</li>
-
-
-            <li>Go at your own pace</li>
-            <li>If you feel you can do ${Math.floor(
-              Math.random() * (4 - 1 + 1) + 1
-            )} extra reps, go for it!</li>
-
-            </ol>`,
-        },
-      ],
+      usersSetLists: window.localStorage.getItem("user.setlists.custom") || "",
+      setList: setList,
+      doctorSets: doctorSets,
     };
   },
   methods: {
+    rowClick(event, row) {
+      console.log("clickonrow#:", row, event);
+      row.selected = true;
+
+      if (this.selected.indexOf(row) == -1) {
+        this.selected.push(row);
+      } else {
+        this.selected.splice(this.selected.indexOf(row), 1);
+      }
+    },
     mobilityConverter(type = 0, data) {
       const values = [
         "In bed only",
@@ -549,21 +224,26 @@ export default {
       let buildSetlist = [];
       for (let index = 0; index < this.selected.length; index++) {
         // let withStepNum = this.selected[index].alldata["step"];
-        buildSetlist.push(this.selected[index].alldata);
-        buildSetlist[index]["step"] = index + 1;
-        console.log("selected:", this.selected[index].alldata);
+        buildSetlist.push(this.selected[index].alldata.id);
+        // buildSetlist[index]["step"] = index + 1;
+        console.log("selected:", this.selected[index].alldata.id);
       }
       // console.log("fixdd:", buildSetlist[index]["step"]);
-      window.localStorage.setItem(
-        "userCurrentSetlist",
-        JSON.stringify(buildSetlist)
-      );
+      window.localStorage.setItem("userCurrentSetlist", buildSetlist);
+      // save this list onto all custom lists
+      // let oldSets = this.usersSetLists;
+      // if (!isArray(oldSets)) {
+      // }
+      // window.localStorage.setItem("user.setlists.custom");
+      //
+      this.workingSetlist = buildSetlist;
       console.log(
         "saved setlist:",
         this.workingSetlist,
         "localastore",
         window.localStorage.getItem("userCurrentSetlist")
       );
+
       this.popupTitle = "Saved!";
       this.popupCaption = "Your set list was saved!.";
     },
@@ -670,6 +350,11 @@ export default {
 .q-dialog__inner .q-card,
 .q-btn {
   // background: #45df32;
+  border-radius: 0%;
+  box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
+    -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;
+}
+.q-table__grid-item-card {
   border-radius: 0%;
   box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
     -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;

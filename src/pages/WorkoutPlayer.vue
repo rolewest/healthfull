@@ -6,6 +6,7 @@
     <iframe width="560" height="315" src="http://www.youtube.com/embed/azv8eJgoGLk?autoplay=1&loop=0&playlist=azv8eJgoGLk&start=956&end=1020&rel=0" frameborder="0" allowfullscreen></iframe>
     <iframe width="560" height="315" src="http://www.youtube.com/embed/Z1IvxI8YcUM?autoplay=1&loop=0&playlist=Z1IvxI8YcUM&start=205&end=236&rel=0&mute=1" frameborder="0" allowfullscreen></iframe>
     <iframe width="560" height="315" src="http://www.youtube.com/embed/PdnZTxKIe9g?autoplay=1&loop=0&playlist=PdnZTxKIe9g&start=205&end=236&rel=0&mute=1" frameborder="0" allowfullscreen></iframe> -->
+  <br />
   <q-dialog v-model="alert" persistent>
     <q-card>
       <q-card-section>
@@ -210,13 +211,74 @@
           <div class="title-h4 row">Start Conditioning?</div>
           <div class="text-center">
             <div v-html="randomWelcome"></div>
-            <div class="text-center">
-              <q-btn
-                @click="startConditioning()"
-                color="positive"
-                text-color="accent"
-                >start!</q-btn
-              >
+            <div class="text-center row justify-center">
+              <q-card class="q-pa-sm">
+                <q-btn
+                  @click="
+                    buildRoutine();
+                    startConditioning();
+                  "
+                  color="positive"
+                  text-color="accent"
+                  >Your Custom Routine</q-btn
+                >
+                <h5>Low Impact Exercises</h5>
+                <q-btn
+                  @click="
+                    buildRoutine(1, 0);
+                    startConditioning();
+                  "
+                  color="info"
+                  text-color=""
+                  class=""
+                  ><q-icon name="medication" class="h2"></q-icon>#1 Exercise For
+                  Sedentary
+                  <q-icon name="medication" class="h2"></q-icon>
+                  <div
+                    class="text-sm block full-width on-the-floor rainbowToRainbow"
+                  >
+                    <q-icon name="star" class="h2"></q-icon>Zero Impact - In
+                    Chair<q-icon name="star" class="h2"></q-icon></div></q-btn
+                ><br />
+                <q-btn
+                  @click="
+                    buildRoutine(1, 1);
+                    startConditioning();
+                  "
+                  color="primary"
+                  text-color=""
+                  ><q-icon name="medication" class="h2"></q-icon> Lying In Bed
+                  <q-icon name="medication" class="h2"></q-icon>
+                  <div class="text-sm block full-width">
+                    Super Low Impact
+                  </div></q-btn
+                >
+                <q-btn
+                  @click="
+                    buildRoutine(1, 2);
+                    startConditioning();
+                  "
+                  color="primary"
+                  text-color=""
+                  ><q-icon name="medication" class="h2"></q-icon> Sitting In
+                  Chair <q-icon name="medication" class="h2"></q-icon>
+                  <div class="text-sm block full-width">
+                    Very Low Impact
+                  </div></q-btn
+                >
+                <q-btn
+                  @click="buildRoutine(1, 3)"
+                  color="primary"
+                  text-color=""
+                  disabled
+                  ><q-icon name="medication" class="h2"></q-icon> Standing Only
+                  <q-icon name="medication" class="h2"></q-icon>
+                  <div class="text-sm block full-width">
+                    Low Impact - Coming Soon
+                  </div></q-btn
+                >
+              </q-card>
+
               <!-- <q-btn color="info" class="info" @click="showCompleted">
                 finished!
               </q-btn> -->
@@ -439,7 +501,7 @@
 
 <script>
 import { ref } from "vue";
-
+import { setList, doctorSets } from "../scripts/setlist.js";
 export default {
   data() {
     return {
@@ -451,13 +513,56 @@ export default {
         sp: window.localStorage.getItem("user.points.sp") || 0,
       } || { xp: 0, hp: 0, cp: 0, sp: 0 },
       currentStep: ref(0),
-      stepsList: window.localStorage.getItem("usersCurrentSetlist") || [],
+      workingList: window.localStorage.getItem("userCurrentSetlist") || [],
+      stepsList: [],
       playList: [],
+      setList: setList,
+      doctorSets: doctorSets,
       videoIdIndex: 0,
       ytUrl: "",
     };
   },
   methods: {
+    buildRoutine(type = 0, drsetnum = 0) {
+      // console.log(
+      //   "started-build-routineXy",
+      //   eval(window.localStorage.getItem("userCurrentSetlist")),
+      //   window.localStorage.getItem("userCurrentSetlist").split(","),
+      //   this.setList.length,
+      //   this.stepsList.length,
+      //   this.workingList.length
+      // );
+      console.log(
+        "WWWTTTFF:",
+        window.localStorage.getItem("userCurrentSetlist"),
+        this.workingList
+      );
+      let selectedSetList = [];
+      if (window.localStorage.getItem("userCurrentSetlist"))
+        selectedSetList = window.localStorage
+          .getItem("userCurrentSetlist")
+          .split(","); //eval(window.localStorage.getItem("userCurrentSetlist"));//
+      let newList = [];
+      // ! get prescribed sets
+      if (type == 1) {
+        let drorder = this.doctorSets.find((item) => item.id === drsetnum);
+        selectedSetList = eval(drorder.set); // temp replace for the loop
+      }
+
+      for (let index = 0; index < selectedSetList.length; index++) {
+        console.log("curSetId:");
+        let foundSet = this.setList.find(
+          (item) => item.id === parseInt(selectedSetList[index])
+        );
+
+        foundSet.step = index + 1;
+        newList.push(foundSet);
+      }
+
+      // window.localStorage.setItem("userCurrentSetlist", newList);
+      // this.workingSetlist = newList;
+      this.stepsList = newList;
+    },
     showCompleted() {
       // this.userBasePoints = null;
       console.log(
@@ -522,12 +627,15 @@ export default {
       this.ytUrl = `https://www.youtube.com/embed/${id}?autoplay=${autoplay}&loop=0&playlist=${id}&start=${startAt}&end=${endAt}&rel=0${mute}`;
 
       console.log("PLAYINGT:", this.ytUrl);
+      // window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo(0, 0);
     },
 
     getNextVideoId() {
       console.log("NEWXT!:");
     },
     startConditioning() {
+      console.log("###L:", this.stepsList, this.workingList);
       this.currentStep = 1;
       // load the first video in the series
       this.switchToVideoId(
@@ -635,8 +743,8 @@ export default {
     },
     randomWelcome() {
       const welcomes = [
-        "Everything is all setup, just click start to begin your training.",
-        "Click start to begin your training.",
+        "Everything is all setup. Make a choice to begin your training.",
+        "Select from your prescribed exercises, or your custom routine.",
       ];
 
       let itemNum = Math.floor(Math.random() * welcomes.length);
@@ -655,18 +763,25 @@ export default {
     },
   },
   mounted() {
-    console.log("!!!:", window.localStorage.getItem("userCurrentSetlist"));
+    // console.log(
+    //   "p!!!:",
+    //   window.localStorage.getItem("userCurrentSetlist").split(","),
+    //   this.stepsList,
+    //   this.workingList
+    // );
     if (
       window.localStorage.getItem("userCurrentSetlist") == "[]" ||
       window.localStorage.getItem("userCurrentSetlist") == null
     ) {
       this.alert = true;
+    } else {
+      this.buildRoutine();
     }
     //
 
-    this.stepsList = JSON.parse(
-      window.localStorage.getItem("userCurrentSetlist")
-    );
+    // this.stepsList = JSON.parse(
+    //   window.localStorage.getItem("userCurrentSetlist")
+    // );
     // load the first video in the series
     // this.switchToVideoId(
     //   this.stepsList[0].video.id,

@@ -1,753 +1,1239 @@
 <template>
-  <div class="blockCursor">
-    <!-- <div>
-      <video hidden id="webcam" width="640" height="480"></video>
-      <canvas id="canvas" width="640" height="480"></canvas>
-    </div> -->
-
-    <div class="questItem shadow-sm p-3" id="statsInput">
-      <div class="is-card-type">
-        <span class="title-text">Baseline Measurements</span>
+  {{}}
+  <span v-if="this.$route.name == 'prescription'" class="hidden">
+    <!-- Current Gender -->
+    <div class="input-group mb-3 w-75 shadow-sm">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1"></span>
       </div>
-      <div class="row no-wrap justify-between is-retro-icon">
-        <div class="mdi mdi-tape-measure text-h2 pr-5 text-left"></div>
-        <p class="text-center text-h5">
-          Let's find out some of your basic info so you can tell me your health
-          goals!
-        </p>
-        <div class="mdi mdi-scale-bathroom text-h2 pr-5 text-right"></div>
-      </div>
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-human-male-height text-h3"></span
-          ></span>
-        </div>
-
-        <input
-          type="text"
-          id="userHeight"
-          ref="userHeight"
-          class="form-control graphPaper-2"
-          v-model="userHeight"
-          placeholder="Height"
-          aria-label="height"
-          aria-describedby="basic-addon1"
-          @focus="$event.target.select()"
-        />
-
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button
-            type="button"
-            class="btn btn-primary bg-info"
-            ref="userCMObj"
-            @click="toggleCM(true)"
-          >
-            CM
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary bg-secondary"
-            ref="userFTObj"
-            @click="toggleCM(false)"
-          >
-            FT
-          </button>
-        </div>
-      </div>
-      <label for="userHeight">Height</label>
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-weight text-h3"></span
-          ></span>
-        </div>
-        <input
-          type="number"
-          id="userWeight"
-          class="form-control graphPaper-2"
-          v-model="userWeight"
-          placeholder="Weight"
-          aria-label="Weight"
-          aria-describedby="basic-addon1"
-          @focus="$event.target.select()"
-        />
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button
-            type="button"
-            class="btn btn-primary bg-info"
-            ref="userKGObj"
-            @click="toggleKG(true)"
-          >
-            KG
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary bg-secondary"
-            ref="userLBObj"
-            @click="toggleKG(false)"
-          >
-            LBS
-          </button>
-        </div>
-      </div>
-      <label for="userWeight">Weight</label>
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-cake-variant text-h3"></span
-          ></span>
-        </div>
-        <input
-          type="number"
-          class="form-control graphPaper-2"
-          v-model="userAge"
-          placeholder="Age"
-          aria-label="Age"
-          aria-describedby="basic-addon1"
-          @focus="$event.target.select()"
-        /><br />
-        <label for="userAge">Age</label>
-      </div>
-      <!-- Current Gender -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="text-h3"><q-icon name="fas fa-venus-mars" /></span
-          ></span>
-        </div>
-        <q-btn
-          ref="flipMale"
-          :class="{
-            'btn btn-secondary': true,
-            'bg-secondary': this.userGender == 1,
-            'bg-info': this.userGender == 0,
-          }"
-          @click="flipGender(0)"
-        >
-          <q-icon name="mdi-human-male" size="25px" /> male&nbsp;
-        </q-btn>
-        <q-btn
-          ref="flipFemale"
-          :class="{
-            'btn btn-secondary': true,
-            'bg-secondary': this.userGender == 0,
-            'bg-info': this.userGender == 1,
-          }"
-          @click="flipGender(1)"
-        >
-          <q-icon name="mdi-human-female" size="25px" /> female&nbsp;
-        </q-btn>
-
-        <br />
-        <label for="userAge">Gender</label>
-      </div>
-
-      <!-- User Resting Heart Rate -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span
-              class="mdi mdi-heart-pulse text-h3"
-              ref="smBpmIcon"
-              style="border-radius: 100%"
-            ></span
-          ></span>
-          <div style="font-size: 8px; max-width: 40%">
-            You can use the BPM button on the lower right to record the value
-            below when you are in a relaxed state, or
-            <a
-              href="https://prouast.github.io/heartbeat-js/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >tap here</a
-            >
-            to track via video.
-          </div>
-        </div>
-        <input
-          type="number"
-          class="form-control graphPaper-2"
-          v-model="userRHR"
-          placeholder="Resting Heart Rate"
-          aria-label="Age"
-          aria-describedby="basic-addon1"
-          @focus="
-            $event.target.select();
-            this.$refs.smBpmIcon.classList.add('pulseBPMTap');
-          "
-          v-on:blur="$refs.smBpmIcon.classList.remove('pulseBPMTap')"
-        /><br />
-        <label for="userRHR">Resting Heart Rate</label>
-      </div>
-
-      <!-- Mobility level -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-shape-plus text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userSkill"
-          class="form-control"
-          v-model="userSkill"
-          placeholder="Skill Level"
-          aria-label="Skill"
-          aria-describedby="basic-addon1"
-        >
-          <!-- <option value="0">No exercise, or occasional</option>
-          <option value="1.1">1 day every week</option>
-          <option value="1.1">~1-2 days</option>
-          <option value="1.2">2 days</option>
-          <option value="1.3">3 days</option>
-          <option value="1.4">4 days</option>
-          <option value="1.5">5 days</option>
-          <option value="1.6">6 days</option>
-          <option value="1.7">7 days</option>
-          <option value="2">I'm a trainer</option>
-          <option value="3">I'm a professional athlete</option>
-        </select> -->
-
-          <option value="-10">Unable to stand</option>
-          <option value="-6">Mobility issus</option>
-          <option value="-5">Obesely overweight</option>
-          <option value="-3">Very overweight</option>
-          <option value="-2">Overweight</option>
-          <option value="2.0">A bit overweight</option>
-          <option value="0">Very thin</option>
-          <option value="1.0">Skinny but overweight (skinny-fat)</option>
-          <option value="1">A bit underweight</option>
-          <option value="2">Average Build</option>
-          <option value="3">Athletic</option>
-          <option value="7">Body Builder</option>
-          <option value="9">Fitness trainer</option>
-
-          slim average athletic obese
-          <!-- slim average athletic obese -->
-        </select>
-        <!-- could be check box collective such as:
-                      -at work/school I: am on my feet all day, sit all day, don't work, work up a sweat for 10 minutes every day,
-                      I don't work
-
-                      at home I: sit around most days, play outdoor sports (for how many min X 0.01), I am out and about driving everyday,
-                      I'm out mostly walk/jog/biking/
-
-                      I cook, Takeout/delivery,
-                      frozen/packaged-prepared (percent) vs fresh/frozen-whole
-
-                      My hobbies include, for more than 30 minutes at a time: moderate exercise [ ] days/week
-                      sitting watching tv/phone [ ] days per week
-        -->
-        <br />
-        <label for="userSkill">Body Shape</label>
-      </div>
-
-      <!-- Exercise frequency -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-calendar-heart text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userExerciseFrequency"
-          class="form-control"
-          v-model="userExerciseFrequency"
-          placeholder="Exercise Frequency"
-          aria-label="Exercise Frequency"
-          aria-describedby="basic-addon1"
-        >
-          <option value="0">Never</option>
-          <option value="0.0">Less than once a week</option>
-          <option value="1">Once a week</option>
-          <option value="2">Two to three times a week</option>
-          <option value="3">Almost every day</option>
-        </select>
-
-        <br />
-        <label for="userSkill">Exercise Frequency</label>
-      </div>
-
-      <!-- Exercise Effort -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-gauge text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userExerciseEffort"
-          class="form-control"
-          v-model="userExerciseEffort"
-          placeholder="Exercise Effort"
-          aria-label="Exercise Effort"
-          aria-describedby="basic-addon1"
-        >
-          <option value="0">I Take it easy</option>
-          <option value="5">Heavy Breathing & Sweating</option>
-          <option value="10">I push near exhaustion</option>
-        </select>
-
-        <br />
-        <label for="userSkill">Exercise Effort</label>
-      </div>
-      <!-- Exercise Length -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-clock text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userExerciseLength"
-          class="form-control"
-          v-model="userExerciseLength"
-          placeholder="Exercise Length"
-          aria-label="Exercise Length"
-          aria-describedby="basic-addon1"
-        >
-          <option value="1">Less than 15 min.</option>
-          <option value="1.01">16 to 30 min.</option>
-          <option value="1.5">30 to 60 min.</option>
-          <option value="1.5">more than 60 min.</option>
-        </select>
-
-        <br />
-        <label for="userSkill">Exercise Length</label>
-      </div>
-
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <details :open="userNeck > 0">
-            <summary><span>Have a tape measure handy?</span></summary>
-            <fieldset>
-              <div>
-                We can get more details if you have a tape measure (non-stretch
-                & cloth is best.) but feel free to skip this if you don't.
-              </div>
-              <span class="mdi mdi-tape-measure text-h3"></span>
-              <span class="mdi mdi-arrow-left-right-bold text-h3"></span>
-              <span class="mdi mdi-human text-h3"></span>
-              <div class="row">
-                <div
-                  class="border-double-1 border-accent vertical-top width-100"
-                >
-                  <div class="title-h4">Neck</div>
-                  Measure neck circumference from below the larynx, with the
-                  tape angled downward to the front.
-                  <div>
-                    <input
-                      type="number"
-                      id="userNeck"
-                      class="form-control graphPaper-2"
-                      v-model="userNeck"
-                      placeholder="Neck Size"
-                      aria-label="Neck circumference"
-                      aria-describedby="basic-addon1"
-                      @focus="$event.target.select()"
-                    />
-                    <br /><label for="userNeck">Neck Circumference</label><br />
-                  </div>
-                </div>
-                <div
-                  class="border-double-1 border-accent vertical-top width-100"
-                >
-                  <div class="title-h4">Waist</div>
-                  <div>
-                    <b>Male:</b> Measure waist around the navel (belly button)
-                  </div>
-                  <div>
-                    <b>Female:</b> Measure waist around smallest part of torso
-                  </div>
-                  <div>
-                    <input
-                      type="number"
-                      id="userWaist"
-                      class="form-control graphPaper-2"
-                      v-model="userWaist"
-                      placeholder="Waist Size"
-                      aria-label="Waist circumference"
-                      aria-describedby="basic-addon1"
-                      @focus="$event.target.select()"
-                    />
-                    <br /><label for="userWaist">Waist Circumference </label>
-                  </div>
-                </div>
-                <div
-                  class="border-double-1 border-accent vertical-top width-100"
-                >
-                  <div class="title-h4">Hips</div>
-                  <b>Both:</b>Measure hips at the widest part, usually around
-                  buttocks/crotch, where you bend over from.
-                  <div>
-                    <input
-                      type="number"
-                      id="userHip"
-                      class="form-control graphPaper-2"
-                      v-model="userHip"
-                      placeholder="Hip Size"
-                      aria-label="Hip circumference"
-                      aria-describedby="basic-addon1"
-                      @focus="$event.target.select()"
-                    />
-
-                    <br /><label for="userHip">Hip Circumference</label>
-                  </div>
-                </div>
-                <span v-if="userNeck > 0"
-                  ><br />
-                  {{
-                    `Male:${navyBFP(0).toFixed(1)}  Female:${navyBFP(1).toFixed(
-                      1
-                    )}`
-                  }}
-                </span>
-              </div>
-            </fieldset>
-          </details>
-        </div>
-      </div>
-    </div>
-    <!-- your personal goals -->
-    <div class="questItem shadow-sm p-3" id="statsInput">
-      <div class="is-card-type">
-        <span class="title-text">Personal Health Goals</span>
-      </div>
-      <div class="row no-wrap justify-between is-retro-icon">
-        <div class="mdi mdi-account-heart text-h2 pr-5 text-left"></div>
-        <p class="text-center text-h5">
-          Now tell me what's the reason for your visit today, and how you want
-          to improve your health?
-        </p>
-        <div class="mdi mdi-calendar-star text-h2 pr-5 text-right"></div>
-      </div>
-      <div>
-        <q-icon class="text-h3" name="mdi-human-edit"></q-icon><br />
-        <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8145781/ -->
-        <select
-          id="userBodyGoal"
-          class="form-control"
-          v-model="userBodyGoal"
-          placeholder="Body Goal"
-          aria-label="Body Type Goal"
-          aria-describedby="basic-addon1"
-        >
-          <option value="-2">Loose a lot of body fat</option>
-          <option value="-1">Loose a bit of body fat</option>
-          <option value="0">Maintain my current weight</option>
-          <option value="1">Get an athletic body</option>
-          <option value="2">Get a muscular body</option>
-          <option value="3">Get a bodybuilder body</option></select
-        ><br />
-        <label for="userBodyGoal">Desired Body Improvement</label>
-      </div>
-      <br />
-      <fieldset>
-        <legend>
-          <q-icon class="text-h3" name="mdi-head-dots-horizontal"></q-icon> My
-          Health Concerns
-        </legend>
-        <div>
-          <br />
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="heart"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Heart Disease</span> </label
-          ><br />
-
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="cancer"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Cancer</span> </label
-          ><br />
-
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="diabetes"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Diabetes</span> </label
-          ><br />
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="alzheimers"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Alzheimers</span> </label
-          ><br />
-          <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8702655/#sec0060title -->
-          <!-- <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="immunity"
-              v-model="userConcerns"
-            />
-            <span class="check-label">General Immunity</span> </label
-          ><br /> -->
-          check back soon for more...
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>
-          <q-icon class="text-h3" name="medical_information"></q-icon> My
-          Lifestyle
-        </legend>
-        <div>
-          <br />
-
-          <label>
-            I drink alcoholic
-            <input type="number" v-model="userLifestyleAlcohol" />
-            <span class="check-label"></span>
-          </label>
-          drinks every
-          <select
-            id="userLifestyleAlcoholFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleAlcoholFreq"
-            placeholder="Frequency"
-            aria-label="Alcohol Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-
-          <label>
-            I drink soda pop or fruit juice
-            <input type="number" v-model="userLifestyleSoda" />
-            <span class="check-label"></span>
-          </label>
-          drinks every
-          <select
-            id="userLifestyleSodaFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleSodaFreq"
-            placeholder="Frequency"
-            aria-label="Soda Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-
-          <label>
-            I smoke
-            <input type="number" v-model="userLifestyleSmokes" />
-            <span class="check-label"></span>
-          </label>
-          cigarettes every
-          <select
-            id="userLifestyleSmokesFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleSmokesFreq"
-            placeholder="Frequency"
-            aria-label="Smoking Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            I eat meat
-            <input type="number" v-model="userLifestyleMeat" />
-            <span class="check-label"></span>
-          </label>
-          times every
-          <select
-            id="userLifestyleMeatFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleMeatFreq"
-            placeholder="Frequency"
-            aria-label="Meat Eat Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            I eat seafood
-            <input type="number" v-model="userLifestyleSeafood" />
-            <span class="check-label"></span>
-          </label>
-          times every
-          <select
-            id="userLifestyleSeafoodFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleSeafoodFreq"
-            placeholder="Frequency"
-            aria-label="Seafood Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            I eat dairy or eggs
-            <input type="number" v-model="userLifestyleDairy" />
-            <span class="check-label"></span>
-          </label>
-          times every
-          <select
-            id="userLifestyleDairyFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleDairyFreq"
-            placeholder="Frequency"
-            aria-label="Dairy Eat or Eggs Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
-
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            Usually, I sit/lie around (sedentary) for
-            <input type="number" v-model="userLifestyleSedentary" />
-            <span class="check-label"></span>
-          </label>
-          hours every <b>day</b> (at home, work/school, watching tv, sitting,
-          etc. don't include your regular sleep)
-
-          <hr />
-        </div>
-      </fieldset>
-    </div>
-    <!-- Then diagnosis: things to avoid, things to eat, things to do/exercise -->
-    <!-- Avoid: smoke of any kind, all meat products,  -->
-    <!-- you get: no smoking (+10 years) -->
-    <!-- https://understandinguncertainty.org/microlives -->
-    <Clipboard />
-    <div class="q-ma-sm">
-      <Prescription />
-    </div>
-    <div class="text-center">
-      <q-btn @click="this.$router.push({ name: 'home' })" color="info"
-        >Back to Home Base</q-btn
+      <q-btn
+        ref="flipMale"
+        :class="{
+          'btn btn-secondary': true,
+          'bg-secondary': this.userGender == 1,
+          'bg-info': this.userGender == 0,
+        }"
+        @click="flipGender(0)"
       >
-    </div>
-    <div v-if="showCitationModal">
-      <Modal @close="toggleCitationModal" :theme="citationTheme" cite="cite">
-        <template></template>
-        <template v-slot:cite>
-          <h4 class="title-h4">{{ citationName }}</h4>
-          <div class="title-h4">
-            {{ citationCaption }}
-          </div>
-          <div class="paperSheetFlat">
-            <div class="text-center">
-              <a :href="baseURL + '/citations/' + citationID" target="_blank"
-                >see full citations & sources here</a
-              ><br />
-              <div class="text-h5">Basic Overview</div>
-              <span class="text-negative">
-                {{
-                  citationTheme === "theme-red"
-                    ? "WARNING: this method's use is questionable"
-                    : ""
-                }}</span
-              >
-              <span class="text-negative">
-                {{
-                  citationTheme === "theme-notice"
-                    ? "WARNING: your data could be inaccurate"
-                    : ""
-                }}</span
-              >
-              <br />
-            </div>
+        <q-icon name="mdi-human-male" size="25px" /> male&nbsp;
+      </q-btn>
+      <q-btn
+        ref="flipFemale"
+        :class="{
+          'btn btn-secondary': true,
+          'bg-secondary': this.userGender == 0,
+          'bg-info': this.userGender == 1,
+        }"
+        @click="flipGender(1)"
+      >
+        <q-icon name="mdi-human-female" size="25px" /> female&nbsp;
+      </q-btn>
+    </div></span
+  >
 
-            <p>
-              {{ citationShortFormat }}
-            </p>
-            <p>
-              {{ citationWhy }}
-            </p>
-          </div>
-          <div class="paperSheetFlat" v-show="citationSummary">
-            <!-- [<router-link to="/about">abooot</router-link>] {{ citationName }} |
-            {{ citationID }} | {{ citationCaption }} | {{ citationShort }} -->
-            <div class="text-center text-h5">Sources / Excerpts</div>
-            <kbd class="cite-text">
-              {{ citationSummaryFormat }} <br />
-              <a :href="baseURL + '/citations/' + citationID" target="_blank"
-                >full citations are here</a
+  <div class="clip shadow"></div>
+  <div class="clipBoard table-responsive">
+    <div class="paperSheet shadow">
+      <table class="table">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">
+              <span
+                class="text-is-stamp"
+                :class="
+                  showIdealWeight(4) > -14 && showIdealWeight(4) < 5
+                    ? 'text-info'
+                    : 'border-negative'
+                "
+                >{{ getBMI(1) }}</span
               >
-            </kbd>
-          </div>
-        </template>
-      </Modal>
+              &nbsp;
+            </th>
+            <th scope="col" class="maleChart">Male</th>
+            <th scope="col" class="femaleChart">Female</th>
+            <th scope="col">Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th
+              scope="row"
+              class="text-center font-weight-bold text-primary"
+              colspan="100%"
+            >
+              <span class="mdi mdi-account-search text-h5"></span>
+              Estimated Body Composition
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              Metabolic Age
+            </th>
+            <td
+              class="maleChart"
+              :class="{
+                'text-negative': getMetabolicAge() > userAge,
+                'text-positive': getMetabolicAge() < userAge,
+              }"
+            >
+              {{ getMetabolicAge() }}
+            </td>
+            <td
+              class="femaleChart"
+              :class="{
+                'text-negative': getMetabolicAge() > userAge,
+                'text-positive': getMetabolicAge() < userAge,
+              }"
+            >
+              {{ getMetabolicAge() }}
+            </td>
+            <td class="text-center">
+              <span
+                class="mdi mdi-comment-quote-outline citation"
+                @click="
+                  citation(
+                    1,
+                    'Met-Age',
+                    'Metabolic Age',
+                    `Met-age is highly associated with and is an indicator of high-risk of developing Metabolic Syndromes such as heart disease, stroke and type 2 diabetes.`,
+                    `Met-age showed a higher discriminatory capacity for CVR than chronological age (1).Metabolic age can be a useful tool for assessing the metabolic status of individuals. A study by the European Society of Cardiology used metabolic age as one of the predictors for cardiovascular disorders in people hav-ing a higher metabolic age than their chronological age (2).`,
+                    `A higher metabolic age than chronological age indicates a level of basic metabolism with low physical activity.`,
+
+                    'theme-checked'
+                  )
+                "
+              ></span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row" class="">
+              <span class="mdi mdi-check-outline text-success"></span> Current
+              Weight
+            </th>
+            <td class="maleChart">{{ showIdealWeight(6) }}</td>
+            <td class="femaleChart">{{ showIdealWeight(6) }}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="">
+              <span class="mdi mdi-check-outline text-success"></span> Ideal
+              Weight
+            </th>
+            <td class="maleChart">{{ showIdealWeight(0) }}</td>
+            <td class="femaleChart">{{ showIdealWeight(1) }}</td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span v-if="showIdealWeight(4) > -15 && showIdealWeight(4) < 5">
+                <span class="mdi mdi-check-outline text-success"></span>
+              </span>
+              <span v-else>
+                <span class="mdi mdi-alert text-warning"></span>
+              </span>
+              Weight Difference
+            </th>
+            <td class="maleChart">
+              <!-- ideal +/- 5kg -->
+              <span v-if="showIdealWeight(4) > -5 && showIdealWeight(4) < 5">
+                <span class="text-positive">
+                  {{ showIdealWeight(2) }}
+                </span>
+              </span>
+              <!-- a bit overweight -->
+              <span
+                v-else-if="showIdealWeight(4) > 5 && showIdealWeight(4) < 10"
+              >
+                <span class="text-warning">
+                  {{ showIdealWeight(2) }}
+                </span>
+              </span>
+              <!-- overweight -->
+              <span v-else-if="showIdealWeight(4) > 5">
+                <span class="text-negative">
+                  {{ showIdealWeight(2) }}
+                </span>
+              </span>
+              <!-- underweight -->
+              <span v-else-if="showIdealWeight(4) < -5">
+                <span class="text-negative">
+                  {{ showIdealWeight(2) }}
+                </span>
+              </span>
+              <span v-else>
+                {{ showIdealWeight(2) }}
+              </span>
+            </td>
+            <td class="femaleChart">
+              <!-- ideal +/- 5kg -->
+              <span v-if="showIdealWeight(5) > -5 && showIdealWeight(5) < 5">
+                <span class="text-positive">
+                  {{ showIdealWeight(3) }}
+                </span>
+              </span>
+              <!-- a bit overweight -->
+              <span
+                v-else-if="showIdealWeight(5) > 5 && showIdealWeight(5) < 10"
+              >
+                <span class="text-warning">
+                  {{ showIdealWeight(3) }}
+                </span>
+              </span>
+              <!-- overweight -->
+              <span v-else-if="showIdealWeight(5) > 5">
+                <span class="text-negative">
+                  {{ showIdealWeight(3) }}
+                </span>
+              </span>
+              <!-- underweight -->
+              <span v-else-if="showIdealWeight(5) < -5">
+                <span class="text-negative">
+                  {{ showIdealWeight(3) }}
+                </span>
+              </span>
+              <span v-else>
+                {{ showIdealWeight(3) }}
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> BMI -
+              Body Mass Index
+              <div></div>
+            </th>
+            <td class="maleChart">{{ getBMI(0) }}</td>
+            <td class="femaleChart">{{ getBMI(0) }}</td>
+            <td class="text-center">
+              <span
+                class="mdi mdi-comment-quote-outline citation"
+                @click="
+                  citation(
+                    1,
+                    'BMI',
+                    'Body Mass Index',
+                    `This figure has a lot of mixed opinions, as it doesn't take in to account muscle mass, bone density and others, but ''BMI was a stronger predictor of CVD mortality than total adiposity markers, particularly BF% and FMI, assessed with accurate methods...[PMID: 26948431]'' so too much body fat OR muscle can be dangerous.`,
+                    ` suggests that the simple and inexpensive measure of BMI can be as clinically important measure or even more than total adiposity measures assessed by accurate, complex and expensive methods [PMID: 26948431]. Hopefully both detractors and proponents of BMI can agree that the measure is imperfect – not unlike any other measure of health – but if and when better framed as a holistic assessment of health relative to weight, it can provide valuable insights into obesity as an individual and social condition [PMID: 31007613].`,
+                    ``,
+                    'theme-red'
+                  )
+                "
+              ></span>
+            </td>
+          </tr>
+
+          <tr v-if="userNeck > 0 && userWaist > 0">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> BF% -
+              Measured
+            </th>
+            <td class="maleChart">
+              {{ navyBFP(0).toFixed(2) }}% ({{ bfpToCategory(0, navyBFP(0)) }})
+            </td>
+            <td class="femaleChart">
+              {{ navyBFP(1).toFixed(2) }}% ({{ bfpToCategory(1, navyBFP(1)) }})
+            </td>
+            <td class="text-center">
+              <span
+                class="mdi mdi-comment-quote-outline citation"
+                @click="
+                  citation(
+                    1,
+                    'BF% - Tested Formula',
+                    'Body Fat Percentage',
+                    `A more reliable measure of body fat to avoid levels above 25.8% for men and 37.1% for women will have lower risk of disease and lower mortality rates.`,
+                    `Navy-seal formula and bioelectrical impedance are both simple and reliable instruments to measure body composition in adults. The navy-seal formula can be used to screen individuals with high-fat body fat ratio whereas bioelectric impedance can be used to measure the body composition for personal monitoring[1]. The real test of these equations for classifying individuals for excess fat or insufficient muscle mass would be the strength of the association with physical readiness and physical fitness performance[2].`,
+                    `This method is using your measurements has been used for decades by the US Navy and is proven to be more reliable than the BMI approach.`,
+
+                    'theme-checked'
+                  )
+                "
+              ></span>
+            </td>
+          </tr>
+          <tr :class="{ unHighlight: userNeck > 0 && userWaist > 0 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> BF% -
+              Body Fat Percent - BMI Based
+            </th>
+            <td class="maleChart">
+              {{ estBodyFatFromBMI(0) }}% ({{
+                bfpToCategory(0, estBodyFatFromBMI(0))
+              }})
+            </td>
+            <td class="femaleChart">
+              {{ estBodyFatFromBMI(1) }}% ({{
+                bfpToCategory(1, estBodyFatFromBMI(1))
+              }})
+            </td>
+            <td class="text-center">
+              <span
+                class="mdi mdi-comment-quote-outline citation"
+                @click="
+                  citation(
+                    1,
+                    'BF% - BMI Based',
+                    'Body Fat Percentage',
+                    `Your body fat percentage can tell a lot about about your health. Levels above 25.8% for men and 37.1% for women were shown to have higher risk of cardiovascular and other diseases such as diabetes and cancer.`,
+                    `Being overweight and obesity are commonly acknowledged key risk factors for non-communicable diseases (NCDs).1,2 Obesity is deemed an independent cardiovascular risk factor (CRF).2 Other CRFs: age, gender, hypertension, dyslipidemia, diabetes mellitus, smoking, unhealthy diet, physical inactivity, and family history[1].`,
+                    `We use the CUN-BAE formula developed in 2012 that has been tested on over 6,500 subjects from 18-80 years of age. Measure your neck, waist & hips for more accurate results.`,
+
+                    'theme-notice'
+                  )
+                "
+              ></span>
+            </td>
+          </tr>
+          <tr v-if="userNeck > 0 && userWaist > 0 && userHip > 0">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> BFM -
+              Measured
+            </th>
+            <td class="maleChart">
+              {{ navyBFP(4) }} {{ userKG ? " KG" : " LB" }}
+            </td>
+            <td class="femaleChart">
+              {{ navyBFP(5) }} {{ userKG ? " KG" : " LB" }}
+            </td>
+            <td class="text-center"></td>
+          </tr>
+          <tr :class="{ unHighlight: userNeck > 0 && userWaist > 0 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> BFM -
+              Body Fat Mass - BMI Based
+            </th>
+            <td class="maleChart">
+              {{ estBodyFatFromBMI(4) }} {{ userKG ? " KG" : " LB" }}
+            </td>
+            <td class="femaleChart">
+              {{ estBodyFatFromBMI(5) }} {{ userKG ? " KG" : " LB" }}
+            </td>
+            <td class="text-center">
+              <span
+                class="mdi mdi-comment-quote-outline citation"
+                @click="
+                  citation(
+                    1,
+                    'BFM',
+                    'Body Fat Mass',
+                    ``,
+                    ``,
+                    ``,
+
+                    'theme-notice'
+                  )
+                "
+              ></span>
+            </td>
+          </tr>
+          <tr v-if="userNeck > 0 && userWaist > 0 && userHip > 0">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> LBM -
+              Measured
+            </th>
+            <td class="maleChart">
+              {{ navyBFP(2) }} {{ userKG ? " KG" : " LB" }} ({{
+                ((navyBFP(2) / userWeight) * 100).toFixed(0)
+              }}%)
+            </td>
+            <td class="femaleChart">
+              {{ navyBFP(3) }} {{ userKG ? " KG" : " LB" }} ({{
+                ((navyBFP(3) / userWeight) * 100).toFixed(0)
+              }}%)
+            </td>
+            <td class="text-center"></td>
+          </tr>
+
+          <tr :class="{ unHighlight: userNeck > 0 && userWaist > 0 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> LBM -
+              Lean Body Mass - BMI Based
+            </th>
+            <td class="maleChart">
+              {{ estBodyFatFromBMI(2) }} {{ userKG ? " KG" : " LB" }} ({{
+                ((estBodyFatFromBMI(2) / userWeight) * 100).toFixed(0)
+              }}%)
+            </td>
+            <td class="femaleChart">
+              {{ estBodyFatFromBMI(3) }} {{ userKG ? " KG" : " LB" }}({{
+                ((estBodyFatFromBMI(3) / userWeight) * 100).toFixed(0)
+              }}%)
+            </td>
+            <td class="text-center">
+              <span
+                class="mdi mdi-comment-quote-outline citation"
+                @click="
+                  citation(
+                    1,
+                    'LBM',
+                    'Lean Body Mass',
+                    ``,
+                    ``,
+                    ``,
+
+                    'theme-notice'
+                  )
+                "
+              ></span>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> RMR -
+              Resting Metabolic Rate
+            </th>
+            <td class="maleChart">{{ getRMR(0) }}</td>
+            <td class="femaleChart">{{ getRMR(1) }}</td>
+            <td class="text-center">
+              <span
+                class="mdi mdi-comment-quote-outline citation"
+                @click="
+                  citation(
+                    1,
+                    'RMR',
+                    'Resting Metabolic Rate',
+                    `This is the amount of Calories your body uses at complete rest. We use the Oxford method to get your base RMR.`,
+                    `Three equations stood out because the absolute difference between predicted and reference RMR was equal or lower than 200 kcal/d for >60% of individuals (Mifflin, Oxford and Müller equations). From them, only Oxford equation performed better in males and females separately. Conclusion: Oxford equation is a valid alternative to predict RMR in healthy adult humans. Gas exchange correction appears a good practice for reliable assessment of RMR [1].`,
+                    ``,
+                    'theme-checked'
+                  )
+                "
+              ></span>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> BMR -
+              Basal Metabolic Rate
+            </th>
+            <td class="maleChart">{{ getBMR(0) }}</td>
+            <td class="femaleChart">{{ getBMR(1) }}</td>
+            <td class="text-center">
+              <span
+                class="mdi mdi-comment-quote-outline citation"
+                @click="
+                  citation(
+                    1,
+                    'BMR',
+                    'Basal Metabolic Rate',
+                    `Similar to RMR, BMR is the number of Calories your body needs for basic life sustaining functions. It is also the basis or additive for many other formulas.`,
+                    `Harris-Benedict predicted the average BMR with acceptable precision for clinical use and was better fitting than most of the currently available predictive equations for basal metabolic rate (BMR). However, the recalculated version (by Roza et al.) was more accurate and should therefore be used instead of the original equation. [1].`,
+                    `BMR can tell you a lot but at it's most basic it shows you how to cut Calories, or add them, to loose fat or gain muscle.`,
+                    'theme-checked'
+                  )
+                "
+              ></span>
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> BMR -
+              Maintain
+            </th>
+            <td class="maleChart">{{ getBMR(2) }}</td>
+            <td class="femaleChart">{{ getBMR(3) }}</td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> BMR -
+              Weight Loss
+            </th>
+            <td class="maleChart">{{ getBMR(-1) }}</td>
+            <td class="femaleChart">{{ getBMR(-2) }}</td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> BMR -
+              Weight Gain
+            </th>
+            <td class="maleChart">{{ getBMR(4) }}</td>
+            <td class="femaleChart">{{ getBMR(5) }}</td>
+          </tr>
+          <!-- vo2Max -->
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              Vo<sub>2max</sub>
+            </th>
+            <td class="text-center maleChart">
+              <q-icon name="mdi-gas-cylinder" class="" size="2em" />
+              ~{{ v02Max(6) }} - {{ vo2MaxRate(0) }}
+              <!-- {{ parseInt(v02Max(0)) * userWeight }} -->
+            </td>
+            <td class="text-center femaleChart">
+              <q-icon name="mdi-gas-cylinder" class="" size="2em" />
+              ~{{ v02Max(7) }} - {{ vo2MaxRate(1) }}
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+              class="text-center font-weight-bold text-primary"
+              colspan="100%"
+            >
+              <span class="mdi mdi-fire text-h5"></span> Calories Burned in 1
+              Minute
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              Sleeping
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "sleep") }} Cal
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              Sitting
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "sit") }} Cal
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              Standing
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "stand") }} Cal
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> Slow
+              Walk/Stroll
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "walk") }} Cal
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              Washing Dishes
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "dishes") }} Cal
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              Cooking
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "cook") }} Cal
+            </td>
+          </tr>
+
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> Light
+              Cleaning
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "clean") }} Cal
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> Light
+              Yard Work
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "yardwork") }} Cal
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> Brisk
+              Walk
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "walk_medium") }} Cal
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> Light Jog
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "jog") }} Cal
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> Jump Rope
+              / Skipping
+            </th>
+            <td colspan="2" class="text-center">
+              ~{{ getMetToCal((type = 0), "jumprope") }} Cal
+            </td>
+          </tr>
+          <!-- cardio -->
+          <tr>
+            <th
+              scope="row"
+              class="text-center font-weight-bold text-primary"
+              colspan="100%"
+            >
+              <span class="mdi mdi-heart-pulse text-h5"></span> Cardio
+            </th>
+          </tr>
+
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 100%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(100))"
+              />
+              ~{{ showMaxHeartRate(100) }} BPM
+            </td>
+            <td class="text-center">
+              <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7523886/#__sec6title -->
+              <span
+                class="mdi mdi-comment-quote-outline citation"
+                @click="
+                  citation(
+                    1,
+                    'HRmax',
+                    'Max Heart Rate',
+                    `This is the estimated maximum beats/minute that your heart could perform. Exercise at certain percentages of HRmax burns more Calories with less time wasted.`,
+                    `the traditional equation underestimates HRmax after age 40 years, markedly so in older adults [Tanaka study 2001; PMID: 11153730 ].Validation of the previously suggested HR max formulas
+showed that both the widely used equation initially proposed by Fox et al. (1971), the more recent
+equation by Tanaka. (2001)[...] underestimated measured HR max in the present population The Fox equation may represent the best option for a general population as it is less likely to under or overestimate based on individual HRmax. [Shookster study; 2020;PMID:33042384].`,
+                    `We use the refined formula devised in the Hunt Study, the Tanaka, and the Fox formula, averaged off of your metabolic age for added security as studies have shown that all three have merits and flaws when applied to general populations.`,
+                    'theme-checked'
+                  )
+                "
+              ></span>
+            </td>
+          </tr>
+
+          <tr :class="{ 'border-selection': userSkill >= 10 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 90%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(90))"
+              />
+              ~{{ showMaxHeartRate(90) }} BPM
+            </td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill >= 8 && userSkill <= 9 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 85%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(85))"
+              />
+              ~{{ showMaxHeartRate(85) }} BPM
+            </td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill >= 6 && userSkill <= 7 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 80%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(80))"
+              />
+              ~{{ showMaxHeartRate(80) }} BPM
+            </td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill >= 4 && userSkill <= 5 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 75%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(75))"
+              />
+              ~{{ showMaxHeartRate(75) }} BPM
+            </td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill >= 2 && userSkill <= 3 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 70%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(70))"
+              />
+              ~{{ showMaxHeartRate(70) }} BPM
+            </td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill == 1 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 65%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(65))"
+              />
+              ~{{ showMaxHeartRate(65) }} BPM
+            </td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill == 0 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 60%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(60))"
+              />
+              ~{{ showMaxHeartRate(60) }} BPM
+            </td>
+          </tr>
+          <tr
+            :class="{
+              'border-selection': userSkill <= -1 && userSkill >= -3,
+            }"
+          >
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 55%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(55))"
+              />
+              ~{{ showMaxHeartRate(55) }} BPM
+            </td>
+          </tr>
+          <tr
+            :class="{
+              'border-selection': userSkill <= -4 && userSkill >= -5,
+            }"
+          >
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 50%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(50))"
+              />
+              ~{{ showMaxHeartRate(50) }} BPM
+            </td>
+          </tr>
+          <tr
+            :class="{
+              'border-selection': userSkill <= -6,
+            }"
+          >
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span>
+              HRmax - Heart Rate @ 45%
+            </th>
+            <td colspan="2" class="text-center">
+              <q-icon
+                name="mdi-heart-pulse"
+                class="pulseVibrate"
+                @click="bmpToVibrate(showMaxHeartRate(45))"
+              />
+              ~{{ showMaxHeartRate(45) }} BPM
+            </td>
+          </tr>
+
+          <!-- <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                PAI
+              </th>
+              <td colspan="1" class="text-center">
+                <q-icon name="mdi-gas-cylinder" class="" size="2em" />
+                ~{{ v02Max(6) }}
+              </td>
+              <td colspan="1" class="text-center">
+                <q-icon name="mdi-gas-cylinder" class="" size="2em" />
+                ~{{ v02Max(7) }}
+              </td>
+            </tr> -->
+          <!-- strength -->
+          <tr>
+            <th
+              scope="row"
+              class="text-center font-weight-bold text-primary"
+              colspan="100%"
+            >
+              <span class="mdi mdi-dumbbell text-h5"></span> Lift Strength
+            </th>
+          </tr>
+
+          <tr class="text-center">
+            <th scope="col">Estimated Lift</th>
+            <th scope="col" class="maleChart">Male</th>
+            <th scope="col" class="femaleChart">Female</th>
+
+            <th scope="col" colspan="2">Info</th>
+          </tr>
+
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> 1RM (1
+              Rep Max.)
+            </th>
+            <td class="maleChart">~{{ show1RM(4) }}</td>
+            <td class="femaleChart">~{{ show1RM(5) }}</td>
+            <td class="text-center" colspan="2">
+              <span
+                class="mdi mdi-comment-quote-outline citation"
+                @click="
+                  citation(
+                    1,
+                    '1RM',
+                    '1 Repetitions Maximum',
+                    `Many studies seem to show that doing exercises at percentages of 1RM (~50% to ~80%) show fast results.`,
+
+                    `Once the 1RM is known (whether measured or predicted), our equations can be used to estimate the load
+needed for sets to failure for a specific repetition number[1].`,
+                    `This is the maximum amount of weight you can lift while still keeping form and not injuring yourself. We've based our calculations off studies of out the University of New Mexico, although precisely calculating 1RM is never easy.`,
+                    'theme-notice'
+                  )
+                "
+              ></span>
+            </td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill >= 10 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> 1RM 95%
+              @02reps
+            </th>
+            <td class="maleChart">~{{ show1RM(195) }}</td>
+            <td class="femaleChart">~{{ show1RM(295) }}</td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill >= 5 && userSkill <= 9 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> 1RM 90%
+              @04reps
+            </th>
+            <td class="maleChart">~{{ show1RM(190) }}</td>
+            <td class="femaleChart">~{{ show1RM(290) }}</td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill >= 1 && userSkill <= 4 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> 1RM 80%
+              @08reps
+            </th>
+            <td class="maleChart">~{{ show1RM(180) }}</td>
+            <td class="femaleChart">~{{ show1RM(280) }}</td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill == 0 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> 1RM 70%
+              @12reps
+            </th>
+            <td class="maleChart">~{{ show1RM(170) }}</td>
+            <td class="femaleChart">~{{ show1RM(270) }}</td>
+          </tr>
+          <tr
+            :class="{
+              'border-selection': userSkill <= -1 && userSkill >= -3,
+            }"
+          >
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> 1RM 60%
+              @20reps
+            </th>
+            <td class="maleChart">~{{ show1RM(160) }}</td>
+            <td class="femaleChart">~{{ show1RM(260) }}</td>
+          </tr>
+          <tr
+            :class="{
+              'border-selection': userSkill <= -4 && userSkill >= -6,
+            }"
+          >
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> 1RM 50%
+              @30reps
+            </th>
+            <td class="maleChart">~{{ show1RM(150) }}</td>
+            <td class="femaleChart">~{{ show1RM(250) }}</td>
+          </tr>
+          <tr :class="{ 'border-selection': userSkill <= -7 }">
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> 1RM 40%
+              @40reps
+            </th>
+            <td class="maleChart">~{{ show1RM(140) }}</td>
+            <td class="femaleChart">~{{ show1RM(240) }}</td>
+          </tr>
+          <!-- EQUIVs: PPushups etc. -->
+          <tr>
+            <th
+              scope="row"
+              class="text-center font-weight-bold text-primary"
+              colspan="100%"
+            >
+              <span class="mdi mdi-scale text-h5"></span> Body Weight
+              Equivalents
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> Push-up -
+              Standard
+            </th>
+            <td class="maleChart">
+              ~{{ (showIdealWeight(-1) * 0.7504).toFixed(1)
+              }}{{ userKG ? " KG" : " LB" }}
+            </td>
+            <td class="femaleChart">
+              ~{{ (showIdealWeight(-1) * 0.7504).toFixed(1)
+              }}{{ userKG ? " KG" : " LB" }}
+            </td>
+            <td class="text-center"></td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <span class="mdi mdi-check-outline text-success"></span> Push-up -
+              On Knees
+            </th>
+            <td class="maleChart">
+              ~{{ (show1RM(0) * 0.618).toFixed(1) }}{{ userKG ? " KG" : " LB" }}
+            </td>
+            <td class="femaleChart">
+              ~{{ (show1RM(1) * 0.618).toFixed(1) }}{{ userKG ? " KG" : " LB" }}
+            </td>
+            <td class="text-center"></td>
+          </tr>
+          <!-- micro lives -->
+
+          <tr>
+            <th
+              scope="row"
+              class="text-center font-weight-bold text-primary"
+              colspan="100%"
+            >
+              <span class="text-h5"><q-icon name="troubleshoot"></q-icon></span>
+              Health Risks
+            </th>
+          </tr>
+          <!-- chance of heart disease -->
+          <tr v-if="getHabitRisk('heart') || userConcerns.includes('heart')">
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Risk of Heart Disease
+            </th>
+            <td colspan="2">
+              {{
+                getHabitRisk("heart") ? getHabitRisk("heart") : "extremely low"
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+          <!-- chance of cancer -->
+          <tr v-if="getHabitRisk('cancer') || userConcerns.includes('cancer')">
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Risk of Cancer
+            </th>
+            <td colspan="2">
+              {{
+                getHabitRisk("cancer")
+                  ? getHabitRisk("cancer")
+                  : "extremely low"
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+
+          <!-- chance of diabetes -->
+          <tr
+            v-if="getHabitRisk('diabetes') || userConcerns.includes('diabetes')"
+          >
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Risk of Diabetes
+            </th>
+            <td colspan="2">
+              {{
+                getHabitRisk("diabetes")
+                  ? getHabitRisk("diabetes")
+                  : "extremely low"
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+          <!-- chance of dementia/alzheimer's -->
+          <tr
+            v-if="
+              getHabitRisk('alzheimers') || userConcerns.includes('alzheimers')
+            "
+          >
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Increased Risk of Alzheimers / Dementia
+            </th>
+            <td colspan="2">
+              {{
+                getHabitRisk("alzheimers")
+                  ? getHabitRisk("alzheimers")
+                  : "extremely low"
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+          <!-- micro lives -->
+
+          <tr>
+            <th
+              scope="row"
+              class="text-center font-weight-bold text-primary"
+              colspan="100%"
+            >
+              <span class="mdi mdi-timer-sand-complete text-h5"></span> Life
+              Lost in 1 Year
+            </th>
+          </tr>
+          <tr v-if="showIdealWeight('guess') >= 9">
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Overweight
+            </th>
+            <td colspan="2" class="text-negative">
+              {{
+                `-${microLivesLostInYear(
+                  "weight",
+                  showIdealWeight("guess"),
+                  undefined
+                )}`
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+
+          <tr v-if="userLifestyleAlcohol != 0">
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Alcohol
+            </th>
+            <td colspan="2" class="text-negative">
+              {{
+                `-${microLivesLostInYear(
+                  "alcohol",
+                  userLifestyleAlcohol,
+                  userLifestyleAlcoholFreq
+                )}`
+              }}
+            </td>
+          </tr>
+
+          <tr v-if="userLifestyleSoda != 0">
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Soda Pop / Juice
+            </th>
+            <td colspan="2" class="text-negative">
+              {{
+                `-${microLivesLostInYear(
+                  "soda",
+                  userLifestyleSoda,
+                  userLifestyleSodaFreq
+                )}`
+              }}
+            </td>
+            <td class="text-center"></td>
+          </tr>
+          <tr v-if="userLifestyleSmokes != 0">
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Smoking
+            </th>
+            <td colspan="2" class="text-negative">
+              {{
+                `-${microLivesLostInYear(
+                  "smoking",
+                  userLifestyleSmokes,
+                  userLifestyleSmokesFreq
+                )}`
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+
+          <tr v-if="userLifestyleMeat != 0">
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Meat
+            </th>
+            <td colspan="2" class="text-negative">
+              {{
+                `-${microLivesLostInYear(
+                  "meat",
+                  userLifestyleMeat,
+                  userLifestyleMeatFreq
+                )}`
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+          <tr v-if="userLifestyleSeafood != 0">
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Seafood / Mercury
+            </th>
+            <td colspan="2" class="text-negative">
+              <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6950077/#sec5-ijerph-16-05152title -->
+              <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4776937/#sec1-1title -->
+              {{
+                `
+
+                  -${microLivesLostInYear(
+                    "seafood",
+                    userLifestyleSeafood,
+                    userLifestyleSeafoodFreq
+                  )}`
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+          <tr v-if="userLifestyleDairy != 0">
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Dairy / Eggs
+            </th>
+            <td colspan="2" class="text-negative">
+              {{
+                `-${microLivesLostInYear(
+                  "dairy",
+                  userLifestyleDairy,
+                  userLifestyleDairyFreq
+                )}`
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+
+          <tr v-if="userLifestyleSedentary >= 7">
+            <th scope="row">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              Sedentary
+            </th>
+            <td colspan="2" class="text-negative">
+              {{
+                `-${microLivesLostInYear(
+                  "sedentary",
+                  userLifestyleSedentary,
+                  userLifestyleSedentaryFreq
+                )}`
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+
+          <tr v-if="getUserMicroLivesIn('guess')">
+            <th scope="row" class="">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              <b class=""> Total Life Lost:</b>
+            </th>
+            <td colspan="2" class="bg-negative">
+              {{
+                `-${getUserMicroLivesIn("guess").split(" ")[0]} ${
+                  getUserMicroLivesIn("guess").split(" ")[1]
+                }`
+              }}
+            </td>
+
+            <td class="text-center"></td>
+          </tr>
+          <tr v-if="!getUserMicroLivesIn('guess')">
+            <th scope="row" class="">
+              <span
+                class="mdi mdi-alert-circle-outline text-h5 text-negative"
+              ></span>
+              <b class=""> Total Life Lost:</b>
+            </th>
+            <td colspan="2" class="bg-positive">0 minutes</td>
+
+            <td class="text-center"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+  <!-- end of clipboard -->
 </template>
 
 <script>
-import Modal from "src/components/Modal.vue";
-import heartbeat from "src/components/heartbeatvideo.js";
-import Prescription from "src/components/PrescriptionComponent.vue";
-import Clipboard from "src/components/Clipboard.vue";
-
 export default {
   props: ["baseURL"],
-  components: {
-    Modal,
-    Prescription,
-    Clipboard,
-  },
+  components: {},
   data() {
     return {
       showModal: false,
@@ -1650,6 +2136,15 @@ export default {
     },
     flipGender(type = 0) {
       console.log("flipping to:", type);
+      if (type == -1) {
+        console.log(
+          "GettingGender:",
+          this.userGender,
+          window.localStorage.getItem("userGender"),
+          document.querySelectorAll(".maleChart")[3]
+        );
+        type = this.userGender;
+      }
       if (type === 0) {
         let allMale = document.querySelectorAll(".maleChart");
         let allFemale = document.querySelectorAll(".femaleChart");
@@ -2183,10 +2678,20 @@ export default {
 
     // setTimeout(() => {
     //   console.log("filp!!?");
-    //   this.flipGender(this.userGender);
+    //   this.flipGender(this.userGender - 1);
     // }, 3000);
-    if (this.userGender == 0) this.$refs.flipMale.click();
-    if (this.userGender == 1) this.$refs.flipFemale.click();
+    // console.log("gendered:", this.userGender);
+    this.flipGender(-1);
+    // if (this.$refs?.flipMale) {
+    if (this.$route.name == "prescription") {
+      console.log("CRAZZZY");
+      if (this.userGender == 0) this.$refs.flipMale.click();
+      if (this.userGender == 1) this.$refs.flipFemale.click();
+    }
+
+    // } else {
+    //   console.log("noBUTTONS");
+    // }
   },
   computed: {
     citationSummaryFormat() {
@@ -2208,7 +2713,7 @@ export default {
               " This study demonstrates that consumption of a 568 ml water preload immediately before a meal reduces energy intake in non-obese young males. This might therefore be an effective strategy to suppress energy intake in this population and possibly assist with weight management [PMID: 25893719]. "
               </blockquote>
           </details>
-          <details class="q-ml-md noblink-details"><summary>A simple salad or serving of fruit</summary>Before every meal eat a salad with a 1 tbsp vinegar, or if short on time, 1 piece of whole fruit (e.g. apple, orange, banana).<br/>Vinegar Boosts AMPK which boosts your metabolism, and a healthy salad, or piece of fruit, reduces your hunger:
+          <details class="q-ml-md noblink-details"><summary>A simple salad or serving of fruit</summary>Before every meal eat a salad with a 1 tbsp apple vinegar, or if short on time, 1 piece of whole fruit (e.g. apple, orange, banana).<br/>Vinegar Boosts AMPK which boosts your metabolism, and a healthy salad, or piece of fruit, reduces your hunger:
             <blockquote>"salads reduced meal energy intake (by 7% for the small portion and 12% for the large)[PMID: 19661687]."</blockquote>
             <blockquote>"Body weight, BMI, visceral fat area, waist circumference, and serum triglyceride levels were significantly lower in both vinegar intake groups than in the placebo group.
               In conclusion, daily intake of vinegar might be useful in the prevention of metabolic syndrome by reducing obesity [PMID: 19661687]."
@@ -2244,498 +2749,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-body {
-  // background: #cfcfcf !important;
-  background-image: none !important;
-}
-.is-card-type {
-  position: relative;
-  display: block;
-
-  background: $primary;
-  border: 2px solid $secondary;
-  color: $positive;
-  font-size: 1.4em;
-  text-align: center;
-  padding: 1em;
-  overflow-wrap: break-word;
-  // padding-bottom: 2em;
-  overflow: hidden;
-  // overflow-x: scroll;
-}
-.title-text {
-  position: relative;
-  top: -0.5em;
-  font-size: 1.2em;
-  border-bottom: 6px double $secondary;
-
-  text-align: center;
-
-  text-shadow: 2px 2px 0 $accent, 2px -2px 0 $accent, -2px 2px 0 $accent,
-    -2px -2px 0 $accent, 2px 0px 0 $accent, 0px 2px 0 $accent,
-    -2px 0px 0 $accent, 0px -2px 0 $accent;
-}
-.is-retro-icon {
-  overflow-wrap: break-word;
-  overflow-x: hidden;
-  // text-overflow: clip;
-}
-.is-retro-icon .mdi {
-  padding: 2px;
-  text-shadow: 2px 2px 0 $primary, 2px -2px 0 $primary, -2px 2px 0 $primary,
-    -2px -2px 0 $primary, 2px 0px 0 $primary, 0px 2px 0 $primary,
-    -2px 0px 0 $primary, 0px -2px 0 $primary;
-}
-.btn-group {
-  display: inline-block;
-}
-input,
-select {
-  width: auto;
-  max-width: 90%;
-}
-.mdi-check-outline {
-  color: $positive;
-}
-.text-circle {
-  border: 3px solid $negative;
-  border-radius: 2em;
-  padding: 1em;
-}
-label {
-  border-bottom: 1px thin #000000;
-}
-
-.border-selection {
-  position: relative;
-  border: 4px solid $info;
-  border-bottom: 4px solid $info !important;
-  background: $positive;
-  border-radius: 50%;
-}
-.border-selection::after {
-  content: "◀";
-  // right: -2em;
-  right: 0.5em;
-  top: auto;
-  position: relative;
-  font-size: 1.45em;
-  animation: blinker 2s steps(1, end) infinite;
-  // color: $info;
-}
-
-.border-selection .mdi {
-  position: relative;
-  color: #ffffff;
-  // animation: colorCycle 2s ease infinite;
-}
-table {
-  border-collapse: collapse;
-  border: 2px solid #cccccc;
-  padding: 1em;
-  position: relative;
-  width: 100%;
-}
-table td {
-  padding: 0.5em;
-  border-right: 1px dotted $primary;
-  position: relative;
-}
-table th {
-  border-right: 1px dotted $primary;
-}
-.text-is-stamp {
-  font-family: "Saira Stencil One", cursive;
-  font-size: 1.2em;
-  position: absolute;
-  transform-box: fill-box;
-  transform-origin: center;
-  transform: rotate(-3deg);
-  top: -0.15em;
-  left: 1em;
-  text-transform: uppercase;
-
-  color: #000;
-  border: 3px double #000;
-  border-radius: 7px;
-  padding: 1px;
-  opacity: 0.99;
-  color: #eee;
-  // background: #ffffff;
-  text-shadow: 1px 1px 0 $dark, 1px -1px 0 $dark, -1px 1px 0 $dark,
-    -1px -1px 0 $dark, 1px 1px 0 $dark, 0px 1px 0 $dark, -1px 0px 0 $dark,
-    0px -1px 0 $dark;
-  // -webkit-box-shadow: inset 1px 1px 7px -2px #000000;
-  // box-shadow: inset 1px 1px 2px -1px #000000;
-}
-
-@keyframes glower {
-  // 0% {
-  //   -webkit-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
-  //   -moz-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
-  //   box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
-  // }
-  0% {
-    -webkit-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
-    -moz-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
-    box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
-    box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $info,
-      0px 0px 20px 0px $secondary, inset 5px 5px 15px 5px $warning;
-  }
-  50% {
-    -webkit-box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
-      0px 0px 20px 0px $negative, inset 5px 5px 15px 5px $positive;
-    -moz-box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
-      0px 0px 20px 0px $negative, inset 5px 5px 15px 5px $positive;
-    box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
-      0px 0px 20px 0px $negative, inset 5px 5px 15px 5px $positive;
-  }
-  75% {
-    -webkit-box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
-      0px 0px 20px 0px $negative, inset 5px 5px 15px 5px $positive;
-    -moz-box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
-      0px 0px 20px 0px $negative, inset 5px 5px 15px 5px $positive;
-    box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $accent,
-      0px 0px 20px 0px $positive, inset 5px 5px 15px 5px $dark;
-  }
-  100% {
-    -webkit-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
-    -moz-box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
-    box-shadow: 0px 0px 0px 0px rgba(45, 255, 196, 0.9);
-    box-shadow: 0px 0px 15px 0px $info, 0px 0px 15px 0px $info,
-      0px 0px 20px 0px $secondary, inset 5px 5px 15px 5px $warning;
-  }
-}
-@keyframes blinker {
-  50% {
-    opacity: 0;
-  }
-}
-
-@keyframes colorCycle {
-  0% {
-    color: $primary !important;
-  }
-  25% {
-    color: $accent !important;
-  }
-  50% {
-    color: $warning !important;
-  }
-  60% {
-    color: $dark !important;
-  }
-
-  75% {
-    color: $positive !important;
-  }
-  100% {
-    color: $info !important;
-  }
-}
-fieldset {
-  border: 4px solid $dark;
-  border-top: 4px solid #666 !important;
-}
-legend {
-  // border-top: 4px solid #ff9900;
-  font-size: 1.7em;
-  padding: 4px;
-}
-
-select,
-input[type="number"],
-input[type="text"],
-.q-btn {
-  // -moz-appearance: none;
-  // -webkit-appearance: none;
-  // appearance: none;
-  vertical-align: middle;
-  outline: none;
-  font-size: inherit;
-  outline: none !important;
-  box-shadow: none;
-  // width: 30px;
-  min-height: 30px;
-  // background: white;
-  border-radius: 0% !important;
-  // outline: 3px solid $dark !important;
-  position: relative;
-  margin: 8px;
-  padding: 2px;
-  box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
-    -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;
-}
-
-.tiny-input {
-  // -moz-appearance: none;
-  // -webkit-appearance: none;
-  // appearance: none;
-  vertical-align: middle;
-  outline: none;
-  font-size: inherit;
-  outline: none !important;
-  box-shadow: none;
-  // width: 30px;
-  min-height: 1em;
-  // background: white;
-  border-radius: 0% !important;
-  // outline: 3px solid $dark !important;
-  position: relative;
-  margin: 8px;
-  padding: 2px;
-  box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
-    -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;
-  width: 30%;
-}
-.q-btn {
-  padding: 5px;
-}
-select {
-  // text-align: center;
-  padding: 1em;
-}
-select::after {
-  content: "▼";
-  right: 1px;
-  top: -1px;
-  position: relative;
-  font-size: 2em;
-  background: #ff9900;
-}
-input[type="checkbox"]:checked {
-  background: $info;
-}
-input[type="checkbox"],
-input[type="radio"] {
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-  vertical-align: middle;
-  outline: none;
-  font-size: inherit;
-  outline: none !important;
-  box-shadow: none;
-  width: 30px;
-  height: 30px;
-  background: white;
-  border-radius: 0% !important;
-  // outline: 3px solid $dark !important;
-  position: relative;
-  margin: 8px;
-  padding: 2px;
-  box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
-    -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;
-}
-input[type="checkbox"]:not(:checked):hover + span,
-input[type="checkbox"]:not(:checked):active + span,
-input[type="checkbox"]:not(:checked):hover,
-input[type="radio"]:not(:checked):hover + span,
-input[type="radio"]:not(:checked):active + span,
-input[type="radio"]:not(:checked):hover {
-  // color: #ff9900;
-  // background: #ff0000;
-  // border: 1px solid greenyellow;
-  // animation: colorCycle 2s ease infinite, glower 3s ease forwards infinite;
-  // content: "▶";
-  animation: blinker 2s steps(2, end) infinite;
-}
-input[type="checkbox"]:checked:hover + span,
-input[type="checkbox"]:checked:active + span,
-input[type="checkbox"]:checked:hover,
-input[type="radio"]:checked:hover + span,
-input[type="radio"]:checked:active + span,
-input[type="radio"]:checked:hover {
-  // color: #ff9900;
-  // background: #ff0000;
-  // border: 1px solid greenyellow;
-  // animation: colorCycle 2s ease infinite, glower 3s ease forwards infinite;
-  // content: "▶";
-  animation: colorCycle 2s ease infinite;
-}
-input[type="checkbox"]:not(:checked):hover::before,
-input[type="radio"]:not(:checked):hover::before {
-  box-shadow: none !important;
-  content: "▶";
-  position: relative;
-  left: 0em;
-  top: -0.5em;
-  font-size: 3em;
-  transition: none !important;
-}
-input[type="checkbox"]:checked:after,
-input[type="radio"]:checked:after {
-  content: "✕";
-  position: absolute;
-  font-size: 4em;
-  left: -0.05em;
-  top: -0.5em;
-  bottom: auto;
-  // top: auto;
-  text-align: center;
-  color: $positive;
-  justify-content: center;
-}
-input[type="checkbox"]:checked:hover:after,
-input[type="radio"]:checked:hover:after {
-  animation: colorCycle 2s ease infinite;
-}
-input[type="radio"] {
-  // transform: rotate(45deg);
-  margin-right: 2em;
-}
-input[type="radio"]:checked:after {
-  content: "*";
-}
-
-input[type="radio"]:checked {
-  background: $accent;
-}
-input[type="radio"]:not(:checked) {
-  // background: $warning;
-}
-.check-label {
-  position: relative;
-  font-size: 1.5em;
-  // top: -0.5em;
-}
-
-.citation {
-  position: relative;
-  color: $primary;
-  font-size: 1em;
-  border: 1px solid $primary;
-  border-radius: 5px;
-  padding: 0.2em;
-  opacity: 0.7;
-  filter: grayscale(100%);
-  transition: all 1s ease;
-}
-.citation:hover,
-.citation:active {
-  opacity: 1;
-
-  filter: grayscale(0%);
-  // font-size: 1.1em;
-  // padding: 0.1em;
-  background: $accent;
-  animation: colorCycle 2s ease infinite, glower 3s ease forwards infinite;
-  box-shadow: inset 5px 5px 15px 5px #000000;
-}
-.row td .citation {
-  position: relative;
-  background: #ff9900;
-}
-details {
-  // margin: 1em;
-}
-details > summary {
-  // content: "dffdfdfd1112";
-}
-summary::before {
-  content: "▶";
-  // right: -2em;
-  right: 0.25em;
-  // top: -0.25em;
-  position: relative;
-  font-size: 2em;
-  animation: blinker 2s steps(1, end) infinite;
-  // color: $info;
-}
-
-details[open] > summary::after {
-  content: "hide this";
-  border: 1px solid $negative;
-  padding: 0.25em;
-  background: $secondary;
-  animation: blinker 2s steps(1, end) infinite;
-}
-details[open] > summary::before {
-  content: "▼";
-  animation: none;
-}
-details[open] > summary span {
-  display: none;
-}
-hr {
-  height: 1em;
-  background: $secondary;
-}
-.pulseVibrate {
-  font-size: 2em;
-  animation: pulse-animate 2s linear infinite;
-  border-radius: 100%;
-}
-.pulseBPMTap {
-  // font-size: 2em;
-  animation: pulse-animate 2s linear infinite;
-  // border-radius: 100%;
-}
-
-.pulseVibrate:hover {
-  color: $info;
-}
-.pulseVibrate:active {
-  color: $negative;
-}
-.unHighlight {
-  // filter: grayscale(100%);
-  filter: contrast(0%);
-}
-.border-double-1 {
-  border: 4px double $primary;
-}
-.border-double-2 {
-  border: 6px double $primary;
-}
-.border-double-3 {
-  border: 8px double $primary;
-}
-.border-positive {
-  border-color: $positive;
-}
-.border-negative {
-  border-color: $negative;
-}
-.border-primary {
-  border-color: $primary;
-}
-.border-info {
-  border-color: $info;
-}
-.border-accent {
-  border-color: $accent;
-}
-.width-100 {
-  width: 100%;
-}
-@keyframes pulse-animate {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.1);
-  }
-
-  70% {
-    transform: scale(1.2);
-    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
-  }
-  90% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  }
-
-  100% {
-    transform: scale(1.1);
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-  }
-}
-.cursive-text,
-.cursive-text p {
-  font-family: "Ms Madi", cursive;
-  font-size: 2em;
-}
-.noblink-details summary::before {
-  animation: none !important;
-}
-</style>
+<style></style>

@@ -64,7 +64,10 @@
       </div>
     </div>
 
-    <fieldset class="border-double-3 q-pa-lg q-ma-md row justify-center">
+    <fieldset
+      class="border-double-3 q-pa-lg q-ma-md row justify-center"
+      v-if="!isNewPlayer"
+    >
       <legend>What to do next?</legend>
 
       <div class="row">
@@ -111,9 +114,9 @@
 
       <!-- <div class="q-text-center border-double-1"></div> -->
     </fieldset>
-    .. {{}}
+
     <!-- DAILY POINTS CHALLENGE -->
-    <fieldset>
+    <fieldset v-if="!isNewPlayer">
       <legend>Daily Challenge</legend>
       <!-- SELECTING CHALLENGE -->
       <div
