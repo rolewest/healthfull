@@ -2,7 +2,10 @@
   <div>
     <!-- ref="bpmIcon" -->
     <button
-      class="btn-info btn-primary travelModeButton text-h2"
+      :class="{
+        'btn-info btn-primary travelModeButton text-h2': true,
+        'bg-info travelModeNegative': this.$route.name == 'prescription',
+      }"
       @click="this.$router.push({ name: 'prescription' })"
     >
       <q-icon

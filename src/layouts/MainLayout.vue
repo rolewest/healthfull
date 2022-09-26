@@ -260,7 +260,10 @@
             </button> -->
             <NewPrescriptionButton />
             <button
-              class="btn-info btn-primary travelModeButton text-h2"
+              :class="{
+                'btn-info btn-primary travelModeButton text-h2': true,
+                'bg-info travelModeNegative': this.$route.name == 'home',
+              }"
               @click="$router.push({ name: 'home' })"
             >
               <q-icon name="mdi-home-heart" class="text-h2"></q-icon>
@@ -268,20 +271,29 @@
 
             <!--  -->
             <button
-              class="btn-info btn-primary travelModeButton text-h2"
+              :class="{
+                'btn-info btn-primary travelModeButton text-h2': true,
+                'bg-info travelModeNegative': this.$route.name == 'builder',
+              }"
               @click="$router.push({ name: 'builder' })"
             >
               <q-icon name="mdi-hammer-wrench" class="text-h2"></q-icon>
             </button>
 
             <button
-              class="btn-info btn-primary travelModeButton text-h2"
+              :class="{
+                'btn-info btn-primary travelModeButton text-h2': true,
+                'bg-info travelModeNegative': this.$route.name == 'player',
+              }"
               @click="$router.push({ name: 'player' })"
             >
               <q-icon name="mdi-fire-circle" class="text-h2"></q-icon>
             </button>
             <button
-              class="btn-info btn-primary travelModeButton text-h2"
+              :class="{
+                'btn-info btn-primary travelModeButton text-h2': true,
+                'bg-info travelModeNegative': this.$route.name == 'planner',
+              }"
               @click="$router.push({ name: 'planner' })"
             >
               <q-icon name="restaurant_menu" class="text-h2"></q-icon>
@@ -832,6 +844,24 @@ select:hover,
     $info -0.416147px 0.909297px 0px, $info -0.989992px 0.14112px 0px,
     $info -0.653644px -0.756802px 0px, $info 0.283662px -0.958924px 0px,
     $info 0.96017px -0.279415px 0px;
+}
+.travelModeWarning {
+  text-shadow: $warning 1px 0px 0px, $warning 0.540302px 0.841471px 0px,
+    $warning -0.416147px 0.909297px 0px, $warning -0.989992px 0.14112px 0px,
+    $warning -0.653644px -0.756802px 0px, $warning 0.283662px -0.958924px 0px,
+    $warning 0.96017px -0.279415px 0px;
+}
+.travelModePositive {
+  text-shadow: $positive 1px 0px 0px, $positive 0.540302px 0.841471px 0px,
+    $positive -0.416147px 0.909297px 0px, $positive -0.989992px 0.14112px 0px,
+    $positive -0.653644px -0.756802px 0px, $positive 0.283662px -0.958924px 0px,
+    $positive 0.96017px -0.279415px 0px;
+}
+.travelModeNegative {
+  text-shadow: $negative 1px 0px 0px, $negative 0.540302px 0.841471px 0px,
+    $negative -0.416147px 0.909297px 0px, $negative -0.989992px 0.14112px 0px,
+    $negative -0.653644px -0.756802px 0px, $negative 0.283662px -0.958924px 0px,
+    $negative 0.96017px -0.279415px 0px;
 }
 .infowin {
   line-height: 2em;
