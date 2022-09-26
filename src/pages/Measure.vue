@@ -1348,7 +1348,7 @@ export default {
         this.userExerciseEffort +
         this.userExerciseFrequency +
         this.userExerciseLength;
-      let wc = this.userW;
+      let wc = this.userWaist;
       //https://codeberg.org/Freeyourgadget/Gadgetbridge/issues/1905
       let maleBMI =
         92.05 - 0.327 * age - 0.933 * bmi - 0.167 * rhr + 0.257 * pai;

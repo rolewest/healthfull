@@ -543,6 +543,16 @@ export default {
               1
             ) * useMultiplier
           );
+        level =
+          parseFloat(level) +
+          parseFloat(
+            this.microLivesLostInYear(
+              "meat",
+              this.userLifestyleMeat,
+              this.userLifestyleMeatFreq,
+              2
+            ) * 2
+          );
         console.log("SNOKECHECKL1:", parseFloat(level));
         if (risk == "cancer") useMultiplier = 0.00001;
         if (risk == "heart") useMultiplier = 0.0001;
@@ -875,7 +885,7 @@ export default {
         this.userExerciseEffort +
         this.userExerciseFrequency +
         this.userExerciseLength;
-      let wc = this.userW;
+      let wc = this.userWaist;
       //https://codeberg.org/Freeyourgadget/Gadgetbridge/issues/1905
       let maleBMI =
         92.05 - 0.327 * age - 0.933 * bmi - 0.167 * rhr + 0.257 * pai;
