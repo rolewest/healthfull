@@ -1240,7 +1240,7 @@ export default {
       showModal: false,
       showCitationModal: false,
       userGender: LocalStorage.getItem("userGender") || null,
-      userLevel: LocalStorage.getItem("userLevel") || 1,
+      userLevel: LocalStorage.getItem("user.level.number") || 1,
       userAge: LocalStorage.getItem("userAge") || null,
       userHeight:
         LocalStorage.getItem("userHeightImp") != "null"
@@ -2058,7 +2058,7 @@ export default {
       LocalStorage.set("userExerciseFrequency", this.userExerciseFrequency);
       LocalStorage.set("userExerciseEffort", this.userExerciseEffort);
       LocalStorage.set("userExerciseLength", this.userExerciseLength);
-      LocalStorage.set("userLevel", this.userLevel);
+      LocalStorage.set("user.level.number", this.userLevel);
       LocalStorage.set("userGender", this.userGender);
       //points
       LocalStorage.set("user.points.xp", this.userBasePoints.xp);

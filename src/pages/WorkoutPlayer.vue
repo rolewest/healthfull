@@ -219,7 +219,7 @@
                     startConditioning();
                   "
                   color="positive"
-                  text-color="accent"
+                  text-color=""
                   >Your Custom Routine</q-btn
                 >
                 <h5>Low Impact Exercises</h5>
@@ -414,6 +414,7 @@
             </div>
             <div>&nbsp;</div>
             <div>
+              <q-btn @click="onYouTubeIframeAPIReady()">sfd</q-btn>
               <q-btn
                 @click="
                   this.switchToVideoId(
@@ -502,18 +503,25 @@
 <script>
 import { ref } from "vue";
 import { setList, doctorSets } from "../scripts/setlist.js";
+import { LocalStorage } from "quasar";
+var tag = document.createElement("script");
+
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName("script")[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+var player;
 export default {
   data() {
     return {
       alert: false,
       userBasePoints: {
-        xp: window.localStorage.getItem("user.points.xp") || 0,
-        hp: window.localStorage.getItem("user.points.hp") || 0,
-        cp: window.localStorage.getItem("user.points.cp") || 0,
-        sp: window.localStorage.getItem("user.points.sp") || 0,
+        xp: LocalStorage.getItem("user.points.xp") || 0,
+        hp: LocalStorage.getItem("user.points.hp") || 0,
+        cp: LocalStorage.getItem("user.points.cp") || 0,
+        sp: LocalStorage.getItem("user.points.sp") || 0,
       } || { xp: 0, hp: 0, cp: 0, sp: 0 },
       currentStep: ref(0),
-      workingList: window.localStorage.getItem("userCurrentSetlist") || [],
+      workingList: LocalStorage.getItem("userCurrentSetlist") || [],
       stepsList: [],
       playList: [],
       setList: setList,
@@ -523,25 +531,38 @@ export default {
     };
   },
   methods: {
+    onYouTubeIframeAPIReady() {
+      player = new YT.Player("ytplayer", {
+        events: {
+          onReady: this.onPlayerReady,
+        },
+      });
+      console.log("@WWWWOOW");
+    },
+    onPlayerReady() {
+      console.log("dfsfdsfw?");
+      console.log("KOKOK:", player);
+      player.playVideo();
+      // Mute!
+      player.mute();
+    },
     buildRoutine(type = 0, drsetnum = 0) {
       // console.log(
       //   "started-build-routineXy",
-      //   eval(window.localStorage.getItem("userCurrentSetlist")),
-      //   window.localStorage.getItem("userCurrentSetlist").split(","),
+      //   eval(LocalStorage.getItem("userCurrentSetlist")),
+      //   LocalStorage.getItem("userCurrentSetlist").split(","),
       //   this.setList.length,
       //   this.stepsList.length,
       //   this.workingList.length
       // );
       console.log(
         "WWWTTTFF:",
-        window.localStorage.getItem("userCurrentSetlist"),
+        LocalStorage.getItem("userCurrentSetlist"),
         this.workingList
       );
       let selectedSetList = [];
-      if (window.localStorage.getItem("userCurrentSetlist"))
-        selectedSetList = window.localStorage
-          .getItem("userCurrentSetlist")
-          .split(","); //eval(window.localStorage.getItem("userCurrentSetlist"));//
+      if (LocalStorage.getItem("userCurrentSetlist"))
+        selectedSetList = LocalStorage.getItem("userCurrentSetlist").split(","); //eval(LocalStorage.getItem("userCurrentSetlist"));//
       let newList = [];
       // ! get prescribed sets
       if (type == 1) {
@@ -559,7 +580,7 @@ export default {
         newList.push(foundSet);
       }
 
-      // window.localStorage.setItem("userCurrentSetlist", newList);
+      // LocalStorage.setItem("userCurrentSetlist", newList);
       // this.workingSetlist = newList;
       this.stepsList = newList;
     },
@@ -624,7 +645,7 @@ export default {
     switchToVideoId(id, mute = 0, startAt = 0, endAt = 0, autoplay = 0) {
       console.log("localStore:", localStorage.getItem("userAge"));
       mute = mute == 1 ? "mute=1" : "mute=0";
-      this.ytUrl = `https://www.youtube.com/embed/${id}?autoplay=${autoplay}&loop=0&playlist=${id}&start=${startAt}&end=${endAt}&rel=0${mute}`;
+      this.ytUrl = `https://www.youtube.com/embed/${id}?autoplay=${autoplay}&loop=0&playlist=${id}&start=${startAt}&end=${endAt}&rel=0${mute}&enablejsapi=1&modestbranding=1&theme=light&showinfo=0`;
 
       console.log("PLAYINGT:", this.ytUrl);
       // window.scrollTo({ top: 0, behavior: "smooth" });
@@ -682,10 +703,10 @@ export default {
 
     saveUserPoints() {
       //points only
-      window.localStorage.setItem("user.points.xp", this.userBasePoints.xp);
-      window.localStorage.setItem("user.points.hp", this.userBasePoints.hp);
-      window.localStorage.setItem("user.points.cp", this.userBasePoints.cp);
-      window.localStorage.setItem("user.points.sp", this.userBasePoints.sp);
+      LocalStorage.setItem("user.points.xp", this.userBasePoints.xp);
+      LocalStorage.setItem("user.points.hp", this.userBasePoints.hp);
+      LocalStorage.setItem("user.points.cp", this.userBasePoints.cp);
+      LocalStorage.setItem("user.points.sp", this.userBasePoints.sp);
     },
     pointsEarned(type = "xp") {
       let hpx = 0,
@@ -765,13 +786,13 @@ export default {
   mounted() {
     // console.log(
     //   "p!!!:",
-    //   window.localStorage.getItem("userCurrentSetlist").split(","),
+    //   LocalStorage.getItem("userCurrentSetlist").split(","),
     //   this.stepsList,
     //   this.workingList
     // );
     if (
-      window.localStorage.getItem("userCurrentSetlist") == "[]" ||
-      window.localStorage.getItem("userCurrentSetlist") == null
+      LocalStorage.getItem("userCurrentSetlist") == "[]" ||
+      LocalStorage.getItem("userCurrentSetlist") == null
     ) {
       this.alert = true;
     } else {
@@ -780,7 +801,7 @@ export default {
     //
 
     // this.stepsList = JSON.parse(
-    //   window.localStorage.getItem("userCurrentSetlist")
+    //   LocalStorage.getItem("userCurrentSetlist")
     // );
     // load the first video in the series
     // this.switchToVideoId(

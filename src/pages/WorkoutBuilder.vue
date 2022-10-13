@@ -116,6 +116,7 @@
 <script>
 import { ref } from "vue";
 import { setList, doctorSets } from "../scripts/setlist.js";
+import { LocalStorage } from "quasar";
 const columns = [
   {
     name: "name",
@@ -143,7 +144,7 @@ const columns = [
   { name: "tags", label: "Tags", field: "tags" },
   {
     name: "points",
-    label: "Points @ Level " + window.localStorage.getItem("userLevel"),
+    label: "Points @ Level " + LocalStorage.getItem("user.level.number"),
     field: "points",
   },
 
@@ -179,7 +180,7 @@ export default {
             } selected`;
       },
       workingSetlist: [],
-      usersSetLists: window.localStorage.getItem("user.setlists.custom") || "",
+      usersSetLists: LocalStorage.getItem("user.setlists.custom") || "",
       setList: setList,
       doctorSets: doctorSets,
     };
@@ -213,8 +214,7 @@ export default {
     },
     convertMetToCal(activityValue = 0.9, minutes = 1, type = 0) {
       // todo: delete this duplicated code/function (in BaseMeasure as getMetToCal)
-      let userWeight =
-        this.userWeight || window.localStorage.getItem("userWeight");
+      let userWeight = this.userWeight || LocalStorage.getItem("userWeight");
       let met = (activityValue * 3.5 * userWeight) / 200; // calories burnt/minute
       if (type === 0) {
         return (met * minutes).toFixed(2);
@@ -229,19 +229,19 @@ export default {
         console.log("selected:", this.selected[index].alldata.id);
       }
       // console.log("fixdd:", buildSetlist[index]["step"]);
-      window.localStorage.setItem("userCurrentSetlist", buildSetlist);
+      LocalStorage.setItem("userCurrentSetlist", buildSetlist);
       // save this list onto all custom lists
       // let oldSets = this.usersSetLists;
       // if (!isArray(oldSets)) {
       // }
-      // window.localStorage.setItem("user.setlists.custom");
+      // LocalStorage.setItem("user.setlists.custom");
       //
       this.workingSetlist = buildSetlist;
       console.log(
         "saved setlist:",
         this.workingSetlist,
         "localastore",
-        window.localStorage.getItem("userCurrentSetlist")
+        LocalStorage.getItem("userCurrentSetlist")
       );
 
       this.popupTitle = "Saved!";
@@ -322,7 +322,7 @@ export default {
     },
   },
   mounted() {
-    console.log("vidddd:", window.localStorage.getItem("userCurrentSetlist"));
+    console.log("vidddd:", LocalStorage.getItem("userCurrentSetlist"));
     this.initTableData();
     // this.typeText(0, "buildTitle", 1000, 100, "true");
   },

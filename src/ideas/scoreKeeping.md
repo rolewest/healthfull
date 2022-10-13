@@ -1,0 +1,2 @@
+- Pounds/KG lifted this week.
+-

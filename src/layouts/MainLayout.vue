@@ -337,7 +337,7 @@ let linksList = [
   {
     title: "Size Me Up!",
     caption: "Let's get started!",
-    icon: "mdi-clipboard-pulse-outline", //ti-id-badge ti-panel ico-logo-game-controller-b mdi-human-male-height las la-clipboard
+    icon: "mdi-clipboard-pulse-outline", //ti-id-badge ti-panel ico-logo-.game-controller-b mdi-human-male-height las la-clipboard
     link: "https://forum.quasar.dev",
     outside: 1,
   },
@@ -1107,44 +1107,38 @@ ul {
   list-style: none;
 }
 
-ul ol li:before {
+.game-ul ol li:before {
   content: "";
   padding-right: 5px;
   font-size: 1.5em;
 }
-.normal-ul li:before {
-  content: "i";
-  padding-right: 5px;
-  font-size: 1.5em;
-  animation: none;
-}
 
-ul li:before {
+.game-ul li:before {
   content: "▶";
   padding-right: 5px;
   font-size: 1.5em;
 }
-ul li:before {
+.game-ul li:before {
 }
-ul li:nth-child(1):before {
+.game-ul li:nth-child(1):before {
   animation: blinker 2s steps(1, end) infinite;
 }
-ul li:nth-child(2):before {
+.game-ul li:nth-child(2):before {
   animation: blinker 2s steps(1, end) 0.25s infinite;
 }
-ul li:nth-child(3):before {
+.game-ul li:nth-child(3):before {
   animation: blinker 2s steps(1, end) 0.5s infinite;
   // animation: name duration timing-function delay iteration-count direction fill-mode;
 }
-ul li:nth-child(4):before {
+.game-ul li:nth-child(4):before {
   animation: blinker 2s steps(1, end) 0.75s infinite;
   // animation: name duration timing-function delay iteration-count direction fill-mode;
 }
-ul li:nth-child(5):before {
+.game-ul li:nth-child(5):before {
   animation: blinker 2s steps(1, end) 1s infinite;
   // animation: name duration timing-function delay iteration-count direction fill-mode;
 }
-ul li:nth-child(6):before {
+.game-ul li:nth-child(6):before {
   animation: blinker 2s steps(1, end) 1.25s infinite;
   // animation: name duration timing-function delay iteration-count direction fill-mode;
 }
@@ -1153,6 +1147,13 @@ ul li:nth-child(6):before {
   list-style-type: circle;
   padding-right: 5px;
   font-size: 1.5em;
+  animation: none !important;
+}
+.sub-ul li:before {
+  content: "◦";
+  list-style-type: circle;
+  padding-right: 5px;
+  font-size: 2.5em;
   animation: none !important;
 }
 .noblink-ul li:before {

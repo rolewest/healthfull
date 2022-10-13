@@ -2160,7 +2160,7 @@ export default {
       showModal: false,
       showCitationModal: false,
       userGender: LocalStorage.getItem("userGender") || null,
-      userLevel: LocalStorage.getItem("userLevel") || 1,
+      userLevel: LocalStorage.getItem("user.level.number") || 1,
       userAge: LocalStorage.getItem("userAge") || null,
       userHeight:
         LocalStorage.getItem("userHeightImp") != "null"
@@ -2194,7 +2194,7 @@ export default {
       } || { xp: 0, hp: 0, cp: 0 },
       userConcerns: Array.isArray(LocalStorage.getItem("userConcerns"))
         ? LocalStorage.getItem("userConcerns")
-        : JSON.parse(LocalStorage.getItem("userConcerns")) || [],
+        : LocalStorage.getItem("userConcerns") || [],
       userLifestyleAlcohol:
         LocalStorage.getItem("user.lifestyle.alcohol.count") || 0,
       userLifestyleAlcoholFreq:
@@ -2960,7 +2960,7 @@ export default {
       console.log("seding emitter", this.$route, this.$router);
       console.log("CITE:", name, id, this.showCitationModal);
       console.log("citation", id, name, caption, short, summary, why, theme);
-      console.log("parent:", JSON.parse(JSON.stringify(this.$parent.$data)));
+      console.log("parent:", this.$parent.$data);
       this.$emit("citation", id, name, caption, short, summary, why, theme);
     },
     saveUserData() {
@@ -2979,13 +2979,13 @@ export default {
       LocalStorage.set("userExerciseFrequency", this.userExerciseFrequency);
       LocalStorage.set("userExerciseEffort", this.userExerciseEffort);
       LocalStorage.set("userExerciseLength", this.userExerciseLength);
-      LocalStorage.set("userLevel", this.userLevel);
+      LocalStorage.set("user.level.number", this.userLevel);
       LocalStorage.set("userGender", this.userGender);
       //points
       LocalStorage.set("user.points.xp", this.userBasePoints.xp);
       LocalStorage.set("user.points.hp", this.userBasePoints.hp);
       LocalStorage.set("user.points.cp", this.userBasePoints.cp);
-      LocalStorage.set("userConcerns", JSON.stringify(this.userConcerns));
+      LocalStorage.set("userConcerns", this.userConcerns);
 
       LocalStorage.set(
         "user.lifestyle.alcohol.count",
@@ -4015,7 +4015,7 @@ summary::before {
   // top: -0.25em;
   position: relative;
   font-size: 2em;
-  animation: blinker 2s steps(1, end) infinite;
+  // animation: blinker 2s steps(1, end) infinite;
   // color: $info;
 }
 
@@ -4023,12 +4023,14 @@ details[open] > summary::after {
   content: "hide this";
   border: 1px solid $negative;
   padding: 0.25em;
+  margin-left: 1em;
   background: $secondary;
-  animation: blinker 2s steps(1, end) infinite;
+  // animation: blinker 1s steps(1, end) infinite;
 }
 details[open] > summary::before {
   content: "▼";
   animation: none;
+  animation: blinker 2s steps(1, end) infinite;
 }
 details[open] > summary span {
   display: none;

@@ -8,7 +8,7 @@
         @click="this.$router.push({ name: 'home' })"
         >{{ isNewUser ? "Start" : "Continue" }}
         <!-- {{
-          window.localStorage.getItem("userHeight") ? "Continue" : "Start new"
+          window.LocalStorage.getItem("userHeight") ? "Continue" : "Start new"
         }} -->
         Game</span
       >
@@ -48,27 +48,27 @@ export default {
       this.$emit("citation", id, name, caption, short, show);
     },
     saveUserData() {
-      localStorage.setItem("userHeight", this.userHeight); //save it
-      localStorage.setItem("userWeight", this.userWeight); //save it
-      localStorage.setItem("userAge", this.userAge); //save it
-      localStorage.setItem("userSkill", this.userSkill); //save it
-      localStorage.setItem("userHeightImp", this.userHeightImp); // save imperial (feet) measure
-      localStorage.setItem("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
-      localStorage.setItem("userKG", this.userKG);
-      localStorage.setItem("userCM", this.userCM);
-      localStorage.setItem("userNeck", this.userNeck);
-      localStorage.setItem("userWaist", this.userWaist);
-      localStorage.setItem("userHip", this.userHip);
+      LocalStorage.setItem("userHeight", this.userHeight); //save it
+      LocalStorage.setItem("userWeight", this.userWeight); //save it
+      LocalStorage.setItem("userAge", this.userAge); //save it
+      LocalStorage.setItem("userSkill", this.userSkill); //save it
+      LocalStorage.setItem("userHeightImp", this.userHeightImp); // save imperial (feet) measure
+      LocalStorage.setItem("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
+      LocalStorage.setItem("userKG", this.userKG);
+      LocalStorage.setItem("userCM", this.userCM);
+      LocalStorage.setItem("userNeck", this.userNeck);
+      LocalStorage.setItem("userWaist", this.userWaist);
+      LocalStorage.setItem("userHip", this.userHip);
       //points
-      localStorage.setItem("user.points.xp", this.userBasePoints.xp);
-      localStorage.setItem("user.points.hp", this.userBasePoints.hp);
-      localStorage.setItem("user.points.cp", this.userBasePoints.cp);
+      LocalStorage.setItem("user.points.xp", this.userBasePoints.xp);
+      LocalStorage.setItem("user.points.hp", this.userBasePoints.hp);
+      LocalStorage.setItem("user.points.cp", this.userBasePoints.cp);
     },
   },
   mounted() {
     console.log(
       "this.$store.",
-      window.localStorage.getItem("userHeight"),
+      LocalStorage.getItem("userHeight"),
       this.isNewUser
     );
   },

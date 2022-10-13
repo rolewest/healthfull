@@ -210,7 +210,7 @@
             class="border-double-3 q-ma-sm q-pa-sm row"
             @click.alt="userChallenges.daily.last = null"
           >
-            <!-- window.localStorage.setItem('challenge.daily.last', null) -->
+            <!-- LocalStorage.setItem('challenge.daily.last', null) -->
             <div class="q-ma-xs">
               <div
                 class="roll-result"
@@ -449,6 +449,7 @@
 </template>
 
 <script>
+import { LocalStorage } from "quasar";
 export default {
   data() {
     return {
@@ -457,15 +458,13 @@ export default {
 
       userChallenges: {
         daily: {
-          rolled: window.localStorage.getItem("challenge.daily.rolled") || null,
-          face: window.localStorage.getItem("challenge.daily.face") || null,
-          last: window.localStorage.getItem("challenge.daily.last") || null,
-          opened: window.localStorage.getItem("challenge.daily.opened") || null,
-          accepted:
-            window.localStorage.getItem("challenge.daily.accepted") || null,
-          completed:
-            window.localStorage.getItem("challenge.daily.completed") || null,
-          data: window.localStorage.getItem("challenge.daily.data") || null,
+          rolled: LocalStorage.getItem("challenge.daily.rolled") || null,
+          face: LocalStorage.getItem("challenge.daily.face") || null,
+          last: LocalStorage.getItem("challenge.daily.last") || null,
+          opened: LocalStorage.getItem("challenge.daily.opened") || null,
+          accepted: LocalStorage.getItem("challenge.daily.accepted") || null,
+          completed: LocalStorage.getItem("challenge.daily.completed") || null,
+          data: LocalStorage.getItem("challenge.daily.data") || null,
         },
       },
       systemChallenges: {
@@ -567,32 +566,28 @@ export default {
         const datestr = `${now.getDate()}${now.getMonth()}${now.getFullYear()}`;
         this.userChallenges.completed = datestr;
         console.log("complT:", this.userChallenges.completed);
-        window.localStorage.setItem("challenge.daily.completed", datestr);
-        window.localStorage.setItem("challenge.daily.last", null);
+        LocalStorage.setItem("challenge.daily.completed", datestr);
+        LocalStorage.setItem("challenge.daily.last", null);
         console.log(
           "complT_ed:",
           this.userChallenges.completed,
-          window.localStorage.getItem("challenge.daily.completed")
+          LocalStorage.getItem("challenge.daily.completed")
         );
 
         //add to score
-        const pointsCategory = window.localStorage
-          .getItem("challenge.daily.opened")
-          .toLowerCase();
-        const pointsToAdd = window.localStorage.getItem(
-          "challenge.daily.data."
-        );
-        const oldScore = window.localStorage.getItem(
-          `user.points.${pointsCategory}`
-        );
+        const pointsCategory = LocalStorage.getItem(
+          "challenge.daily.opened"
+        ).toLowerCase();
+        const pointsToAdd = LocalStorage.getItem("challenge.daily.data.");
+        const oldScore = LocalStorage.getItem(`user.points.${pointsCategory}`);
         // let newScore =
 
-        // window.localStorage.getItem("user.points.") window.localStorage.getItem("challenge.daily.opened")
+        // LocalStorage.getItem("user.points.") LocalStorage.getItem("challenge.daily.opened")
 
         // this.userChallenges.daily.opened = null;
         // this.userChallenges.daily.accepted = null;
-        // window.localStorage.setItem("challenge.daily.accepted", null);
-        // window.localStorage.setItem("challenge.daily.opened", null);
+        // LocalStorage.setItem("challenge.daily.accepted", null);
+        // LocalStorage.setItem("challenge.daily.opened", null);
       }
     },
     compareDateStrings(date1, date2 = null) {
@@ -737,12 +732,12 @@ export default {
       // this.$refs.rollResult.innerHTML = `You rolled a ${yourNumber}`;
     },
     getUserSavedValue(value = "") {
-      console.log("sdfdf:::", window.localStorage);
+      console.log("sdfdf:::", LocalStorage);
       if (
-        window.localStorage.getItem(value) != "null" &&
-        window.localStorage.getItem(value) != null
+        LocalStorage.getItem(value) != "null" &&
+        LocalStorage.getItem(value) != null
       )
-        return window.localStorage.getItem(value);
+        return LocalStorage.getItem(value);
       return 0;
     },
 
@@ -751,7 +746,7 @@ export default {
         this.userChallenges.daily.rolled,
         4
       );
-      window.localStorage.setItem(
+      LocalStorage.setItem(
         "challenge.daily.opened",
         this.userChallenges.daily.opened
       );
@@ -785,24 +780,24 @@ export default {
       const datestr = `${now.getDate()}${now.getMonth()}${now.getFullYear()}`;
       this.userChallenges.daily.accepted = id;
       console.log("accept:", datestr);
-      // if (datestr != window.localStorage.getItem("challenge.daily.last")) {
+      // if (datestr != LocalStorage.getItem("challenge.daily.last")) {
       console.log("okay..");
       console.log("CD:", this.userChallenges);
-      // window.localStorage.setItem("challenge.daily.last", datestr);
-      window.localStorage.setItem(
+      // LocalStorage.setItem("challenge.daily.last", datestr);
+      LocalStorage.setItem(
         "challenge.daily.rolled",
         this.userChallenges.daily.rolled
       );
-      window.localStorage.setItem(
+      LocalStorage.setItem(
         "challenge.daily.face",
         this.userChallenges.daily.face
       );
-      window.localStorage.setItem(
+      LocalStorage.setItem(
         "challenge.daily.accepted",
         this.userChallenges.daily.accepted
       );
       this.userChallenges.daily.last = datestr;
-      // window.localStorage.setItem(
+      // LocalStorage.setItem(
       //   "challenge.daily.last",
       //   this.userChallenges.daily.last
       // );
@@ -814,16 +809,16 @@ export default {
   },
   computed: {
     isNewPlayer() {
-      console.log("uage:", window.localStorage.getItem("userAge"));
-      return window.localStorage.getItem("userAge") == "null";
+      console.log("uage:", LocalStorage.getItem("userAge"));
+      return LocalStorage.getItem("userAge") == "null";
     },
     hasSetlist() {
-      console.log("uagdde:", window.localStorage.getItem("userCurrentSetlist"));
-      return window.localStorage.getItem("userCurrentSetlist") != null;
+      console.log("uagdde:", LocalStorage.getItem("userCurrentSetlist"));
+      return LocalStorage.getItem("userCurrentSetlist") != null;
     },
   },
   mounted() {
-    console.log("mmnt:", window.localStorage.getItem("user.points.xp"));
+    console.log("mmnt:", LocalStorage.getItem("user.points.xp"));
   },
 };
 </script>

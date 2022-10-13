@@ -33,7 +33,6 @@ export default {
   props: ["links", "theme", "cite"],
   methods: {
     closeModal() {
-      console.log("isax");
       this.$emit("close");
     },
   },
@@ -194,7 +193,7 @@ export default {
 .cite-text {
   font-family: "Courier New", Courier, monospace !important;
   // font-family: Lucida Sans Typewriter, Lucida Console, monaco,
-  //   Bitstream Vera Sans Mono, monospace;
+  ////    Vera Sans Mono, monospace;
   // font-family: monospace;
   font-size: 1.5em;
   max-height: 150px;
