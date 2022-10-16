@@ -231,15 +231,16 @@
                   color="info"
                   text-color=""
                   class=""
+                  style="max-width: 120px; min-height: 150px"
                   ><q-icon name="medication" class="h2"></q-icon>#1 Exercise For
                   Sedentary
                   <q-icon name="medication" class="h2"></q-icon>
                   <div
-                    class="text-sm block full-width on-the-floor rainbowToRainbow"
+                    class="text-sm block full-width special-alert rainbowToRainbow"
                   >
                     <q-icon name="star" class="h2"></q-icon>Zero Impact - In
-                    Chair<q-icon name="star" class="h2"></q-icon></div></q-btn
-                ><br />
+                    Chair<q-icon name="star" class="h2"></q-icon></div
+                ></q-btn>
                 <q-btn
                   @click="
                     buildRoutine(1, 1);
@@ -247,6 +248,7 @@
                   "
                   color="primary"
                   text-color=""
+                  style="max-width: 120px; min-height: 150px"
                   ><q-icon name="medication" class="h2"></q-icon> Lying In Bed
                   <q-icon name="medication" class="h2"></q-icon>
                   <div class="text-sm block full-width">
@@ -260,6 +262,7 @@
                   "
                   color="primary"
                   text-color=""
+                  style="max-width: 120px; min-height: 150px"
                   ><q-icon name="medication" class="h2"></q-icon> Sitting In
                   Chair <q-icon name="medication" class="h2"></q-icon>
                   <div class="text-sm block full-width">
@@ -270,6 +273,7 @@
                   @click="buildRoutine(1, 3)"
                   color="primary"
                   text-color=""
+                  style="max-width: 120px; min-height: 150px"
                   disabled
                   ><q-icon name="medication" class="h2"></q-icon> Standing Only
                   <q-icon name="medication" class="h2"></q-icon>
@@ -374,7 +378,7 @@
             <div class="text-center">{{ xstep.caption }}</div>
           </div>
           <!-- Click to add number of reps -->
-          <div class="row justify-center q-ma-md">
+          <div class="row justify-center q-ma-md" @click="addRemoveRep('done')">
             <q-chip class=""
               >{{ xstep.reps }}x &nbsp;
               <q-avatar
@@ -388,7 +392,24 @@
               reps
             </q-chip>
           </div>
-
+          <div class="text-center">
+            <!-- add reps -->
+            Completed Reps: <b><span v-html="repsCompleted"></span></b> of
+            {{ xstep.reps }}
+            <br />
+            <q-btn
+              color="positive"
+              icon="mdi-plus-circle-outline"
+              @click="addRemoveRep(1)"
+              >Add Rep</q-btn
+            ><q-btn
+              color="negative"
+              icon="mdi-minus-circle-outline"
+              @click="addRemoveRep(-1)"
+              >Remove Rep</q-btn
+            >
+            <!-- {{ userStepRep }} -->
+          </div>
           <p v-html="xstep.body"></p>
           <!-- navigation -->
           <div class="text-center">
@@ -414,7 +435,7 @@
             </div>
             <div>&nbsp;</div>
             <div>
-              <q-btn @click="onYouTubeIframeAPIReady()">sfd</q-btn>
+              <!-- <q-btn @click="onYouTubeIframeAPIReady()">sfd</q-btn> -->
               <q-btn
                 @click="
                   this.switchToVideoId(
@@ -454,7 +475,10 @@
               color="negative"
               class="negative"
               v-if="this.currentStep <= this.stepsList.length"
-              @click="this.currentStep++"
+              @click="
+                this.currentStep++;
+                this.currentRepCount = 0;
+              "
               size="xs"
             >
               skip this
@@ -465,6 +489,7 @@
               v-if="this.currentStep <= this.stepsList.length"
               @click="
                 this.currentStep = 0;
+                this.currentRepCount = 0;
                 ytUrl = null;
               "
               size="xs"
@@ -501,6 +526,7 @@
 </template>
 
 <script>
+import confetti from "https://cdn.skypack.dev/canvas-confetti";
 import { ref } from "vue";
 import { setList, doctorSets } from "../scripts/setlist.js";
 import { LocalStorage } from "quasar";
@@ -528,9 +554,46 @@ export default {
       doctorSets: doctorSets,
       videoIdIndex: 0,
       ytUrl: "",
+      currentRepCount: 0,
+      userStepRep: "",
     };
   },
   methods: {
+    addRemoveRep(amount) {
+      if (amount == "done") {
+        this.currentRepCount = this.stepsList[this.currentStep - 1].reps;
+        confetti({
+          particleCount: 3 * this.currentRepCount,
+          spread: 100,
+          // any other options from the global
+          // confetti function
+        });
+
+        return;
+      }
+
+      if (
+        this.currentRepCount == this.stepsList[this.currentStep - 1].reps - 1 &&
+        amount > -1
+      ) {
+        confetti({
+          particleCount: 3 * this.currentRepCount,
+          spread: 100,
+          // any other options from the global
+          // confetti function
+        });
+      } else if (amount >= 1) {
+        confetti({
+          particleCount: 2 * this.currentRepCount,
+          spread: 40,
+          // any other options from the global
+          // confetti function
+        });
+      }
+
+      this.currentRepCount = this.currentRepCount + amount;
+      if (this.currentRepCount <= -1) this.currentRepCount = 0;
+    },
     onYouTubeIframeAPIReady() {
       player = new YT.Player("ytplayer", {
         events: {
@@ -547,6 +610,9 @@ export default {
       player.mute();
     },
     buildRoutine(type = 0, drsetnum = 0) {
+      this.currentRepCount = 0;
+      this.userStepRep = ""; // need to use this to modify points based on reps of each exercise
+
       // console.log(
       //   "started-build-routineXy",
       //   eval(LocalStorage.getItem("userCurrentSetlist")),
@@ -643,6 +709,8 @@ export default {
       window.navigator.vibrate(vibData);
     },
     switchToVideoId(id, mute = 0, startAt = 0, endAt = 0, autoplay = 0) {
+      this.userStepRep += this.currentRepCount + ",";
+      this.currentRepCount = 0;
       console.log("localStore:", localStorage.getItem("userAge"));
       mute = mute == 1 ? "mute=1" : "mute=0";
       this.ytUrl = `https://www.youtube.com/embed/${id}?autoplay=${autoplay}&loop=0&playlist=${id}&start=${startAt}&end=${endAt}&rel=0${mute}&enablejsapi=1&modestbranding=1&theme=light&showinfo=0`;
@@ -749,6 +817,15 @@ export default {
   },
 
   computed: {
+    repsCompleted() {
+      if (this.stepsList[this.currentStep - 1]) {
+        if (this.currentRepCount >= this.stepsList[this.currentStep - 1].reps) {
+          return `<span class="glower">${this.currentRepCount}</span>`;
+        }
+      }
+
+      return this.currentRepCount;
+    },
     randomAtYourFeetMsg() {
       const atfeet = [
         "You notice an esoteric piece of a scientific script on the floor...",
@@ -1121,6 +1198,33 @@ blockquote cite:before {
   //   0 0 30px #2f18ff, 0 0 40px #18dcff, 0 0 55px #18ffe0, 0 0 75px #18f0ff,
   //   2px 2px 2px rgba(36, 107, 206, 0), 2px 2px 2px #000000, -1px -1px #444;
 }
+@keyframes animateBgReward {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+.special-alert {
+  padding: 0.5em;
+  color: $text;
+  animation: animateBgReward 5s ease infinite;
+  background: $primary;
+  background-size: 500% 100%;
+  transition: all 0.5s;
+  border-radius: 10px;
+  opacity: 0.8;
+  text-shadow: 2px 2px 2px #3366ff;
+  // text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #0d4aff,
+  //   0 0 30px #2f18ff, 0 0 40px #18dcff, 0 0 55px #18ffe0, 0 0 75px #18f0ff,
+  //   2px 2px 2px rgba(36, 107, 206, 0), 2px 2px 2px #000000, -1px -1px #444;
+}
+.glower {
+  animation: colorCycle 2s ease infinite;
+  border-bottom: 4px double $info;
+}
+
 .cycle-color {
   animation: animateBgReward 3s linear infinite;
 }
