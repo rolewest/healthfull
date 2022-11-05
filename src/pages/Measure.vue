@@ -1554,78 +1554,78 @@ export default {
       this.$emit("citation", id, name, caption, short, summary, why, theme);
     },
     saveUserData() {
-      LocalStorage.setItem("userHeight", this.userHeight); //save it
-      LocalStorage.setItem("userWeight", this.userWeight); //save it
-      LocalStorage.setItem("userAge", this.userAge); //save it
-      LocalStorage.setItem("userSkill", this.userSkill); //save it
-      LocalStorage.setItem("userHeightImp", this.userHeightImp); // save imperial (feet) measure
-      LocalStorage.setItem("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
-      LocalStorage.setItem("userKG", this.userKG);
-      LocalStorage.setItem("userCM", this.userCM);
-      LocalStorage.setItem("userNeck", this.userNeck);
-      LocalStorage.setItem("userWaist", this.userWaist);
-      LocalStorage.setItem("userHip", this.userHip);
-      LocalStorage.setItem("userRHR", this.userRHR);
-      LocalStorage.setItem("userExerciseFrequency", this.userExerciseFrequency);
-      LocalStorage.setItem("userExerciseEffort", this.userExerciseEffort);
-      LocalStorage.setItem("userExerciseLength", this.userExerciseLength);
+      LocalStorage.set("userHeight", this.userHeight); //save it
+      LocalStorage.set("userWeight", this.userWeight); //save it
+      LocalStorage.set("userAge", this.userAge); //save it
+      LocalStorage.set("userSkill", this.userSkill); //save it
+      LocalStorage.set("userHeightImp", this.userHeightImp); // save imperial (feet) measure
+      LocalStorage.set("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
+      LocalStorage.set("userKG", this.userKG);
+      LocalStorage.set("userCM", this.userCM);
+      LocalStorage.set("userNeck", this.userNeck);
+      LocalStorage.set("userWaist", this.userWaist);
+      LocalStorage.set("userHip", this.userHip);
+      LocalStorage.set("userRHR", this.userRHR);
+      LocalStorage.set("userExerciseFrequency", this.userExerciseFrequency);
+      LocalStorage.set("userExerciseEffort", this.userExerciseEffort);
+      LocalStorage.set("userExerciseLength", this.userExerciseLength);
       LocalStorage.removeItem("userLevel");
-      LocalStorage.setItem("user.level.number", this.userLevel);
-      LocalStorage.setItem("userGender", this.userGender);
+      LocalStorage.set("user.level.number", this.userLevel);
+      LocalStorage.set("userGender", this.userGender);
 
       //points
-      LocalStorage.setItem("user.points.xp", this.userBasePoints.xp);
-      LocalStorage.setItem("user.points.hp", this.userBasePoints.hp);
-      LocalStorage.setItem("user.points.cp", this.userBasePoints.cp);
-      LocalStorage.setItem("userConcerns", this.userConcerns);
+      LocalStorage.set("user.points.xp", this.userBasePoints.xp);
+      LocalStorage.set("user.points.hp", this.userBasePoints.hp);
+      LocalStorage.set("user.points.cp", this.userBasePoints.cp);
+      LocalStorage.set("userConcerns", this.userConcerns);
 
-      LocalStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.alcohol.count",
         this.userLifestyleAlcohol
       );
-      LocalStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.alcohol.freq",
         this.userLifestyleAlcoholFreq
       );
-      LocalStorage.setItem("user.lifestyle.soda.count", this.userLifestyleSoda);
-      LocalStorage.setItem(
+      LocalStorage.set("user.lifestyle.soda.count", this.userLifestyleSoda);
+      LocalStorage.set(
         "user.lifestyle.soda.freq",
         this.userLifestyleSodaFreq
       );
-      LocalStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.smokes.count",
         this.userLifestyleSmokes
       );
-      LocalStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.smokes.freq",
         this.userLifestyleSmokesFreq
       );
-      LocalStorage.setItem("user.lifestyle.meat.count", this.userLifestyleMeat);
-      LocalStorage.setItem(
+      LocalStorage.set("user.lifestyle.meat.count", this.userLifestyleMeat);
+      LocalStorage.set(
         "user.lifestyle.meat.freq",
         this.userLifestyleMeatFreq
       );
-      LocalStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.seafood.count",
         this.userLifestyleSeafood
       );
-      LocalStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.seafood.freq",
         this.userLifestyleSeafoodFreq
       );
-      LocalStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.dairy.count",
         this.userLifestyleDairy
       );
-      LocalStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.dairy.freq",
         this.userLifestyleDairyFreq
       );
-      LocalStorage.setItem(
+      LocalStorage.set(
         "user.lifestyle.sedentary.count",
         this.userLifestyleSedentary
       );
-      LocalStorage.setItem("user.body.goal", this.userBodyGoal);
+      LocalStorage.set("user.body.goal", this.userBodyGoal);
     },
     flipGender(type = 0) {
       console.log("flipping to:", type);

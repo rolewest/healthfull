@@ -66,7 +66,7 @@ export default {
         let bpmx = ((60000 * tapCount) / (Date.now() - startTime)) * 2;
         // console.log("BPM!,bpmx", bpmx);
         this.userLastBPM = bpmx;
-        // window.localStorage.setItem("userRHR", bpmx);
+        // window.localStorage.set("userRHR", bpmx);
         if (bpmx > 0) {
           // window.navigator.vibrate(300);
           // console.log("whyzero", this.userLastBPM);

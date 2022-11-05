@@ -90,13 +90,13 @@
             </li>
             <li
               class=""
-              v-if="userLifestyleSoda >= 2 && userLifestyleSodaFreq >= 12"
+              v-if="userLifestyleSoda >= 1 && userLifestyleSodaFreq >= 12"
             >
               <span
                 >Try to drink only
                 <ul class="normal-ul">
                   <li>water</li>
-                  <li>green tea</li>
+                  <li>tea (white, green, hibiscus) w/ lemon</li>
                   <li>black coffee</li>
                 </ul></span
               >

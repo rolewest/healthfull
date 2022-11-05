@@ -152,6 +152,34 @@
           <q-item-section
             clickable
             @click="
+              this.$router.push({ name: 'prefs' });
+              this.toggleLeftDrawer();
+            "
+            avatar
+          >
+            <q-icon name="mdi-heart-cog" />
+          </q-item-section>
+
+          <q-item-section
+            @click="
+              // this.toggleModal();
+              this.$router.push({ name: 'prefs' });
+              this.toggleLeftDrawer();
+            "
+          >
+            <q-item-label>Preferences</q-item-label>
+
+            <q-item-label caption>{{
+              randomCaption("preferences")
+            }}</q-item-label>
+          </q-item-section>
+        </q-item>
+        <!--  -->
+        <!--  -->
+        <q-item class="menu-option">
+          <q-item-section
+            clickable
+            @click="
               this.$router.push({ name: 'planner' });
               this.toggleLeftDrawer();
             "
@@ -515,6 +543,7 @@ export default defineComponent({
       ];
       const prescription = ["The Doctor Recommends..."];
       const inventory = ["Nothing here yet..."];
+      const preferences = ["Reset your game..."];
       let index = this.random(0, eval(route).length - 1);
 
       return eval(route)[index];
@@ -1158,5 +1187,8 @@ ul {
 }
 .noblink-ul li:before {
   animation: none !important;
+}
+.blink-this {
+  animation: blinker 1s steps(1, end) infinite;
 }
 </style>

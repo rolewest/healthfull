@@ -190,6 +190,16 @@ export default {
     -2px -2px 0 $info, 2px 0px 0 $info, 0px 2px 0 $info, -2px 0px 0 $info,
     0px -2px 0 $info;
 }
+.title-h6 {
+  font-size: 1.2em;
+
+  text-decoration: double;
+  // border: 1px solid $primary;
+  display: block;
+  text-shadow: 2px 2px 0 $info, 2px -2px 0 $info, -2px 2px 0 $info,
+    -2px -2px 0 $info, 2px 0px 0 $info, 0px 2px 0 $info, -2px 0px 0 $info,
+    0px -2px 0 $info;
+}
 .cite-text {
   font-family: "Courier New", Courier, monospace !important;
   // font-family: Lucida Sans Typewriter, Lucida Console, monaco,
@@ -234,4 +244,5 @@ export default {
   box-shadow: 5px 5px 15px 5px #000000, inset 2px 2px 15px 2px #000000;
   transition: all 2s linear 1s;
 }
+//css animation.
 </style>

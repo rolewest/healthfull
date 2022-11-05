@@ -23,7 +23,7 @@
         </div>
         <div
           class="fade-in-element"
-          style="animation-duration: 10s; animation-delay: 2s; opacity: 0"
+          style="animation-duration: 10s; animation-delay: 2.3s; opacity: 0"
         >
           It looks like you're new here.
 
@@ -35,7 +35,7 @@
               class="fade-in-element q-mt-sm"
               style="animation-duration: 2s; animation-delay: 7.5s; opacity: 0"
             >
-              Let's take a few simple measurements when you're ready.
+              Let's take a few simple measurements, when you're ready.
             </div>
           </div>
         </div>
@@ -70,7 +70,7 @@
     >
       <legend>What to do next?</legend>
 
-      <div class="row">
+      <div class="row q-pb-md donext-item">
         <q-card class="q-pa-md my-card bg-none" bordered>
           <div class="text-center" v-if="!hasSetlist">
             <p class="text-h6">Build a SetList!</p>
@@ -78,7 +78,7 @@
               Exercise the way you want and personalized for your fitness level.
             </p>
             <q-btn
-              class="q-pa-md border-double-1 q"
+              class="q-pa-md border-double-1 vertical-bottom"
               color="info"
               @click="this.$router.push({ name: 'builder' })"
             >
@@ -86,27 +86,80 @@
                 class="-mr-sm q-pb-sm"
                 color="positive"
                 icon="mdi-hammer-wrench"
+                size="40px"
+              >
+              </q-avatar>
+              <br />
+              <div class="q-ma-sm">Make My Setlist</div>
+            </q-btn>
+          </div>
+
+          <div class="text-center" v-else-if="hasSetlist">
+            <p class="text-h6">Earn Daily Points</p>
+            <p>with your custom setlist!</p>
+            <q-btn
+              class="q-pa-md border-double-1 vertical-bottom"
+              color="info"
+              @click="this.$router.push({ name: 'player' })"
+            >
+              <q-avatar
+                class="-mr-sm q-pb-sm"
+                color="negative"
+                icon="mdi-fire-circle"
               >
               </q-avatar>
               <br />
               <div class="q-ma-sm">Setlist</div>
             </q-btn>
           </div>
-          <div class="text-center" v-else-if="hasSetlist">
-            <p>Earn Daily Points<br />with your custom setlist!</p>
+        </q-card>
+      </div>
+
+      <div class="row q-pb-md donext-item">
+        <q-card class="q-pa-md my-card bg-none" bordered>
+          <div class="text-center">
+            <p class="text-h6">See Full Prescription!</p>
+            <p>
+              This is what the Doctor ordered! Small changes to make a big
+              difference.
+            </p>
             <q-btn
-              class="q-pa-md border-double-1 q"
+              class="q-pa-md border-double-1 vertical-bottom"
               color="info"
-              @click="this.$router.push({ name: 'player' })"
+              @click="this.$router.push({ name: 'prescription' })"
             >
               <q-avatar
-                class="-mr-sm q-pb-sm"
+                class="q-pb-sm"
                 color="accent"
-                icon="mdi-fire-circle"
+                icon="mdi-clipboard-pulse"
+                size="40px"
               >
               </q-avatar>
               <br />
-              <div class="q-ma-sm">Setlist</div>
+              <div class="q-ma-sm">My Prescriptions</div>
+            </q-btn>
+          </div>
+        </q-card>
+      </div>
+      <div class="row q-pb-md donext-item">
+        <q-card class="q-pa-md my-card bg-none" bordered>
+          <div class="text-center">
+            <p class="text-h6">See Meal Prescription!</p>
+            <p>Use science backed diet to reach your health goals sooner.</p>
+            <q-btn
+              class="q-pa-md border-double-1 q"
+              color="info"
+              @click="this.$router.push({ name: 'planner' })"
+            >
+              <q-avatar
+                class="-mr-sm q-pb-sm"
+                color="warning"
+                icon="restaurant_menu"
+                size="40px"
+              >
+              </q-avatar>
+              <br />
+              <div class="q-ma-sm">My Meal Plans</div>
             </q-btn>
           </div>
         </q-card>
@@ -123,7 +176,7 @@
         class="q-ma-sm"
         v-if="!userChallenges.daily.last && userChallenges.daily.opened"
       >
-        <p class="text-center">Select Your Challenge</p>
+        <p class="text-center title-h4">Select Your Challenge</p>
         <!-- <div
           v-html=""
         ></div> -->
@@ -173,6 +226,10 @@
               </div>
             </div>
           </details>
+          <div v-else>
+            Sorry this challenge is in progress. Try Meal Points Challenges for
+            now.
+          </div>
         </div>
 
         <div class="text-center q-ma-md">
@@ -210,7 +267,7 @@
             class="border-double-3 q-ma-sm q-pa-sm row"
             @click.alt="userChallenges.daily.last = null"
           >
-            <!-- LocalStorage.setItem('challenge.daily.last', null) -->
+            <!-- LocalStorage.set('challenge.daily.last', null) -->
             <div class="q-ma-xs">
               <div
                 class="roll-result"
@@ -566,8 +623,8 @@ export default {
         const datestr = `${now.getDate()}${now.getMonth()}${now.getFullYear()}`;
         this.userChallenges.completed = datestr;
         console.log("complT:", this.userChallenges.completed);
-        LocalStorage.setItem("challenge.daily.completed", datestr);
-        LocalStorage.setItem("challenge.daily.last", null);
+        LocalStorage.set("challenge.daily.completed", datestr);
+        LocalStorage.set("challenge.daily.last", null);
         console.log(
           "complT_ed:",
           this.userChallenges.completed,
@@ -586,8 +643,8 @@ export default {
 
         // this.userChallenges.daily.opened = null;
         // this.userChallenges.daily.accepted = null;
-        // LocalStorage.setItem("challenge.daily.accepted", null);
-        // LocalStorage.setItem("challenge.daily.opened", null);
+        // LocalStorage.set("challenge.daily.accepted", null);
+        // LocalStorage.set("challenge.daily.opened", null);
       }
     },
     compareDateStrings(date1, date2 = null) {
@@ -746,7 +803,7 @@ export default {
         this.userChallenges.daily.rolled,
         4
       );
-      LocalStorage.setItem(
+      LocalStorage.set(
         "challenge.daily.opened",
         this.userChallenges.daily.opened
       );
@@ -783,21 +840,18 @@ export default {
       // if (datestr != LocalStorage.getItem("challenge.daily.last")) {
       console.log("okay..");
       console.log("CD:", this.userChallenges);
-      // LocalStorage.setItem("challenge.daily.last", datestr);
-      LocalStorage.setItem(
+      // LocalStorage.set("challenge.daily.last", datestr);
+      LocalStorage.set(
         "challenge.daily.rolled",
         this.userChallenges.daily.rolled
       );
-      LocalStorage.setItem(
-        "challenge.daily.face",
-        this.userChallenges.daily.face
-      );
-      LocalStorage.setItem(
+      LocalStorage.set("challenge.daily.face", this.userChallenges.daily.face);
+      LocalStorage.set(
         "challenge.daily.accepted",
         this.userChallenges.daily.accepted
       );
       this.userChallenges.daily.last = datestr;
-      // LocalStorage.setItem(
+      // LocalStorage.set(
       //   "challenge.daily.last",
       //   this.userChallenges.daily.last
       // );
@@ -824,6 +878,9 @@ export default {
 </script>
 
 <style lang="scss">
+.donext-item {
+  width: 220px;
+}
 .roll-area {
   // background: #ff0044;
 }
