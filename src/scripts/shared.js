@@ -1,18 +1,18 @@
 function saveUserData() {
-  window.localStorage.setItem("userHeight", this.userHeight); //save it
-  window.localStorage.setItem("userWeight", this.userWeight); //save it
-  window.localStorage.setItem("userAge", this.userAge); //save it
-  window.localStorage.setItem("userSkill", this.userSkill); //save it
-  window.localStorage.setItem("userHeightImp", this.userHeightImp); // save imperial (feet) measure
-  window.localStorage.setItem("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
-  window.localStorage.setItem("userKG", this.userKG);
-  window.localStorage.setItem("userCM", this.userCM);
-  window.localStorage.setItem("userNeck", this.userNeck);
-  window.localStorage.setItem("userWaist", this.userWaist);
-  window.localStorage.setItem("userHip", this.userHip);
+  window.localStorage.set("userHeight", this.userHeight); //save it
+  window.localStorage.set("userWeight", this.userWeight); //save it
+  window.localStorage.set("userAge", this.userAge); //save it
+  window.localStorage.set("userSkill", this.userSkill); //save it
+  window.localStorage.set("userHeightImp", this.userHeightImp); // save imperial (feet) measure
+  window.localStorage.set("userWeightImp", this.userWeightImp); // save imperial (pounds) measure
+  window.localStorage.set("userKG", this.userKG);
+  window.localStorage.set("userCM", this.userCM);
+  window.localStorage.set("userNeck", this.userNeck);
+  window.localStorage.set("userWaist", this.userWaist);
+  window.localStorage.set("userHip", this.userHip);
   //points
-  window.localStorage.setItem("user.points.xp", this.userBasePoints.xp);
-  window.localStorage.setItem("user.points.hp", this.userBasePoints.hp);
-  window.localStorage.setItem("user.points.cp", this.userBasePoints.cp);
+  window.localStorage.set("user.points.xp", this.userBasePoints.xp);
+  window.localStorage.set("user.points.hp", this.userBasePoints.hp);
+  window.localStorage.set("user.points.cp", this.userBasePoints.cp);
 }
 export { saveUserData }

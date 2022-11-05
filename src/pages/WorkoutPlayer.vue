@@ -222,7 +222,9 @@
                   text-color=""
                   >Your Custom Routine</q-btn
                 >
+                <hr />
                 <h5>Low Impact Exercises</h5>
+                <p>No equipment needed!</p>
                 <q-btn
                   @click="
                     buildRoutine(1, 0);
@@ -270,11 +272,13 @@
                   </div></q-btn
                 >
                 <q-btn
-                  @click="buildRoutine(1, 3)"
+                  @click="
+                    buildRoutine(1, 3);
+                    startConditioning();
+                  "
                   color="primary"
                   text-color=""
                   style="max-width: 120px; min-height: 150px"
-                  disabled
                   ><q-icon name="medication" class="h2"></q-icon> Standing Only
                   <q-icon name="medication" class="h2"></q-icon>
                   <div class="text-sm block full-width">
@@ -378,7 +382,10 @@
             <div class="text-center">{{ xstep.caption }}</div>
           </div>
           <!-- Click to add number of reps -->
-          <div class="row justify-center q-ma-md" @click="addRemoveRep('done')">
+          <div
+            class="row justify-center q-ma-md"
+            @dblclick="addRemoveRep('done')"
+          >
             <q-chip class=""
               >{{ xstep.reps }}x &nbsp;
               <q-avatar
@@ -528,7 +535,7 @@
 <script>
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
 import { ref } from "vue";
-import { setList, doctorSets } from "../scripts/setlist.js";
+
 import { LocalStorage } from "quasar";
 var tag = document.createElement("script");
 
@@ -550,8 +557,8 @@ export default {
       workingList: LocalStorage.getItem("userCurrentSetlist") || [],
       stepsList: [],
       playList: [],
-      setList: setList,
-      doctorSets: doctorSets,
+      setList: [],
+      doctorSets: [],
       videoIdIndex: 0,
       ytUrl: "",
       currentRepCount: 0,
@@ -561,13 +568,17 @@ export default {
   methods: {
     addRemoveRep(amount) {
       if (amount == "done") {
-        this.currentRepCount = this.stepsList[this.currentStep - 1].reps;
-        confetti({
-          particleCount: 3 * this.currentRepCount,
-          spread: 100,
-          // any other options from the global
-          // confetti function
-        });
+        if (this.currentRepCount < this.stepsList[this.currentStep - 1].reps) {
+          this.currentRepCount = this.stepsList[this.currentStep - 1].reps;
+          confetti({
+            particleCount: 3 * this.currentRepCount,
+            spread: 100,
+            // any other options from the global
+            // confetti function
+          });
+        } else {
+          this.currentRepCount = 0;
+        }
 
         return;
       }
@@ -628,7 +639,7 @@ export default {
       );
       let selectedSetList = [];
       if (LocalStorage.getItem("userCurrentSetlist"))
-        selectedSetList = LocalStorage.getItem("userCurrentSetlist").split(","); //eval(LocalStorage.getItem("userCurrentSetlist"));//
+        selectedSetList = LocalStorage.getItem("userCurrentSetlist"); //.split(","); //eval(LocalStorage.getItem("userCurrentSetlist"));//
       let newList = [];
       // ! get prescribed sets
       if (type == 1) {
@@ -646,7 +657,7 @@ export default {
         newList.push(foundSet);
       }
 
-      // LocalStorage.setItem("userCurrentSetlist", newList);
+      // LocalStorage.set("userCurrentSetlist", newList);
       // this.workingSetlist = newList;
       this.stepsList = newList;
     },
@@ -771,10 +782,10 @@ export default {
 
     saveUserPoints() {
       //points only
-      LocalStorage.setItem("user.points.xp", this.userBasePoints.xp);
-      LocalStorage.setItem("user.points.hp", this.userBasePoints.hp);
-      LocalStorage.setItem("user.points.cp", this.userBasePoints.cp);
-      LocalStorage.setItem("user.points.sp", this.userBasePoints.sp);
+      LocalStorage.set("user.points.xp", this.userBasePoints.xp);
+      LocalStorage.set("user.points.hp", this.userBasePoints.hp);
+      LocalStorage.set("user.points.cp", this.userBasePoints.cp);
+      LocalStorage.set("user.points.sp", this.userBasePoints.sp);
     },
     pointsEarned(type = "xp") {
       let hpx = 0,
@@ -813,6 +824,15 @@ export default {
       return `
       <h3>${xpx}:${hpx}:${cpx}</h3>`;
       console.log("total_hp:", hpx, xpx, cpx);
+    },
+    loadSetLists(data, error = null) {
+      if (error) {
+        alert(error.message);
+      } else {
+        this.setList = data.setLists;
+        this.doctorSets = data.doctorSets;
+        this.buildRoutine();
+      }
     },
   },
 
@@ -873,7 +893,10 @@ export default {
     ) {
       this.alert = true;
     } else {
-      this.buildRoutine();
+      fetch("https://rmatter.com/health-full/data/index.php?loc=setlist")
+        .then((res) => res.json())
+        .then((data) => this.loadSetLists(data))
+        .catch((err) => this.loadSetLists("", err));
     }
     //
 

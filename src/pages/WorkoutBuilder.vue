@@ -23,6 +23,8 @@
               selection="multiple"
               v-model:selected="selected"
               :pagination="initialPagination"
+              no-data-label="and you find nothing... Check your network connection."
+              no-results-label="You don't have one of those..."
             >
               <template v-slot:body="props">
                 <q-tr :props="props">
@@ -38,11 +40,37 @@
                     </q-badge>
                   </q-td>
                   <q-td key="mobility" :props="props">
-                    <q-badge color="purple">
+                    <q-badge color="red">
                       {{ props.row.mobility }}
                     </q-badge>
                   </q-td>
                 </q-tr>
+              </template>
+              <!-- <template v-slot:top-right>
+                <q-input
+                  borderless
+                  dense
+                  debounce="300"
+                  v-model="filter"
+                  placeholder="Search"
+                >
+                  <template v-slot:append>
+                    <q-icon name="search" />
+                  </template>
+                </q-input>
+              </template> -->
+
+              <template v-slot:no-data="{ icon, message, filter }">
+                <div class="full-width row flex-center text-info q-gutter-sm">
+                  <div>
+                    <q-spinner-hourglass color="primary" size="2em" />
+                    <q-tooltip :offset="[0, 8]">QSpinnerHourglass</q-tooltip>
+                  </div>
+                  <span>
+                    You rummage around your rucksack... {{ message }}
+                  </span>
+                  <q-icon size="2em" :name="filter ? 'filter_b_and_w' : icon" />
+                </div>
               </template>
             </q-table>
           </div>
@@ -65,7 +93,7 @@
             <q-card-section class="q-pt-none">
               {{
                 popupCaption ||
-                "Are you sure? This will overwrite any saved setlists, currently."
+                "Are you sure? This will overwrite any saved custom setlists, currently."
               }}
             </q-card-section>
 
@@ -115,7 +143,6 @@
 <!-- setList will need to have steps added -->
 <script>
 import { ref } from "vue";
-import { setList, doctorSets } from "../scripts/setlist.js";
 import { LocalStorage } from "quasar";
 const columns = [
   {
@@ -181,8 +208,8 @@ export default {
       },
       workingSetlist: [],
       usersSetLists: LocalStorage.getItem("user.setlists.custom") || "",
-      setList: setList,
-      doctorSets: doctorSets,
+      setList: [],
+      doctorSets: [],
     };
   },
   methods: {
@@ -229,12 +256,12 @@ export default {
         console.log("selected:", this.selected[index].alldata.id);
       }
       // console.log("fixdd:", buildSetlist[index]["step"]);
-      LocalStorage.setItem("userCurrentSetlist", buildSetlist);
+      LocalStorage.set("userCurrentSetlist", buildSetlist);
       // save this list onto all custom lists
       // let oldSets = this.usersSetLists;
       // if (!isArray(oldSets)) {
       // }
-      // LocalStorage.setItem("user.setlists.custom");
+      // LocalStorage.set("user.setlists.custom");
       //
       this.workingSetlist = buildSetlist;
       console.log(
@@ -315,6 +342,14 @@ export default {
         }, delay);
       }
     },
+    loadSetLists(data, error = null) {
+      if (error) {
+        alert(error.message);
+      }
+      this.setList = data.setLists;
+      this.doctorSets = data.doctorSets;
+      this.initTableData();
+    },
   },
   computed: {
     rowCount() {
@@ -323,7 +358,11 @@ export default {
   },
   mounted() {
     console.log("vidddd:", LocalStorage.getItem("userCurrentSetlist"));
-    this.initTableData();
+
+    fetch("https://rmatter.com/health-full/data/index.php?loc=setlist")
+      .then((res) => res.json())
+      .then((data) => this.loadSetLists(data))
+      .catch((err) => this.loadSetLists("", err));
     // this.typeText(0, "buildTitle", 1000, 100, "true");
   },
 };
