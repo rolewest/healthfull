@@ -1167,7 +1167,1231 @@
     <!-- https://understandinguncertainty.org/microlives -->
     <!-- <Clipboard /> -->
     <!-- Can I remove this below now that I included PrescriptionComponent? -->
-    <Clipboard />
+    <div class="clip shadow"></div>
+    <div class="clipBoard table-responsive">
+      <div class="paperSheet shadow">
+        <table class="table">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">
+                <span
+                  class="text-is-stamp"
+                  :class="
+                    showIdealWeight(4) > -14 && showIdealWeight(4) < 5
+                      ? 'text-info'
+                      : 'border-negative'
+                  "
+                  >{{ getBMI(1) }}</span
+                >
+                &nbsp;
+              </th>
+              <th scope="col" class="maleChart">Male</th>
+              <th scope="col" class="femaleChart">Female</th>
+              <th scope="col">Info</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th
+                scope="row"
+                class="text-center font-weight-bold text-primary"
+                colspan="100%"
+              >
+                <span class="mdi mdi-account-search text-h5"></span>
+                Estimated Body Composition
+              </th>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                Metabolic Age
+              </th>
+              <td
+                class="maleChart"
+                :class="{
+                  'text-negative': getMetabolicAge() > userAge,
+                  'text-positive': getMetabolicAge() < userAge,
+                }"
+              >
+                {{ getMetabolicAge() }}
+              </td>
+              <td
+                class="femaleChart"
+                :class="{
+                  'text-negative': getMetabolicAge() > userAge,
+                  'text-positive': getMetabolicAge() < userAge,
+                }"
+              >
+                {{ getMetabolicAge() }}
+              </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'Met-Age',
+                      'Metabolic Age',
+                      `Met-age is highly associated with and is an indicator of high-risk of developing Metabolic Syndromes such as heart disease, stroke and type 2 diabetes.`,
+                      `Met-age showed a higher discriminatory capacity for CVR than chronological age (1).Metabolic age can be a useful tool for assessing the metabolic status of individuals. A study by the European Society of Cardiology used metabolic age as one of the predictors for cardiovascular disorders in people hav-ing a higher metabolic age than their chronological age (2).`,
+                      `A higher metabolic age than chronological age indicates a level of basic metabolism with low physical activity.`,
+
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row" class="">
+                <span class="mdi mdi-check-outline text-success"></span> Current
+                Weight
+              </th>
+              <td class="maleChart">{{ showIdealWeight(6) }}</td>
+              <td class="femaleChart">{{ showIdealWeight(6) }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="">
+                <span class="mdi mdi-check-outline text-success"></span> Ideal
+                Weight
+              </th>
+              <td class="maleChart">{{ showIdealWeight(0) }}</td>
+              <td class="femaleChart">{{ showIdealWeight(1) }}</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span v-if="showIdealWeight(4) > -15 && showIdealWeight(4) < 5">
+                  <span class="mdi mdi-check-outline text-success"></span>
+                </span>
+                <span v-else>
+                  <span class="mdi mdi-alert text-warning"></span>
+                </span>
+                Weight Difference
+              </th>
+              <td class="maleChart">
+                <!-- ideal +/- 5kg -->
+                <span v-if="showIdealWeight(4) > -5 && showIdealWeight(4) < 5">
+                  <span class="text-positive">
+                    {{ showIdealWeight(2) }}
+                  </span>
+                </span>
+                <!-- a bit overweight -->
+                <span
+                  v-else-if="showIdealWeight(4) > 5 && showIdealWeight(4) < 10"
+                >
+                  <span class="text-warning">
+                    {{ showIdealWeight(2) }}
+                  </span>
+                </span>
+                <!-- overweight -->
+                <span v-else-if="showIdealWeight(4) > 5">
+                  <span class="text-negative">
+                    {{ showIdealWeight(2) }}
+                  </span>
+                </span>
+                <!-- underweight -->
+                <span v-else-if="showIdealWeight(4) < -5">
+                  <span class="text-negative">
+                    {{ showIdealWeight(2) }}
+                  </span>
+                </span>
+                <span v-else>
+                  {{ showIdealWeight(2) }}
+                </span>
+              </td>
+              <td class="femaleChart">
+                <!-- ideal +/- 5kg -->
+                <span v-if="showIdealWeight(5) > -5 && showIdealWeight(5) < 5">
+                  <span class="text-positive">
+                    {{ showIdealWeight(3) }}
+                  </span>
+                </span>
+                <!-- a bit overweight -->
+                <span
+                  v-else-if="showIdealWeight(5) > 5 && showIdealWeight(5) < 10"
+                >
+                  <span class="text-warning">
+                    {{ showIdealWeight(3) }}
+                  </span>
+                </span>
+                <!-- overweight -->
+                <span v-else-if="showIdealWeight(5) > 5">
+                  <span class="text-negative">
+                    {{ showIdealWeight(3) }}
+                  </span>
+                </span>
+                <!-- underweight -->
+                <span v-else-if="showIdealWeight(5) < -5">
+                  <span class="text-negative">
+                    {{ showIdealWeight(3) }}
+                  </span>
+                </span>
+                <span v-else>
+                  {{ showIdealWeight(3) }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BMI -
+                Body Mass Index
+                <div></div>
+              </th>
+              <td class="maleChart">{{ getBMI(0) }}</td>
+              <td class="femaleChart">{{ getBMI(0) }}</td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BMI',
+                      'Body Mass Index',
+                      `This figure has a lot of mixed opinions, as it doesn't take in to account muscle mass, bone density and others, but ''BMI was a stronger predictor of CVD mortality than total adiposity markers, particularly BF% and FMI, assessed with accurate methods...[PMID: 26948431]'' so too much body fat OR muscle can be dangerous.`,
+                      ` suggests that the simple and inexpensive measure of BMI can be as clinically important measure or even more than total adiposity measures assessed by accurate, complex and expensive methods [PMID: 26948431]. Hopefully both detractors and proponents of BMI can agree that the measure is imperfect – not unlike any other measure of health – but if and when better framed as a holistic assessment of health relative to weight, it can provide valuable insights into obesity as an individual and social condition [PMID: 31007613].`,
+                      ``,
+                      'theme-red'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+
+            <tr v-if="userNeck > 0 && userWaist > 0">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BF% -
+                Measured
+              </th>
+              <td class="maleChart">
+                {{ navyBFP(0).toFixed(2) }}% ({{
+                  bfpToCategory(0, navyBFP(0))
+                }})
+              </td>
+              <td class="femaleChart">
+                {{ navyBFP(1).toFixed(2) }}% ({{
+                  bfpToCategory(1, navyBFP(1))
+                }})
+              </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BF% - Tested Formula',
+                      'Body Fat Percentage',
+                      `A more reliable measure of body fat to avoid levels above 25.8% for men and 37.1% for women will have lower risk of disease and lower mortality rates.`,
+                      `Navy-seal formula and bioelectrical impedance are both simple and reliable instruments to measure body composition in adults. The navy-seal formula can be used to screen individuals with high-fat body fat ratio whereas bioelectric impedance can be used to measure the body composition for personal monitoring[1]. The real test of these equations for classifying individuals for excess fat or insufficient muscle mass would be the strength of the association with physical readiness and physical fitness performance[2].`,
+                      `This method is using your measurements has been used for decades by the US Navy and is proven to be more reliable than the BMI approach.`,
+
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+            <tr :class="{ unHighlight: userNeck > 0 && userWaist > 0 }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BF% -
+                Body Fat Percent - BMI Based
+              </th>
+              <td class="maleChart">
+                {{ estBodyFatFromBMI(0) }}% ({{
+                  bfpToCategory(0, estBodyFatFromBMI(0))
+                }})
+              </td>
+              <td class="femaleChart">
+                {{ estBodyFatFromBMI(1) }}% ({{
+                  bfpToCategory(1, estBodyFatFromBMI(1))
+                }})
+              </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BF% - BMI Based',
+                      'Body Fat Percentage',
+                      `Your body fat percentage can tell a lot about about your health. Levels above 25.8% for men and 37.1% for women were shown to have higher risk of cardiovascular and other diseases such as diabetes and cancer.`,
+                      `Being overweight and obesity are commonly acknowledged key risk factors for non-communicable diseases (NCDs).1,2 Obesity is deemed an independent cardiovascular risk factor (CRF).2 Other CRFs: age, gender, hypertension, dyslipidemia, diabetes mellitus, smoking, unhealthy diet, physical inactivity, and family history[1].`,
+                      `We use the CUN-BAE formula developed in 2012 that has been tested on over 6,500 subjects from 18-80 years of age. Measure your neck, waist & hips for more accurate results.`,
+
+                      'theme-notice'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+            <tr v-if="userNeck > 0 && userWaist > 0 && userHip > 0">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BFM -
+                Measured
+              </th>
+              <td class="maleChart">
+                {{ navyBFP(4) }} {{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="femaleChart">
+                {{ navyBFP(5) }} {{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="text-center"></td>
+            </tr>
+            <tr :class="{ unHighlight: userNeck > 0 && userWaist > 0 }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BFM -
+                Body Fat Mass - BMI Based
+              </th>
+              <td class="maleChart">
+                {{ estBodyFatFromBMI(4) }} {{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="femaleChart">
+                {{ estBodyFatFromBMI(5) }} {{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BFM',
+                      'Body Fat Mass',
+                      ``,
+                      ``,
+                      ``,
+
+                      'theme-notice'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+            <tr v-if="userNeck > 0 && userWaist > 0 && userHip > 0">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> LBM -
+                Measured
+              </th>
+              <td class="maleChart">
+                {{ navyBFP(2) }} {{ userKG ? " KG" : " LB" }} ({{
+                  ((navyBFP(2) / userWeight) * 100).toFixed(0)
+                }}%)
+              </td>
+              <td class="femaleChart">
+                {{ navyBFP(3) }} {{ userKG ? " KG" : " LB" }} ({{
+                  ((navyBFP(3) / userWeight) * 100).toFixed(0)
+                }}%)
+              </td>
+              <td class="text-center"></td>
+            </tr>
+
+            <tr :class="{ unHighlight: userNeck > 0 && userWaist > 0 }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> LBM -
+                Lean Body Mass - BMI Based
+              </th>
+              <td class="maleChart">
+                {{ estBodyFatFromBMI(2) }} {{ userKG ? " KG" : " LB" }} ({{
+                  ((estBodyFatFromBMI(2) / userWeight) * 100).toFixed(0)
+                }}%)
+              </td>
+              <td class="femaleChart">
+                {{ estBodyFatFromBMI(3) }} {{ userKG ? " KG" : " LB" }}({{
+                  ((estBodyFatFromBMI(3) / userWeight) * 100).toFixed(0)
+                }}%)
+              </td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'LBM',
+                      'Lean Body Mass',
+                      ``,
+                      ``,
+                      ``,
+
+                      'theme-notice'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> RMR -
+                Resting Metabolic Rate
+              </th>
+              <td class="maleChart">{{ getRMR(0) }}</td>
+              <td class="femaleChart">{{ getRMR(1) }}</td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'RMR',
+                      'Resting Metabolic Rate',
+                      `This is the amount of Calories your body uses at complete rest. We use the Oxford method to get your base RMR.`,
+                      `Three equations stood out because the absolute difference between predicted and reference RMR was equal or lower than 200 kcal/d for >60% of individuals (Mifflin, Oxford and Müller equations). From them, only Oxford equation performed better in males and females separately. Conclusion: Oxford equation is a valid alternative to predict RMR in healthy adult humans. Gas exchange correction appears a good practice for reliable assessment of RMR [1].`,
+                      ``,
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BMR -
+                Basal Metabolic Rate
+              </th>
+              <td class="maleChart">{{ getBMR(0) }}</td>
+              <td class="femaleChart">{{ getBMR(1) }}</td>
+              <td class="text-center">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'BMR',
+                      'Basal Metabolic Rate',
+                      `Similar to RMR, BMR is the number of Calories your body needs for basic life sustaining functions. It is also the basis or additive for many other formulas.`,
+                      `Harris-Benedict predicted the average BMR with acceptable precision for clinical use and was better fitting than most of the currently available predictive equations for basal metabolic rate (BMR). However, the recalculated version (by Roza et al.) was more accurate and should therefore be used instead of the original equation. [1].`,
+                      `BMR can tell you a lot but at it's most basic it shows you how to cut Calories, or add them, to loose fat or gain muscle.`,
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BMR -
+                Maintain
+              </th>
+              <td class="maleChart">{{ getBMR(2) }}</td>
+              <td class="femaleChart">{{ getBMR(3) }}</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BMR -
+                Weight Loss
+              </th>
+              <td class="maleChart">{{ getBMR(-1) }}</td>
+              <td class="femaleChart">{{ getBMR(-2) }}</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> BMR -
+                Weight Gain
+              </th>
+              <td class="maleChart">{{ getBMR(4) }}</td>
+              <td class="femaleChart">{{ getBMR(5) }}</td>
+            </tr>
+            <!-- vo2Max -->
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                Vo<sub>2max</sub>
+              </th>
+              <td class="text-center maleChart">
+                <q-icon name="mdi-gas-cylinder" class="" size="2em" />
+                ~{{ v02Max(6) }} - {{ vo2MaxRate(0) }}
+                <!-- {{ parseInt(v02Max(0)) * userWeight }} -->
+              </td>
+              <td class="text-center femaleChart">
+                <q-icon name="mdi-gas-cylinder" class="" size="2em" />
+                ~{{ v02Max(7) }} - {{ vo2MaxRate(1) }}
+              </td>
+            </tr>
+            <tr>
+              <th
+                scope="row"
+                class="text-center font-weight-bold text-primary"
+                colspan="100%"
+              >
+                <span class="mdi mdi-fire text-h5"></span> Calories Burned in 1
+                Minute
+              </th>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                Sleeping
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "sleep") }} Cal
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                Sitting
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "sit") }} Cal
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                Standing
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "stand") }} Cal
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> Slow
+                Walk/Stroll
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "walk") }} Cal
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                Washing Dishes
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "dishes") }} Cal
+              </td>
+            </tr>
+
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                Cooking
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "cook") }} Cal
+              </td>
+            </tr>
+
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> Light
+                Cleaning
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "clean") }} Cal
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> Light
+                Yard Work
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "yardwork") }} Cal
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> Brisk
+                Walk
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "walk_medium") }} Cal
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> Light
+                Jog
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "jog") }} Cal
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> Jump
+                Rope / Skipping
+              </th>
+              <td colspan="2" class="text-center">
+                ~{{ getMetToCal((type = 0), "jumprope") }} Cal
+              </td>
+            </tr>
+            <!-- cardio -->
+            <tr>
+              <th
+                scope="row"
+                class="text-center font-weight-bold text-primary"
+                colspan="100%"
+              >
+                <span class="mdi mdi-heart-pulse text-h5"></span> Cardio
+              </th>
+            </tr>
+
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 100%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(100))"
+                />
+                ~{{ showMaxHeartRate(100) }} BPM
+              </td>
+              <td class="text-center">
+                <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7523886/#__sec6title -->
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'HRmax',
+                      'Max Heart Rate',
+                      `This is the estimated maximum beats/minute that your heart could perform. Exercise at certain percentages of HRmax burns more Calories with less time wasted.`,
+                      `the traditional equation underestimates HRmax after age 40 years, markedly so in older adults [Tanaka study 2001; PMID: 11153730 ].Validation of the previously suggested HR max formulas
+showed that both the widely used equation initially proposed by Fox et al. (1971), the more recent
+equation by Tanaka. (2001)[...] underestimated measured HR max in the present population The Fox equation may represent the best option for a general population as it is less likely to under or overestimate based on individual HRmax. [Shookster study; 2020;PMID:33042384].`,
+                      `We use the refined formula devised in the Hunt Study, the Tanaka, and the Fox formula, averaged off of your metabolic age for added security as studies have shown that all three have merits and flaws when applied to general populations.`,
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+
+            <tr :class="{ 'border-selection': userSkill >= 10 }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 90%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(90))"
+                />
+                ~{{ showMaxHeartRate(90) }} BPM
+              </td>
+            </tr>
+            <tr
+              :class="{ 'border-selection': userSkill >= 8 && userSkill <= 9 }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 85%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(85))"
+                />
+                ~{{ showMaxHeartRate(85) }} BPM
+              </td>
+            </tr>
+            <tr
+              :class="{ 'border-selection': userSkill >= 6 && userSkill <= 7 }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 80%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(80))"
+                />
+                ~{{ showMaxHeartRate(80) }} BPM
+              </td>
+            </tr>
+            <tr
+              :class="{ 'border-selection': userSkill >= 4 && userSkill <= 5 }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 75%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(75))"
+                />
+                ~{{ showMaxHeartRate(75) }} BPM
+              </td>
+            </tr>
+            <tr
+              :class="{ 'border-selection': userSkill >= 2 && userSkill <= 3 }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 70%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(70))"
+                />
+                ~{{ showMaxHeartRate(70) }} BPM
+              </td>
+            </tr>
+            <tr :class="{ 'border-selection': userSkill == 1 }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 65%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(65))"
+                />
+                ~{{ showMaxHeartRate(65) }} BPM
+              </td>
+            </tr>
+            <tr :class="{ 'border-selection': userSkill == 0 }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 60%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(60))"
+                />
+                ~{{ showMaxHeartRate(60) }} BPM
+              </td>
+            </tr>
+            <tr
+              :class="{
+                'border-selection': userSkill <= -1 && userSkill >= -3,
+              }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 55%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(55))"
+                />
+                ~{{ showMaxHeartRate(55) }} BPM
+              </td>
+            </tr>
+            <tr
+              :class="{
+                'border-selection': userSkill <= -4 && userSkill >= -5,
+              }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 50%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(50))"
+                />
+                ~{{ showMaxHeartRate(50) }} BPM
+              </td>
+            </tr>
+            <tr
+              :class="{
+                'border-selection': userSkill <= -6,
+              }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                HRmax - Heart Rate @ 45%
+              </th>
+              <td colspan="2" class="text-center">
+                <q-icon
+                  name="mdi-heart-pulse"
+                  class="pulseVibrate"
+                  @click="bmpToVibrate(showMaxHeartRate(45))"
+                />
+                ~{{ showMaxHeartRate(45) }} BPM
+              </td>
+            </tr>
+
+            <!-- <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span>
+                PAI
+              </th>
+              <td colspan="1" class="text-center">
+                <q-icon name="mdi-gas-cylinder" class="" size="2em" />
+                ~{{ v02Max(6) }}
+              </td>
+              <td colspan="1" class="text-center">
+                <q-icon name="mdi-gas-cylinder" class="" size="2em" />
+                ~{{ v02Max(7) }}
+              </td>
+            </tr> -->
+            <!-- strength -->
+            <tr>
+              <th
+                scope="row"
+                class="text-center font-weight-bold text-primary"
+                colspan="100%"
+              >
+                <span class="mdi mdi-dumbbell text-h5"></span> Lift Strength
+              </th>
+            </tr>
+
+            <tr class="text-center">
+              <th scope="col">Estimated Lift</th>
+              <th scope="col" class="maleChart">Male</th>
+              <th scope="col" class="femaleChart">Female</th>
+
+              <th scope="col" colspan="2">Info</th>
+            </tr>
+
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> 1RM (1
+                Rep Max.)
+              </th>
+              <td class="maleChart">~{{ show1RM(4) }}</td>
+              <td class="femaleChart">~{{ show1RM(5) }}</td>
+              <td class="text-center" colspan="2">
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      '1RM',
+                      '1 Repetitions Maximum',
+                      `Many studies seem to show that doing exercises at percentages of 1RM (~50% to ~80%) show fast results.`,
+
+                      `Once the 1RM is known (whether measured or predicted), our equations can be used to estimate the load
+needed for sets to failure for a specific repetition number[1].`,
+                      `This is the maximum amount of weight you can lift while still keeping form and not injuring yourself. We've based our calculations off studies of out the University of New Mexico, although precisely calculating 1RM is never easy.`,
+                      'theme-notice'
+                    )
+                  "
+                ></span>
+              </td>
+            </tr>
+            <tr :class="{ 'border-selection': userSkill >= 10 }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> 1RM 95%
+                @02reps
+              </th>
+              <td class="maleChart">~{{ show1RM(195) }}</td>
+              <td class="femaleChart">~{{ show1RM(295) }}</td>
+            </tr>
+            <tr
+              :class="{ 'border-selection': userSkill >= 5 && userSkill <= 9 }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> 1RM 90%
+                @04reps
+              </th>
+              <td class="maleChart">~{{ show1RM(190) }}</td>
+              <td class="femaleChart">~{{ show1RM(290) }}</td>
+            </tr>
+            <tr
+              :class="{ 'border-selection': userSkill >= 1 && userSkill <= 4 }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> 1RM 80%
+                @08reps
+              </th>
+              <td class="maleChart">~{{ show1RM(180) }}</td>
+              <td class="femaleChart">~{{ show1RM(280) }}</td>
+            </tr>
+            <tr :class="{ 'border-selection': userSkill == 0 }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> 1RM 70%
+                @12reps
+              </th>
+              <td class="maleChart">~{{ show1RM(170) }}</td>
+              <td class="femaleChart">~{{ show1RM(270) }}</td>
+            </tr>
+            <tr
+              :class="{
+                'border-selection': userSkill <= -1 && userSkill >= -3,
+              }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> 1RM 60%
+                @20reps
+              </th>
+              <td class="maleChart">~{{ show1RM(160) }}</td>
+              <td class="femaleChart">~{{ show1RM(260) }}</td>
+            </tr>
+            <tr
+              :class="{
+                'border-selection': userSkill <= -4 && userSkill >= -6,
+              }"
+            >
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> 1RM 50%
+                @30reps
+              </th>
+              <td class="maleChart">~{{ show1RM(150) }}</td>
+              <td class="femaleChart">~{{ show1RM(250) }}</td>
+            </tr>
+            <tr :class="{ 'border-selection': userSkill <= -7 }">
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> 1RM 40%
+                @40reps
+              </th>
+              <td class="maleChart">~{{ show1RM(140) }}</td>
+              <td class="femaleChart">~{{ show1RM(240) }}</td>
+            </tr>
+            <!-- EQUIVs: PPushups etc. -->
+            <tr>
+              <th
+                scope="row"
+                class="text-center font-weight-bold text-primary"
+                colspan="100%"
+              >
+                <span class="mdi mdi-scale text-h5"></span> Body Weight
+                Equivalents
+              </th>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> Push-up
+                - Standard
+              </th>
+              <td class="maleChart">
+                ~{{ (showIdealWeight(-1) * 0.7504).toFixed(1)
+                }}{{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="femaleChart">
+                ~{{ (showIdealWeight(-1) * 0.7504).toFixed(1)
+                }}{{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="text-center"></td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <span class="mdi mdi-check-outline text-success"></span> Push-up
+                - On Knees
+              </th>
+              <td class="maleChart">
+                ~{{ (show1RM(0) * 0.618).toFixed(1)
+                }}{{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="femaleChart">
+                ~{{ (show1RM(1) * 0.618).toFixed(1)
+                }}{{ userKG ? " KG" : " LB" }}
+              </td>
+              <td class="text-center"></td>
+            </tr>
+            <!-- micro lives -->
+
+            <tr>
+              <th
+                scope="row"
+                class="text-center font-weight-bold text-primary"
+                colspan="100%"
+              >
+                <span class="text-h5"
+                  ><q-icon name="troubleshoot"></q-icon
+                ></span>
+                Health Risks
+              </th>
+            </tr>
+            <!-- chance of heart disease -->
+            <tr v-if="getHabitRisk('heart') || userConcerns.includes('heart')">
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Risk of Heart Disease
+              </th>
+              <td colspan="2">
+                {{
+                  getHabitRisk("heart")
+                    ? getHabitRisk("heart")
+                    : "extremely low"
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+            <!-- chance of cancer -->
+            <tr
+              v-if="getHabitRisk('cancer') || userConcerns.includes('cancer')"
+            >
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Risk of Cancer
+              </th>
+              <td colspan="2">
+                {{
+                  getHabitRisk("cancer")
+                    ? getHabitRisk("cancer")
+                    : "extremely low"
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+
+            <!-- chance of diabetes -->
+            <tr
+              v-if="
+                getHabitRisk('diabetes') || userConcerns.includes('diabetes')
+              "
+            >
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Risk of Diabetes
+              </th>
+              <td colspan="2">
+                {{
+                  getHabitRisk("diabetes")
+                    ? getHabitRisk("diabetes")
+                    : "extremely low"
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+            <!-- chance of dementia/alzheimer's -->
+            <tr
+              v-if="
+                getHabitRisk('alzheimers') ||
+                userConcerns.includes('alzheimers')
+              "
+            >
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Increased Risk of Alzheimers / Dementia
+              </th>
+              <td colspan="2">
+                {{
+                  getHabitRisk("alzheimers")
+                    ? getHabitRisk("alzheimers")
+                    : "extremely low"
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+            <!-- micro lives -->
+
+            <tr>
+              <th
+                scope="row"
+                class="text-center font-weight-bold text-primary"
+                colspan="100%"
+              >
+                <span class="mdi mdi-timer-sand-complete text-h5"></span> Life
+                Lost in 1 Year
+              </th>
+            </tr>
+            <tr v-if="showIdealWeight('guess') >= 9">
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Overweight
+              </th>
+              <td colspan="2" class="text-negative">
+                {{
+                  `-${microLivesLostInYear(
+                    "weight",
+                    showIdealWeight("guess"),
+                    undefined
+                  )}`
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+
+            <tr v-if="userLifestyleAlcohol != 0">
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Alcohol
+              </th>
+              <td colspan="2" class="text-negative">
+                {{
+                  `-${microLivesLostInYear(
+                    "alcohol",
+                    userLifestyleAlcohol,
+                    userLifestyleAlcoholFreq
+                  )}`
+                }}
+              </td>
+            </tr>
+
+            <tr v-if="userLifestyleSoda != 0">
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Soda Pop / Juice
+              </th>
+              <td colspan="2" class="text-negative">
+                {{
+                  `-${microLivesLostInYear(
+                    "soda",
+                    userLifestyleSoda,
+                    userLifestyleSodaFreq
+                  )}`
+                }}
+              </td>
+              <td class="text-center"></td>
+            </tr>
+            <tr v-if="userLifestyleSmokes != 0">
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Smoking
+              </th>
+              <td colspan="2" class="text-negative">
+                {{
+                  `-${microLivesLostInYear(
+                    "smoking",
+                    userLifestyleSmokes,
+                    userLifestyleSmokesFreq
+                  )}`
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+
+            <tr v-if="userLifestyleMeat != 0">
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Meat
+              </th>
+              <td colspan="2" class="text-negative">
+                {{
+                  `-${microLivesLostInYear(
+                    "meat",
+                    userLifestyleMeat,
+                    userLifestyleMeatFreq
+                  )}`
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+            <tr v-if="userLifestyleSeafood != 0">
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Seafood / Mercury
+              </th>
+              <td colspan="2" class="text-negative">
+                <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6950077/#sec5-ijerph-16-05152title -->
+                <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4776937/#sec1-1title -->
+                {{
+                  `
+
+                  -${microLivesLostInYear(
+                    "seafood",
+                    userLifestyleSeafood,
+                    userLifestyleSeafoodFreq
+                  )}`
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+            <tr v-if="userLifestyleDairy != 0">
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Dairy / Eggs
+              </th>
+              <td colspan="2" class="text-negative">
+                {{
+                  `-${microLivesLostInYear(
+                    "dairy",
+                    userLifestyleDairy,
+                    userLifestyleDairyFreq
+                  )}`
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+
+            <tr v-if="userLifestyleSedentary >= 7">
+              <th scope="row">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                Sedentary
+              </th>
+              <td colspan="2" class="text-negative">
+                {{
+                  `-${microLivesLostInYear(
+                    "sedentary",
+                    userLifestyleSedentary,
+                    userLifestyleSedentaryFreq
+                  )}`
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+
+            <tr v-if="getUserMicroLivesIn('guess')">
+              <th scope="row" class="">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                <b class=""> Total Life Lost:</b>
+              </th>
+              <td colspan="2" class="bg-negative">
+                {{
+                  `-${getUserMicroLivesIn("guess").split(" ")[0]} ${
+                    getUserMicroLivesIn("guess").split(" ")[1]
+                  }`
+                }}
+              </td>
+
+              <td class="text-center"></td>
+            </tr>
+            <tr v-if="!getUserMicroLivesIn('guess')">
+              <th scope="row" class="">
+                <span
+                  class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                ></span>
+                <b class=""> Total Life Lost:</b>
+              </th>
+              <td colspan="2" class="bg-positive">0 minutes</td>
+
+              <td class="text-center"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- end of clipboard -->
     <div class="title-h4 q-mb-sm">Your Chart</div>
     <details>
       <summary class="text-center">Show me my chart</summary>
@@ -2718,7 +3942,7 @@ import Modal from "src/components/Modal.vue";
 // import Prescription from "src/components/PrescriptionComponent.vue";
 
 // app.component("PrescriptionComponent", PrescriptionComponent);
-import Clipboard from "src/components/Clipboard.vue";
+// import Clipboard from "src/components/Clipboard.vue";
 import { LocalStorage } from "quasar";
 
 export default {
@@ -2726,7 +3950,7 @@ export default {
   components: {
     Modal,
     // Prescription,
-    Clipboard,
+    // Clipboard,
   },
   data() {
     return {
