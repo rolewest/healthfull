@@ -59,7 +59,8 @@
           <span class="text-h6">Recommended Weekly <i></i> Exercise Plan</span>
           <div class="border-double-1 graphPaper-2 q-pa-sm">
             I've put together a few different impact levels, as we all have
-            different energy levels on different days. You find them with the
+            different mobility levels and even different energy levels on
+            different days. You'll find them in the
             <q-btn
               @click="this.$router.push({ name: 'player' })"
               color=""

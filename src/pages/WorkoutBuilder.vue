@@ -116,7 +116,7 @@
                   @click="
                     popupTitle = 'Save Your Setlist?';
                     popupCaption =
-                      'Are you sure? This will overwrite any saved setlists, currently.';
+                      'Are you sure? This will overwrite any saved custom setlists, currently.';
                     showSaveDialog = false;
                   "
                 />
@@ -194,7 +194,7 @@ export default {
       },
       showSaveDialog: false,
       popupCaption:
-        "Are you sure? This will overwrite any saved setlists, currently.",
+        "Are you sure? This will overwrite any saved custom setlists, currently.",
       popupTitle: "Save your setlist?",
       selected,
       columns,

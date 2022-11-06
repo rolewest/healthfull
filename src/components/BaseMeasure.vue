@@ -284,9 +284,13 @@
           aria-label="Exercise Effort"
           aria-describedby="basic-addon1"
         >
-          <option value="0">I Take it easy</option>
+          <option value="-1">I Don't Exercise</option>
+          <option value="0">I Take it Easy</option>
+          <option value="3">I Take it Easy</option>
+          <!-- 3 & 7 are not a values usually an 10 is 7 -->
           <option value="5">Heavy Breathing & Sweating</option>
-          <option value="10">I push near exhaustion</option>
+          <option value="7">I Push near Exhaustion</option>
+          <option value="10">I Push to Exhaustion</option>
         </select>
 
         <br />
@@ -510,7 +514,19 @@
           <br />
 
           <label>
-            I drink alcoholic
+            I
+            <select
+              id="userUsedToDrink"
+              class="form-control tiny-input"
+              v-model="userUsedToDrink"
+              placeholder="Used To Drink"
+              aria-label="Used To Drink"
+              aria-describedby="basic-addon1"
+            >
+              <option value="0">currently</option>
+              <option value="1">used to</option>
+            </select>
+            drink alcoholic
             <input type="number" v-model="userLifestyleAlcohol" />
             <span class="check-label"></span>
           </label>
@@ -535,7 +551,19 @@
           <br />
 
           <label>
-            I drink soda pop or fruit juice
+            I
+            <select
+              id="userUsedToSoda"
+              class="form-control tiny-input"
+              v-model="userUsedToSoda"
+              placeholder="Used To Soda"
+              aria-label="Used To Soda"
+              aria-describedby="basic-addon1"
+            >
+              <option value="0">currently</option>
+              <option value="1">used to</option>
+            </select>
+            drink soda pop or fruit juice
             <input type="number" v-model="userLifestyleSoda" />
             <span class="check-label"></span>
           </label>
@@ -560,7 +588,19 @@
           <br />
 
           <label>
-            I smoke
+            I
+            <select
+              id="userUsedToSmoke"
+              class="form-control tiny-input"
+              v-model="userUsedToSmoke"
+              placeholder="Used To Smoke"
+              aria-label="Used To Smoke"
+              aria-describedby="basic-addon1"
+            >
+              <option value="0">currently</option>
+              <option value="1">used to</option>
+            </select>
+            smoke
             <input type="number" v-model="userLifestyleSmokes" />
             <span class="check-label"></span>
           </label>
@@ -584,7 +624,19 @@
         <div>
           <br />
           <label>
-            I eat meat
+            I
+            <select
+              id="userUsedToMeat"
+              class="form-control tiny-input"
+              v-model="userUsedToMeat"
+              placeholder="Used To Meat"
+              aria-label="Used To Meat"
+              aria-describedby="basic-addon1"
+            >
+              <option value="0">currently</option>
+              <option value="1">used to</option>
+            </select>
+            eat meat
             <input type="number" v-model="userLifestyleMeat" />
             <span class="check-label"></span>
           </label>
@@ -608,7 +660,19 @@
         <div>
           <br />
           <label>
-            I eat seafood
+            I
+            <select
+              id="userUsedToSeafood"
+              class="form-control tiny-input"
+              v-model="userUsedToSeafood"
+              placeholder="Used To Seafood"
+              aria-label="Used To Seafood"
+              aria-describedby="basic-addon1"
+            >
+              <option value="0">currently</option>
+              <option value="1">used to</option>
+            </select>
+            eat seafood
             <input type="number" v-model="userLifestyleSeafood" />
             <span class="check-label"></span>
           </label>
@@ -629,10 +693,61 @@
 
           <hr />
         </div>
+        <!-- fastfood -->
+        <div>
+          <br />
+
+          <label>
+            I
+            <select
+              id="userUsedToFastfood"
+              class="form-control tiny-input"
+              v-model="userUsedToFastfood"
+              placeholder="Used To Fastfood"
+              aria-label="Used To Fastfood"
+              aria-describedby="basic-addon1"
+            >
+              <option value="0">currently</option>
+              <option value="1">used to</option>
+            </select>
+            eat fastfood / delivery / packaged / processed food
+            <input type="number" v-model="userLifestyleFastfood" />
+            <span class="check-label"></span>
+          </label>
+          meals every
+          <select
+            id="userLifestyleFastfoodFreq"
+            class="form-control tiny-input"
+            v-model="userLifestyleFastfoodFreq"
+            placeholder="Frequency"
+            aria-label="Fastfood Frequency"
+            aria-describedby="basic-addon1"
+          >
+            <option value="365.25">Day</option>
+            <option value="52.177457">Week</option>
+            <option value="12">Month</option>
+            <option value="1">Year</option>
+          </select>
+
+          <hr />
+        </div>
+        <!-- fastfood end -->
         <div>
           <br />
           <label>
-            I eat dairy or eggs
+            I
+            <select
+              id="userUsedToDairy"
+              class="form-control tiny-input"
+              v-model="userUsedToDairy"
+              placeholder="Used To Dairy"
+              aria-label="Used To Dairy"
+              aria-describedby="basic-addon1"
+            >
+              <option value="0">currently</option>
+              <option value="1">used to</option>
+            </select>
+            eat dairy or eggs
             <input type="number" v-model="userLifestyleDairy" />
             <span class="check-label"></span>
           </label>
@@ -678,11 +793,37 @@
       <div class="paperSheet shadow">
         <div class="alert alert-primary">
           <span class="doctor-chat">Dr. Doctor</span>:
+          <span
+            v-if="
+              userUsedToDrink > 0 ||
+              userUsedToSoda > 0 ||
+              userUsedToSmoke > 0 ||
+              userUsedToDairy > 0 ||
+              userUsedToSeafood > 0 ||
+              userUsedToMeat > 0 ||
+              userUsedToFastfood > 0
+            "
+            >You've already made some healthy changes in your life, good for
+            you!
+          </span>
           {{ riskFromDoctorMouth("all") }}
           <div class="q-mt-xs">
             <br />
             <p>
               <span class="doctor-chat">Dr. Doctor</span>:
+              <span
+                v-if="
+                  userUsedToDrink > 0 ||
+                  userUsedToSoda > 0 ||
+                  userUsedToSmoke > 0 ||
+                  userUsedToDairy > 0 ||
+                  userUsedToSeafood > 0 ||
+                  userUsedToMeat > 0 ||
+                  userUsedToFastfood > 0
+                "
+                >Again, the changes you've already made will lower your risks in
+                time.
+              </span>
               {{ riskFromDoctorMouth("heart") }}
               {{ riskFromDoctorMouth("alzheimers") }}
               {{ riskFromDoctorMouth("diabetes") }}
@@ -723,39 +864,117 @@
             <span class="text-h6">Recommended Weekly Meal Plan</span>
             <div class="border-double-1 graphPaper-2">
               <span v-html="computeDifficultyFromDoctorMouthFood"></span>
+              You can find recipes in your
+              <q-btn
+                @click="this.$router.push({ name: 'planner' })"
+                color=""
+                text-color="black"
+                icon="restaurant_menu"
+              >
+                <span>&nbsp;Meal Planner </span>
+              </q-btn>
             </div>
-
-            <span
-              class="text-h6"
-              v-if="
+            <!-- v-if="
                 userLifestyleSmokes > 0 ||
                 (userLifestyleAlcohol >= 2 && userLifestyleAlcoholFreq >= 12) ||
                 (userLifestyleSoda >= 2 && userLifestyleSodaFreq >= 12)
+              " -->
+            <span class="text-h6"> Recommended Lifestyle Changes<br /> </span>
+            <p
+              v-if="
+                userUsedToDrink > 0 ||
+                userUsedToSoda > 0 ||
+                userUsedToSmoke > 0 ||
+                userUsedToDairy > 0 ||
+                userUsedToSeafood > 0 ||
+                userUsedToMeat > 0 ||
+                userUsedToFastfood > 0
               "
             >
-              Recommended Lifestyle Changes<br />
-            </span>
-
+              It looks like you made some healthy changes in your life which is
+              great news!
+            </p>
+            <!-- <span v-if="userUsedToSmoke > 0"
+              >Keep strong by breathing only clean air!</span
+            >
+            <span v-if="userUsedToDrink > 0">...alch</span> -->
             <ul class="q-pa-sm normal-ul border-double-1 graphPaper-2 q-pa-sm">
-              <li v-if="userLifestyleSmokes > 0"><span>Stop smoking</span></li>
+              <span
+                v-if="
+                  userUsedToDrink > 0 ||
+                  userUsedToSoda > 0 ||
+                  userUsedToSmoke > 0 ||
+                  userUsedToDairy > 0 ||
+                  userUsedToSeafood > 0 ||
+                  userUsedToMeat > 0 ||
+                  userUsedToFastfood > 0
+                "
+              >
+                <span class="mdi mdi-check-outline text-success"></span> Keep up
+                your healthy lifestyle choices
+              </span>
+              <li v-if="userLifestyleSmokes > 0 && userUsedToSmoke == 0">
+                <span>Stop smoking</span>
+              </li>
 
               <li
                 v-if="
-                  userLifestyleAlcohol >= 2 && userLifestyleAlcoholFreq >= 12
+                  userLifestyleAlcohol >= 2 &&
+                  userLifestyleAlcoholFreq >= 12 &&
+                  userUsedToDrink == 0
                 "
               >
-                <span>Reduce alcohol intake</span>
+                <span
+                  >Reduce your alcohol intake
+                  <span
+                    class="mdi mdi-comment-quote-outline citation"
+                    @click="
+                      citation(
+                        6,
+                        'Alcohol & Cancer',
+                        'Moderate Alcohol Consumption Is NOT Associated with Reduced All-cause Mortality',
+                        `No level of regular alcohol consumption was associated with reduced all-cause mortality.  [PMID: 26524703, 2016 C.E.].
+                        Alcohol use, including light to moderate drinking, continues to cause considerable cancer burden...`,
+                        `Alcohol use, including light to moderate drinking, continues to cause considerable cancer burden, and efforts should be made to reduce this burden. In addition to the alcohol control policies suggested by the World Health Organization, public information campaigns and the placement of warning labels on alcohol containers advising of the cancer risk associated with alcohol use should be initiated to increase knowledge about the alcohol-cancer link.  [PMID: 33338220, 2021 C.E.]
+                      `,
+                        '',
+                        'theme-checked'
+                      )
+                    "
+                  ></span>
+                </span>
               </li>
               <li
                 class=""
                 v-if="
-                  (userLifestyleSoda >= 1 && userLifestyleSodaFreq >= 365) ||
-                  (userLifestyleSoda >= 2 && userLifestyleSodaFreq >= 52) ||
-                  (userLifestyleSoda >= 4 && userLifestyleSodaFreq >= 12)
+                  (userLifestyleSoda >= 1 &&
+                    userLifestyleSodaFreq >= 365 &&
+                    userUsedToSoda == 0) ||
+                  (userLifestyleSoda >= 2 &&
+                    userLifestyleSodaFreq >= 52 &&
+                    userUsedToSoda == 0) ||
+                  (userLifestyleSoda >= 4 &&
+                    userLifestyleSodaFreq >= 12 &&
+                    userUsedToSoda == 0)
                 "
               >
                 <span
                   >Try to drink only
+                  <span
+                    class="mdi mdi-comment-quote-outline citation"
+                    @click="
+                      citation(
+                        1,
+                        'Sugary Drinks',
+                        'Soda & 100% Fruit Juice Cancer and Mortality Risk',
+                        `The consumption of sugary drinks (including 100% fruit juice) was associated with an increased risk of overall cancer and breast cancer [PMID: 31292122, 2019 C.E.].`,
+                        `This systematic review supports the WCRF/AICR recommendations to limit sugary drinks consumption for cancer prevention and to raise consumers' awareness of their low nutritional quality and high sugar content. We recommend replacement of sweet beverages with plain safe drinking water and infusions without added sugars as the main liquid source for body hydration. Even though some guidelines maintain that moderate consumption of FJs [Fruit Juice] may be part of a healthy diet , FJs contain little or no dietary fiber and are positively associated with tooth decay in children [PMID: 33557387, 2021 C.E.]
+                      `,
+                        '',
+                        'theme-checked'
+                      )
+                    "
+                  ></span>
                   <ul class="normal-ul">
                     <li>water</li>
                     <li>tea (white, green, hibiscus) w/ lemon</li>
@@ -763,7 +982,82 @@
                   </ul></span
                 >
               </li>
+              <li
+                v-if="
+                  (userLifestyleFastfood >= 1 &&
+                    userLifestyleFastfoodFreq >= 365 &&
+                    userUsedToFastfood == 0) ||
+                  (userLifestyleFastfood >= 3 &&
+                    userLifestyleFastfoodFreq >= 52 &&
+                    userUsedToFastfood == 0) ||
+                  (userLifestyleFastfood >= 11 &&
+                    userLifestyleFastfoodFreq >= 12 &&
+                    userUsedToFastfood == 0)
+                "
+              >
+                Eat more: whole fruits, veggies, beans, nuts, whole grains, and
+                eat less packaged, processed, and takeout foods
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'Processed Foods',
+                      `Processed Food Consumption Mortality Risk`,
+                      `Accumulating evidence suggests that high consumption of ultra-processed foods is associated with a higher risk of several chronic diseases [PMCID: PMC9430376, 2022 C.E.].`,
+                      `Evidence has shown that a higher intake of UPFs (Ultra Processed Foods) is associated with an increased risk of diabetes, CVDs (Cardiovascular Diseases), cancer, obesity, and other health disorders. The association between UPF intake and risk of mortality was assessed in some studies [PMID: 35011048, 2021 C.E.]
+                      A higher proportion of UPF consumption was associated with CVD and all-cause mortality. Thus, actions to limit UPF consumption should be incorporated into the CVD and all-cause mortality prevention recommendations [PMID: 36006020, 2022 C.E.].`,
+                      '',
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </li>
+              <br />
+              <li
+                v-if="
+                  (userLifestyleMeat >= 1 &&
+                    userLifestyleMeatFreq >= 365 &&
+                    userUsedToMeat == 0) ||
+                  (userLifestyleMeat >= 6 &&
+                    userLifestyleMeatFreq >= 52 &&
+                    userUsedToMeat == 0) ||
+                  (userLifestyleMeat >= 20 &&
+                    userLifestyleMeatFreq >= 12 &&
+                    userUsedToMeat == 0)
+                "
+              >
+                Try to incorporate a Meatless Monday<span
+                  v-if="
+                    (userLifestyleSeafood >= 1 &&
+                      userLifestyleSeafoodFreq >= 365 &&
+                      userUsedToSeafood == 0) ||
+                    (userLifestyleSeafood >= 6 &&
+                      userLifestyleSeafoodFreq >= 52 &&
+                      userUsedToSeafood == 0) ||
+                    (userLifestyleSeafood >= 20 &&
+                      userLifestyleSeafoodFreq >= 12 &&
+                      userUsedToSeafood == 0)
+                  "
+                  >, and Fishless Fridays</span
+                >, and or a different vegetarian or vegan day each week.
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'Meat & Mortality',
+                      `Mortality & Cancer Risk from Unprocessed and Processed Meat`,
+                      `In conclusion, we found higher all-cause and CVD mortality to be associated with relatively low intake of red and processed meat (and of unprocessed red meat in particular), compared to zero intake. While caution is appropriate in inferring causation from observational data, these results suggest possible adverse effects of red and processed meat, even with low to moderate levels of intake.[PMID: 30875776, 2019 C.E.].`,
+                      `This comprehensive systematic review and meta-analysis study showed that high red meat intake was positively associated with risk of breast cancer, endometrial cancer, colorectal cancer, colon cancer, rectal cancer, lung cancer, and hepatocellular carcinoma, and high processed meat intake was positively associated with risk of breast, colorectal, colon, rectal, and lung cancers. Higher risk of colorectal, colon, rectal, lung, and renal cell cancers were also observed with high total red and processed meat consumption [PMID: 34455534, 2021 C.E.]`,
+                      ``,
+                      'theme-meta'
+                    )
+                  "
+                ></span>
+              </li>
             </ul>
+
             <span class="text-h6"
               >Recommended Weekly <i></i> Exercise Plan</span
             >
@@ -873,7 +1167,7 @@
     <!-- https://understandinguncertainty.org/microlives -->
     <!-- <Clipboard /> -->
     <!-- Can I remove this below now that I included PrescriptionComponent? -->
-
+    <Clipboard />
     <div class="title-h4 q-mb-sm">Your Chart</div>
     <details>
       <summary class="text-center">Show me my chart</summary>
@@ -945,7 +1239,7 @@
                         `Met-age is highly associated with and is an indicator of high-risk of developing Metabolic Syndromes such as heart disease, stroke and type 2 diabetes.`,
                         `Met-age showed a higher discriminatory capacity for CVR than chronological age (1).Metabolic age can be a useful tool for assessing the metabolic status of individuals. A study by the European Society of Cardiology used metabolic age as one of the predictors for cardiovascular disorders in people hav-ing a higher metabolic age than their chronological age (2).`,
                         `A higher metabolic age than chronological age indicates a level of basic metabolism with low physical activity.`,
-
+                        '',
                         'theme-checked'
                       )
                     "
@@ -1958,13 +2252,36 @@ needed for sets to failure for a specific repetition number[1].`,
               <tr v-if="userLifestyleAlcohol != 0">
                 <th scope="row">
                   <span
+                    v-if="userUsedToDrink == 0"
                     class="mdi mdi-alert-circle-outline text-h5 text-negative"
                   ></span>
+                  <span
+                    v-if="userUsedToDrink > 0"
+                    class="mdi mdi-check-circle-outline text-h5 text-positive"
+                  ></span
+                  ><span v-if="userUsedToDrink > 0"> No </span>
                   Alcohol
                 </th>
-                <td colspan="2" class="text-negative">
+                <td
+                  colspan="2"
+                  class="text-negative"
+                  v-if="userUsedToDrink == 0"
+                >
                   {{
                     `-${microLivesLostInYear(
+                      "alcohol",
+                      userLifestyleAlcohol,
+                      userLifestyleAlcoholFreq
+                    )}`
+                  }}
+                </td>
+                <td
+                  colspan="2"
+                  class="text-positive"
+                  v-if="userUsedToDrink > 0"
+                >
+                  {{
+                    `+${microLivesLostInYear(
                       "alcohol",
                       userLifestyleAlcohol,
                       userLifestyleAlcoholFreq
@@ -1977,10 +2294,20 @@ needed for sets to failure for a specific repetition number[1].`,
                 <th scope="row">
                   <span
                     class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                    v-if="userUsedToSoda == 0"
                   ></span>
+                  <span
+                    class="mdi mdi-check-circle-outline text-h5 text-positive"
+                    v-if="userUsedToSoda > 0"
+                  ></span
+                  ><span v-if="userUsedToSoda > 0"> No </span>
                   Soda Pop / Juice
                 </th>
-                <td colspan="2" class="text-negative">
+                <td
+                  colspan="2"
+                  class="text-negative"
+                  v-if="userUsedToSoda == 0"
+                >
                   {{
                     `-${microLivesLostInYear(
                       "soda",
@@ -1989,18 +2316,51 @@ needed for sets to failure for a specific repetition number[1].`,
                     )}`
                   }}
                 </td>
+                <td colspan="2" class="text-positive" v-if="userUsedToSoda > 0">
+                  {{
+                    `+${microLivesLostInYear(
+                      "soda",
+                      userLifestyleSoda,
+                      userLifestyleSodaFreq
+                    )}`
+                  }}
+                </td>
                 <td class="text-center"></td>
               </tr>
+
               <tr v-if="userLifestyleSmokes != 0">
                 <th scope="row">
                   <span
                     class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                    v-if="userUsedToSmoke == 0"
                   ></span>
+                  <span
+                    class="mdi mdi-check-circle-outline text-h5 text-positive"
+                    v-if="userUsedToSmoke > 0"
+                  ></span
+                  ><span v-if="userUsedToSmoke > 0"> No </span>
                   Smoking
                 </th>
-                <td colspan="2" class="text-negative">
+                <td
+                  colspan="2"
+                  class="text-negative"
+                  v-if="userUsedToSmoke == 0"
+                >
                   {{
                     `-${microLivesLostInYear(
+                      "smoking",
+                      userLifestyleSmokes,
+                      userLifestyleSmokesFreq
+                    )}`
+                  }}
+                </td>
+                <td
+                  colspan="2"
+                  class="text-positive"
+                  v-if="userUsedToSmoke > 0"
+                >
+                  {{
+                    `+${microLivesLostInYear(
                       "smoking",
                       userLifestyleSmokes,
                       userLifestyleSmokesFreq
@@ -2015,12 +2375,31 @@ needed for sets to failure for a specific repetition number[1].`,
                 <th scope="row">
                   <span
                     class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                    v-if="userUsedToMeat == 0"
                   ></span>
+                  <span
+                    class="mdi mdi-check-circle-outline text-h5 text-positive"
+                    v-if="userUsedToMeat > 0"
+                  ></span
+                  ><span v-if="userUsedToMeat > 0"> No </span>
                   Meat
                 </th>
-                <td colspan="2" class="text-negative">
+                <td
+                  colspan="2"
+                  class="text-negative"
+                  v-if="userUsedToMeat == 0"
+                >
                   {{
                     `-${microLivesLostInYear(
+                      "meat",
+                      userLifestyleMeat,
+                      userLifestyleMeatFreq
+                    )}`
+                  }}
+                </td>
+                <td colspan="2" class="text-positive" v-if="userUsedToMeat > 0">
+                  {{
+                    `+${microLivesLostInYear(
                       "meat",
                       userLifestyleMeat,
                       userLifestyleMeatFreq
@@ -2034,12 +2413,23 @@ needed for sets to failure for a specific repetition number[1].`,
                 <th scope="row">
                   <span
                     class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                    v-if="userUsedToSeafood == 0"
                   ></span>
+                  <span
+                    class="mdi mdi-check-circle-outline text-h5 text-positive"
+                    v-if="userUsedToSeafood > 0"
+                  >
+                  </span
+                  ><span v-if="userUsedToSeafood > 0"> No </span>
                   Seafood / Mercury
                 </th>
-                <td colspan="2" class="text-negative">
-                  <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6950077/#sec5-ijerph-16-05152title -->
-                  <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4776937/#sec1-1title -->
+                <td
+                  colspan="2"
+                  class="text-negative"
+                  v-if="userUsedToSeafood == 0"
+                >
+                  <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6950077/#sec5-ijerph-16-05152title Mercury in fish increases by about four percent every year. -->
+                  <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4776937/#sec1-1title :To sum, it is of paramount importance to promote the consumption of seafood and a reduction in high-sugar and high-fat food, including fast food and soft drinks (sugar, in particular), saturated fatty acids, and n-6 PUFAs, which is currently excessive. Fish consumption, however, also carries certain risks associated with exposure to environmental toxicants. -->
                   {{
                     `
 
@@ -2050,19 +2440,98 @@ needed for sets to failure for a specific repetition number[1].`,
                   )}`
                   }}
                 </td>
+                <td
+                  colspan="2"
+                  class="text-positive"
+                  v-if="userUsedToSeafood > 0"
+                >
+                  {{
+                    `
+                  +${microLivesLostInYear(
+                    "seafood",
+                    userLifestyleSeafood,
+                    userLifestyleSeafoodFreq
+                  )}`
+                  }}
+                </td>
 
                 <td class="text-center"></td>
               </tr>
+              <!-- fastfood -->
+              <tr v-if="userLifestyleFastfood != 0">
+                <th scope="row">
+                  <span
+                    v-if="userUsedToFastfood == 0"
+                    class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                  ></span>
+                  <span
+                    v-if="userUsedToFastfood > 0"
+                    class="mdi mdi-check-circle-outline text-h5 text-positive"
+                  ></span
+                  ><span v-if="userUsedToFastfood > 0"> No </span>
+                  Fastfood
+                </th>
+                <td
+                  colspan="2"
+                  class="text-negative"
+                  v-if="userUsedToFastfood == 0"
+                >
+                  {{
+                    `-${microLivesLostInYear(
+                      "fastfood",
+                      userLifestyleFastfood,
+                      userLifestyleFastfoodFreq
+                    )}`
+                  }}
+                </td>
+                <td
+                  colspan="2"
+                  class="text-positive"
+                  v-if="userUsedToFastfood > 0"
+                >
+                  {{
+                    `+${microLivesLostInYear(
+                      "fastfood",
+                      userLifestyleFastfood,
+                      userLifestyleFastfoodFreq
+                    )}`
+                  }}
+                </td>
+              </tr>
+              <!-- fastfood end -->
               <tr v-if="userLifestyleDairy != 0">
                 <th scope="row">
                   <span
                     class="mdi mdi-alert-circle-outline text-h5 text-negative"
+                    v-if="userUsedToDairy == 0"
                   ></span>
+                  <span
+                    class="mdi mdi-check-circle-outline text-h5 text-positive"
+                    v-if="userUsedToDairy > 0"
+                  ></span
+                  ><span v-if="userUsedToDairy > 0"> No </span>
                   Dairy / Eggs
                 </th>
-                <td colspan="2" class="text-negative">
+                <td
+                  colspan="2"
+                  class="text-negative"
+                  v-if="userUsedToDairy == 0"
+                >
                   {{
                     `-${microLivesLostInYear(
+                      "dairy",
+                      userLifestyleDairy,
+                      userLifestyleDairyFreq
+                    )}`
+                  }}
+                </td>
+                <td
+                  colspan="2"
+                  class="text-positive"
+                  v-if="userUsedToDairy > 0"
+                >
+                  {{
+                    `+${microLivesLostInYear(
                       "dairy",
                       userLifestyleDairy,
                       userLifestyleDairyFreq
@@ -2108,7 +2577,24 @@ needed for sets to failure for a specific repetition number[1].`,
                   }}
                 </td>
 
-                <td class="text-center"></td>
+                <td class="text-center">
+                  <span
+                    class="mdi mdi-comment-quote-outline citation"
+                    @click="
+                      citation(
+                        1,
+                        'Microlives',
+                        `Processed Food Consumption Mortality Risk`,
+                        `[Microlives] could
+                        perhaps best be communicated with phrases such as “When
+                        averaged over a lifetime habit of many people, it is as if each burger were taking 30 minutes off their life.” These quantities bring long term effects into the present and help counter temporal discounting, in which future events are considered of diminishing importance [PMID: 23247978, 2012 C.E.].`,
+                        ``,
+                        '',
+                        'theme-obs'
+                      )
+                    "
+                  ></span>
+                </td>
               </tr>
               <tr v-if="!getUserMicroLivesIn('guess')">
                 <th scope="row" class="">
@@ -2132,7 +2618,7 @@ needed for sets to failure for a specific repetition number[1].`,
         <template></template>
         <template v-slot:cite>
           <h4 class="title-h4">{{ citationName }}</h4>
-          <div class="title-h4">
+          <div class="title-h6 text-center title-warning">
             {{ citationCaption }}
           </div>
           <div class="paperSheetFlat">
@@ -2141,28 +2627,72 @@ needed for sets to failure for a specific repetition number[1].`,
                 >see full citations & sources here</a
               ><br />
               <div class="text-h5">Basic Overview</div>
-              <span class="text-negative">
+              <span class="title-negative">
                 {{
                   citationTheme === "theme-red"
                     ? "WARNING: this method's use is questionable"
                     : ""
                 }}</span
               >
-              <span class="text-negative">
+              <span class="title-negative">
                 {{
                   citationTheme === "theme-notice"
                     ? "WARNING: your data could be inaccurate"
                     : ""
                 }}</span
               >
+              <span class="title-negative">
+                {{
+                  citationTheme === "theme-invitro"
+                    ? "WARNING: data is from tests done in vitro (in petri dishes or test tubes) this doesn't mean it's invalid, but be aware."
+                    : ""
+                }}</span
+              >
+              <span class="text-negative">
+                {{
+                  citationTheme === "theme-animal"
+                    ? "WARNING: data is from tests done on lab animals, this is one of the least reliable studies as humans are very different from mice or rats."
+                    : ""
+                }}</span
+              >
               <br />
             </div>
 
+            <div>
+              <span v-html="citationShort"></span>
+            </div>
+            <br />
+            <span class="title-positive text-center">
+              {{
+                citationTheme === "theme-checked"
+                  ? "FYI: data is from a verified meta analysis or random controlled trials with real human subjects."
+                  : ""
+              }}</span
+            >
+            <span class="text-positive text-center">
+              {{
+                citationTheme === "theme-meta"
+                  ? "FYI: data is from verified meta analysis with real human subjects."
+                  : ""
+              }}</span
+            >
+            <span class="title-warning text-center">
+              {{
+                citationTheme === "theme-obs"
+                  ? "FYI: data is from observational studies, as it would be impractical or unethical to perform controlled tests to verify this data."
+                  : ""
+              }}</span
+            >
+            <span class="text-positive text-center">
+              {{
+                citationTheme === "theme-rct"
+                  ? "FYI: data is from verified double blind randomized placebo controlled trial with real human subjects."
+                  : ""
+              }}</span
+            >
+
             <p>
-              {{ citationShortFormat }}
-            </p>
-            <p>
-              {{ citationWhy }}
+              <span v-html="citationWhy"></span>
             </p>
           </div>
           <div class="paperSheetFlat" v-show="citationSummary">
@@ -2170,7 +2700,7 @@ needed for sets to failure for a specific repetition number[1].`,
             {{ citationID }} | {{ citationCaption }} | {{ citationShort }} -->
             <div class="text-center text-h5">Sources / Excerpts</div>
             <kbd class="cite-text">
-              {{ citationSummaryFormat }} <br />
+              <span v-html="citationSummary"></span> <br />
               <a :href="baseURL + '/citations/' + citationID" target="_blank"
                 >full citations are here</a
               >
@@ -2188,7 +2718,7 @@ import Modal from "src/components/Modal.vue";
 // import Prescription from "src/components/PrescriptionComponent.vue";
 
 // app.component("PrescriptionComponent", PrescriptionComponent);
-// import Clipboard from "src/components/Clipboard.vue";
+import Clipboard from "src/components/Clipboard.vue";
 import { LocalStorage } from "quasar";
 
 export default {
@@ -2196,7 +2726,7 @@ export default {
   components: {
     Modal,
     // Prescription,
-    // Clipboard,
+    Clipboard,
   },
   data() {
     return {
@@ -2238,24 +2768,39 @@ export default {
       userConcerns: Array.isArray(LocalStorage.getItem("userConcerns"))
         ? LocalStorage.getItem("userConcerns")
         : LocalStorage.getItem("userConcerns") || [],
+      userUsedToFastfood:
+        LocalStorage.getItem("user.lifestyle.fastfood.usedto") || 0,
+      userLifestyleFastfood:
+        LocalStorage.getItem("user.lifestyle.fastfood.count") || 0,
+      userLifestyleFastfoodFreq:
+        LocalStorage.getItem("user.lifestyle.fastfood.freq") || 52.177457,
+      userUsedToDrink:
+        LocalStorage.getItem("user.lifestyle.alcohol.usedto") || 0,
       userLifestyleAlcohol:
         LocalStorage.getItem("user.lifestyle.alcohol.count") || 0,
       userLifestyleAlcoholFreq:
         LocalStorage.getItem("user.lifestyle.alcohol.freq") || 52.177457,
+      userUsedToSoda: LocalStorage.getItem("user.lifestyle.soda.usedto") || 0,
       userLifestyleSoda: LocalStorage.getItem("user.lifestyle.soda.count") || 0,
       userLifestyleSodaFreq:
         LocalStorage.getItem("user.lifestyle.soda.freq") || 52.177457,
+      userUsedToSmoke:
+        LocalStorage.getItem("user.lifestyle.smokes.usedto") || 0,
       userLifestyleSmokes:
         LocalStorage.getItem("user.lifestyle.smokes.count") || 0,
       userLifestyleSmokesFreq:
         LocalStorage.getItem("user.lifestyle.smokes.freq") || 52.177457,
       userLifestyleMeat: LocalStorage.getItem("user.lifestyle.meat.count") || 0,
+      userUsedToMeat: LocalStorage.getItem("user.lifestyle.meat.usedto") || 0,
       userLifestyleMeatFreq:
         LocalStorage.getItem("user.lifestyle.meat.freq") || 52.177457,
+      userUsedToSeafood:
+        LocalStorage.getItem("user.lifestyle.seafood.usedto") || 0,
       userLifestyleSeafood:
         LocalStorage.getItem("user.lifestyle.seafood.count") || 0,
       userLifestyleSeafoodFreq:
         LocalStorage.getItem("user.lifestyle.seafood.freq") || 52.177457,
+      userUsedToDairy: LocalStorage.getItem("user.lifestyle.dairy.usedto") || 0,
       userLifestyleDairy:
         LocalStorage.getItem("user.lifestyle.dairy.count") || 0,
       userLifestyleDairyFreq:
@@ -2351,7 +2896,7 @@ export default {
         if (this.getHabitRisk(risk, 1) < 1)
           return `No obvious signs of ${risk}.`;
         if (this.getHabitRisk(risk, 1) >= 1)
-          return `And for ${risk} your risk is ${this.getHabitRisk(risk)}.`;
+          return `As for ${risk} your risk is ${this.getHabitRisk(risk)}.`;
       }
     },
     getHabitRisk(risk = "alzheimers", type = 0) {
@@ -2372,6 +2917,13 @@ export default {
           2
         ) *
           0.0005 +
+        this.microLivesLostInYear(
+          "fastfood",
+          this.userLifestyleFastfood,
+          this.userLifestyleFastfoodFreq,
+          2
+        ) *
+          0.005 +
         this.microLivesLostInYear(
           "alcohol",
           this.userLifestyleAlcohol,
@@ -2545,7 +3097,17 @@ export default {
           "alcohol",
           this.userLifestyleAlcohol,
           this.userLifestyleAlcoholFreq,
-          2
+          2,
+          this.userUsedToDrink
+        )
+      );
+      total += parseFloat(
+        this.microLivesLostInYear(
+          "fastfood",
+          this.userLifestyleFastfood,
+          this.userLifestyleFastfoodFreq,
+          2,
+          this.userUsedToFastfood
         )
       );
       total += parseFloat(
@@ -2553,7 +3115,8 @@ export default {
           "soda",
           this.userLifestyleSoda,
           this.userLifestyleSodaFreq,
-          2
+          2,
+          this.userUsedToSoda
         )
       );
       total += parseFloat(
@@ -2561,7 +3124,8 @@ export default {
           "smoking",
           this.userLifestyleSmokes,
           this.userLifestyleSmokesFreq,
-          2
+          2,
+          this.userUsedToSmoke
         )
       );
       total += parseFloat(
@@ -2569,7 +3133,8 @@ export default {
           "meat",
           this.userLifestyleMeat,
           this.userLifestyleMeatFreq,
-          2
+          2,
+          this.userUsedToMeat
         )
       );
       total += parseFloat(
@@ -2577,7 +3142,8 @@ export default {
           "seafood",
           this.userLifestyleSeafood,
           this.userLifestyleSeafoodFreq,
-          2
+          2,
+          this.userUsedToSeafood
         )
       );
       total += parseFloat(
@@ -2585,7 +3151,8 @@ export default {
           "dairy",
           this.userLifestyleDairy,
           this.userLifestyleDairyFreq,
-          2
+          2,
+          this.userUsedToDairy
         )
       );
       if (this.userLifestyleSedentary >= 7) {
@@ -2626,8 +3193,12 @@ export default {
       kind = "smoking",
       amount = 1,
       freq = 52.177457,
-      type = 0
+      type = 0,
+      usedTo = false
     ) {
+      if (usedTo == true) {
+        return 0; // they used to have the bad habit so lets ignore it for now.
+      }
       // https://sci-hub.se/10.1136/bmj.e8223
       // how many hours do you sit/lie down at: work, home, elsewhere; if you smoke how many each day?
       // let mlife = 0;
@@ -2637,7 +3208,8 @@ export default {
         kind == "smoking" ||
         kind == "alcohol" ||
         kind == "sitting" ||
-        kind == "meat"
+        kind == "meat" ||
+        kind == "fastfood"
       ) {
         mlDividedBy = 2; // 2 units/hours is worth 1 microlife
       }
@@ -3029,7 +3601,19 @@ export default {
       LocalStorage.set("user.points.hp", this.userBasePoints.hp);
       LocalStorage.set("user.points.cp", this.userBasePoints.cp);
       LocalStorage.set("userConcerns", this.userConcerns);
-
+      LocalStorage.set(
+        "user.lifestyle.fastfood.usedto",
+        this.userUsedToFastfood
+      );
+      LocalStorage.set(
+        "user.lifestyle.fastfood.count",
+        this.userLifestyleFastfood
+      );
+      LocalStorage.set(
+        "user.lifestyle.fastfood.freq",
+        this.userLifestyleFastfoodFreq
+      );
+      LocalStorage.set("user.lifestyle.alcohol.usedto", this.userUsedToDrink);
       LocalStorage.set(
         "user.lifestyle.alcohol.count",
         this.userLifestyleAlcohol
@@ -3038,15 +3622,19 @@ export default {
         "user.lifestyle.alcohol.freq",
         this.userLifestyleAlcoholFreq
       );
+      LocalStorage.set("user.lifestyle.soda.usedto", this.userUsedToSoda);
       LocalStorage.set("user.lifestyle.soda.count", this.userLifestyleSoda);
       LocalStorage.set("user.lifestyle.soda.freq", this.userLifestyleSodaFreq);
+      LocalStorage.set("user.lifestyle.smokes.usedto", this.userUsedToSmoke);
       LocalStorage.set("user.lifestyle.smokes.count", this.userLifestyleSmokes);
       LocalStorage.set(
         "user.lifestyle.smokes.freq",
         this.userLifestyleSmokesFreq
       );
+      LocalStorage.set("user.lifestyle.meat.usedto", this.userUsedToMeat);
       LocalStorage.set("user.lifestyle.meat.count", this.userLifestyleMeat);
       LocalStorage.set("user.lifestyle.meat.freq", this.userLifestyleMeatFreq);
+      LocalStorage.set("user.lifestyle.seafood.usedto", this.userUsedToSeafood);
       LocalStorage.set(
         "user.lifestyle.seafood.count",
         this.userLifestyleSeafood
@@ -3055,6 +3643,7 @@ export default {
         "user.lifestyle.seafood.freq",
         this.userLifestyleSeafoodFreq
       );
+      LocalStorage.set("user.lifestyle.dairy.usedto", this.userUsedToDairy);
       LocalStorage.set("user.lifestyle.dairy.count", this.userLifestyleDairy);
       LocalStorage.set(
         "user.lifestyle.dairy.freq",
@@ -3607,15 +4196,15 @@ export default {
     if (this.userGender == 1) this.$refs.flipFemale.click();
   },
   computed: {
-    citationSummaryFormat() {
-      return this.citationSummary.replaceAll("''", '"');
-    },
-    citationShortFormat() {
-      return this.citationShort.replaceAll("''", '"');
-    },
+    // citationSummaryFormat() {
+    //   return this.citationSummary.replaceAll("''", '"');
+    // },
+    // citationShortFormat() {
+    //   return this.citationShort.replaceAll("''", '"');
+    // },
     computeDifficultyFromDoctorMouthFood() {
       //<blockquote>""</blockquote>
-      if (this.userLevel <= 1)
+      if (this.userLevel <= 3)
         return `
         <div class="q-ma-sm"><div class="bg-primary">•Before every meal:</div>
           <details class="q-ml-md noblink-details"><summary>Drink 500ml (2 cups) of cold water</summary>This adds a 44% increase to your metabolism and curbs your appetite:
@@ -3643,6 +4232,7 @@ export default {
               "Relative to daytime snacking, nighttime snacking significantly decreased fat oxidation (daytime snacking: 52.0 ± 13.6 g/day; nighttime snacking: 45.8 ± 14.0 g/day; P = 0.02) and tended to increase the respiratory quotient (daytime snacking: 0.878 ± 0.022; nighttime snacking: 0.888 ± 0.021; P = 0.09) [PMID: 23174861]."
             </blockquote>
           </details>
+
         </div>`;
 
       //don't eat after 7pm

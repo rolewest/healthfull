@@ -200,6 +200,31 @@ export default {
     -2px -2px 0 $info, 2px 0px 0 $info, 0px 2px 0 $info, -2px 0px 0 $info,
     0px -2px 0 $info;
 }
+.title-primary {
+  text-shadow: 2px 2px 0 $primary, 2px -2px 0 $primary, -2px 2px 0 $primary,
+    -2px -2px 0 $primary, 2px 0px 0 $primary, 0px 2px 0 $primary,
+    -2px 0px 0 $primary, 0px -2px 0 $primary;
+}
+.title-negative {
+  text-shadow: 2px 2px 0 $negative, 2px -2px 0 $negative, -2px 2px 0 $negative,
+    -2px -2px 0 $negative, 2px 0px 0 $negative, 0px 2px 0 $negative,
+    -2px 0px 0 $negative, 0px -2px 0 $negative;
+}
+.title-positive {
+  text-shadow: 2px 2px 0 $positive, 2px -2px 0 $positive, -2px 2px 0 $positive,
+    -2px -2px 0 $positive, 2px 0px 0 $positive, 0px 2px 0 $positive,
+    -2px 0px 0 $positive, 0px -2px 0 $positive;
+}
+.title-warning {
+  text-shadow: 2px 2px 0 $warning, 2px -2px 0 $warning, -2px 2px 0 $warning,
+    -2px -2px 0 $warning, 2px 0px 0 $warning, 0px 2px 0 $warning,
+    -2px 0px 0 $warning, 0px -2px 0 $warning;
+}
+.title-accent {
+  text-shadow: 2px 2px 0 $accent, 2px -2px 0 $accent, -2px 2px 0 $accent,
+    -2px -2px 0 $accent, 2px 0px 0 $accent, 0px 2px 0 $accent,
+    -2px 0px 0 $accent, 0px -2px 0 $accent;
+}
 .cite-text {
   font-family: "Courier New", Courier, monospace !important;
   // font-family: Lucida Sans Typewriter, Lucida Console, monaco,

@@ -214,6 +214,7 @@
             <div class="text-center row justify-center">
               <q-card class="q-pa-sm">
                 <q-btn
+                  v-if="!customRoutineEmpty && this.stepsList[0]"
                   @click="
                     buildRoutine();
                     startConditioning();
@@ -221,6 +222,13 @@
                   color="positive"
                   text-color=""
                   >Your Custom Routine</q-btn
+                >
+                <q-btn
+                  v-if="customRoutineEmpty || !this.stepsList[0]"
+                  @click="this.$router.push({ name: 'builder' })"
+                  color="info"
+                  text-color=""
+                  >Create a Custom Routine</q-btn
                 >
                 <hr />
                 <h5>Low Impact Exercises</h5>
@@ -281,9 +289,7 @@
                   style="max-width: 120px; min-height: 150px"
                   ><q-icon name="medication" class="h2"></q-icon> Standing Only
                   <q-icon name="medication" class="h2"></q-icon>
-                  <div class="text-sm block full-width">
-                    Low Impact - Coming Soon
-                  </div></q-btn
+                  <div class="text-sm block full-width">Low Impact</div></q-btn
                 >
               </q-card>
 
@@ -547,6 +553,7 @@ export default {
   data() {
     return {
       alert: false,
+      customRoutineEmpty: false,
       userBasePoints: {
         xp: LocalStorage.getItem("user.points.xp") || 0,
         hp: LocalStorage.getItem("user.points.hp") || 0,
@@ -891,7 +898,8 @@ export default {
       LocalStorage.getItem("userCurrentSetlist") == "[]" ||
       LocalStorage.getItem("userCurrentSetlist") == null
     ) {
-      this.alert = true;
+      this.customRoutineEmpty = true;
+      //this.alert = true; //
     } else {
       fetch("https://rmatter.com/health-full/data/index.php?loc=setlist")
         .then((res) => res.json())

@@ -38,16 +38,45 @@
           >I Ate One of the Salads!
         </q-btn>
       </div>
-      <div class="text-center" v-html="thisWeeksMeal"></div>
+      <div class="text-center" v-html="thisWeeksSalad"></div>
+    </details>
+    <details class="q-ma-sm q-pb-sm">
+      <summary class="text-center meal-details title-h6 q-mb-sm q-pb-sm">
+        Fruit Appetizers
+      </summary>
+      <div class="completed-button text-center">
+        <q-btn color="accent" @click="updateProgress()"
+          >I Ate One of the Fruits!
+        </q-btn>
+      </div>
+      <div class="text-center" v-html="thisWeeksFruit"></div>
+    </details>
+    <details class="q-ma-sm q-pb-sm">
+      <summary class="text-center meal-details title-h6 q-mb-sm q-pb-sm">
+        Satiating Soups
+      </summary>
+      <div class="completed-button text-center">
+        <q-btn color="accent" @click="updateProgress()" disabled
+          >I Ate One of the Soups!
+        </q-btn>
+      </div>
+      <div class="text-center" v-html="thisWeeksSoups"></div>
     </details>
   </div>
+  <!-- <q-btn
+    color="purple"
+    @click="showLevelUp('center')"
+    label="Show Notification"
+  /> -->
 </template>
 
 <script>
 import { LocalStorage } from "quasar";
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
+import { useQuasar } from "quasar";
 export default {
   data() {
+    const $q = useQuasar();
     return {
       levelProgress: LocalStorage.getItem("user.level.progress"),
       levelNumber: LocalStorage.getItem("user.level.number"),
@@ -55,6 +84,29 @@ export default {
     };
   },
   methods: {
+    showLevelUp(position) {
+      this.$q.notify({
+        message: `Congratulations! <em>You</em> are now on level ${this.levelNumber}!`,
+        caption: `Keep at it, you're doing amazing!`,
+        classes: "level-up",
+        color: "positive",
+        position,
+        type: "positive",
+        icon: "mdi-party-popper",
+        html: true,
+        timeout: 3500,
+        avatar: "https://cdn.quasar.dev/img/boy-avatar.png",
+        actions: [
+          {
+            label: "x",
+            color: "white",
+            handler: () => {
+              /* ... */
+            },
+          },
+        ],
+      });
+    },
     updateProgress() {
       let currentProgress = LocalStorage.getItem("user.level.progress") * 1;
       let currentLevel = LocalStorage.getItem("user.level.number") * 1;
@@ -96,6 +148,9 @@ export default {
           // decay: 0.94,
           // startVelocity: 30,
         });
+        setTimeout(() => {
+          this.showLevelUp("center");
+        }, 1000);
         confetti({
           particleCount: 100,
           scalar: 0.75,
@@ -156,7 +211,7 @@ export default {
       let mainoutput = `<h5>Your Level ${this.levelNumber} Meal Plans</h5>`;
       return mainoutput;
     },
-    thisWeeksMeal() {
+    thisWeeksSoups() {
       console.log("LocalStorage:", JSON.stringify(LocalStorage.getAll()));
       let mainoutput = `
 
@@ -180,7 +235,7 @@ export default {
               <ul class="normal-ul">
                 <p class="title-h6">Dressing:</p>
                 <li>1/2 cup water</li>
-                <li>1 small/baby boiled or baked potato</li>
+                <li>1 avocado or small/baby boiled or baked potato</li>
                 <li>1/2 lemon juiced or 1 tbsp lemon juice</li>
                 <li>2 tsp vinegar (apple cider or red wine vinegar suggested)</li>
                 <li>1 tsp dijon or yellow mustard, or 1/4 tsp dry mustard</li>
@@ -191,7 +246,165 @@ export default {
                 <p class="title-h6">Directions:</p>
                 <li>Put all dressing ingredients in blender, or use an immersion/stick blender, then drizzle over lettuce and add optional toppings</li>
                 <p><br><b class="blink-this">OR...</b></p>
-                <li>Finely mash potato and garlic and whisk (or put in sealed jar and shake) all ingredients together, then drizzle over lettuce and add add optional toppings</li>
+                <li>Finely mash avocado/potato and garlic and whisk (or put in sealed jar and shake) all ingredients together, then drizzle over lettuce and add add optional toppings</li>
+
+              </ul>
+
+
+
+          </details>
+
+        <details class="self-center text-left border-double-1 bg-white q-pa-md">
+            <summary>Greek Salad</summary>
+            <ul class="normal-ul">
+                <p class="title-h6">Salad:</p>
+                <li>Lettuce (optional) (e.g: Baby Spinach, Kale, Endive, Watercress)</li>
+                <li>1/2 Red Onion (diced or sliced)</li>
+                <li>1 Bell Pepper (diced or sliced)</li>
+                <li>1/4 cup Tomatoes (e.g. grape or cherry halved) </li>
+                <li>1/2 Cucumber or 2 baby cucumbers (diced or sliced)</li>
+                <li>Optional: sun-dried tomatoes</li>
+                <li>Optional: 2 Peperoncinis (sliced)</li>
+              </ul>
+
+              <ul class="normal-ul">
+                <p class="title-h6">Dressing:</p>
+                <li>2 tbsp water</li>
+                <li>2 tbsp vinegar (apple cider or red wine vinegar suggested)</li>
+                <li>1 lemon juiced or 2 tbsp lemon juice</li>
+                <li>1 tbsp dried oregano</li>
+                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
+                <li>1/8 tsp black pepper</li>
+                <li>Optional: 2 tsp nutritional yeast</li>
+                <li>Optional: 1 tsp onion powder</li>
+
+                <p class="title-h6">Directions:</p>
+                <li>Put all dressing ingredients in blender or use an immersion/stick blender, then mix dressing with veggies</li>
+                <p><br><b class="blink-this">OR...</b></p>
+                <li>Finely mash garlic and whisk (or put in sealed jar and shake) all ingredients together, then mix well with veggies</li>
+
+              </ul>
+
+          </details>
+          <details class="self-center text-left border-double-1 bg-white q-pa-md">
+            <summary>Thai Salad</summary>
+            <ul class="normal-ul">
+                <p class="title-h6">Salad:</p>
+                <li>1.5 cup Napa or Red Cabbage (shredded), or mixed red and green or Napa cabbage</li>
+                <li>2 large carrots (shredded)</li>
+                <li>Bell peppers, usually red, (shredded)</li>
+                <li>Recommended: 1/2 cup cooked edamame</li>
+                <li>Optional: Green/Spring Onions (sliced)</li>
+
+
+                <li>Optional: other veggies like broccoli florets, shredded kale, or any sprouts</li>
+
+              </ul>
+
+              <ul class="normal-ul">
+                <p class="title-h6">Dressing:</p>
+                <li>2 tbsp water</li>
+                <li>2 tbsp vinegar (e.g. apple cider, white, or rice wine)</li>
+                <li>1 lime juiced or 2 tbsp lime juice</li>
+                <li>1 tsp dijon or yellow mustard, or 1/4 tsp dry mustard</li>
+                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
+                <li>1 tsp ginger, or ½ tsp dried ginger</li>
+
+                <li>1/8 tsp black pepper</li>
+                <li>Suggested: 1 tbsp lemon grass (dried, fresh or paste)</li>
+                <li>Suggested: 1 tbsp tahini or peanut butter (will make it creamier) can also use 4 tbsp sesame seeds or peanuts if using blender</li>
+                <li>Optional: 1 tbsp cilantro</li>
+                <li>Optional: 1 tsp onion powder</li>
+
+
+
+                <p class="title-h6">Directions:</p>
+                <li>Put all dressing ingredients in blender or use an immersion/stick blender, then mix dressing with veggies and let sit for 10 minutes</li>
+                <p><br><b class="blink-this">OR...</b></p>
+                <li>Finely mash garlic and whisk (or put in sealed jar and shake) all ingredients together, then mix well with veggies and let sit for 10 minutes</li>
+
+              </ul>
+          </details>
+          <details class="self-center text-left border-double-1 bg-white q-pa-md">
+            <summary>Coleslaw</summary>
+            <ul class="normal-ul">
+                <p class="title-h6">Salad:</p>
+                <li>1.5 cup Red Cabbage (shredded), or mixed red and green cabbage</li>
+                <li>2 large carrots (shredded)</li>
+                <li>Optional: Green/Spring Onions (sliced)</li>
+
+
+                <li>Optional: other veggies like bell peppers or any sprouts</li>
+
+              </ul>
+
+              <ul class="normal-ul">
+                <p class="title-h6">Dressing:</p>
+                <li>2 tbsp water</li>
+                <li>2 tbsp vinegar (e.g. apple cider, white, or rice wine)</li>
+                <li>1 lemon juiced or 2 tbsp lemon juice</li>
+                <li>1 tsp dijon or yellow mustard, or 1/4 tsp dry mustard</li>
+                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
+                <li>1/8 tsp black pepper</li>
+                <li>Optional: 1 tbsp tahini (will make it creamier) can also use 4 tbsp sesame seeds if using blender</li>
+                <li>Optional: ½ teaspoon celery seed powder</li>
+                <li>Optional: 1 tsp onion powder</li>
+
+
+
+                <p class="title-h6">Directions:</p>
+                <li>Put all dressing ingredients in blender or use an immersion/stick blender, then mix dressing with veggies and let sit for 10 minutes</li>
+                <p><br><b class="blink-this">OR...</b></p>
+                <li>Finely mash garlic and whisk (or put in sealed jar and shake) all ingredients together, then mix well with veggies and let sit for 10 minutes</li>
+
+              </ul>
+          </details>
+
+        </div>
+        </div>
+
+
+          `;
+
+      mainoutput = "Soups coming soon!";
+      return mainoutput;
+    },
+    thisWeeksSalad() {
+      console.log("LocalStorage:", JSON.stringify(LocalStorage.getAll()));
+      let mainoutput = `
+
+      `;
+
+      if (LocalStorage.getItem("user.level.number") > 3) {
+        mainoutput += `Keep up the great work!`;
+      }
+      mainoutput += `
+        <div class="row justify-center">
+          <div class="width-auto">
+          <details class="self-center text-left border-double-1 bg-white q-pa-md">
+            <summary>Easy Caesar Salad </summary>
+              <ul class="normal-ul">
+                <p class="title-h6">Salad:</p>
+                <li>Lettuce (e.g: Romain, Arugula/Rocket, Redleaf)</li>
+                <li>Optional Nuts or Seeds (e.g Crushed Walnuts, Slivered Almonds, Pumpkin Seeds, etc.) for some crunch</li>
+                <li>Optional any veggies you like: cucumbers, tomatoes, broccoli, sprouts, etc.</li>
+              </ul>
+
+              <ul class="normal-ul">
+                <p class="title-h6">Dressing:</p>
+                <li>1/2 cup water</li>
+                <li>1 avocado or small/baby boiled or baked potato</li>
+                <li>1/2 lemon juiced or 1 tbsp lemon juice</li>
+                <li>2 tsp vinegar (apple cider or red wine vinegar suggested)</li>
+                <li>1 tsp dijon or yellow mustard, or 1/4 tsp dry mustard</li>
+                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
+                <li>1/8 tsp black pepper</li>
+                <li>Optional: 2 tsp nutritional yeast; 1 tsp parsley dried or fresh</li>
+
+                <p class="title-h6">Directions:</p>
+                <li>Put all dressing ingredients in blender, or use an immersion/stick blender, then drizzle over lettuce and add optional toppings</li>
+                <p><br><b class="blink-this">OR...</b></p>
+                <li>Finely mash avocado/potato and garlic and whisk (or put in sealed jar and shake) all ingredients together, then drizzle over lettuce and add add optional toppings</li>
 
               </ul>
 
@@ -319,6 +532,57 @@ export default {
       );
       return mainoutput;
     },
+    thisWeeksFruit() {
+      console.log("LocalStorage:", JSON.stringify(LocalStorage.getAll()));
+      let mainoutput = `
+
+      `;
+
+      if (LocalStorage.getItem("user.level.number") > 3) {
+        mainoutput += `Keep up the great work!`;
+      }
+      mainoutput += `
+        <div class="row justify-center">
+          <div class="width-auto text-left bg-white">
+
+              <ul class="normal-ul">
+                <h6 class="">Feel Free to eat more than the suggested amount or to combine fruits</h6>
+                <li>1-2 Apple</li>
+                <li>1-2 Apricots</li>
+                <li>2 Avocados</li>
+                <li>1-2 Bananas</li>
+                <li>1/2 Cantaloupe</li>
+                <li>2 Kiwis (suggested: baby or golden kiwi)</li>
+                <li>1-2 Mango</li>
+                <li>1-2 Oranges</li>
+                <li>1-2 Peaches</li>
+                <li>1-2 Pears</li>
+                <li>2-3 Plums (suggested: black plums)</li>
+                <li>1/4 Water mellon</li>
+
+
+              </ul>
+
+
+
+
+
+
+
+        </div>
+        </div>
+
+
+          `;
+
+      console.log(
+        "!!!:",
+        mainoutput,
+        LocalStorage.getItem("user.level.number"),
+        LocalStorage.getItem("user.level.progress")
+      );
+      return mainoutput;
+    },
   },
 };
 // window.localStorage.getItem;
@@ -364,5 +628,21 @@ export default {
   background-image: linear-gradient(to right, $warning, $info);
 
   // animation: border_anim 5s linear infinite;
+}
+.level-up .q-notification__icon {
+  color: $warning;
+  text-shadow: 2px 2px 0 $info, 2px -2px 0 $info, -2px 2px 0 $info,
+    -2px -2px 0 $info, 2px 0px 0 $info, 0px 2px 0 $info, -2px 0px 0 $info,
+    0px -2px 0 $info;
+}
+.level-up .q-notification__actions--with-media {
+  // position: relative;
+  // top: -1.2em;
+  // right: -1.2em;
+}
+.level-up {
+  box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
+    -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;
+  border-radius: 0%;
 }
 </style>

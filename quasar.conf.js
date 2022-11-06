@@ -12,6 +12,7 @@ const { configure } = require("quasar/wrappers");
 
 module.exports = configure(function (ctx) {
   return {
+
     // https://quasar.dev/quasar-cli/supporting-ts
     supportTS: false,
 
@@ -95,7 +96,7 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: ['Notify'],
     },
 
     // animations: 'all', // --- includes all animations

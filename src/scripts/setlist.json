@@ -298,6 +298,29 @@
       "mobility": 2,
       "mets": 2.1,
       "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand up and grasp on to the back of a chair</li><li>Keep your back as straight as you can</li><li>Raise both of your heels off the floor as high as you can go</li><li>Now return back to the starting position</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 15,
+      "video": { "id": "8IwNI8r-jo0", "start": 480, "end": 505, "mute": 0 },
+      "title": "Walking Jacks",
+      "caption": "Low Impact Cardio",
+      "icon": { "name": null, "color": "accent", "font": "" },
+
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 18, "cp": 20, "xp": 22, "sp": 5 },
+      "tags": [
+        "Cardio",
+        "Low Impact",
+        "Standing Only",
+        "Glutes",
+        "Legs",
+        "Thighs",
+        "All Ages"
+      ],
+      "reps": 20,
+      "mobility": 2.6,
+      "mets": 2.8,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand up with legs together</li><li>Keep your back as straight as you can</li><li>Step out with one leg to one side and raise the same side arm above your head</li><li>Now return back to the starting position</li><li>Do the same on the other side and return to the start position</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
     }
   ],
 
@@ -332,7 +355,7 @@
       "short": "Short",
       "long": "Long",
       "science": "Science",
-      "set": "[14, 13, 10, 11]"
+      "set": "[14, 15, 12, 13,  10, 11]"
     }
   ]
 }
