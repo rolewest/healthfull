@@ -785,71 +785,73 @@
     <!-- Your Prescription -->
     <!-- TODO: DELETE THIS FILE and USE Measure.vue to pass props to Clipboard/ and Prescription -->
     <div class="q-ma-sm q-mt-xl">
+      <!-- Doctor Chat -->
+      <div class="bit8-doc"></div>
+      <div class="paperSheetFlat shadow">
+        <span class="doctor-chat">Dr. Doctor</span>:
+        <span
+          v-if="
+            userUsedToDrink > 0 ||
+            userUsedToSoda > 0 ||
+            userUsedToSmoke > 0 ||
+            userUsedToDairy > 0 ||
+            userUsedToSeafood > 0 ||
+            userUsedToMeat > 0 ||
+            userUsedToFastfood > 0
+          "
+          >You've already made some healthy changes in your life, good for you!
+        </span>
+        {{ riskFromDoctorMouth("all") }}
+        <div class="q-mt-xs">
+          <br />
+          <p>
+            <span class="doctor-chat">Dr. Doctor</span>:
+            <span
+              v-if="
+                userUsedToDrink > 0 ||
+                userUsedToSoda > 0 ||
+                userUsedToSmoke > 0 ||
+                userUsedToDairy > 0 ||
+                userUsedToSeafood > 0 ||
+                userUsedToMeat > 0 ||
+                userUsedToFastfood > 0
+              "
+              >Again, the changes you've already made will lower your risks in
+              time.
+            </span>
+            {{ riskFromDoctorMouth("heart") }}
+            {{ riskFromDoctorMouth("alzheimers") }}
+            {{ riskFromDoctorMouth("diabetes") }}
+            {{ riskFromDoctorMouth("prediabetes") }}
+            {{ riskFromDoctorMouth("cancer") }}
+          </p>
+        </div>
+        <hr />
+
+        <p>
+          <span class="doctor-chat">Dr. Doctor</span>: See your science backed
+          prescription below to
+          {{ riskFromDoctorMouth("bodytype", userBodyGoal) }}, as quickly and
+          effortlessly as possible{{
+            riskFromDoctorMouth("all", "number") > 1
+              ? `, as well to help fight off disease and build immunity.`
+              : ", as well to help build general immunity and avoid NCD's (Non Communicable Diseases) like Hypertension, Strokes, Type 2 Diabetes, and Cancer."
+          }}
+        </p>
+        <p>
+          <span class="doctor-chat">Dr. Doctor</span>: Let's start you off easy,
+          and when you complete a level we'll push it up a notch and fill a new
+          prescription, sound good? You're currently at level {{ userLevel }}.
+        </p>
+      </div>
+      <!-- Start of prescription -->
       <div class="title-h4 q-mb-sm">Your Prescription</div>
       <div class="text-center">
         Based off of your lifestyle and risk factors
       </div>
       <!-- <Prescription /> -->
-      <div class="paperSheet shadow">
+      <div class="paperSheetFlat shadow">
         <div class="alert alert-primary">
-          <span class="doctor-chat">Dr. Doctor</span>:
-          <span
-            v-if="
-              userUsedToDrink > 0 ||
-              userUsedToSoda > 0 ||
-              userUsedToSmoke > 0 ||
-              userUsedToDairy > 0 ||
-              userUsedToSeafood > 0 ||
-              userUsedToMeat > 0 ||
-              userUsedToFastfood > 0
-            "
-            >You've already made some healthy changes in your life, good for
-            you!
-          </span>
-          {{ riskFromDoctorMouth("all") }}
-          <div class="q-mt-xs">
-            <br />
-            <p>
-              <span class="doctor-chat">Dr. Doctor</span>:
-              <span
-                v-if="
-                  userUsedToDrink > 0 ||
-                  userUsedToSoda > 0 ||
-                  userUsedToSmoke > 0 ||
-                  userUsedToDairy > 0 ||
-                  userUsedToSeafood > 0 ||
-                  userUsedToMeat > 0 ||
-                  userUsedToFastfood > 0
-                "
-                >Again, the changes you've already made will lower your risks in
-                time.
-              </span>
-              {{ riskFromDoctorMouth("heart") }}
-              {{ riskFromDoctorMouth("alzheimers") }}
-              {{ riskFromDoctorMouth("diabetes") }}
-              {{ riskFromDoctorMouth("prediabetes") }}
-              {{ riskFromDoctorMouth("cancer") }}
-            </p>
-          </div>
-          <hr />
-
-          <p>
-            <span class="doctor-chat">Dr. Doctor</span>: See your science backed
-            prescription below to
-            {{ riskFromDoctorMouth("bodytype", userBodyGoal) }}, as quickly and
-            effortlessly as possible{{
-              riskFromDoctorMouth("all", "number") > 1
-                ? `, as well to help fight off disease and build immunity.`
-                : ", as well to help build general immunity and avoid NCD's (Non Communicable Diseases) like Hypertension, Strokes, Type 2 Diabetes, and Cancer."
-            }}
-          </p>
-          <p>
-            <span class="doctor-chat">Dr. Doctor</span>: Let's start you off
-            easy, and when you complete a level we'll push it up a notch and
-            fill a new prescription, sound good? You're currently at level
-            {{ userLevel }}.
-          </p>
-
           <!-- <p>
             <span class="doctor-chat">Dr. Doctor</span>: See your prescribed meal plan and exercise guide below...
           </p> -->
@@ -913,6 +915,10 @@
                 <span class="mdi mdi-check-outline text-success"></span> Keep up
                 your healthy lifestyle choices
               </span>
+              <span v-if="riskFromDoctorMouth('all', 'number') < 1">
+                <span class="mdi mdi-check-outline text-success"></span> Keep up
+                your healthy habits
+              </span>
               <li v-if="userLifestyleSmokes > 0 && userUsedToSmoke == 0">
                 <span>Stop smoking</span>
               </li>
@@ -968,7 +974,7 @@
                         'Sugary Drinks',
                         'Soda & 100% Fruit Juice Cancer and Mortality Risk',
                         `The consumption of sugary drinks (including 100% fruit juice) was associated with an increased risk of overall cancer and breast cancer [PMID: 31292122, 2019 C.E.].`,
-                        `This systematic review supports the WCRF/AICR recommendations to limit sugary drinks consumption for cancer prevention and to raise consumers' awareness of their low nutritional quality and high sugar content. We recommend replacement of sweet beverages with plain safe drinking water and infusions without added sugars as the main liquid source for body hydration. Even though some guidelines maintain that moderate consumption of FJs [Fruit Juice] may be part of a healthy diet , FJs contain little or no dietary fiber and are positively associated with tooth decay in children [PMID: 33557387, 2021 C.E.]
+                        `This systematic review supports the WCRF/AICR recommendations to limit sugary drinks consumption for cancer prevention and to raise consumers' awareness of their low nutritional quality and high sugar content. We recommend replacement of sweet beverages with plain safe drinking water and infusions without added sugars as the main liquid source for body hydration. Even though some guidelines maintain that moderate consumption of FJs [Fruit Juice] may be part of a healthy diet, FJs contain little or no dietary fiber and are positively associated with tooth decay in children [PMID: 33557387, 2021 C.E.]
                       `,
                         '',
                         'theme-checked'
@@ -1173,7 +1179,7 @@
       <summary class="text-center">Show me my chart</summary>
       <div class="clip shadow"></div>
       <div class="clipBoard table-responsive">
-        <div class="paperSheet shadow">
+        <div class="paperSheetFlat shadow">
           <table class="table">
             <thead>
               <tr class="text-center">
@@ -1666,6 +1672,7 @@
                   ~{{ getMetToCal((type = 0), "walk") }} Cal
                 </td>
               </tr>
+
               <tr>
                 <th scope="row">
                   <span class="mdi mdi-check-outline text-success"></span>
@@ -1685,7 +1692,15 @@
                   ~{{ getMetToCal((type = 0), "cook") }} Cal
                 </td>
               </tr>
-
+              <tr>
+                <th scope="row">
+                  <span class="mdi mdi-check-outline text-success"></span>
+                  Yoga
+                </th>
+                <td colspan="2" class="text-center">
+                  ~{{ getMetToCal((type = 0), "yoga") }} Cal
+                </td>
+              </tr>
               <tr>
                 <th scope="row">
                   <span class="mdi mdi-check-outline text-success"></span> Light
@@ -2823,7 +2838,7 @@ export default {
           parseFloat(this.getHabitRisk("alzheimers", 1));
         if (type == "number") return allRisk;
         if (allRisk < 1) {
-          return `According to my readings you're in excellent health!`;
+          return `According to my readings you've developed a lot of healthy habits, good for you!`;
         }
         if (allRisk < 2) {
           return `You seem to be taking care of yourself fairly well!`;
@@ -4204,38 +4219,67 @@ export default {
     // },
     computeDifficultyFromDoctorMouthFood() {
       //<blockquote>""</blockquote>
-      if (this.userLevel <= 3)
-        return `
-        <div class="q-ma-sm"><div class="bg-primary">•Before every meal:</div>
-          <details class="q-ml-md noblink-details"><summary>Drink 500ml (2 cups) of cold water</summary>This adds a 44% increase to your metabolism and curbs your appetite:
+      if (this.userLevel <= 3) {
+      }
+      const preload_water = `<details class="q-ml-md noblink-details"><summary>Drink 500ml (2 cups) of cold water</summary>This adds a 44% increase to your metabolism and curbs your appetite:
             <blockquote>
               "...the water group (β = −0.87, P < 0.001) showed a 44% greater decline in weight over the 12 weeks than the nonwater group... consuming 500 ml water prior to each main meal leads to greater weight loss than a hypocaloric diet alone in middle-aged and older adults. [PMID: 19661958]"
             </blockquote>
             <blockquote>
               " This study demonstrates that consumption of a 568 ml water preload immediately before a meal reduces energy intake in non-obese young males. This might therefore be an effective strategy to suppress energy intake in this population and possibly assist with weight management [PMID: 25893719]. "
               </blockquote>
-          </details>
+          </details>`;
+      const preload_salad = `
           <details class="q-ml-md noblink-details"><summary>A simple salad or serving of fruit</summary>Before every meal eat a salad with a 1 tbsp vinegar, or if short on time, 1 piece of whole fruit (e.g. apple, orange, banana).<br/>Vinegar Boosts AMPK which boosts your metabolism, and a healthy salad, or piece of fruit, reduces your hunger:
             <blockquote>"salads reduced meal energy intake (by 7% for the small portion and 12% for the large)[PMID: 19661687]."</blockquote>
             <blockquote>"Body weight, BMI, visceral fat area, waist circumference, and serum triglyceride levels were significantly lower in both vinegar intake groups than in the placebo group.
               In conclusion, daily intake of vinegar might be useful in the prevention of metabolic syndrome by reducing obesity [PMID: 19661687]."
             </blockquote>
             <blockquote>"vinegar ingestion can promote modest weight loss in obese subjects (Kondo et al. 2009a).
-              This is pertinent in light of the fact—as discussed below—that vinegar (acetic acid) has the potential to activate hepatic AMPK [PMID: 24248330]."
+              This is pertinent in light of the fact—as discussed below [in article]—that vinegar (acetic acid) has the potential to activate hepatic AMPK [PMID: 24248330]."
             </blockquote>
           </details>
-        </div>
-        <div class="q-ma-sm"><div class="bg-warning">•Restrictions:</div>
-          <details class="q-ml-md noblink-details"><summary>Don't Eat after 7pm</summary>
+        `;
+
+      const fasting_after7 = `<details class="q-ml-md noblink-details"><summary>Don't Eat after 7pm</summary>
             Try to avoid snacking at night as it's >50% more likely to become fat tissue:
             <blockquote>
               "Relative to daytime snacking, nighttime snacking significantly decreased fat oxidation (daytime snacking: 52.0 ± 13.6 g/day; nighttime snacking: 45.8 ± 14.0 g/day; P = 0.02) and tended to increase the respiratory quotient (daytime snacking: 0.878 ± 0.022; nighttime snacking: 0.888 ± 0.021; P = 0.09) [PMID: 23174861]."
             </blockquote>
-          </details>
+          </details>`;
 
-        </div>`;
+      const gain_cals = `<details class="q-ml-md noblink-details"><summary>Try to eat between ${this.getBMR(
+        5
+      )} and ${this.getBMR(
+        4
+      )} Calories everyday</summary>Aim for lots of fruit (frozen or fresh), whole grains, and beans & nuts like: chickpeas, lentils, walnuts, peanuts, all beans, peas, edemame, Tempeh.</details>`;
+      const gain_protein = `<details class="q-ml-md noblink-details"><summary>Aim for around ${
+        this.userWeight * 1.9
+      } to ${
+        this.userWeight * 3.1
+      } grams of protein per day.</summary> E.g. A peanut butter sandwich (go chunky) is around 27 grams of protein, a cup of lentils or humus is around the same. So that's about ${(
+        (this.userWeight * 3.1) /
+        27
+      ).toFixed(
+        0
+      )} Peanut butter sandwiches / day, but try to switch it up!</details>`;
+      if (this.userBodyGoal == -2) {
+        // for loose weight
+        return `<div class="q-ma-sm"><div class="bg-primary">•Before every meal:</div>${preload_water}${preload_salad}</div><div class="q-ma-sm"><div class="bg-warning">•Restrictions:</div>${fasting_after7}!</div>`;
+      }
+      if (this.userBodyGoal == -1) {
+        // for loose weight
+        return `<div class="q-ma-sm"><div class="bg-primary">•Before every meal:</div>${preload_water}${preload_salad}</div><div class="q-ma-sm"><div class="bg-warning">•Restrictions:</div>${fasting_after7}</div>`;
+      }
+      if (this.userBodyGoal == 0) {
+        // for maintain weight
+        return `<div class="q-ma-sm"><div class="bg-primary">•Before every meal:</div>${preload_water}</div><div class="q-ma-sm"><div class="bg-warning">•Restrictions:</div>${fasting_after7}</div>`;
+      }
+      if (this.userBodyGoal == 1) {
+        // for gain muscle
+        return `<div class="q-ma-sm"><div class="bg-primary">•Each day:</div>${gain_cals}${gain_protein}</div><div class="q-ma-sm"><div class="bg-warning">•Restrictions:</div>${fasting_after7}</div>`;
+      }
 
-      //don't eat after 7pm
       return "";
     },
     computeDifficultyFromDoctorMouthExercise() {
@@ -4772,5 +4816,118 @@ hr {
 }
 .noblink-details summary::before {
   animation: none !important;
+}
+.bit8-doc {
+  box-shadow: 18px 4px 0 0 rgba(0, 150, 136, 1),
+    20px 4px 0 0 rgba(0, 150, 136, 1), 22px 4px 0 0 rgba(0, 150, 136, 1),
+    24px 4px 0 0 rgba(0, 150, 136, 1), 14px 6px 0 0 rgba(0, 150, 136, 1),
+    16px 6px 0 0 rgba(0, 150, 136, 1), 18px 6px 0 0 rgba(0, 150, 136, 1),
+    20px 6px 0 0 rgba(0, 150, 136, 1), 22px 6px 0 0 rgba(0, 150, 136, 1),
+    24px 6px 0 0 rgba(0, 150, 136, 1), 26px 6px 0 0 rgba(0, 150, 136, 1),
+    28px 6px 0 0 rgba(0, 150, 136, 1), 12px 8px 0 0 rgba(0, 150, 136, 1),
+    14px 8px 0 0 rgba(0, 150, 136, 1), 16px 8px 0 0 rgba(0, 150, 136, 1),
+    18px 8px 0 0 rgba(0, 150, 136, 1), 20px 8px 0 0 rgba(0, 188, 212, 1),
+    22px 8px 0 0 rgba(0, 188, 212, 1), 24px 8px 0 0 rgba(0, 188, 212, 1),
+    26px 8px 0 0 rgba(0, 188, 212, 1), 28px 8px 0 0 rgba(0, 188, 212, 1),
+    30px 8px 0 0 rgba(0, 150, 136, 1), 10px 10px 0 0 rgba(0, 150, 136, 1),
+    12px 10px 0 0 rgba(0, 150, 136, 1), 14px 10px 0 0 rgba(0, 150, 136, 1),
+    16px 10px 0 0 rgba(0, 188, 212, 1), 18px 10px 0 0 rgba(0, 188, 212, 1),
+    20px 10px 0 0 rgba(0, 188, 212, 1), 22px 10px 0 0 rgba(0, 188, 212, 1),
+    24px 10px 0 0 rgba(0, 188, 212, 1), 26px 10px 0 0 rgba(0, 188, 212, 1),
+    28px 10px 0 0 rgba(0, 188, 212, 1), 30px 10px 0 0 rgba(0, 188, 212, 1),
+    32px 10px 0 0 rgba(0, 150, 136, 1), 10px 12px 0 0 rgba(0, 150, 136, 1),
+    12px 12px 0 0 rgba(0, 150, 136, 1), 14px 12px 0 0 rgba(0, 188, 212, 1),
+    16px 12px 0 0 rgba(0, 188, 212, 1), 18px 12px 0 0 rgba(0, 188, 212, 1),
+    20px 12px 0 0 rgba(0, 188, 212, 1), 22px 12px 0 0 rgba(0, 188, 212, 1),
+    24px 12px 0 0 rgba(0, 188, 212, 1), 26px 12px 0 0 rgba(0, 188, 212, 1),
+    28px 12px 0 0 rgba(0, 188, 212, 1), 30px 12px 0 0 rgba(0, 188, 212, 1),
+    32px 12px 0 0 rgba(0, 150, 136, 1), 10px 14px 0 0 rgba(0, 150, 136, 1),
+    12px 14px 0 0 rgba(255, 255, 255, 1), 14px 14px 0 0 rgba(255, 255, 255, 1),
+    16px 14px 0 0 rgba(255, 255, 255, 1), 18px 14px 0 0 rgba(255, 255, 255, 1),
+    20px 14px 0 0 rgba(255, 255, 255, 1), 22px 14px 0 0 rgba(255, 255, 255, 1),
+    24px 14px 0 0 rgba(255, 255, 255, 1), 26px 14px 0 0 rgba(255, 255, 255, 1),
+    28px 14px 0 0 rgba(255, 255, 255, 1), 30px 14px 0 0 rgba(255, 255, 255, 1),
+    32px 14px 0 0 rgba(0, 150, 136, 1), 10px 16px 0 0 rgba(0, 150, 136, 1),
+    12px 16px 0 0 rgba(0, 150, 136, 1), 14px 16px 0 0 rgba(0, 150, 136, 1),
+    16px 16px 0 0 rgba(0, 150, 136, 1), 18px 16px 0 0 rgba(0, 150, 136, 1),
+    20px 16px 0 0 rgba(0, 150, 136, 1), 22px 16px 0 0 rgba(0, 150, 136, 1),
+    24px 16px 0 0 rgba(0, 150, 136, 1), 26px 16px 0 0 rgba(0, 150, 136, 1),
+    28px 16px 0 0 rgba(0, 150, 136, 1), 30px 16px 0 0 rgba(0, 150, 136, 1),
+    32px 16px 0 0 rgba(0, 150, 136, 1), 10px 18px 0 0 rgba(158, 158, 158, 1),
+    12px 18px 0 0 rgba(121, 85, 72, 1), 14px 18px 0 0 rgba(255, 205, 210, 1),
+    16px 18px 0 0 rgba(255, 205, 210, 1), 18px 18px 0 0 rgba(255, 205, 210, 1),
+    20px 18px 0 0 rgba(255, 205, 210, 1), 22px 18px 0 0 rgba(255, 205, 210, 1),
+    24px 18px 0 0 rgba(255, 205, 210, 1), 26px 18px 0 0 rgba(255, 205, 210, 1),
+    28px 18px 0 0 rgba(255, 205, 210, 1), 30px 18px 0 0 rgba(255, 205, 210, 1),
+    32px 18px 0 0 rgba(121, 85, 72, 1), 10px 20px 0 0 rgba(158, 158, 158, 1),
+    12px 20px 0 0 rgba(121, 85, 72, 1), 14px 20px 0 0 rgba(255, 205, 210, 1),
+    16px 20px 0 0 rgba(255, 205, 210, 1), 18px 20px 0 0 rgba(255, 205, 210, 1),
+    20px 20px 0 0 rgba(255, 205, 210, 1), 22px 20px 0 0 rgba(255, 205, 210, 1),
+    24px 20px 0 0 rgba(255, 205, 210, 1), 26px 20px 0 0 rgba(255, 205, 210, 1),
+    28px 20px 0 0 rgba(255, 205, 210, 1), 30px 20px 0 0 rgba(255, 205, 210, 1),
+    32px 20px 0 0 rgba(121, 85, 72, 1), 10px 22px 0 0 rgba(48, 63, 70, 1),
+    12px 22px 0 0 rgba(48, 63, 70, 1), 14px 22px 0 0 rgba(96, 125, 139, 1),
+    16px 22px 0 0 rgba(96, 125, 139, 1), 18px 22px 0 0 rgba(96, 125, 139, 1),
+    20px 22px 0 0 rgba(255, 205, 210, 1), 22px 22px 0 0 rgba(255, 205, 210, 1),
+    24px 22px 0 0 rgba(96, 125, 139, 1), 26px 22px 0 0 rgba(96, 125, 139, 1),
+    28px 22px 0 0 rgba(96, 125, 139, 1), 30px 22px 0 0 rgba(48, 63, 70, 1),
+    32px 22px 0 0 rgba(48, 63, 70, 1), 8px 24px 0 0 rgba(121, 85, 72, 1),
+    10px 24px 0 0 rgba(255, 205, 210, 1), 12px 24px 0 0 rgba(96, 125, 139, 1),
+    14px 24px 0 0 rgba(255, 255, 255, 1), 16px 24px 0 0 rgba(0, 0, 0, 1),
+    18px 24px 0 0 rgba(255, 255, 255, 1), 20px 24px 0 0 rgba(48, 63, 70, 1),
+    22px 24px 0 0 rgba(48, 63, 70, 1), 24px 24px 0 0 rgba(255, 255, 255, 1),
+    26px 24px 0 0 rgba(0, 0, 0, 1), 28px 24px 0 0 rgba(255, 255, 255, 1),
+    30px 24px 0 0 rgba(96, 125, 139, 1), 32px 24px 0 0 rgba(255, 205, 210, 1),
+    34px 24px 0 0 rgba(121, 85, 72, 1), 8px 26px 0 0 rgba(121, 85, 72, 1),
+    10px 26px 0 0 rgba(255, 205, 210, 1), 12px 26px 0 0 rgba(121, 85, 72, 1),
+    14px 26px 0 0 rgba(96, 125, 139, 1), 16px 26px 0 0 rgba(96, 125, 139, 1),
+    18px 26px 0 0 rgba(96, 125, 139, 1), 20px 26px 0 0 rgba(255, 205, 210, 1),
+    22px 26px 0 0 rgba(255, 205, 210, 1), 24px 26px 0 0 rgba(96, 125, 139, 1),
+    26px 26px 0 0 rgba(96, 125, 139, 1), 28px 26px 0 0 rgba(96, 125, 139, 1),
+    30px 26px 0 0 rgba(255, 205, 210, 1), 32px 26px 0 0 rgba(255, 205, 210, 1),
+    34px 26px 0 0 rgba(121, 85, 72, 1), 8px 28px 0 0 rgba(121, 85, 72, 1),
+    10px 28px 0 0 rgba(255, 205, 210, 1), 12px 28px 0 0 rgba(255, 205, 210, 1),
+    14px 28px 0 0 rgba(255, 205, 210, 1), 16px 28px 0 0 rgba(255, 205, 210, 1),
+    18px 28px 0 0 rgba(255, 205, 210, 1), 20px 28px 0 0 rgba(255, 205, 210, 1),
+    22px 28px 0 0 rgba(255, 205, 210, 1), 24px 28px 0 0 rgba(255, 205, 210, 1),
+    26px 28px 0 0 rgba(255, 205, 210, 1), 28px 28px 0 0 rgba(255, 205, 210, 1),
+    30px 28px 0 0 rgba(255, 205, 210, 1), 32px 28px 0 0 rgba(255, 205, 210, 1),
+    34px 28px 0 0 rgba(121, 85, 72, 1), 10px 30px 0 0 rgba(121, 85, 72, 1),
+    12px 30px 0 0 rgba(121, 85, 72, 1), 14px 30px 0 0 rgba(255, 205, 210, 1),
+    16px 30px 0 0 rgba(255, 205, 210, 1), 18px 30px 0 0 rgba(255, 205, 210, 1),
+    20px 30px 0 0 rgba(255, 205, 210, 1), 22px 30px 0 0 rgba(121, 85, 72, 1),
+    24px 30px 0 0 rgba(255, 205, 210, 1), 26px 30px 0 0 rgba(255, 205, 210, 1),
+    28px 30px 0 0 rgba(255, 205, 210, 1), 30px 30px 0 0 rgba(255, 205, 210, 1),
+    32px 30px 0 0 rgba(121, 85, 72, 1), 10px 32px 0 0 rgba(121, 85, 72, 1),
+    12px 32px 0 0 rgba(255, 205, 210, 1), 14px 32px 0 0 rgba(255, 205, 210, 1),
+    16px 32px 0 0 rgba(255, 205, 210, 1), 18px 32px 0 0 rgba(255, 205, 210, 1),
+    20px 32px 0 0 rgba(255, 205, 210, 1), 22px 32px 0 0 rgba(255, 205, 210, 1),
+    24px 32px 0 0 rgba(255, 205, 210, 1), 26px 32px 0 0 rgba(255, 205, 210, 1),
+    28px 32px 0 0 rgba(255, 205, 210, 1), 30px 32px 0 0 rgba(255, 205, 210, 1),
+    32px 32px 0 0 rgba(121, 85, 72, 1), 12px 34px 0 0 rgba(121, 85, 72, 1),
+    14px 34px 0 0 rgba(255, 205, 210, 1), 16px 34px 0 0 rgba(121, 85, 72, 1),
+    18px 34px 0 0 rgba(255, 205, 210, 1), 20px 34px 0 0 rgba(255, 205, 210, 1),
+    22px 34px 0 0 rgba(255, 205, 210, 1), 24px 34px 0 0 rgba(255, 205, 210, 1),
+    26px 34px 0 0 rgba(255, 205, 210, 1), 28px 34px 0 0 rgba(255, 205, 210, 1),
+    30px 34px 0 0 rgba(121, 85, 72, 1), 12px 36px 0 0 rgba(121, 85, 72, 1),
+    14px 36px 0 0 rgba(255, 205, 210, 1), 16px 36px 0 0 rgba(255, 205, 210, 1),
+    18px 36px 0 0 rgba(121, 85, 72, 1), 20px 36px 0 0 rgba(121, 85, 72, 1),
+    22px 36px 0 0 rgba(121, 85, 72, 1), 24px 36px 0 0 rgba(121, 85, 72, 1),
+    26px 36px 0 0 rgba(255, 205, 210, 1), 28px 36px 0 0 rgba(255, 205, 210, 1),
+    30px 36px 0 0 rgba(121, 85, 72, 1), 14px 38px 0 0 rgba(121, 85, 72, 1),
+    16px 38px 0 0 rgba(255, 205, 210, 1), 18px 38px 0 0 rgba(255, 205, 210, 1),
+    20px 38px 0 0 rgba(255, 205, 210, 1), 22px 38px 0 0 rgba(255, 205, 210, 1),
+    24px 38px 0 0 rgba(255, 205, 210, 1), 26px 38px 0 0 rgba(255, 205, 210, 1),
+    28px 38px 0 0 rgba(121, 85, 72, 1), 16px 40px 0 0 rgba(121, 85, 72, 1),
+    18px 40px 0 0 rgba(121, 85, 72, 1), 20px 40px 0 0 rgba(255, 205, 210, 1),
+    22px 40px 0 0 rgba(255, 205, 210, 1), 24px 40px 0 0 rgba(121, 85, 72, 1),
+    26px 40px 0 0 rgba(121, 85, 72, 1), 20px 42px 0 0 rgba(121, 85, 72, 1),
+    22px 42px 0 0 rgba(121, 85, 72, 1);
+  height: 2px;
+  width: 2px;
+  display: inline-block;
+  position: relative;
+  // left: -15%;
+  left: -1.5em;
 }
 </style>

@@ -42,8 +42,8 @@ export default {
         //   this.flipGender(this.userGender - 1);
         // }, 3000);
         // console.log("gendered:", this.userGender);
-        this.flipGender(-1);
-        this.$emit("flipGender", -1);
+        // this.flipGender(-1);
+        // this.$emit("flipGender", -1);
         // if (this.$refs?.flipMale) {
         //   if (this.userGender == 0) this.$refs.flipMale.click();
         //   if (this.userGender == 1) this.$refs.flipFemale.click();
