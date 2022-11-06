@@ -982,9 +982,15 @@
                     "
                   ></span>
                   <ul class="normal-ul">
-                    <li>water</li>
-                    <li>tea (white, green, hibiscus) w/ lemon</li>
-                    <li>black coffee</li>
+                    <li>Water</li>
+                    <li>Tea (white, green, hibiscus) w/ lemon</li>
+                    <li>Black coffee</li>
+                    <li v-if="this.userBodyGoal >= 1">
+                      <span
+                        >Smoothies rich in Fruit, Veggies, and Protein (see Meal
+                        Planner for ideas) to build lean muscle</span
+                      >
+                    </li>
                   </ul></span
                 >
               </li>
@@ -1068,8 +1074,20 @@
               >Recommended Weekly <i></i> Exercise Plan</span
             >
             <div class="border-double-1 graphPaper-2 q-pa-sm">
-              I've put together a few different impact levels, as we all have
-              different energy levels on different days. You find them with the
+              <!-- Gain muscle -->
+              <span class="" v-if="this.userBodyGoal >= 1">
+                <span v-html="skillTo1RM(userSkill)"></span>
+                <details>
+                  <summary>Your 60 day plan</summary>
+                  <span v-html="skillTo1RM(userSkill, true)"></span>
+                </details>
+              </span>
+              <span class="">
+                I've put together a few different impact levels, as we all have
+                different energy levels on different days, feel free to
+                occasionally switch them up with your prescribed routine. You
+                find them all in the</span
+              >
               <q-btn
                 @click="this.$router.push({ name: 'player' })"
                 color=""
@@ -1078,6 +1096,7 @@
               >
                 <span>&nbsp;Setlists </span>
               </q-btn>
+              section
             </div>
             <div style="width: 99%; border-bottom: 1px solid">
               <span class="text-h5"
@@ -2019,13 +2038,14 @@ needed for sets to failure for a specific repetition number[1].`,
                   ></span>
                 </td>
               </tr>
+
               <tr :class="{ 'border-selection': userSkill >= 10 }">
                 <th scope="row">
                   <span class="mdi mdi-check-outline text-success"></span> 1RM
-                  95% @02reps
+                  80% @08reps
                 </th>
-                <td class="maleChart">~{{ show1RM(195) }}</td>
-                <td class="femaleChart">~{{ show1RM(295) }}</td>
+                <td class="maleChart">~{{ show1RM(180) }}</td>
+                <td class="femaleChart">~{{ show1RM(280) }}</td>
               </tr>
               <tr
                 :class="{
@@ -2828,6 +2848,97 @@ export default {
     };
   },
   methods: {
+    skillTo1RM(userSkill, table = false) {
+      //PMID: 31817252
+      if (userSkill >= 10) {
+        return `${this.show1RM(195)} to ${this.show1RM(295)}`;
+        //   `95% @02reps
+        //   <td class="maleChart">~{{ show1RM(195) }}</td>
+        // <td class="femaleChart">~{{ show1RM(295) }}</td>`
+      }
+      if (userSkill >= 5 && userSkill <= 9) {
+        //   `90% @04reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(190) }}</td>
+        // <td class="femaleChart">~{{ show1RM(290) }}</td>`
+      }
+      if (userSkill >= 1 && userSkill <= 4) {
+        let lift = `${this.show1RM(280)} to ${this.show1RM(180)} (${(
+          this.show1RM(280, false) * 2.2
+        ).toFixed(1)} lbs to ${(this.show1RM(180, false) * 2.2).toFixed(
+          1
+        )} lbs) weights`;
+        if (this.userGender == 1) {
+          //female
+          lift = `${this.show1RM(280)} (${(
+            this.show1RM(280, false) * 2.2
+          ).toFixed(1)} lbs) weights`;
+        }
+        if (this.userGender == 0) {
+          //male
+          lift = `${this.show1RM(180)} (${(
+            this.show1RM(180, false) * 2.2
+          ).toFixed(1)} lbs) weights`;
+        }
+        if (table) {
+          return `<table border="1"><tr class="text-center"><th colspan="5">60 day Plan</th></tr>
+          <tr>
+            <th>Week Number</th><th>Days/Week</th><th>Reps</th><th>Sets</th><th>Rests</th>
+          </tr>
+          <tr class="text-center">
+            <td>1</td><td>3</td><td>8</td><td>6 + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>2</td><td>3</td><td>8</td><td>9 + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>3</td><td>3</td><td>8</td><td>12 + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>4</td><td>3</td><td>8</td><td>15 + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>5</td><td>3</td><td>8</td><td>18 + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>6</td><td>3</td><td>8</td><td>21 + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>7</td><td>3</td><td>8</td><td>24 + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>8</td><td>3</td><td>8</td><td>27 + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>9</td><td colspan="4">Rest Week</td>
+          </tr>
+        </table>`;
+        }
+        return `Start with 6 sets of 8 repetitions 3 days per week. Aim for around ${lift}, with 60-80 seconds rest between reps.<br/>Every day add 1 set for fast muscle and strength gains. If you miss a day then try to make up for it before the week ends. See your 60 day plan below.<br/>
+        `;
+
+        //  ` 80% @08reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(180) }}</td>
+        // <td class="femaleChart">~{{ show1RM(280) }}</td>`
+      }
+      if (userSkill == 0) {
+        //  `70% @12reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(170) }}</td>
+        // <td class="femaleChart">~{{ show1RM(270) }}</td>`
+      }
+      if (userSkill <= -1 && userSkill >= -3) {
+        //   `60% @20reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(160) }}</td>
+        // <td class="femaleChart">~{{ show1RM(260) }}</td>`
+      }
+      if (userSkill <= -4 && userSkill >= -6) {
+        `50% @30reps
+      </th>
+      <td class="maleChart">~{{ show1RM(150) }}</td>
+      <td class="femaleChart">~{{ show1RM(250) }}</td>`;
+      }
+      if (userSkill <= -7) {
+        `40% @40reps
+      </th>
+      <td class="maleChart">~{{ show1RM(140) }}</td>
+      <td class="femaleChart">~{{ show1RM(240) }}</td>`;
+      }
+    },
     riskFromDoctorMouth(risk = "", type = 0) {
       console.log("risk-=", risk);
       if (risk === "all") {
@@ -3802,7 +3913,7 @@ export default {
       // );
       return (maxHR * percent * 0.01).toFixed(0);
     },
-    show1RM(type = 0) {
+    show1RM(type = 0, showUnit = true) {
       let useLB = this.userKG ? 1 : 1; //
       let guessMale =
         this.userWeight *
@@ -3821,6 +3932,14 @@ export default {
       let guessFemale2 = guessFemale - guessFemale * (lossOfStrength * 0.01);
 
       // get percentages from guessMale & guessFemale bases
+      if (showUnit == false) {
+        if (type > 100 && type < 201) {
+          return (guessMale2 * ((type - 100) * 0.01)).toFixed(0);
+        }
+        if (type > 200 && type < 301) {
+          return (guessFemale2 * ((type - 200) * 0.01)).toFixed(0);
+        }
+      }
       if (type > 100 && type < 201) {
         return (guessMale2 * ((type - 100) * 0.01)).toFixed(0) + `${unitKG}`;
       }
@@ -4247,22 +4366,20 @@ export default {
               "Relative to daytime snacking, nighttime snacking significantly decreased fat oxidation (daytime snacking: 52.0 ± 13.6 g/day; nighttime snacking: 45.8 ± 14.0 g/day; P = 0.02) and tended to increase the respiratory quotient (daytime snacking: 0.878 ± 0.022; nighttime snacking: 0.888 ± 0.021; P = 0.09) [PMID: 23174861]."
             </blockquote>
           </details>`;
-
-      const gain_cals = `<details class="q-ml-md noblink-details"><summary>Try to eat between ${this.getBMR(
+      const pbs = 24;
+      const protein_pbs_total = `${((this.userWeight * 1.9) / pbs).toFixed(
+        0
+      )} to ${((this.userWeight * 3) / pbs).toFixed(0)}`;
+      const gain_cals = `<details class="q-ml-md noblink-details"><summary>Try to eat at least ${this.getBMR(
         5
-      )} and ${this.getBMR(
+      )} to ${this.getBMR(
         4
-      )} Calories everyday</summary>Aim for lots of fruit (frozen or fresh), whole grains, and beans & nuts like: chickpeas, lentils, walnuts, peanuts, all beans, peas, edemame, Tempeh.</details>`;
-      const gain_protein = `<details class="q-ml-md noblink-details"><summary>Aim for around ${
+      )} everyday</summary>Aim for lots of fruit (frozen or fresh), whole grains, and beans & nuts like: chickpeas, lentils, walnuts, peanuts, all beans, peas, edemame, Tempeh.</details>`;
+      const gain_protein = `<details class="q-ml-md noblink-details"><summary>Eat around ${
         this.userWeight * 1.9
       } to ${
-        this.userWeight * 3.1
-      } grams of protein per day.</summary> E.g. A peanut butter sandwich (go chunky) is around 27 grams of protein, a cup of lentils or humus is around the same. So that's about ${(
-        (this.userWeight * 3.1) /
-        27
-      ).toFixed(
-        0
-      )} Peanut butter sandwiches / day, but try to switch it up!</details>`;
+        this.userWeight * 3.0
+      } grams of protein per day.</summary> E.g. A peanut butter sandwich (or almond etc.) is around ${pbs} grams of protein, a cup of lentils or hummus is around the same. So that's about ${protein_pbs_total} Peanut butter sandwiches / day, but try to have variety in what you eat!</details>`;
       if (this.userBodyGoal == -2) {
         // for loose weight
         return `<div class="q-ma-sm"><div class="bg-primary">•Before every meal:</div>${preload_water}${preload_salad}</div><div class="q-ma-sm"><div class="bg-warning">•Restrictions:</div>${fasting_after7}!</div>`;
@@ -4275,7 +4392,7 @@ export default {
         // for maintain weight
         return `<div class="q-ma-sm"><div class="bg-primary">•Before every meal:</div>${preload_water}</div><div class="q-ma-sm"><div class="bg-warning">•Restrictions:</div>${fasting_after7}</div>`;
       }
-      if (this.userBodyGoal == 1) {
+      if (this.userBodyGoal >= 1) {
         // for gain muscle
         return `<div class="q-ma-sm"><div class="bg-primary">•Each day:</div>${gain_cals}${gain_protein}</div><div class="q-ma-sm"><div class="bg-warning">•Restrictions:</div>${fasting_after7}</div>`;
       }
