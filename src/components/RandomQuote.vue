@@ -1,7 +1,9 @@
 <template>
   <!-- <q-btn @click="refreshMsg()">sfgdsf</q-btn> -->
   <div class="quote-holder">
-    <p class="on-the-floor bg-accent" v-html="footMessage"></p>
+    <p class="on-the-floor bg-accent">
+      <span v-html="footMessage"></span><span v-html="tackOnMsg"></span>
+    </p>
     <div class="bg-dark border-torn-holder">
       <div class="border-torn">
         <span v-html="refreshMsg(1)"></span>
@@ -12,6 +14,7 @@
 
 <script>
 export default {
+  props: ["tackOnMsg"],
   data() {
     return {
       footMessage: this.randomAtYourFeetMsg,
@@ -36,7 +39,7 @@ export default {
         "Wedged between two floor panels you notice a tiny shred from some antiquated and cryptic tome...",
         "A gust of wind blows an enigmatic scrap of some perplexing scroll that you snatch from the air...",
         "A hunk of parchment slides under a crack in the door, you open the door... nobody there, but there's some scribbles on the paper.",
-        "You notice an ancient looking piece of crumpled garbage on the floor, on it there is some medical drivel... you really need to sweep up in here.",
+        "You notice an ancient looking piece of crumpled garbage on the floor, on it there is some medical drivel...",
       ];
 
       let itemNum = Math.floor(Math.random() * atfeet.length);

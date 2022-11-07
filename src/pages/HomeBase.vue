@@ -506,7 +506,7 @@
 
 
   -->
-    <Quotes />
+    <Quotes :tackOnMsg="tackOnMsg" />
   </div>
 </template>
 
@@ -519,6 +519,7 @@ export default {
   },
   data() {
     return {
+      tackOnMsg: "  ...you really need to sweep up in here",
       d1Value: [],
       d1Die: 0,
 
