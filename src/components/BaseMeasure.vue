@@ -4,199 +4,201 @@
       <video hidden id="webcam" width="640" height="480"></video>
       <canvas id="canvas" width="640" height="480"></canvas>
     </div> -->
+    <details class="user-input-area" :open="viewPrescriptionOnly != true">
+      <summary class="q-mt-sm">Edit My Details</summary>
+      <!-- <div class="bit8-stethoscope"></div> -->
+      <div class="questItem shadow-sm p-3" id="statsInput">
+        <div class="is-card-type">
+          <span class="title-text">Baseline Measurements</span>
+        </div>
+        <div class="row no-wrap justify-between is-retro-icon">
+          <div class="mdi mdi-tape-measure text-h2 pr-5 text-left"></div>
+          <p class="text-center text-h5">
+            Let's find out some of your basic info so you can tell me your
+            health goals!
+          </p>
+          <div class="mdi mdi-scale-bathroom text-h2 pr-5 text-right"></div>
+        </div>
+        <div class="input-group mb-3 w-75 shadow-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><span class="mdi mdi-human-male-height text-h3"></span
+            ></span>
+          </div>
 
-    <div class="questItem shadow-sm p-3" id="statsInput">
-      <div class="is-card-type">
-        <span class="title-text">Baseline Measurements</span>
-      </div>
-      <div class="row no-wrap justify-between is-retro-icon">
-        <div class="mdi mdi-tape-measure text-h2 pr-5 text-left"></div>
-        <p class="text-center text-h5">
-          Let's find out some of your basic info so you can tell me your health
-          goals!
-        </p>
-        <div class="mdi mdi-scale-bathroom text-h2 pr-5 text-right"></div>
-      </div>
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-human-male-height text-h3"></span
-          ></span>
-        </div>
+          <input
+            type="text"
+            id="userHeight"
+            ref="userHeight"
+            class="form-control graphPaper-2"
+            v-model="userHeight"
+            placeholder="Height"
+            aria-label="height"
+            aria-describedby="basic-addon1"
+            @focus="$event.target.select()"
+          />
 
-        <input
-          type="text"
-          id="userHeight"
-          ref="userHeight"
-          class="form-control graphPaper-2"
-          v-model="userHeight"
-          placeholder="Height"
-          aria-label="height"
-          aria-describedby="basic-addon1"
-          @focus="$event.target.select()"
-        />
-
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button
-            type="button"
-            class="btn btn-primary bg-info"
-            ref="userCMObj"
-            @click="toggleCM(true)"
-          >
-            CM
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary bg-secondary"
-            ref="userFTObj"
-            @click="toggleCM(false)"
-          >
-            FT
-          </button>
-        </div>
-      </div>
-      <label for="userHeight">Height</label>
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-weight text-h3"></span
-          ></span>
-        </div>
-        <input
-          type="number"
-          id="userWeight"
-          class="form-control graphPaper-2"
-          v-model="userWeight"
-          placeholder="Weight"
-          aria-label="Weight"
-          aria-describedby="basic-addon1"
-          @focus="$event.target.select()"
-        />
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button
-            type="button"
-            class="btn btn-primary bg-info"
-            ref="userKGObj"
-            @click="toggleKG(true)"
-          >
-            KG
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary bg-secondary"
-            ref="userLBObj"
-            @click="toggleKG(false)"
-          >
-            LBS
-          </button>
-        </div>
-      </div>
-      <label for="userWeight">Weight</label>
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-cake-variant text-h3"></span
-          ></span>
-        </div>
-        <input
-          type="number"
-          class="form-control graphPaper-2"
-          v-model="userAge"
-          placeholder="Age"
-          aria-label="Age"
-          aria-describedby="basic-addon1"
-          @focus="$event.target.select()"
-        /><br />
-        <label for="userAge">Age</label>
-      </div>
-      <!-- Current Gender -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="text-h3"><q-icon name="fas fa-venus-mars" /></span
-          ></span>
-        </div>
-        <q-btn
-          ref="flipMale"
-          :class="{
-            'btn btn-secondary': true,
-            'bg-secondary': this.userGender == 1,
-            'bg-info': this.userGender == 0,
-          }"
-          @click="flipGender(0)"
-        >
-          <q-icon name="mdi-human-male" size="25px" /> male&nbsp;
-        </q-btn>
-        <q-btn
-          ref="flipFemale"
-          :class="{
-            'btn btn-secondary': true,
-            'bg-secondary': this.userGender == 0,
-            'bg-info': this.userGender == 1,
-          }"
-          @click="flipGender(1)"
-        >
-          <q-icon name="mdi-human-female" size="25px" /> female&nbsp;
-        </q-btn>
-
-        <br />
-        <label for="userAge">Gender</label>
-      </div>
-
-      <!-- User Resting Heart Rate -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span
-              class="mdi mdi-heart-pulse text-h3"
-              ref="smBpmIcon"
-              style="border-radius: 100%"
-            ></span
-          ></span>
-          <div style="font-size: 8px; max-width: 40%">
-            You can use the BPM button on the lower right to record the value
-            below when you are in a relaxed state, or
-            <a
-              href="https://prouast.github.io/heartbeat-js/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >tap here</a
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button
+              type="button"
+              class="btn btn-primary bg-info"
+              ref="userCMObj"
+              @click="toggleCM(true)"
             >
-            to track via video.
+              CM
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary bg-secondary"
+              ref="userFTObj"
+              @click="toggleCM(false)"
+            >
+              FT
+            </button>
           </div>
         </div>
-        <input
-          type="number"
-          class="form-control graphPaper-2"
-          v-model="userRHR"
-          placeholder="Resting Heart Rate"
-          aria-label="Age"
-          aria-describedby="basic-addon1"
-          @focus="
-            $event.target.select();
-            this.$refs.smBpmIcon.classList.add('pulseBPMTap');
-          "
-          v-on:blur="$refs.smBpmIcon.classList.remove('pulseBPMTap')"
-        /><br />
-        <label for="userRHR">Resting Heart Rate</label>
-      </div>
-
-      <!-- Mobility level -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-shape-plus text-h3"></span
-          ></span>
+        <label for="userHeight">Height</label>
+        <div class="input-group mb-3 w-75 shadow-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><span class="mdi mdi-weight text-h3"></span
+            ></span>
+          </div>
+          <input
+            type="number"
+            id="userWeight"
+            class="form-control graphPaper-2"
+            v-model="userWeight"
+            placeholder="Weight"
+            aria-label="Weight"
+            aria-describedby="basic-addon1"
+            @focus="$event.target.select()"
+          />
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button
+              type="button"
+              class="btn btn-primary bg-info"
+              ref="userKGObj"
+              @click="toggleKG(true)"
+            >
+              KG
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary bg-secondary"
+              ref="userLBObj"
+              @click="toggleKG(false)"
+            >
+              LBS
+            </button>
+          </div>
         </div>
-        <select
-          id="userSkill"
-          class="form-control"
-          v-model="userSkill"
-          placeholder="Skill Level"
-          aria-label="Skill"
-          aria-describedby="basic-addon1"
-        >
-          <!-- <option value="0">No exercise, or occasional</option>
+        <label for="userWeight">Weight</label>
+        <div class="input-group mb-3 w-75 shadow-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><span class="mdi mdi-cake-variant text-h3"></span
+            ></span>
+          </div>
+          <input
+            type="number"
+            class="form-control graphPaper-2"
+            v-model="userAge"
+            placeholder="Age"
+            aria-label="Age"
+            aria-describedby="basic-addon1"
+            @focus="$event.target.select()"
+          /><br />
+          <label for="userAge">Age</label>
+        </div>
+        <!-- Current Gender -->
+        <div class="input-group mb-3 w-75 shadow-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><span class="text-h3"><q-icon name="fas fa-venus-mars" /></span
+            ></span>
+          </div>
+          <q-btn
+            ref="flipMale"
+            :class="{
+              'btn btn-secondary': true,
+              'bg-secondary': this.userGender == 1,
+              'bg-info': this.userGender == 0,
+            }"
+            @click="flipGender(0)"
+          >
+            <q-icon name="mdi-human-male" size="25px" /> male&nbsp;
+          </q-btn>
+          <q-btn
+            ref="flipFemale"
+            :class="{
+              'btn btn-secondary': true,
+              'bg-secondary': this.userGender == 0,
+              'bg-info': this.userGender == 1,
+            }"
+            @click="flipGender(1)"
+          >
+            <q-icon name="mdi-human-female" size="25px" /> female&nbsp;
+          </q-btn>
+
+          <br />
+          <label for="userAge">Gender</label>
+        </div>
+
+        <!-- User Resting Heart Rate -->
+        <div class="input-group mb-3 w-75 shadow-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><span
+                class="mdi mdi-heart-pulse text-h3"
+                ref="smBpmIcon"
+                style="border-radius: 100%"
+              ></span
+            ></span>
+            <div style="font-size: 8px; max-width: 40%">
+              You can use the BPM button on the lower right to record the value
+              below when you are in a relaxed state, or
+              <a
+                href="https://prouast.github.io/heartbeat-js/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >tap here</a
+              >
+              to track via video.
+            </div>
+          </div>
+          <input
+            type="number"
+            class="form-control graphPaper-2"
+            v-model="userRHR"
+            placeholder="Resting Heart Rate"
+            aria-label="Age"
+            aria-describedby="basic-addon1"
+            @focus="
+              $event.target.select();
+              this.$refs.smBpmIcon.classList.add('pulseBPMTap');
+            "
+            v-on:blur="$refs.smBpmIcon.classList.remove('pulseBPMTap')"
+          /><br />
+          <label for="userRHR">Resting Heart Rate</label>
+        </div>
+
+        <!-- Mobility level -->
+        <div class="input-group mb-3 w-75 shadow-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><span class="mdi mdi-shape-plus text-h3"></span
+            ></span>
+          </div>
+          <select
+            id="userSkill"
+            class="form-control"
+            v-model="userSkill"
+            placeholder="Skill Level"
+            aria-label="Skill"
+            aria-describedby="basic-addon1"
+          >
+            <!-- <option value="0">No exercise, or occasional</option>
           <option value="1.1">1 day every week</option>
           <option value="1.1">~1-2 days</option>
           <option value="1.2">2 days</option>
@@ -209,24 +211,24 @@
           <option value="3">I'm a professional athlete</option>
         </select> -->
 
-          <option value="-10">Unable to stand</option>
-          <option value="-6">Mobility issus</option>
-          <option value="-5">Obesely overweight</option>
-          <option value="-3">Very overweight</option>
-          <option value="-2">Overweight</option>
-          <option value="2.0">A bit overweight</option>
-          <option value="0">Very thin</option>
-          <option value="1.0">Skinny but overweight (skinny-fat)</option>
-          <option value="1">A bit underweight</option>
-          <option value="2">Average Build</option>
-          <option value="3">Athletic</option>
-          <option value="7">Body Builder</option>
-          <option value="9">Fitness trainer</option>
+            <option value="-10">Unable to stand</option>
+            <option value="-6">Mobility issus</option>
+            <option value="-5">Obesely overweight</option>
+            <option value="-3">Very overweight</option>
+            <option value="-2">Overweight</option>
+            <option value="2.0">A bit overweight</option>
+            <option value="0">Very thin</option>
+            <option value="1.0">Skinny but overweight (skinny-fat)</option>
+            <option value="1">A bit underweight</option>
+            <option value="2">Average Build</option>
+            <option value="3">Athletic</option>
+            <option value="7">Body Builder</option>
+            <option value="9">Fitness trainer</option>
 
-          slim average athletic obese
-          <!-- slim average athletic obese -->
-        </select>
-        <!-- could be check box collective such as:
+            slim average athletic obese
+            <!-- slim average athletic obese -->
+          </select>
+          <!-- could be check box collective such as:
                       -at work/school I: am on my feet all day, sit all day, don't work, work up a sweat for 10 minutes every day,
                       I don't work
 
@@ -239,261 +241,263 @@
                       My hobbies include, for more than 30 minutes at a time: moderate exercise [ ] days/week
                       sitting watching tv/phone [ ] days per week
         -->
-        <br />
-        <label for="userSkill">Body Shape</label>
-      </div>
-
-      <!-- Exercise frequency -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-calendar-heart text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userExerciseFrequency"
-          class="form-control"
-          v-model="userExerciseFrequency"
-          placeholder="Exercise Frequency"
-          aria-label="Exercise Frequency"
-          aria-describedby="basic-addon1"
-        >
-          <option value="0">Never</option>
-          <option value="0.0">Less than once a week</option>
-          <option value="1">Once a week</option>
-          <option value="2">Two to three times a week</option>
-          <option value="3">Almost every day</option>
-        </select>
-
-        <br />
-        <label for="userSkill">Exercise Frequency</label>
-      </div>
-
-      <!-- Exercise Effort -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-gauge text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userExerciseEffort"
-          class="form-control"
-          v-model="userExerciseEffort"
-          placeholder="Exercise Effort"
-          aria-label="Exercise Effort"
-          aria-describedby="basic-addon1"
-        >
-          <option value="-1">I Don't Exercise</option>
-          <option value="0">I Take it Easy</option>
-          <option value="3">I Take it Easy</option>
-          <!-- 3 & 7 are not a values usually an 10 is 7 -->
-          <option value="5">Heavy Breathing & Sweating</option>
-          <option value="7">I Push near Exhaustion</option>
-          <option value="10">I Push to Exhaustion</option>
-        </select>
-
-        <br />
-        <label for="userSkill">Exercise Effort</label>
-      </div>
-      <!-- Exercise Length -->
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1"
-            ><span class="mdi mdi-clock text-h3"></span
-          ></span>
-        </div>
-        <select
-          id="userExerciseLength"
-          class="form-control"
-          v-model="userExerciseLength"
-          placeholder="Exercise Length"
-          aria-label="Exercise Length"
-          aria-describedby="basic-addon1"
-        >
-          <option value="1">Less than 15 min.</option>
-          <option value="1.01">16 to 30 min.</option>
-          <option value="1.5">30 to 60 min.</option>
-          <option value="1.5">more than 60 min.</option>
-        </select>
-
-        <br />
-        <label for="userSkill">Exercise Length</label>
-      </div>
-
-      <div class="input-group mb-3 w-75 shadow-sm">
-        <div class="input-group-prepend">
-          <details :open="userNeck > 0">
-            <summary><span>Have a tape measure handy?</span></summary>
-            <fieldset>
-              <div>
-                We can get more details if you have a tape measure (non-stretch
-                & cloth is best.) but feel free to skip this if you don't.
-              </div>
-              <span class="mdi mdi-tape-measure text-h3"></span>
-              <span class="mdi mdi-arrow-left-right-bold text-h3"></span>
-              <span class="mdi mdi-human text-h3"></span>
-              <div class="row">
-                <div
-                  class="border-double-1 border-accent vertical-top width-100"
-                >
-                  <div class="title-h4">Neck</div>
-                  Measure neck circumference from below the larynx, with the
-                  tape angled downward to the front.
-                  <div>
-                    <input
-                      type="number"
-                      id="userNeck"
-                      class="form-control graphPaper-2"
-                      v-model="userNeck"
-                      placeholder="Neck Size"
-                      aria-label="Neck circumference"
-                      aria-describedby="basic-addon1"
-                      @focus="$event.target.select()"
-                    />
-                    <br /><label for="userNeck">Neck Circumference</label><br />
-                  </div>
-                </div>
-                <div
-                  class="border-double-1 border-accent vertical-top width-100"
-                >
-                  <div class="title-h4">Waist</div>
-                  <div>
-                    <b>Male:</b> Measure waist around the navel (belly button)
-                  </div>
-                  <div>
-                    <b>Female:</b> Measure waist around smallest part of torso
-                  </div>
-                  <div>
-                    <input
-                      type="number"
-                      id="userWaist"
-                      class="form-control graphPaper-2"
-                      v-model="userWaist"
-                      placeholder="Waist Size"
-                      aria-label="Waist circumference"
-                      aria-describedby="basic-addon1"
-                      @focus="$event.target.select()"
-                    />
-                    <br /><label for="userWaist">Waist Circumference </label>
-                  </div>
-                </div>
-                <div
-                  class="border-double-1 border-accent vertical-top width-100"
-                >
-                  <div class="title-h4">Hips</div>
-                  <b>Both:</b>Measure hips at the widest part, usually around
-                  buttocks/crotch, where you bend over from.
-                  <div>
-                    <input
-                      type="number"
-                      id="userHip"
-                      class="form-control graphPaper-2"
-                      v-model="userHip"
-                      placeholder="Hip Size"
-                      aria-label="Hip circumference"
-                      aria-describedby="basic-addon1"
-                      @focus="$event.target.select()"
-                    />
-
-                    <br /><label for="userHip">Hip Circumference</label>
-                  </div>
-                </div>
-                <span v-if="userNeck > 0"
-                  ><br />
-                  {{
-                    `Male:${navyBFP(0).toFixed(1)}  Female:${navyBFP(1).toFixed(
-                      1
-                    )}`
-                  }}
-                </span>
-              </div>
-            </fieldset>
-          </details>
-        </div>
-      </div>
-    </div>
-    <!-- your personal goals -->
-    <div class="questItem shadow-sm p-3" id="statsInput">
-      <div class="is-card-type">
-        <span class="title-text">Personal Health Goals</span>
-      </div>
-      <div class="row no-wrap justify-between is-retro-icon">
-        <div class="mdi mdi-account-heart text-h2 pr-5 text-left"></div>
-        <p class="text-center text-h5">
-          Now tell me what's the reason for your visit today, and how you want
-          to improve your health?
-        </p>
-        <div class="mdi mdi-calendar-star text-h2 pr-5 text-right"></div>
-      </div>
-      <div>
-        <q-icon class="text-h3" name="mdi-human-edit"></q-icon><br />
-        <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8145781/ -->
-        <select
-          id="userBodyGoal"
-          class="form-control"
-          v-model="userBodyGoal"
-          placeholder="Body Goal"
-          aria-label="Body Type Goal"
-          aria-describedby="basic-addon1"
-        >
-          <option value="-2">Loose a lot of body fat</option>
-          <option value="-1">Loose a bit of body fat</option>
-          <option value="0">Maintain my current weight</option>
-          <option value="1">Get an athletic body</option>
-          <option value="2">Get a muscular body</option>
-          <option value="3">Get a bodybuilder body</option></select
-        ><br />
-        <label for="userBodyGoal">Desired Body Improvement</label>
-      </div>
-      <br />
-      <fieldset>
-        <legend>
-          <q-icon class="text-h3" name="mdi-head-dots-horizontal"></q-icon> My
-          Health Concerns
-        </legend>
-        <div>
           <br />
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="heart"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Heart Disease</span> </label
-          ><br />
+          <label for="userSkill">Body Shape</label>
+        </div>
 
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="cancer"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Cancer</span> </label
-          ><br />
+        <!-- Exercise frequency -->
+        <div class="input-group mb-3 w-75 shadow-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><span class="mdi mdi-calendar-heart text-h3"></span
+            ></span>
+          </div>
+          <select
+            id="userExerciseFrequency"
+            class="form-control"
+            v-model="userExerciseFrequency"
+            placeholder="Exercise Frequency"
+            aria-label="Exercise Frequency"
+            aria-describedby="basic-addon1"
+          >
+            <option value="0">Never</option>
+            <option value="0.0">Less than once a week</option>
+            <option value="1">Once a week</option>
+            <option value="2">Two to three times a week</option>
+            <option value="3">Almost every day</option>
+          </select>
 
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="diabetes"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Diabetes</span> </label
+          <br />
+          <label for="userSkill">Exercise Frequency</label>
+        </div>
+
+        <!-- Exercise Effort -->
+        <div class="input-group mb-3 w-75 shadow-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><span class="mdi mdi-gauge text-h3"></span
+            ></span>
+          </div>
+          <select
+            id="userExerciseEffort"
+            class="form-control"
+            v-model="userExerciseEffort"
+            placeholder="Exercise Effort"
+            aria-label="Exercise Effort"
+            aria-describedby="basic-addon1"
+          >
+            <option value="-1">I Don't Exercise</option>
+            <option value="0">I Take it Easy</option>
+            <option value="3">I Take it Easy</option>
+            <!-- 3 & 7 are not a values usually an 10 is 7 -->
+            <option value="5">Heavy Breathing & Sweating</option>
+            <option value="7">I Push near Exhaustion</option>
+            <option value="10">I Push to Exhaustion</option>
+          </select>
+
+          <br />
+          <label for="userSkill">Exercise Effort</label>
+        </div>
+        <!-- Exercise Length -->
+        <div class="input-group mb-3 w-75 shadow-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"
+              ><span class="mdi mdi-clock text-h3"></span
+            ></span>
+          </div>
+          <select
+            id="userExerciseLength"
+            class="form-control"
+            v-model="userExerciseLength"
+            placeholder="Exercise Length"
+            aria-label="Exercise Length"
+            aria-describedby="basic-addon1"
+          >
+            <option value="1">Less than 15 min.</option>
+            <option value="1.01">16 to 30 min.</option>
+            <option value="1.5">30 to 60 min.</option>
+            <option value="1.5">more than 60 min.</option>
+          </select>
+
+          <br />
+          <label for="userSkill">Exercise Length</label>
+        </div>
+
+        <div class="input-group mb-3 w-75 shadow-sm">
+          <div class="input-group-prepend">
+            <details :open="userNeck > 0">
+              <summary><span>Have a tape measure handy?</span></summary>
+              <fieldset>
+                <div>
+                  We can get more details if you have a tape measure
+                  (non-stretch & cloth is best.) but feel free to skip this if
+                  you don't.
+                </div>
+                <span class="mdi mdi-tape-measure text-h3"></span>
+                <span class="mdi mdi-arrow-left-right-bold text-h3"></span>
+                <span class="mdi mdi-human text-h3"></span>
+                <div class="row">
+                  <div
+                    class="border-double-1 border-accent vertical-top width-100"
+                  >
+                    <div class="title-h4">Neck</div>
+                    Measure neck circumference from below the larynx, with the
+                    tape angled downward to the front.
+                    <div>
+                      <input
+                        type="number"
+                        id="userNeck"
+                        class="form-control graphPaper-2"
+                        v-model="userNeck"
+                        placeholder="Neck Size"
+                        aria-label="Neck circumference"
+                        aria-describedby="basic-addon1"
+                        @focus="$event.target.select()"
+                      />
+                      <br /><label for="userNeck">Neck Circumference</label
+                      ><br />
+                    </div>
+                  </div>
+                  <div
+                    class="border-double-1 border-accent vertical-top width-100"
+                  >
+                    <div class="title-h4">Waist</div>
+                    <div>
+                      <b>Male:</b> Measure waist around the navel (belly button)
+                    </div>
+                    <div>
+                      <b>Female:</b> Measure waist around smallest part of torso
+                    </div>
+                    <div>
+                      <input
+                        type="number"
+                        id="userWaist"
+                        class="form-control graphPaper-2"
+                        v-model="userWaist"
+                        placeholder="Waist Size"
+                        aria-label="Waist circumference"
+                        aria-describedby="basic-addon1"
+                        @focus="$event.target.select()"
+                      />
+                      <br /><label for="userWaist">Waist Circumference </label>
+                    </div>
+                  </div>
+                  <div
+                    class="border-double-1 border-accent vertical-top width-100"
+                  >
+                    <div class="title-h4">Hips</div>
+                    <b>Both:</b>Measure hips at the widest part, usually around
+                    buttocks/crotch, where you bend over from.
+                    <div>
+                      <input
+                        type="number"
+                        id="userHip"
+                        class="form-control graphPaper-2"
+                        v-model="userHip"
+                        placeholder="Hip Size"
+                        aria-label="Hip circumference"
+                        aria-describedby="basic-addon1"
+                        @focus="$event.target.select()"
+                      />
+
+                      <br /><label for="userHip">Hip Circumference</label>
+                    </div>
+                  </div>
+                  <span v-if="userNeck > 0"
+                    ><br />
+                    {{
+                      `Male:${navyBFP(0).toFixed(1)}  Female:${navyBFP(
+                        1
+                      ).toFixed(1)}`
+                    }}
+                  </span>
+                </div>
+              </fieldset>
+            </details>
+          </div>
+        </div>
+      </div>
+      <!-- your personal goals -->
+      <div class="questItem shadow-sm p-3" id="statsInput">
+        <div class="is-card-type">
+          <span class="title-text">Personal Health Goals</span>
+        </div>
+        <div class="row no-wrap justify-between is-retro-icon">
+          <div class="mdi mdi-account-heart text-h2 pr-5 text-left"></div>
+          <p class="text-center text-h5">
+            Now tell me what's the reason for your visit today, and how you want
+            to improve your health?
+          </p>
+          <div class="mdi mdi-calendar-star text-h2 pr-5 text-right"></div>
+        </div>
+        <div>
+          <q-icon class="text-h3" name="mdi-human-edit"></q-icon><br />
+          <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8145781/ -->
+          <select
+            id="userBodyGoal"
+            class="form-control"
+            v-model="userBodyGoal"
+            placeholder="Body Goal"
+            aria-label="Body Type Goal"
+            aria-describedby="basic-addon1"
+          >
+            <option value="-2">Loose a lot of body fat</option>
+            <option value="-1">Loose a bit of body fat</option>
+            <option value="0">Maintain my current weight</option>
+            <option value="1">Get an athletic body</option>
+            <option value="2">Get a muscular body</option>
+            <option value="3">Get a bodybuilder body</option></select
           ><br />
-          <label>
-            <input
-              type="checkbox"
-              class="nes-radio"
-              value="alzheimers"
-              v-model="userConcerns"
-            />
-            <span class="check-label">Alzheimers</span> </label
-          ><br />
-          <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8702655/#sec0060title -->
-          <!-- <label>
+          <label for="userBodyGoal">Desired Body Improvement</label>
+        </div>
+        <br />
+        <fieldset>
+          <legend>
+            <q-icon class="text-h3" name="mdi-head-dots-horizontal"></q-icon> My
+            Health Concerns
+          </legend>
+          <div>
+            <br />
+            <label>
+              <input
+                type="checkbox"
+                class="nes-radio"
+                value="heart"
+                v-model="userConcerns"
+              />
+              <span class="check-label">Heart Disease</span> </label
+            ><br />
+
+            <label>
+              <input
+                type="checkbox"
+                class="nes-radio"
+                value="cancer"
+                v-model="userConcerns"
+              />
+              <span class="check-label">Cancer</span> </label
+            ><br />
+
+            <label>
+              <input
+                type="checkbox"
+                class="nes-radio"
+                value="diabetes"
+                v-model="userConcerns"
+              />
+              <span class="check-label">Diabetes</span> </label
+            ><br />
+            <label>
+              <input
+                type="checkbox"
+                class="nes-radio"
+                value="alzheimers"
+                v-model="userConcerns"
+              />
+              <span class="check-label">Alzheimers</span> </label
+            ><br />
+            <!-- https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8702655/#sec0060title -->
+            <!-- <label>
             <input
               type="checkbox"
               class="nes-radio"
@@ -502,286 +506,288 @@
             />
             <span class="check-label">General Immunity</span> </label
           ><br /> -->
-          check back soon for more...
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>
-          <q-icon class="text-h3" name="medical_information"></q-icon> My
-          Lifestyle
-        </legend>
-        <div>
-          <br />
+            check back soon for more...
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>
+            <q-icon class="text-h3" name="medical_information"></q-icon> My
+            Lifestyle
+          </legend>
+          <div>
+            <br />
 
-          <label>
-            I
+            <label>
+              I
+              <select
+                id="userUsedToDrink"
+                class="form-control tiny-input"
+                v-model="userUsedToDrink"
+                placeholder="Used To Drink"
+                aria-label="Used To Drink"
+                aria-describedby="basic-addon1"
+              >
+                <option value="0">currently</option>
+                <option value="1">used to</option>
+              </select>
+              drink alcoholic
+              <input type="number" v-model="userLifestyleAlcohol" />
+              <span class="check-label"></span>
+            </label>
+            drinks every
             <select
-              id="userUsedToDrink"
+              id="userLifestyleAlcoholFreq"
               class="form-control tiny-input"
-              v-model="userUsedToDrink"
-              placeholder="Used To Drink"
-              aria-label="Used To Drink"
+              v-model="userLifestyleAlcoholFreq"
+              placeholder="Frequency"
+              aria-label="Alcohol Frequency"
               aria-describedby="basic-addon1"
             >
-              <option value="0">currently</option>
-              <option value="1">used to</option>
+              <option value="365.25">Day</option>
+              <option value="52.177457">Week</option>
+              <option value="12">Month</option>
+              <option value="1">Year</option>
             </select>
-            drink alcoholic
-            <input type="number" v-model="userLifestyleAlcohol" />
-            <span class="check-label"></span>
-          </label>
-          drinks every
-          <select
-            id="userLifestyleAlcoholFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleAlcoholFreq"
-            placeholder="Frequency"
-            aria-label="Alcohol Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
 
-          <hr />
-        </div>
-        <div>
-          <br />
+            <hr />
+          </div>
+          <div>
+            <br />
 
-          <label>
-            I
+            <label>
+              I
+              <select
+                id="userUsedToSoda"
+                class="form-control tiny-input"
+                v-model="userUsedToSoda"
+                placeholder="Used To Soda"
+                aria-label="Used To Soda"
+                aria-describedby="basic-addon1"
+              >
+                <option value="0">currently</option>
+                <option value="1">used to</option>
+              </select>
+              drink soda pop or fruit juice
+              <input type="number" v-model="userLifestyleSoda" />
+              <span class="check-label"></span>
+            </label>
+            drinks every
             <select
-              id="userUsedToSoda"
+              id="userLifestyleSodaFreq"
               class="form-control tiny-input"
-              v-model="userUsedToSoda"
-              placeholder="Used To Soda"
-              aria-label="Used To Soda"
+              v-model="userLifestyleSodaFreq"
+              placeholder="Frequency"
+              aria-label="Soda Frequency"
               aria-describedby="basic-addon1"
             >
-              <option value="0">currently</option>
-              <option value="1">used to</option>
+              <option value="365.25">Day</option>
+              <option value="52.177457">Week</option>
+              <option value="12">Month</option>
+              <option value="1">Year</option>
             </select>
-            drink soda pop or fruit juice
-            <input type="number" v-model="userLifestyleSoda" />
-            <span class="check-label"></span>
-          </label>
-          drinks every
-          <select
-            id="userLifestyleSodaFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleSodaFreq"
-            placeholder="Frequency"
-            aria-label="Soda Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
 
-          <hr />
-        </div>
-        <div>
-          <br />
+            <hr />
+          </div>
+          <div>
+            <br />
 
-          <label>
-            I
+            <label>
+              I
+              <select
+                id="userUsedToSmoke"
+                class="form-control tiny-input"
+                v-model="userUsedToSmoke"
+                placeholder="Used To Smoke"
+                aria-label="Used To Smoke"
+                aria-describedby="basic-addon1"
+              >
+                <option value="0">currently</option>
+                <option value="1">used to</option>
+              </select>
+              smoke
+              <input type="number" v-model="userLifestyleSmokes" />
+              <span class="check-label"></span>
+            </label>
+            cigarettes every
             <select
-              id="userUsedToSmoke"
+              id="userLifestyleSmokesFreq"
               class="form-control tiny-input"
-              v-model="userUsedToSmoke"
-              placeholder="Used To Smoke"
-              aria-label="Used To Smoke"
+              v-model="userLifestyleSmokesFreq"
+              placeholder="Frequency"
+              aria-label="Smoking Frequency"
               aria-describedby="basic-addon1"
             >
-              <option value="0">currently</option>
-              <option value="1">used to</option>
+              <option value="365.25">Day</option>
+              <option value="52.177457">Week</option>
+              <option value="12">Month</option>
+              <option value="1">Year</option>
             </select>
-            smoke
-            <input type="number" v-model="userLifestyleSmokes" />
-            <span class="check-label"></span>
-          </label>
-          cigarettes every
-          <select
-            id="userLifestyleSmokesFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleSmokesFreq"
-            placeholder="Frequency"
-            aria-label="Smoking Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
 
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            I
+            <hr />
+          </div>
+          <div>
+            <br />
+            <label>
+              I
+              <select
+                id="userUsedToMeat"
+                class="form-control tiny-input"
+                v-model="userUsedToMeat"
+                placeholder="Used To Meat"
+                aria-label="Used To Meat"
+                aria-describedby="basic-addon1"
+              >
+                <option value="0">currently</option>
+                <option value="1">used to</option>
+              </select>
+              eat meat
+              <input type="number" v-model="userLifestyleMeat" />
+              <span class="check-label"></span>
+            </label>
+            times every
             <select
-              id="userUsedToMeat"
+              id="userLifestyleMeatFreq"
               class="form-control tiny-input"
-              v-model="userUsedToMeat"
-              placeholder="Used To Meat"
-              aria-label="Used To Meat"
+              v-model="userLifestyleMeatFreq"
+              placeholder="Frequency"
+              aria-label="Meat Eat Frequency"
               aria-describedby="basic-addon1"
             >
-              <option value="0">currently</option>
-              <option value="1">used to</option>
+              <option value="365.25">Day</option>
+              <option value="52.177457">Week</option>
+              <option value="12">Month</option>
+              <option value="1">Year</option>
             </select>
-            eat meat
-            <input type="number" v-model="userLifestyleMeat" />
-            <span class="check-label"></span>
-          </label>
-          times every
-          <select
-            id="userLifestyleMeatFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleMeatFreq"
-            placeholder="Frequency"
-            aria-label="Meat Eat Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
 
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            I
+            <hr />
+          </div>
+          <div>
+            <br />
+            <label>
+              I
+              <select
+                id="userUsedToSeafood"
+                class="form-control tiny-input"
+                v-model="userUsedToSeafood"
+                placeholder="Used To Seafood"
+                aria-label="Used To Seafood"
+                aria-describedby="basic-addon1"
+              >
+                <option value="0">currently</option>
+                <option value="1">used to</option>
+              </select>
+              eat seafood
+              <input type="number" v-model="userLifestyleSeafood" />
+              <span class="check-label"></span>
+            </label>
+            times every
             <select
-              id="userUsedToSeafood"
+              id="userLifestyleSeafoodFreq"
               class="form-control tiny-input"
-              v-model="userUsedToSeafood"
-              placeholder="Used To Seafood"
-              aria-label="Used To Seafood"
+              v-model="userLifestyleSeafoodFreq"
+              placeholder="Frequency"
+              aria-label="Seafood Frequency"
               aria-describedby="basic-addon1"
             >
-              <option value="0">currently</option>
-              <option value="1">used to</option>
+              <option value="365.25">Day</option>
+              <option value="52.177457">Week</option>
+              <option value="12">Month</option>
+              <option value="1">Year</option>
             </select>
-            eat seafood
-            <input type="number" v-model="userLifestyleSeafood" />
-            <span class="check-label"></span>
-          </label>
-          times every
-          <select
-            id="userLifestyleSeafoodFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleSeafoodFreq"
-            placeholder="Frequency"
-            aria-label="Seafood Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
 
-          <hr />
-        </div>
-        <!-- fastfood -->
-        <div>
-          <br />
+            <hr />
+          </div>
+          <!-- fastfood -->
+          <div>
+            <br />
 
-          <label>
-            I
+            <label>
+              I
+              <select
+                id="userUsedToFastfood"
+                class="form-control tiny-input"
+                v-model="userUsedToFastfood"
+                placeholder="Used To Fastfood"
+                aria-label="Used To Fastfood"
+                aria-describedby="basic-addon1"
+              >
+                <option value="0">currently</option>
+                <option value="1">used to</option>
+              </select>
+              eat fastfood / delivery / packaged / processed food
+              <input type="number" v-model="userLifestyleFastfood" />
+              <span class="check-label"></span>
+            </label>
+            meals every
             <select
-              id="userUsedToFastfood"
+              id="userLifestyleFastfoodFreq"
               class="form-control tiny-input"
-              v-model="userUsedToFastfood"
-              placeholder="Used To Fastfood"
-              aria-label="Used To Fastfood"
+              v-model="userLifestyleFastfoodFreq"
+              placeholder="Frequency"
+              aria-label="Fastfood Frequency"
               aria-describedby="basic-addon1"
             >
-              <option value="0">currently</option>
-              <option value="1">used to</option>
+              <option value="365.25">Day</option>
+              <option value="52.177457">Week</option>
+              <option value="12">Month</option>
+              <option value="1">Year</option>
             </select>
-            eat fastfood / delivery / packaged / processed food
-            <input type="number" v-model="userLifestyleFastfood" />
-            <span class="check-label"></span>
-          </label>
-          meals every
-          <select
-            id="userLifestyleFastfoodFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleFastfoodFreq"
-            placeholder="Frequency"
-            aria-label="Fastfood Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
 
-          <hr />
-        </div>
-        <!-- fastfood end -->
-        <div>
-          <br />
-          <label>
-            I
+            <hr />
+          </div>
+          <!-- fastfood end -->
+          <div>
+            <br />
+            <label>
+              I
+              <select
+                id="userUsedToDairy"
+                class="form-control tiny-input"
+                v-model="userUsedToDairy"
+                placeholder="Used To Dairy"
+                aria-label="Used To Dairy"
+                aria-describedby="basic-addon1"
+              >
+                <option value="0">currently</option>
+                <option value="1">used to</option>
+              </select>
+              eat dairy or eggs
+              <input type="number" v-model="userLifestyleDairy" />
+              <span class="check-label"></span>
+            </label>
+            times every
             <select
-              id="userUsedToDairy"
+              id="userLifestyleDairyFreq"
               class="form-control tiny-input"
-              v-model="userUsedToDairy"
-              placeholder="Used To Dairy"
-              aria-label="Used To Dairy"
+              v-model="userLifestyleDairyFreq"
+              placeholder="Frequency"
+              aria-label="Dairy Eat or Eggs Frequency"
               aria-describedby="basic-addon1"
             >
-              <option value="0">currently</option>
-              <option value="1">used to</option>
+              <option value="365.25">Day</option>
+              <option value="52.177457">Week</option>
+              <option value="12">Month</option>
+              <option value="1">Year</option>
             </select>
-            eat dairy or eggs
-            <input type="number" v-model="userLifestyleDairy" />
-            <span class="check-label"></span>
-          </label>
-          times every
-          <select
-            id="userLifestyleDairyFreq"
-            class="form-control tiny-input"
-            v-model="userLifestyleDairyFreq"
-            placeholder="Frequency"
-            aria-label="Dairy Eat or Eggs Frequency"
-            aria-describedby="basic-addon1"
-          >
-            <option value="365.25">Day</option>
-            <option value="52.177457">Week</option>
-            <option value="12">Month</option>
-            <option value="1">Year</option>
-          </select>
 
-          <hr />
-        </div>
-        <div>
-          <br />
-          <label>
-            Usually, I sit/lie around (sedentary) for
-            <input type="number" v-model="userLifestyleSedentary" />
-            <span class="check-label"></span>
-          </label>
-          hours every <b>day</b> (at home, work/school, watching tv, sitting,
-          etc. don't include your regular sleep)
+            <hr />
+          </div>
+          <div>
+            <br />
+            <label>
+              Usually, I sit/lie around (sedentary) for
+              <input type="number" v-model="userLifestyleSedentary" />
+              <span class="check-label"></span>
+            </label>
+            hours every <b>day</b> (at home, work/school, watching tv, sitting,
+            etc. don't include your regular sleep)
 
-          <hr />
-        </div>
-      </fieldset>
-    </div>
+            <hr />
+          </div>
+        </fieldset>
+      </div>
+    </details>
+
     <!-- Your Prescription -->
     <!-- TODO: DELETE THIS FILE and USE Measure.vue to pass props to Clipboard/ and Prescription -->
     <div class="q-ma-sm q-mt-xl">
@@ -845,12 +851,13 @@
         </p>
       </div>
       <!-- Start of prescription -->
+      <!-- <div class="bit8-flask"></div> -->
       <div class="title-h4 q-mb-sm">Your Prescription</div>
       <div class="text-center">
         Based off of your lifestyle and risk factors
       </div>
       <!-- <Prescription /> -->
-      <div class="paperSheetFlat shadow">
+      <div class="paperSheet shadow">
         <div class="alert alert-primary">
           <!-- <p>
             <span class="doctor-chat">Dr. Doctor</span>: See your prescribed meal plan and exercise guide below...
@@ -872,6 +879,7 @@
                 color=""
                 text-color="black"
                 icon="restaurant_menu"
+                name="apply"
               >
                 <span>&nbsp;Meal Planner </span>
               </q-btn>
@@ -1184,6 +1192,28 @@
           </details> -->
         </div>
       </div>
+      <!-- Follow up chat -->
+
+      <!-- <div class="q-ma-sm q-mt-xl"> think delete? -->
+      <!-- Doctor Chat 2 -->
+      <div class="bit8-doc"></div>
+      <div class="paperSheetFlat shadow">
+        <span class="doctor-chat">Dr. Doctor</span>: I've updated your
+        <q-btn
+          @click="this.$router.push({ name: 'player' })"
+          color="info"
+          text-color="negative"
+          icon="mdi-home-heart"
+          icon-color="negative"
+        >
+          <span>&nbsp;Homebase </span>
+        </q-btn>
+        Take a look if you're unsure what you should do next.
+
+        {{ riskFromDoctorMouth("all") }}
+      </div>
+
+      <!--  -->
     </div>
     <!-- <Prescription /> -->
     <!-- Then diagnosis: things to avoid, things to eat, things to do/exercise -->
@@ -1198,7 +1228,7 @@
       <summary class="text-center">Show me my chart</summary>
       <div class="clip shadow"></div>
       <div class="clipBoard table-responsive">
-        <div class="paperSheetFlat shadow">
+        <div class="paperSheet shadow">
           <table class="table">
             <thead>
               <tr class="text-center">
@@ -2765,6 +2795,7 @@ export default {
   },
   data() {
     return {
+      viewPrescriptionOnly: false,
       showModal: false,
       showCitationModal: false,
       userGender: LocalStorage.getItem("userGender") || null,
@@ -4313,6 +4344,10 @@ export default {
     },
   },
   mounted() {
+    console.log("meroute:", this.$route.hash);
+    if (this.$route.hash == "#prescription") {
+      this.viewPrescriptionOnly = true;
+    }
     console.log("basemeasure mounted");
     if (this.userHeightImp != "null" && this.userHeightImp !== null)
       this.toggleCM(false);
@@ -5046,5 +5081,254 @@ hr {
   position: relative;
   // left: -15%;
   left: -1.5em;
+}
+.bit8-flask {
+  box-shadow: 18px 2px 0 0 rgba(121, 85, 72, 1),
+    20px 2px 0 0 rgba(121, 85, 72, 1), 22px 2px 0 0 rgba(121, 85, 72, 1),
+    24px 2px 0 0 rgba(121, 85, 72, 1), 16px 4px 0 0 rgba(96, 125, 139, 1),
+    18px 4px 0 0 rgba(121, 85, 72, 1), 20px 4px 0 0 rgba(121, 85, 72, 1),
+    22px 4px 0 0 rgba(121, 85, 72, 1), 24px 4px 0 0 rgba(121, 85, 72, 1),
+    26px 4px 0 0 rgba(96, 125, 139, 1), 16px 6px 0 0 rgba(96, 125, 139, 1),
+    18px 6px 0 0 rgba(158, 158, 158, 1), 20px 6px 0 0 rgba(158, 158, 158, 1),
+    22px 6px 0 0 rgba(255, 255, 255, 1), 24px 6px 0 0 rgba(158, 158, 158, 1),
+    26px 6px 0 0 rgba(96, 125, 139, 1), 18px 8px 0 0 rgba(48, 63, 70, 1),
+    20px 8px 0 0 rgba(48, 63, 70, 1), 22px 8px 0 0 rgba(48, 63, 70, 1),
+    24px 8px 0 0 rgba(48, 63, 70, 1), 18px 10px 0 0 rgba(96, 125, 139, 1),
+    20px 10px 0 0 rgba(158, 158, 158, 1), 22px 10px 0 0 rgba(158, 158, 158, 1),
+    24px 10px 0 0 rgba(96, 125, 139, 1), 18px 12px 0 0 rgba(96, 125, 139, 1),
+    20px 12px 0 0 rgba(158, 158, 158, 1), 22px 12px 0 0 rgba(158, 158, 158, 1),
+    24px 12px 0 0 rgba(96, 125, 139, 1), 18px 14px 0 0 rgba(96, 125, 139, 1),
+    20px 14px 0 0 rgba(158, 158, 158, 1), 22px 14px 0 0 rgba(158, 158, 158, 1),
+    24px 14px 0 0 rgba(96, 125, 139, 1), 16px 16px 0 0 rgba(96, 125, 139, 1),
+    18px 16px 0 0 rgba(158, 158, 158, 1), 20px 16px 0 0 rgba(158, 158, 158, 1),
+    22px 16px 0 0 rgba(158, 158, 158, 1), 24px 16px 0 0 rgba(158, 158, 158, 1),
+    26px 16px 0 0 rgba(96, 125, 139, 1), 16px 18px 0 0 rgba(96, 125, 139, 1),
+    18px 18px 0 0 rgba(158, 158, 158, 1), 20px 18px 0 0 rgba(158, 158, 158, 1),
+    22px 18px 0 0 rgba(255, 255, 255, 1), 24px 18px 0 0 rgba(158, 158, 158, 1),
+    26px 18px 0 0 rgba(96, 125, 139, 1), 14px 20px 0 0 rgba(96, 125, 139, 1),
+    16px 20px 0 0 rgba(158, 158, 158, 1), 18px 20px 0 0 rgba(158, 158, 158, 1),
+    20px 20px 0 0 rgba(158, 158, 158, 1), 22px 20px 0 0 rgba(255, 255, 255, 1),
+    24px 20px 0 0 rgba(158, 158, 158, 1), 26px 20px 0 0 rgba(158, 158, 158, 1),
+    28px 20px 0 0 rgba(96, 125, 139, 1), 14px 22px 0 0 rgba(96, 125, 139, 1),
+    16px 22px 0 0 rgba(158, 158, 158, 1), 18px 22px 0 0 rgba(158, 158, 158, 1),
+    20px 22px 0 0 rgba(158, 158, 158, 1), 22px 22px 0 0 rgba(158, 158, 158, 1),
+    24px 22px 0 0 rgba(255, 255, 255, 1), 26px 22px 0 0 rgba(158, 158, 158, 1),
+    28px 22px 0 0 rgba(96, 125, 139, 1), 12px 24px 0 0 rgba(96, 125, 139, 1),
+    14px 24px 0 0 rgba(158, 158, 158, 1), 16px 24px 0 0 rgba(158, 158, 158, 1),
+    18px 24px 0 0 rgba(158, 158, 158, 1), 20px 24px 0 0 rgba(158, 158, 158, 1),
+    22px 24px 0 0 rgba(158, 158, 158, 1), 24px 24px 0 0 rgba(255, 255, 255, 1),
+    26px 24px 0 0 rgba(158, 158, 158, 1), 28px 24px 0 0 rgba(158, 158, 158, 1),
+    30px 24px 0 0 rgba(96, 125, 139, 1), 12px 26px 0 0 rgba(96, 125, 139, 1),
+    14px 26px 0 0 rgba(158, 158, 158, 1), 16px 26px 0 0 rgba(158, 158, 158, 1),
+    18px 26px 0 0 rgba(158, 158, 158, 1), 20px 26px 0 0 rgba(158, 158, 158, 1),
+    22px 26px 0 0 rgba(158, 158, 158, 1), 24px 26px 0 0 rgba(158, 158, 158, 1),
+    26px 26px 0 0 rgba(255, 255, 255, 1), 28px 26px 0 0 rgba(158, 158, 158, 1),
+    30px 26px 0 0 rgba(96, 125, 139, 1), 10px 28px 0 0 rgba(96, 125, 139, 1),
+    12px 28px 0 0 rgba(158, 158, 158, 1), 14px 28px 0 0 rgba(158, 158, 158, 1),
+    16px 28px 0 0 rgba(158, 158, 158, 1), 18px 28px 0 0 rgba(158, 158, 158, 1),
+    20px 28px 0 0 rgba(158, 158, 158, 1), 22px 28px 0 0 rgba(158, 158, 158, 1),
+    24px 28px 0 0 rgba(158, 158, 158, 1), 26px 28px 0 0 rgba(255, 255, 255, 1),
+    28px 28px 0 0 rgba(158, 158, 158, 1), 30px 28px 0 0 rgba(158, 158, 158, 1),
+    32px 28px 0 0 rgba(96, 125, 139, 1), 8px 30px 0 0 rgba(96, 125, 139, 1),
+    10px 30px 0 0 rgba(255, 193, 7, 1), 12px 30px 0 0 rgba(255, 152, 0, 1),
+    14px 30px 0 0 rgba(255, 152, 0, 1), 16px 30px 0 0 rgba(255, 152, 0, 1),
+    18px 30px 0 0 rgba(255, 152, 0, 1), 20px 30px 0 0 rgba(255, 152, 0, 1),
+    22px 30px 0 0 rgba(255, 152, 0, 1), 24px 30px 0 0 rgba(255, 152, 0, 1),
+    26px 30px 0 0 rgba(255, 152, 0, 1), 28px 30px 0 0 rgba(255, 255, 255, 1),
+    30px 30px 0 0 rgba(255, 193, 7, 1), 32px 30px 0 0 rgba(255, 193, 7, 1),
+    34px 30px 0 0 rgba(96, 125, 139, 1), 6px 32px 0 0 rgba(96, 125, 139, 1),
+    8px 32px 0 0 rgba(255, 193, 7, 1), 10px 32px 0 0 rgba(255, 193, 7, 1),
+    12px 32px 0 0 rgba(255, 152, 0, 1), 14px 32px 0 0 rgba(255, 152, 0, 1),
+    16px 32px 0 0 rgba(255, 152, 0, 1), 18px 32px 0 0 rgba(255, 152, 0, 1),
+    20px 32px 0 0 rgba(255, 152, 0, 1), 22px 32px 0 0 rgba(255, 152, 0, 1),
+    24px 32px 0 0 rgba(255, 152, 0, 1), 26px 32px 0 0 rgba(255, 152, 0, 1),
+    28px 32px 0 0 rgba(255, 152, 0, 1), 30px 32px 0 0 rgba(255, 255, 255, 1),
+    32px 32px 0 0 rgba(255, 193, 7, 1), 34px 32px 0 0 rgba(255, 193, 7, 1),
+    36px 32px 0 0 rgba(96, 125, 139, 1), 6px 34px 0 0 rgba(96, 125, 139, 1),
+    8px 34px 0 0 rgba(255, 193, 7, 1), 10px 34px 0 0 rgba(255, 193, 7, 1),
+    12px 34px 0 0 rgba(255, 152, 0, 1), 14px 34px 0 0 rgba(255, 152, 0, 1),
+    16px 34px 0 0 rgba(255, 152, 0, 1), 18px 34px 0 0 rgba(255, 152, 0, 1),
+    20px 34px 0 0 rgba(255, 152, 0, 1), 22px 34px 0 0 rgba(255, 152, 0, 1),
+    24px 34px 0 0 rgba(255, 152, 0, 1), 26px 34px 0 0 rgba(255, 152, 0, 1),
+    28px 34px 0 0 rgba(255, 152, 0, 1), 30px 34px 0 0 rgba(255, 255, 255, 1),
+    32px 34px 0 0 rgba(255, 193, 7, 1), 34px 34px 0 0 rgba(255, 193, 7, 1),
+    36px 34px 0 0 rgba(96, 125, 139, 1), 6px 36px 0 0 rgba(96, 125, 139, 1),
+    8px 36px 0 0 rgba(255, 193, 7, 1), 10px 36px 0 0 rgba(255, 193, 7, 1),
+    12px 36px 0 0 rgba(255, 193, 7, 1), 14px 36px 0 0 rgba(255, 152, 0, 1),
+    16px 36px 0 0 rgba(255, 152, 0, 1), 18px 36px 0 0 rgba(255, 152, 0, 1),
+    20px 36px 0 0 rgba(255, 152, 0, 1), 22px 36px 0 0 rgba(255, 152, 0, 1),
+    24px 36px 0 0 rgba(255, 152, 0, 1), 26px 36px 0 0 rgba(255, 152, 0, 1),
+    28px 36px 0 0 rgba(255, 152, 0, 1), 30px 36px 0 0 rgba(255, 255, 255, 1),
+    32px 36px 0 0 rgba(255, 193, 7, 1), 34px 36px 0 0 rgba(255, 193, 7, 1),
+    36px 36px 0 0 rgba(96, 125, 139, 1), 8px 38px 0 0 rgba(96, 125, 139, 1),
+    10px 38px 0 0 rgba(255, 193, 7, 1), 12px 38px 0 0 rgba(255, 193, 7, 1),
+    14px 38px 0 0 rgba(255, 193, 7, 1), 16px 38px 0 0 rgba(255, 152, 0, 1),
+    18px 38px 0 0 rgba(255, 152, 0, 1), 20px 38px 0 0 rgba(255, 152, 0, 1),
+    22px 38px 0 0 rgba(255, 152, 0, 1), 24px 38px 0 0 rgba(255, 152, 0, 1),
+    26px 38px 0 0 rgba(255, 152, 0, 1), 28px 38px 0 0 rgba(255, 152, 0, 1),
+    30px 38px 0 0 rgba(255, 193, 7, 1), 32px 38px 0 0 rgba(255, 193, 7, 1),
+    34px 38px 0 0 rgba(96, 125, 139, 1), 10px 40px 0 0 rgba(96, 125, 139, 1),
+    12px 40px 0 0 rgba(96, 125, 139, 1), 14px 40px 0 0 rgba(96, 125, 139, 1),
+    16px 40px 0 0 rgba(96, 125, 139, 1), 18px 40px 0 0 rgba(96, 125, 139, 1),
+    20px 40px 0 0 rgba(96, 125, 139, 1), 22px 40px 0 0 rgba(96, 125, 139, 1),
+    24px 40px 0 0 rgba(96, 125, 139, 1), 26px 40px 0 0 rgba(96, 125, 139, 1),
+    28px 40px 0 0 rgba(96, 125, 139, 1), 30px 40px 0 0 rgba(96, 125, 139, 1),
+    32px 40px 0 0 rgba(96, 125, 139, 1);
+  height: 2px;
+  width: 2px;
+  // opacity: 0.5;
+  display: inline-block;
+  position: relative;
+  left: -1.5em;
+  z-index: 500;
+}
+.bit8-stethoscope {
+  box-shadow: 14px 2px 0 0 rgba(0, 0, 0, 1), 16px 2px 0 0 rgba(0, 0, 0, 1),
+    18px 2px 0 0 rgba(0, 0, 0, 1), 26px 2px 0 0 rgba(0, 0, 0, 1),
+    28px 2px 0 0 rgba(0, 0, 0, 1), 30px 2px 0 0 rgba(0, 0, 0, 1),
+    10px 4px 0 0 rgba(0, 0, 0, 1), 12px 4px 0 0 rgba(0, 0, 0, 1),
+    14px 4px 0 0 rgba(48, 63, 70, 1), 16px 4px 0 0 rgba(48, 63, 70, 1),
+    18px 4px 0 0 rgba(48, 63, 70, 1), 20px 4px 0 0 rgba(0, 0, 0, 1),
+    24px 4px 0 0 rgba(0, 0, 0, 1), 26px 4px 0 0 rgba(48, 63, 70, 1),
+    28px 4px 0 0 rgba(48, 63, 70, 1), 30px 4px 0 0 rgba(48, 63, 70, 1),
+    32px 4px 0 0 rgba(0, 0, 0, 1), 34px 4px 0 0 rgba(0, 0, 0, 1),
+    8px 6px 0 0 rgba(0, 0, 0, 1), 10px 6px 0 0 rgba(96, 125, 139, 1),
+    12px 6px 0 0 rgba(0, 0, 0, 1), 14px 6px 0 0 rgba(56, 53, 53, 1),
+    16px 6px 0 0 rgba(56, 53, 53, 1), 18px 6px 0 0 rgba(48, 63, 70, 1),
+    20px 6px 0 0 rgba(0, 0, 0, 1), 24px 6px 0 0 rgba(0, 0, 0, 1),
+    26px 6px 0 0 rgba(48, 63, 70, 1), 28px 6px 0 0 rgba(56, 53, 53, 1),
+    30px 6px 0 0 rgba(56, 53, 53, 1), 32px 6px 0 0 rgba(0, 0, 0, 1),
+    34px 6px 0 0 rgba(96, 125, 139, 1), 36px 6px 0 0 rgba(0, 0, 0, 1),
+    6px 8px 0 0 rgba(0, 0, 0, 1), 8px 8px 0 0 rgba(96, 125, 139, 1),
+    10px 8px 0 0 rgba(96, 125, 139, 1), 12px 8px 0 0 rgba(0, 0, 0, 1),
+    14px 8px 0 0 rgba(56, 53, 53, 1), 16px 8px 0 0 rgba(56, 53, 53, 1),
+    18px 8px 0 0 rgba(48, 63, 70, 1), 20px 8px 0 0 rgba(0, 0, 0, 1),
+    24px 8px 0 0 rgba(0, 0, 0, 1), 26px 8px 0 0 rgba(48, 63, 70, 1),
+    28px 8px 0 0 rgba(56, 53, 53, 1), 30px 8px 0 0 rgba(56, 53, 53, 1),
+    32px 8px 0 0 rgba(0, 0, 0, 1), 34px 8px 0 0 rgba(96, 125, 139, 1),
+    36px 8px 0 0 rgba(96, 125, 139, 1), 38px 8px 0 0 rgba(0, 0, 0, 1),
+    4px 10px 0 0 rgba(0, 0, 0, 1), 6px 10px 0 0 rgba(96, 125, 139, 1),
+    8px 10px 0 0 rgba(96, 125, 139, 1), 10px 10px 0 0 rgba(0, 0, 0, 1),
+    14px 10px 0 0 rgba(0, 0, 0, 1), 16px 10px 0 0 rgba(0, 0, 0, 1),
+    18px 10px 0 0 rgba(0, 0, 0, 1), 26px 10px 0 0 rgba(0, 0, 0, 1),
+    28px 10px 0 0 rgba(0, 0, 0, 1), 30px 10px 0 0 rgba(0, 0, 0, 1),
+    34px 10px 0 0 rgba(0, 0, 0, 1), 36px 10px 0 0 rgba(96, 125, 139, 1),
+    38px 10px 0 0 rgba(96, 125, 139, 1), 40px 10px 0 0 rgba(0, 0, 0, 1),
+    2px 12px 0 0 rgba(0, 0, 0, 1), 4px 12px 0 0 rgba(96, 125, 139, 1),
+    6px 12px 0 0 rgba(96, 125, 139, 1), 8px 12px 0 0 rgba(0, 0, 0, 1),
+    36px 12px 0 0 rgba(0, 0, 0, 1), 38px 12px 0 0 rgba(96, 125, 139, 1),
+    40px 12px 0 0 rgba(96, 125, 139, 1), 42px 12px 0 0 rgba(0, 0, 0, 1),
+    2px 14px 0 0 rgba(0, 0, 0, 1), 4px 14px 0 0 rgba(96, 125, 139, 1),
+    6px 14px 0 0 rgba(0, 0, 0, 1), 38px 14px 0 0 rgba(0, 0, 0, 1),
+    40px 14px 0 0 rgba(96, 125, 139, 1), 42px 14px 0 0 rgba(0, 0, 0, 1),
+    2px 16px 0 0 rgba(0, 0, 0, 1), 4px 16px 0 0 rgba(96, 125, 139, 1),
+    6px 16px 0 0 rgba(0, 0, 0, 1), 38px 16px 0 0 rgba(0, 0, 0, 1),
+    40px 16px 0 0 rgba(96, 125, 139, 1), 42px 16px 0 0 rgba(0, 0, 0, 1),
+    2px 18px 0 0 rgba(0, 0, 0, 1), 4px 18px 0 0 rgba(96, 125, 139, 1),
+    6px 18px 0 0 rgba(0, 0, 0, 1), 38px 18px 0 0 rgba(0, 0, 0, 1),
+    40px 18px 0 0 rgba(96, 125, 139, 1), 42px 18px 0 0 rgba(0, 0, 0, 1),
+    2px 20px 0 0 rgba(0, 0, 0, 1), 4px 20px 0 0 rgba(96, 125, 139, 1),
+    6px 20px 0 0 rgba(0, 0, 0, 1), 38px 20px 0 0 rgba(0, 0, 0, 1),
+    40px 20px 0 0 rgba(96, 125, 139, 1), 42px 20px 0 0 rgba(0, 0, 0, 1),
+    2px 22px 0 0 rgba(0, 0, 0, 1), 4px 22px 0 0 rgba(96, 125, 139, 1),
+    6px 22px 0 0 rgba(0, 0, 0, 1), 38px 22px 0 0 rgba(0, 0, 0, 1),
+    40px 22px 0 0 rgba(96, 125, 139, 1), 42px 22px 0 0 rgba(0, 0, 0, 1),
+    2px 24px 0 0 rgba(0, 0, 0, 1), 4px 24px 0 0 rgba(96, 125, 139, 1),
+    6px 24px 0 0 rgba(0, 0, 0, 1), 38px 24px 0 0 rgba(0, 0, 0, 1),
+    40px 24px 0 0 rgba(96, 125, 139, 1), 42px 24px 0 0 rgba(0, 0, 0, 1),
+    2px 26px 0 0 rgba(0, 0, 0, 1), 4px 26px 0 0 rgba(96, 125, 139, 1),
+    6px 26px 0 0 rgba(96, 125, 139, 1), 8px 26px 0 0 rgba(0, 0, 0, 1),
+    36px 26px 0 0 rgba(0, 0, 0, 1), 38px 26px 0 0 rgba(96, 125, 139, 1),
+    40px 26px 0 0 rgba(96, 125, 139, 1), 42px 26px 0 0 rgba(0, 0, 0, 1),
+    4px 28px 0 0 rgba(0, 0, 0, 1), 6px 28px 0 0 rgba(96, 125, 139, 1),
+    8px 28px 0 0 rgba(96, 125, 139, 1), 10px 28px 0 0 rgba(0, 0, 0, 1),
+    16px 28px 0 0 rgba(0, 0, 0, 1), 18px 28px 0 0 rgba(0, 0, 0, 1),
+    26px 28px 0 0 rgba(0, 0, 0, 1), 28px 28px 0 0 rgba(0, 0, 0, 1),
+    34px 28px 0 0 rgba(0, 0, 0, 1), 36px 28px 0 0 rgba(96, 125, 139, 1),
+    38px 28px 0 0 rgba(96, 125, 139, 1), 40px 28px 0 0 rgba(0, 0, 0, 1),
+    6px 30px 0 0 rgba(0, 0, 0, 1), 8px 30px 0 0 rgba(96, 125, 139, 1),
+    10px 30px 0 0 rgba(96, 125, 139, 1), 12px 30px 0 0 rgba(0, 0, 0, 1),
+    14px 30px 0 0 rgba(0, 0, 0, 1), 16px 30px 0 0 rgba(255, 87, 34, 1),
+    18px 30px 0 0 rgba(255, 152, 0, 1), 20px 30px 0 0 rgba(0, 0, 0, 1),
+    22px 30px 0 0 rgba(0, 0, 0, 1), 24px 30px 0 0 rgba(0, 0, 0, 1),
+    26px 30px 0 0 rgba(255, 152, 0, 1), 28px 30px 0 0 rgba(255, 152, 0, 1),
+    30px 30px 0 0 rgba(0, 0, 0, 1), 32px 30px 0 0 rgba(0, 0, 0, 1),
+    34px 30px 0 0 rgba(96, 125, 139, 1), 36px 30px 0 0 rgba(96, 125, 139, 1),
+    38px 30px 0 0 rgba(0, 0, 0, 1), 8px 32px 0 0 rgba(0, 0, 0, 1),
+    10px 32px 0 0 rgba(96, 125, 139, 1), 12px 32px 0 0 rgba(96, 125, 139, 1),
+    14px 32px 0 0 rgba(0, 0, 0, 1), 16px 32px 0 0 rgba(255, 87, 34, 1),
+    18px 32px 0 0 rgba(255, 152, 0, 1), 20px 32px 0 0 rgba(255, 152, 0, 1),
+    22px 32px 0 0 rgba(255, 152, 0, 1), 24px 32px 0 0 rgba(255, 152, 0, 1),
+    26px 32px 0 0 rgba(255, 152, 0, 1), 28px 32px 0 0 rgba(255, 152, 0, 1),
+    30px 32px 0 0 rgba(0, 0, 0, 1), 32px 32px 0 0 rgba(96, 125, 139, 1),
+    34px 32px 0 0 rgba(96, 125, 139, 1), 36px 32px 0 0 rgba(0, 0, 0, 1),
+    10px 34px 0 0 rgba(0, 0, 0, 1), 12px 34px 0 0 rgba(0, 0, 0, 1),
+    14px 34px 0 0 rgba(0, 0, 0, 1), 16px 34px 0 0 rgba(255, 87, 34, 1),
+    18px 34px 0 0 rgba(255, 87, 34, 1), 20px 34px 0 0 rgba(255, 152, 0, 1),
+    22px 34px 0 0 rgba(255, 152, 0, 1), 24px 34px 0 0 rgba(255, 152, 0, 1),
+    26px 34px 0 0 rgba(255, 152, 0, 1), 28px 34px 0 0 rgba(255, 152, 0, 1),
+    30px 34px 0 0 rgba(0, 0, 0, 1), 32px 34px 0 0 rgba(0, 0, 0, 1),
+    34px 34px 0 0 rgba(0, 0, 0, 1), 14px 36px 0 0 rgba(0, 0, 0, 1),
+    16px 36px 0 0 rgba(0, 0, 0, 1), 18px 36px 0 0 rgba(255, 87, 34, 1),
+    20px 36px 0 0 rgba(255, 87, 34, 1), 22px 36px 0 0 rgba(255, 87, 34, 1),
+    24px 36px 0 0 rgba(255, 87, 34, 1), 26px 36px 0 0 rgba(255, 87, 34, 1),
+    28px 36px 0 0 rgba(0, 0, 0, 1), 30px 36px 0 0 rgba(0, 0, 0, 1),
+    18px 38px 0 0 rgba(0, 0, 0, 1), 20px 38px 0 0 rgba(0, 0, 0, 1),
+    22px 38px 0 0 rgba(255, 87, 34, 1), 24px 38px 0 0 rgba(0, 0, 0, 1),
+    26px 38px 0 0 rgba(0, 0, 0, 1), 20px 40px 0 0 rgba(0, 0, 0, 1),
+    22px 40px 0 0 rgba(255, 87, 34, 1), 24px 40px 0 0 rgba(0, 0, 0, 1),
+    20px 42px 0 0 rgba(0, 0, 0, 1), 22px 42px 0 0 rgba(255, 87, 34, 1),
+    24px 42px 0 0 rgba(0, 0, 0, 1), 20px 44px 0 0 rgba(0, 0, 0, 1),
+    22px 44px 0 0 rgba(0, 0, 0, 1), 24px 44px 0 0 rgba(0, 0, 0, 1),
+    30px 44px 0 0 rgba(0, 0, 0, 1), 32px 44px 0 0 rgba(0, 0, 0, 1),
+    34px 44px 0 0 rgba(0, 0, 0, 1), 36px 44px 0 0 rgba(0, 0, 0, 1),
+    20px 46px 0 0 rgba(0, 0, 0, 1), 22px 46px 0 0 rgba(48, 63, 70, 1),
+    24px 46px 0 0 rgba(0, 0, 0, 1), 28px 46px 0 0 rgba(0, 0, 0, 1),
+    30px 46px 0 0 rgba(48, 63, 70, 1), 32px 46px 0 0 rgba(96, 125, 139, 1),
+    34px 46px 0 0 rgba(96, 125, 139, 1), 36px 46px 0 0 rgba(48, 63, 70, 1),
+    38px 46px 0 0 rgba(0, 0, 0, 1), 18px 48px 0 0 rgba(0, 0, 0, 1),
+    20px 48px 0 0 rgba(48, 63, 70, 1), 22px 48px 0 0 rgba(0, 0, 0, 1),
+    26px 48px 0 0 rgba(0, 0, 0, 1), 28px 48px 0 0 rgba(48, 63, 70, 1),
+    30px 48px 0 0 rgba(96, 125, 139, 1), 32px 48px 0 0 rgba(158, 158, 158, 1),
+    34px 48px 0 0 rgba(158, 158, 158, 1), 36px 48px 0 0 rgba(96, 125, 139, 1),
+    38px 48px 0 0 rgba(48, 63, 70, 1), 40px 48px 0 0 rgba(0, 0, 0, 1),
+    16px 50px 0 0 rgba(0, 0, 0, 1), 18px 50px 0 0 rgba(48, 63, 70, 1),
+    20px 50px 0 0 rgba(0, 0, 0, 1), 26px 50px 0 0 rgba(0, 0, 0, 1),
+    28px 50px 0 0 rgba(48, 63, 70, 1), 30px 50px 0 0 rgba(158, 158, 158, 1),
+    32px 50px 0 0 rgba(158, 158, 158, 1), 34px 50px 0 0 rgba(158, 158, 158, 1),
+    36px 50px 0 0 rgba(158, 158, 158, 1), 38px 50px 0 0 rgba(48, 63, 70, 1),
+    40px 50px 0 0 rgba(0, 0, 0, 1), 14px 52px 0 0 rgba(0, 0, 0, 1),
+    16px 52px 0 0 rgba(48, 63, 70, 1), 18px 52px 0 0 rgba(0, 0, 0, 1),
+    26px 52px 0 0 rgba(0, 0, 0, 1), 28px 52px 0 0 rgba(48, 63, 70, 1),
+    30px 52px 0 0 rgba(96, 125, 139, 1), 32px 52px 0 0 rgba(158, 158, 158, 1),
+    34px 52px 0 0 rgba(158, 158, 158, 1), 36px 52px 0 0 rgba(96, 125, 139, 1),
+    38px 52px 0 0 rgba(48, 63, 70, 1), 40px 52px 0 0 rgba(0, 0, 0, 1),
+    14px 54px 0 0 rgba(0, 0, 0, 1), 16px 54px 0 0 rgba(96, 125, 139, 1),
+    18px 54px 0 0 rgba(48, 63, 70, 1), 20px 54px 0 0 rgba(0, 0, 0, 1),
+    28px 54px 0 0 rgba(0, 0, 0, 1), 30px 54px 0 0 rgba(48, 63, 70, 1),
+    32px 54px 0 0 rgba(96, 125, 139, 1), 34px 54px 0 0 rgba(96, 125, 139, 1),
+    36px 54px 0 0 rgba(48, 63, 70, 1), 38px 54px 0 0 rgba(0, 0, 0, 1),
+    16px 56px 0 0 rgba(0, 0, 0, 1), 18px 56px 0 0 rgba(96, 125, 139, 1),
+    20px 56px 0 0 rgba(48, 63, 70, 1), 22px 56px 0 0 rgba(0, 0, 0, 1),
+    30px 56px 0 0 rgba(0, 0, 0, 1), 32px 56px 0 0 rgba(0, 0, 0, 1),
+    34px 56px 0 0 rgba(0, 0, 0, 1), 36px 56px 0 0 rgba(0, 0, 0, 1),
+    18px 58px 0 0 rgba(0, 0, 0, 1), 20px 58px 0 0 rgba(96, 125, 139, 1),
+    22px 58px 0 0 rgba(48, 63, 70, 1), 24px 58px 0 0 rgba(0, 0, 0, 1),
+    28px 58px 0 0 rgba(0, 0, 0, 1), 30px 58px 0 0 rgba(96, 125, 139, 1),
+    32px 58px 0 0 rgba(0, 0, 0, 1), 20px 60px 0 0 rgba(0, 0, 0, 1),
+    22px 60px 0 0 rgba(96, 125, 139, 1), 24px 60px 0 0 rgba(0, 0, 0, 1),
+    26px 60px 0 0 rgba(0, 0, 0, 1), 28px 60px 0 0 rgba(96, 125, 139, 1),
+    30px 60px 0 0 rgba(0, 0, 0, 1), 22px 62px 0 0 rgba(0, 0, 0, 1),
+    24px 62px 0 0 rgba(96, 125, 139, 1), 26px 62px 0 0 rgba(48, 63, 70, 1),
+    28px 62px 0 0 rgba(0, 0, 0, 1), 24px 64px 0 0 rgba(0, 0, 0, 1),
+    26px 64px 0 0 rgba(0, 0, 0, 1);
+  height: 2px;
+  width: 2px;
+  // opacity: 0.5;
+  display: inline-block;
+  position: relative;
+  // left: -15%;
+  left: -2em;
+  z-index: 500;
 }
 </style>

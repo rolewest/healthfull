@@ -37,6 +37,9 @@
     <div class="after"></div>
   </div>
   <div class="">
+    <div class="text-center" v-if="ytUrl && currentStep >= 1">
+      This video is for technique demonstration only
+    </div>
     <q-video
       :ratio="16 / 9"
       :src="ytUrl"
@@ -44,8 +47,20 @@
       allowfullscreen
       v-show="ytUrl"
     ></q-video>
+
     <!--  -->
     <div class="q-pa-md questItem holdSteps">
+      <div v-if="!ytUrl && currentStep >= 1">
+        <!-- This was a bug, it WILL be a feature! -->
+        <p>Please try again.</p>
+        <q-btn
+          @click="
+            this.$router.go();
+            startConditioning();
+          "
+          >It Retro!</q-btn
+        >
+      </div>
       <!-- TRAINING COMPLETE! STEP -1 -->
       <div v-if="this.currentStep == -1" class="q-ma-lg">
         <div class="title-h4">You Did It!!!</div>
@@ -298,23 +313,14 @@
               </q-btn> -->
             </div>
 
-            <div class="quote-holder">
-              <p
-                class="on-the-floor bg-accent"
-                v-html="randomAtYourFeetMsg"
-              ></p>
-              <div class="bg-dark border-torn-holder">
-                <div class="border-torn">
-                  <span v-html="randomQuote"></span>
-                </div>
-              </div>
-            </div>
+            <Quotes />
           </div>
         </div>
       </div>
       <!-- <q-stepper v-model="step" vertical color="primary" animated> -->
       <!-- exercise steps -->
       <!-- .slice().reverse() was removed because we no longer use quasars step progression -->
+
       <div v-for="xstep in stepsList" :key="xstep.step">
         <div
           :class="{
@@ -343,7 +349,7 @@
                   > -->
                 </q-avatar>
 
-                {{ xstep.points.hp }}
+                {{ xstep.points.hp * (repsCompleted + 1) }}
               </q-chip>
               <q-chip class=""
                 ><q-avatar
@@ -354,7 +360,7 @@
                 >
                 </q-avatar>
 
-                {{ xstep.points.cp }}
+                {{ xstep.points.cp * (repsCompleted + 1) }}
               </q-chip>
               <q-chip class=""
                 ><q-avatar
@@ -365,7 +371,7 @@
                 >
                 </q-avatar>
 
-                {{ xstep.points.xp }}
+                {{ xstep.points.xp * (repsCompleted + 1) }}
               </q-chip>
               <q-chip class=""
                 ><q-avatar
@@ -376,7 +382,7 @@
                 >
                 </q-avatar>
 
-                {{ xstep.points.sp }}
+                {{ xstep.points.sp * (repsCompleted + 1) }}
               </q-chip>
 
               <!-- end points -->
@@ -385,7 +391,8 @@
             <div class="title-h4 q-mt-lg">
               {{ xstep.title }}
             </div>
-            <div class="text-center">{{ xstep.caption }}</div>
+
+            <div class="text-center title-positive">{{ xstep.caption }}</div>
           </div>
           <!-- Click to add number of reps -->
           <div
@@ -423,7 +430,7 @@
             >
             <!-- {{ userStepRep }} -->
           </div>
-          <p v-html="xstep.body"></p>
+          <p v-html="modifyThisStepData(xstep)"></p>
           <!-- navigation -->
           <div class="text-center">
             {{ currentStep }} of {{ stepsList.length }}
@@ -549,7 +556,11 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName("script")[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
+import Quotes from "src/components/RandomQuote.vue";
 export default {
+  components: {
+    Quotes,
+  },
   data() {
     return {
       alert: false,
@@ -575,30 +586,66 @@ export default {
   methods: {
     addRemoveRep(amount) {
       if (amount == "done") {
+        console.log("isdone");
         if (this.currentRepCount < this.stepsList[this.currentStep - 1].reps) {
           this.currentRepCount = this.stepsList[this.currentStep - 1].reps;
+          console.log("isnD");
           confetti({
-            particleCount: 3 * this.currentRepCount,
-            spread: 100,
-            // any other options from the global
-            // confetti function
+            particleCount: 100,
+            spread: 200,
+            scalar: 0.75,
+            shapes: ["star"],
+            colors: ["FFE400", "FFBD00", "E89400", "FFCA6C", "FDFFB8"],
+            origin: { y: 0.5, x: 0.6 },
+            // ticks: 50,
+            // gravity: 0,
+            // decay: 0.94,
+            // startVelocity: 30,
           });
+          setTimeout(() => {
+            // this.showLevelUp("center");
+          }, 1000);
+          confetti({
+            particleCount: 100,
+            scalar: 0.75,
+            shapes: ["circle", "square", "star"],
+          });
+          // this.repsCompleted = this.stepsList[this.currentStep - 1];
         } else {
           this.currentRepCount = 0;
         }
 
         return;
       }
-
+      console.log("isUNdone");
+      console.log(
+        "reps:",
+        this.currentRepCount,
+        this.stepsList[this.currentStep - 1].reps
+      );
       if (
-        this.currentRepCount == this.stepsList[this.currentStep - 1].reps - 1 &&
+        this.currentRepCount >= this.stepsList[this.currentStep - 1].reps - 1 &&
         amount > -1
       ) {
         confetti({
-          particleCount: 3 * this.currentRepCount,
-          spread: 100,
-          // any other options from the global
-          // confetti function
+          particleCount: 100,
+          spread: 200,
+          scalar: 0.75,
+          shapes: ["star"],
+          colors: ["FFE400", "FFBD00", "E89400", "FFCA6C", "FDFFB8"],
+          origin: { y: 0.5, x: 0.6 },
+          // ticks: 50,
+          // gravity: 0,
+          // decay: 0.94,
+          // startVelocity: 30,
+        });
+        setTimeout(() => {
+          // this.showLevelUp("center");
+        }, 1000);
+        confetti({
+          particleCount: 100,
+          scalar: 0.75,
+          shapes: ["circle", "square", "star"],
         });
       } else if (amount >= 1) {
         confetti({
@@ -609,7 +656,7 @@ export default {
         });
       }
 
-      this.currentRepCount = this.currentRepCount + amount;
+      this.currentRepCount = (this.currentRepCount + amount) * 1;
       if (this.currentRepCount <= -1) this.currentRepCount = 0;
     },
     onYouTubeIframeAPIReady() {
@@ -651,7 +698,11 @@ export default {
       // ! get prescribed sets
       if (type == 1) {
         let drorder = this.doctorSets.find((item) => item.id === drsetnum);
-        selectedSetList = eval(drorder.set); // temp replace for the loop
+
+        // console.log("it hrer:", drorder.set, drorder);
+
+        // alert("it's here:", drorder.set || [1]);
+        selectedSetList = eval(drorder?.set || []); // temp replace for the loop
       }
 
       for (let index = 0; index < selectedSetList.length; index++) {
@@ -667,6 +718,33 @@ export default {
       // LocalStorage.set("userCurrentSetlist", newList);
       // this.workingSetlist = newList;
       this.stepsList = newList;
+    },
+    saveSetList() {
+      let buildSetlist = [];
+      for (let index = 0; index < 0; index++) {
+        // let withStepNum = this.selected[index].alldata["step"];
+        buildSetlist.push(this.selected[index].alldata.id);
+        // buildSetlist[index]["step"] = index + 1;
+        console.log("selected:", this.selected[index].alldata.id);
+      }
+      // console.log("fixdd:", buildSetlist[index]["step"]);
+      LocalStorage.set("userCurrentSetlist", buildSetlist);
+      // save this list onto all custom lists
+      // let oldSets = this.usersSetLists;
+      // if (!isArray(oldSets)) {
+      // }
+      // LocalStorage.set("user.setlists.custom");
+      //
+      this.workingSetlist = buildSetlist;
+      console.log(
+        "saved setlist:",
+        this.workingSetlist,
+        "localastore",
+        LocalStorage.getItem("userCurrentSetlist")
+      );
+
+      this.popupTitle = "Saved!";
+      this.popupCaption = "Your set list was saved!.";
     },
     showCompleted() {
       // this.userBasePoints = null;
@@ -837,9 +915,15 @@ export default {
         alert(error.message);
       } else {
         this.setList = data.setLists;
+
         this.doctorSets = data.doctorSets;
+
         this.buildRoutine();
       }
+    },
+    modifyThisStepData(xstep) {
+      let randomReps = Math.floor(Math.random() * (xstep.reps / 2 - 2) + 1);
+      return xstep.body.replace("[xtra-reps]", randomReps);
     },
   },
 
@@ -847,25 +931,14 @@ export default {
     repsCompleted() {
       if (this.stepsList[this.currentStep - 1]) {
         if (this.currentRepCount >= this.stepsList[this.currentStep - 1].reps) {
-          return `<span class="glower">${this.currentRepCount}</span>`;
+          return `${this.currentRepCount}`;
+          // return `<span class="glower">${this.currentRepCount}</span>`; // why glower here?
         }
       }
 
       return this.currentRepCount;
     },
-    randomAtYourFeetMsg() {
-      const atfeet = [
-        "You notice an esoteric piece of a scientific script on the floor...",
-        "At your feet looks like a torn page from some forgotten science journal...",
-        "In front of you is a ripped fragment of some neglected treatise...",
-        "You notice a small paper with some bygone wisdom imprinted upon it...",
-        "Wedged between two floor panels you notice a tiny shred from some antiquated and cryptic tome...",
-        "A gust of wind blows an enigmatic scrap of some perplexing scroll that you snatch from the air...",
-      ];
 
-      let itemNum = Math.floor(Math.random() * atfeet.length);
-      return atfeet[itemNum];
-    },
     randomWelcome() {
       const welcomes = [
         "Everything is all setup. Make a choice to begin your training.",
@@ -874,17 +947,6 @@ export default {
 
       let itemNum = Math.floor(Math.random() * welcomes.length);
       return welcomes[itemNum];
-    },
-    randomQuote() {
-      const quotes = [
-        "<blockquote>...regular physical activity and a high fitness level are associated with a reduced risk of premature death from any cause and from cardiovascular disease in particular among asymptomatic men and women. Year:2006 AD <cite>PMID: 16534088; PMCID: PMC1402378.</cite></blockquote>",
-        "<blockquote>In communicating the benefits of chair-based activities [ye] public health messaging should reinforce the evidence that every minute counts: any activity is better than none, and everyone (all ages and abilities) should aim to move more and move more often. Year:2021 AD<cite>PMID: 33669357; PMCID: PMC7920319.</cite></blockquote>",
-        "<blockquote>Health benefits from regular exercise that should be emphasized and reinforced by every mental health professional to their patients include the following: <br/><ol><li><div>Improved sleep</div></li><li><div>Increased interest in sex</div></li><li><div>Better endurance</div></li><li><div>Stress relief</div></li><li><div>Improvement in mood</div></li><li><div>Increased energy and stamina</div></li><li><div>Reduced tiredness that can increase mental alertness</div></li><li><div>Weight reduction</div></li><li><div>Reduced cholesterol and improved cardiovascular fitness</div></li></ol> Year:2006 AD<cite>PMID: 16862239; PMCID: PMC1470658</cite></blockquote>",
-        `<blockquote>Contrary to our hypothesis, combined aerobic and resistance training improved cardiovascular fitness to the same extent as aerobic training alone and strength to the same extent as resistance training alone. Therefore, combined aerobic and resistance training resulted in additive effects that translated into the greatest improvement among the interventions in physical function and reduction of frailty. Year:2017 AD <cite> PMID: 28514618; PMCID: PMC5552187.</cite></blockquote>`,
-      ];
-      // `<blockquote><cite></cite></blockquote>`,
-      let itemNum = Math.floor(Math.random() * quotes.length);
-      return quotes[itemNum];
     },
   },
   mounted() {
@@ -898,6 +960,8 @@ export default {
       LocalStorage.getItem("userCurrentSetlist") == "[]" ||
       LocalStorage.getItem("userCurrentSetlist") == null
     ) {
+      this.saveSetList(); // not made yet, so make the doctors list.
+
       this.customRoutineEmpty = true;
       //this.alert = true; //
     } else {
@@ -983,6 +1047,17 @@ template {
   left: 3px;
   opacity: 0.95;
   top: -10px;
+}
+
+.bg-check {
+  opacity: 0.8;
+  background-image: linear-gradient(135deg, $primary 25%, transparent 25%),
+    linear-gradient(225deg, $primary 25%, transparent 25%),
+    linear-gradient(45deg, $primary 25%, transparent 25%),
+    linear-gradient(315deg, $primary 25%, #e5e5f7 25%);
+  background-position: 34px 0, 34px 0, 0 0, 0 0;
+  background-size: 34px 34px;
+  background-repeat: repeat;
 }
 .quote-holder {
   padding: 1em;
@@ -1204,16 +1279,6 @@ blockquote cite:before {
     1.1% 5.5%
   );
   padding: 1px 1px 5px 1px;
-}
-.bg-check {
-  opacity: 0.8;
-  background-image: linear-gradient(135deg, $primary 25%, transparent 25%),
-    linear-gradient(225deg, $primary 25%, transparent 25%),
-    linear-gradient(45deg, $primary 25%, transparent 25%),
-    linear-gradient(315deg, $primary 25%, #e5e5f7 25%);
-  background-position: 34px 0, 34px 0, 0 0, 0 0;
-  background-size: 34px 34px;
-  background-repeat: repeat;
 }
 .on-the-floor {
   padding: 0.5em;

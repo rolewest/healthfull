@@ -4,13 +4,13 @@
     <button
       :class="{
         'btn-info btn-primary travelModeButton text-h2': true,
-        'bg-info travelModeNegative': this.$route.name == 'prescription',
+        'bg-info travelModeNegative': this.$route.name == 'measure',
       }"
-      @click="this.$router.push({ name: 'prescription' })"
+      @click="this.$router.push({ name: 'measure', hash: '#prescription' })"
     >
       <q-icon
         name="mdi-clipboard-pulse "
-        :class="{ prescriptionIcon: this.$route.name != 'prescription' }"
+        :class="{ prescriptionIcon: this.$route.name != 'measure' }"
       >
         <!-- <span class="pulseCountString" v-if="userLastBPM > 0">
           {{ userLastBPM.toFixed(0) }}

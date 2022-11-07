@@ -12,7 +12,7 @@ const routes = [
       { path: "/builder", name: "builder", component: () => import("pages/WorkoutBuilder.vue") },
       { path: "/planner", name: "planner", component: () => import("pages/MealPlanner.vue") },
       { path: "/home", name: "home", component: () => import("pages/HomeBase.vue") },
-      { path: "/prescription", name: "prescription", component: () => import("pages/Prescription.vue") },
+      { path: "/prescription", name: "prescription", hash: "prescription", component: () => import("components/BaseMeasure.vue") },
       { path: "/prefs", name: "prefs", component: () => import("pages/Prefs.vue") },
     ],
 

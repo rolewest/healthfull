@@ -286,7 +286,7 @@ export default {
             0,
             Math.floor(alldata[index].mobility)
           ),
-          difficulty: alldata[index].mobility,
+          difficulty: alldata[index].difficulty,
           cals: this.convertMetToCal(alldata[index].mets, 1),
           points: `HP:${alldata[index].points.hp} | CP:${alldata[index].points.cp} | XP:${alldata[index].points.xp} | SP:${alldata[index].points.sp}`,
           tags: eval(JSON.stringify(alldata[index].tags)).join(", "),

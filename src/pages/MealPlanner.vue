@@ -28,7 +28,38 @@
   <div v-if="!isNewPlayer">
     <div class="text-center" v-html="percentToNextLevel()"></div>
 
-    <div class="text-center" v-html="thisWeeksMealType"></div>
+    <div class="text-center">
+      <h5>Your Level {{ levelNumber }} Meal Plans</h5>
+    </div>
+    <span class="doc-talk">
+      <div class="bit8-doc"></div>
+      <div class="paperSheetFlat shadow">
+        <div v-if="userBodyGoal <= 0">
+          <span class="doctor-chat">Dr. Doctor</span>:These satiating soups &
+          salads will help to curb your appetite before every meal<br />
+          <span class="doctor-chat">Dr. Doctor</span>:Also remember to have your
+          two cups of water before every meal!
+        </div>
+
+        <details>
+          <summary>
+            <span class="title-warning">Tips</span>
+          </summary>
+          <ul v-if="userBodyGoal <= 0" class="text-left normal-ul">
+            <!-- Loose or maintain weight -->
+            <li>If you're rushed then have some fruit before each meal</li>
+            <li>The salads are also quick!</li>
+            <li>If you have time try a soup before your meal</li>
+          </ul>
+          <ul v-if="userBodyGoal >= 1" class="text-left normal-ul">
+            <!-- gain weight -->
+            <li>All Shakes and smoothies are quick & easy</li>
+            <li>If you have time try a soup before your meal</li>
+            <li>High carbs are great if you're exercising</li>
+          </ul>
+        </details>
+      </div></span
+    >
     <details class="q-ma-sm q-pb-sm">
       <summary class="text-center meal-details title-h6 q-mb-sm q-pb-sm">
         Simple Salads
@@ -53,10 +84,10 @@
     </details>
     <details class="q-ma-sm q-pb-sm">
       <summary class="text-center meal-details title-h6 q-mb-sm q-pb-sm">
-        Satiating Soups
+        One Pot Soups
       </summary>
       <div class="completed-button text-center">
-        <q-btn color="accent" @click="updateProgress()" disabled
+        <q-btn color="accent" @click="updateProgress()"
           >I Ate One of the Soups!
         </q-btn>
       </div>
@@ -206,10 +237,10 @@ export default {
       return LocalStorage.getItem("userAge") == "null";
     },
 
-    thisWeeksMealType() {
+    userBodyGoal() {
       console.log("LocalStorage:", JSON.stringify(LocalStorage.getAll()));
-      let mainoutput = `<h5>Your Level ${this.levelNumber} Meal Plans</h5>`;
-      return mainoutput;
+
+      return LocalStorage.getItem("user.body.goal");
     },
     thisWeeksSoups() {
       console.log("LocalStorage:", JSON.stringify(LocalStorage.getAll()));
@@ -224,141 +255,111 @@ export default {
         <div class="row justify-center">
           <div class="width-auto">
           <details class="self-center text-left border-double-1 bg-white q-pa-md">
-            <summary>Easy Caesar Salad </summary>
-              <ul class="normal-ul">
-                <p class="title-h6">Salad:</p>
-                <li>Lettuce (e.g: Romain, Arugula/Rocket, Redleaf)</li>
-                <li>Optional Nuts or Seeds (e.g Crushed Walnuts, Slivered Almonds, Pumpkin Seeds, etc.) for some crunch</li>
-                <li>Optional any veggies you like: cucumbers, tomatoes, broccoli, sprouts, etc.</li>
+            <summary>Classic Noodle</summary>
+            <ul class="normal-ul">
+                <p class="title-h6">Ingredients:</p>
+                <p>Use fresh or dried ground spices, double if fresh</p>
+                <li>½ cup carrots (sliced)</li>
+                <li>½ cup celery stocks (sliced)</li>
+                <li>½ cup onion (diced)</li>
+
+                <li>½ cup potato (diced/cubed)</li>
+                <li>2 tbsp garlic (minced and/or powdered)</li>
+                <li>½ cup noodles (suggested: brown rice spiral noodles)</li>
+                <li>5 cups water</li>
+                <li>1 tbsp (apple cider) vinegar</li>
+                <li>1 tbsp sage</li>
+                <li>1 tbsp thyme</li>
+                <li>½ tsp onion powder</li>
+                <li>¼ tsp black pepper</li>
+
+                <li>Suggested: ¼ tsp marjoram</li>
+                <li>Suggested: ¼ tsp celery seed</li>
+                <li>Suggested: ⅛ tsp cayenne pepper</li>
+                <li>Suggested: 2 tbsp nutritional yeast</li>
+                <li>Suggested:¼ tsp turmeric</li>
+                <li>Optional: 1 tbsp tomato paste</li>
+                <li>Optional: any other veggies, also try with mushrooms, if you like</li>
               </ul>
-
-              <ul class="normal-ul">
-                <p class="title-h6">Dressing:</p>
-                <li>1/2 cup water</li>
-                <li>1 avocado or small/baby boiled or baked potato</li>
-                <li>1/2 lemon juiced or 1 tbsp lemon juice</li>
-                <li>2 tsp vinegar (apple cider or red wine vinegar suggested)</li>
-                <li>1 tsp dijon or yellow mustard, or 1/4 tsp dry mustard</li>
-                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
-                <li>1/8 tsp black pepper</li>
-                <li>Optional: 2 tsp nutritional yeast; 1 tsp parsley dried or fresh</li>
-
-                <p class="title-h6">Directions:</p>
-                <li>Put all dressing ingredients in blender, or use an immersion/stick blender, then drizzle over lettuce and add optional toppings</li>
-                <p><br><b class="blink-this">OR...</b></p>
-                <li>Finely mash avocado/potato and garlic and whisk (or put in sealed jar and shake) all ingredients together, then drizzle over lettuce and add add optional toppings</li>
-
-              </ul>
-
-
+              <ol>
+              <p class="title-h6">Directions:</p>
+                <li>Put all ingredients, except for noodles, in a pot and cook on medium until carrots and potatoes are just tender (usually once it starts to boil)</li>
+                <li>Add in pasta and cook until tender/<em>el dente</em></li>
+                <li>Goes well garnished with fresh parsley and lemon</li>
+                </ol>
 
           </details>
 
         <details class="self-center text-left border-double-1 bg-white q-pa-md">
-            <summary>Greek Salad</summary>
+            <summary>Cozy Chili</summary>
             <ul class="normal-ul">
-                <p class="title-h6">Salad:</p>
-                <li>Lettuce (optional) (e.g: Baby Spinach, Kale, Endive, Watercress)</li>
-                <li>1/2 Red Onion (diced or sliced)</li>
-                <li>1 Bell Pepper (diced or sliced)</li>
-                <li>1/4 cup Tomatoes (e.g. grape or cherry halved) </li>
-                <li>1/2 Cucumber or 2 baby cucumbers (diced or sliced)</li>
-                <li>Optional: sun-dried tomatoes</li>
-                <li>Optional: 2 Peperoncinis (sliced)</li>
+                <p class="title-h6">Ingredients:</p>
+                <p>Use fresh or dried ground spices, double if fresh</p>
+                <li>½ cup (red) bell pepper (diced)</li>
+                <li>½ cup carrots (diced)</li>
+                <li>½ cup celery stocks (diced)</li>
+                <li>½ cup (red) onion (diced)</li>
+
+                <li>2 tbsp garlic (minced and/or powdered)</li>
+                <li>2 cups water</li>
+                <li>2 cups (or canned) diced tomatoes</li>
+                <li>1 cup (or canned) cooked kidney beans (or other beans)</li>
+                <li>1 tbsp (balsamic) vinegar</li>
+                <li>2 tbsp chili powder</li>
+                <li>2 tbsp oregano</li>
+                <li>½ tsp onion powder</li>
+                <li>¼ tsp black pepper</li>
+                <li>4 tbsp tomato paste</li>
+                <li>Suggested: ¼ tsp bayleaf</li>
+
+                <li>Suggested: ⅛ tsp cayenne pepper</li>
+                <li>Suggested:¼ tsp turmeric</li>
+
+
+
+                <li>Optional: any other veggies, beans, lentils, also try with mushrooms, if you like</li>
               </ul>
+              <ol>
+              <p class="title-h6">Directions:</p>
+                <li>Put all ingredients in a pot and cook on medium until carrots tender, reduce heat and simmer</li>
 
-              <ul class="normal-ul">
-                <p class="title-h6">Dressing:</p>
-                <li>2 tbsp water</li>
-                <li>2 tbsp vinegar (apple cider or red wine vinegar suggested)</li>
-                <li>1 lemon juiced or 2 tbsp lemon juice</li>
-                <li>1 tbsp dried oregano</li>
-                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
-                <li>1/8 tsp black pepper</li>
-                <li>Optional: 2 tsp nutritional yeast</li>
-                <li>Optional: 1 tsp onion powder</li>
-
-                <p class="title-h6">Directions:</p>
-                <li>Put all dressing ingredients in blender or use an immersion/stick blender, then mix dressing with veggies</li>
-                <p><br><b class="blink-this">OR...</b></p>
-                <li>Finely mash garlic and whisk (or put in sealed jar and shake) all ingredients together, then mix well with veggies</li>
-
-              </ul>
+                <li>Goes well garnished with fresh cilantro, nutritional yeast, and ground sunflower seeds</li>
+                </ol>
 
           </details>
           <details class="self-center text-left border-double-1 bg-white q-pa-md">
-            <summary>Thai Salad</summary>
+            <summary>Creamy Mushroom</summary>
             <ul class="normal-ul">
-                <p class="title-h6">Salad:</p>
-                <li>1.5 cup Napa or Red Cabbage (shredded), or mixed red and green or Napa cabbage</li>
-                <li>2 large carrots (shredded)</li>
-                <li>Bell peppers, usually red, (shredded)</li>
-                <li>Recommended: 1/2 cup cooked edamame</li>
-                <li>Optional: Green/Spring Onions (sliced)</li>
+                <p class="title-h6">Ingredients:</p>
+                <p>Use fresh or dried ground spices, double if fresh</p>
+                <li>½ cup celery stocks (sliced or minced)</li>
+                <li>½ cup onion (diced)</li>
 
+                <li>1 cup potato (cooked and mashed)</li>
+                <li>2 tbsp garlic (minced and/or powdered)</li>
+                <li>1 cups (button) mushrooms (sliced)</li>
+                <li>½ cups (button) mushrooms (minced)</li>
+                <li>4 cups water</li>
+                <li>1 tbsp (balsamic) vinegar</li>
+                <li>1 tbsp sage</li>
+                <li>1 tbsp thyme</li>
+                <li>½ tsp onion powder</li>
+                <li>¼ tsp black pepper</li>
 
-                <li>Optional: other veggies like broccoli florets, shredded kale, or any sprouts</li>
-
+                <li>Suggested: 2 tbsp (or more) porcini mushrooms (minced or sliced)</li>
+                <li>Suggested: ½ tsp marjoram</li>
+                <li>Suggested: ¼ tsp celery seed</li>
+                <li>Suggested: 2 tbsp nutritional yeast</li>
+                <li>Optional: ½ tbsp tomato paste</li>
+                <li>Optional: any other mushrooms or veggies you like</li>
               </ul>
-
-              <ul class="normal-ul">
-                <p class="title-h6">Dressing:</p>
-                <li>2 tbsp water</li>
-                <li>2 tbsp vinegar (e.g. apple cider, white, or rice wine)</li>
-                <li>1 lime juiced or 2 tbsp lime juice</li>
-                <li>1 tsp dijon or yellow mustard, or 1/4 tsp dry mustard</li>
-                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
-                <li>1 tsp ginger, or ½ tsp dried ginger</li>
-
-                <li>1/8 tsp black pepper</li>
-                <li>Suggested: 1 tbsp lemon grass (dried, fresh or paste)</li>
-                <li>Suggested: 1 tbsp tahini or peanut butter (will make it creamier) can also use 4 tbsp sesame seeds or peanuts if using blender</li>
-                <li>Optional: 1 tbsp cilantro</li>
-                <li>Optional: 1 tsp onion powder</li>
-
-
-
-                <p class="title-h6">Directions:</p>
-                <li>Put all dressing ingredients in blender or use an immersion/stick blender, then mix dressing with veggies and let sit for 10 minutes</li>
-                <p><br><b class="blink-this">OR...</b></p>
-                <li>Finely mash garlic and whisk (or put in sealed jar and shake) all ingredients together, then mix well with veggies and let sit for 10 minutes</li>
-
-              </ul>
+              <ol>
+              <p class="title-h6">Directions:</p>
+                <li>Put all ingredients, in a pot and cook on medium until carrots, celery, and mushrooms are tender</li>
+                <li>Goes well garnished with fresh parsley </li>
+                </ol>
           </details>
-          <details class="self-center text-left border-double-1 bg-white q-pa-md">
-            <summary>Coleslaw</summary>
-            <ul class="normal-ul">
-                <p class="title-h6">Salad:</p>
-                <li>1.5 cup Red Cabbage (shredded), or mixed red and green cabbage</li>
-                <li>2 large carrots (shredded)</li>
-                <li>Optional: Green/Spring Onions (sliced)</li>
 
-
-                <li>Optional: other veggies like bell peppers or any sprouts</li>
-
-              </ul>
-
-              <ul class="normal-ul">
-                <p class="title-h6">Dressing:</p>
-                <li>2 tbsp water</li>
-                <li>2 tbsp vinegar (e.g. apple cider, white, or rice wine)</li>
-                <li>1 lemon juiced or 2 tbsp lemon juice</li>
-                <li>1 tsp dijon or yellow mustard, or 1/4 tsp dry mustard</li>
-                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
-                <li>1/8 tsp black pepper</li>
-                <li>Optional: 1 tbsp tahini (will make it creamier) can also use 4 tbsp sesame seeds if using blender</li>
-                <li>Optional: ½ teaspoon celery seed powder</li>
-                <li>Optional: 1 tsp onion powder</li>
-
-
-
-                <p class="title-h6">Directions:</p>
-                <li>Put all dressing ingredients in blender or use an immersion/stick blender, then mix dressing with veggies and let sit for 10 minutes</li>
-                <p><br><b class="blink-this">OR...</b></p>
-                <li>Finely mash garlic and whisk (or put in sealed jar and shake) all ingredients together, then mix well with veggies and let sit for 10 minutes</li>
-
-              </ul>
-          </details>
 
         </div>
         </div>
@@ -366,7 +367,8 @@ export default {
 
           `;
 
-      mainoutput = "Soups coming soon!";
+      // mainoutput = `<div class="row justify-center">
+      // <div class="width-auto">Soups coming soon!</div></div>`;
       return mainoutput;
     },
     thisWeeksSalad() {
@@ -382,7 +384,7 @@ export default {
         <div class="row justify-center">
           <div class="width-auto">
           <details class="self-center text-left border-double-1 bg-white q-pa-md">
-            <summary>Easy Caesar Salad </summary>
+            <summary>Caesar Salad </summary>
               <ul class="normal-ul">
                 <p class="title-h6">Salad:</p>
                 <li>Lettuce (e.g: Romain, Arugula/Rocket, Redleaf)</li>
@@ -392,13 +394,13 @@ export default {
 
               <ul class="normal-ul">
                 <p class="title-h6">Dressing:</p>
-                <li>1/2 cup water</li>
+                <li>½ cup water</li>
                 <li>1 avocado or small/baby boiled or baked potato</li>
-                <li>1/2 lemon juiced or 1 tbsp lemon juice</li>
+                <li>½ lemon juiced or 1 tbsp lemon juice</li>
                 <li>2 tsp vinegar (apple cider or red wine vinegar suggested)</li>
-                <li>1 tsp dijon or yellow mustard, or 1/4 tsp dry mustard</li>
-                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
-                <li>1/8 tsp black pepper</li>
+                <li>1 tsp dijon or yellow mustard, or ¼ tsp dry mustard</li>
+                <li>1-2 garlic cloves, peeled, or ½ tbsp garlic powder</li>
+                <li>⅛ tsp black pepper</li>
                 <li>Optional: 2 tsp nutritional yeast; 1 tsp parsley dried or fresh</li>
 
                 <p class="title-h6">Directions:</p>
@@ -417,10 +419,10 @@ export default {
             <ul class="normal-ul">
                 <p class="title-h6">Salad:</p>
                 <li>Lettuce (optional) (e.g: Baby Spinach, Kale, Endive, Watercress)</li>
-                <li>1/2 Red Onion (diced or sliced)</li>
+                <li>½ Red Onion (diced or sliced)</li>
                 <li>1 Bell Pepper (diced or sliced)</li>
-                <li>1/4 cup Tomatoes (e.g. grape or cherry halved) </li>
-                <li>1/2 Cucumber or 2 baby cucumbers (diced or sliced)</li>
+                <li>¼ cup Tomatoes (e.g. grape or cherry halved) </li>
+                <li>½ Cucumber or 2 baby cucumbers (diced or sliced)</li>
                 <li>Optional: sun-dried tomatoes</li>
                 <li>Optional: 2 Peperoncinis (sliced)</li>
               </ul>
@@ -431,8 +433,8 @@ export default {
                 <li>2 tbsp vinegar (apple cider or red wine vinegar suggested)</li>
                 <li>1 lemon juiced or 2 tbsp lemon juice</li>
                 <li>1 tbsp dried oregano</li>
-                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
-                <li>1/8 tsp black pepper</li>
+                <li>1-2 garlic cloves, peeled, or ½ tbsp garlic powder</li>
+                <li>⅛ tsp black pepper</li>
                 <li>Optional: 2 tsp nutritional yeast</li>
                 <li>Optional: 1 tsp onion powder</li>
 
@@ -451,7 +453,7 @@ export default {
                 <li>1.5 cup Napa or Red Cabbage (shredded), or mixed red and green or Napa cabbage</li>
                 <li>2 large carrots (shredded)</li>
                 <li>Bell peppers, usually red, (shredded)</li>
-                <li>Recommended: 1/2 cup cooked edamame</li>
+                <li>Recommended: ½ cup cooked edamame</li>
                 <li>Optional: Green/Spring Onions (sliced)</li>
 
 
@@ -464,11 +466,11 @@ export default {
                 <li>2 tbsp water</li>
                 <li>2 tbsp vinegar (e.g. apple cider, white, or rice wine)</li>
                 <li>1 lime juiced or 2 tbsp lime juice</li>
-                <li>1 tsp dijon or yellow mustard, or 1/4 tsp dry mustard</li>
-                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
+                <li>1 tsp dijon or yellow mustard, or ¼ tsp dry mustard</li>
+                <li>1-2 garlic cloves, peeled, or ½ tbsp garlic powder</li>
                 <li>1 tsp ginger, or ½ tsp dried ginger</li>
 
-                <li>1/8 tsp black pepper</li>
+                <li>⅛ tsp black pepper</li>
                 <li>Suggested: 1 tbsp lemon grass (dried, fresh or paste)</li>
                 <li>Suggested: 1 tbsp tahini or peanut butter (will make it creamier) can also use 4 tbsp sesame seeds or peanuts if using blender</li>
                 <li>Optional: 1 tbsp cilantro</li>
@@ -501,9 +503,9 @@ export default {
                 <li>2 tbsp water</li>
                 <li>2 tbsp vinegar (e.g. apple cider, white, or rice wine)</li>
                 <li>1 lemon juiced or 2 tbsp lemon juice</li>
-                <li>1 tsp dijon or yellow mustard, or 1/4 tsp dry mustard</li>
-                <li>1-2 garlic cloves, peeled, or 1/2 tbsp garlic powder</li>
-                <li>1/8 tsp black pepper</li>
+                <li>1 tsp dijon or yellow mustard, or ¼ tsp dry mustard</li>
+                <li>1-2 garlic cloves, peeled, or ½ tbsp garlic powder</li>
+                <li>⅛ tsp black pepper</li>
                 <li>Optional: 1 tbsp tahini (will make it creamier) can also use 4 tbsp sesame seeds if using blender</li>
                 <li>Optional: ½ teaspoon celery seed powder</li>
                 <li>Optional: 1 tsp onion powder</li>
@@ -551,14 +553,14 @@ export default {
                 <li>1-2 Apricots</li>
                 <li>2 Avocados</li>
                 <li>1-2 Bananas</li>
-                <li>1/2 Cantaloupe</li>
+                <li>½ Cantaloupe</li>
                 <li>2 Kiwis (suggested: baby or golden kiwi)</li>
                 <li>1-2 Mango</li>
                 <li>1-2 Oranges</li>
                 <li>1-2 Peaches</li>
                 <li>1-2 Pears</li>
                 <li>2-3 Plums (suggested: black plums)</li>
-                <li>1/4 Water mellon</li>
+                <li>¼ Water mellon</li>
 
 
               </ul>
@@ -599,7 +601,7 @@ export default {
 }
 .width-auto {
   min-width: 75%;
-  max-width: 100%;
+  max-width: 99%;
 }
 @keyframes typing {
   from {
@@ -644,5 +646,27 @@ export default {
   box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
     -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;
   border-radius: 0%;
+}
+.doc-talk {
+  animation: slide-in 1s ease-in-out;
+  //, blink 0.5s step-end infinite alternate;
+  position: relative;
+}
+@keyframes slide-in {
+  0% {
+    left: -100%;
+  }
+  // 85% {
+  //   left: -10%;
+  // }
+  // 90% {
+  //   left: 0%;
+  // }
+  // 99% {
+  //   left: -5%;
+  // }
+  100% {
+    left: 0%;
+  }
 }
 </style>

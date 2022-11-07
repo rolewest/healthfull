@@ -69,11 +69,36 @@
       v-if="!isNewPlayer"
     >
       <legend>What to do next?</legend>
-
       <div class="row q-pb-md donext-item">
         <q-card class="q-pa-md my-card bg-none" bordered>
-          <div class="text-center" v-if="!hasSetlist">
-            <p class="text-h6">Build a SetList!</p>
+          <div class="text-center">
+            <p class="text-h6">See Meal Prescription!</p>
+            <p>
+              Science backed diet builds immunity. Stops and reverses disease.
+            </p>
+            <!-- Finally, a science backed diet to reach your health goals sooner. -->
+            <q-btn
+              class="q-pa-md border-double-1 q"
+              color="info"
+              @click="this.$router.push({ name: 'planner' })"
+            >
+              <q-avatar
+                class="-mr-sm q-pb-sm"
+                color="warning"
+                icon="restaurant_menu"
+                size="40px"
+              >
+              </q-avatar>
+              <br />
+              <div class="q-ma-sm">My Meal Plans</div>
+            </q-btn>
+          </div>
+        </q-card>
+      </div>
+      <div class="row q-pb-md donext-item">
+        <q-card class="q-pa-md my-card bg-none" bordered>
+          <!-- <div class="text-center" v-if="!hasSetlist">
+            <p class="text-h6">See your Setlists</p>
             <p>
               Exercise the way you want and personalized for your fitness level.
             </p>
@@ -92,11 +117,13 @@
               <br />
               <div class="q-ma-sm">Make My Setlist</div>
             </q-btn>
-          </div>
-
-          <div class="text-center" v-else-if="hasSetlist">
-            <p class="text-h6">Earn Daily Points</p>
-            <p>with your custom setlist!</p>
+          </div> -->
+          <!-- v-else-if="hasSetlist" -->
+          <div class="text-center">
+            <p class="text-h6">See Fitness Prescription!</p>
+            <p>
+              Exercise the way you want. Personalized for your fitness level.
+            </p>
             <q-btn
               class="q-pa-md border-double-1 vertical-bottom"
               color="info"
@@ -118,15 +145,14 @@
       <div class="row q-pb-md donext-item">
         <q-card class="q-pa-md my-card bg-none" bordered>
           <div class="text-center">
-            <p class="text-h6">See Full Prescription!</p>
-            <p>
-              This is what the Doctor ordered! Small changes to make a big
-              difference.
-            </p>
+            <p class="text-h6">See Current Prescription</p>
+            <p>Small changes make a big difference. What the Doctor ordered!</p>
             <q-btn
               class="q-pa-md border-double-1 vertical-bottom"
               color="info"
-              @click="this.$router.push({ name: 'prescription' })"
+              @click="
+                this.$router.push({ name: 'measure', hash: '#prescription' })
+              "
             >
               <q-avatar
                 class="q-pb-sm"
@@ -137,29 +163,6 @@
               </q-avatar>
               <br />
               <div class="q-ma-sm">My Prescriptions</div>
-            </q-btn>
-          </div>
-        </q-card>
-      </div>
-      <div class="row q-pb-md donext-item">
-        <q-card class="q-pa-md my-card bg-none" bordered>
-          <div class="text-center">
-            <p class="text-h6">See Meal Prescription!</p>
-            <p>Use science backed diet to reach your health goals sooner.</p>
-            <q-btn
-              class="q-pa-md border-double-1 q"
-              color="info"
-              @click="this.$router.push({ name: 'planner' })"
-            >
-              <q-avatar
-                class="-mr-sm q-pb-sm"
-                color="warning"
-                icon="restaurant_menu"
-                size="40px"
-              >
-              </q-avatar>
-              <br />
-              <div class="q-ma-sm">My Meal Plans</div>
             </q-btn>
           </div>
         </q-card>
@@ -502,12 +505,18 @@
 
 
 
-  --></div>
+  -->
+    <Quotes />
+  </div>
 </template>
 
 <script>
 import { LocalStorage } from "quasar";
+import Quotes from "src/components/RandomQuote.vue";
 export default {
+  components: {
+    Quotes,
+  },
   data() {
     return {
       d1Value: [],
