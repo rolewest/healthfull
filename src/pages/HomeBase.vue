@@ -12,9 +12,10 @@
     </div>
     <div class="row justify-center"></div>
     <div
-      class="text-center text-white q-pa-sm q-mb-sm border-block"
+      class="text-center text-white q-pa-sm q-mb-sm border-block tip-block"
       :class="randomTipColor"
       v-if="!isNewPlayer"
+      @dblclick="currentTip = randomTip()"
     >
       <div class="title-accent">Random Tip:</div>
       <div v-html="currentTip" class="randomTip"></div>
@@ -983,6 +984,9 @@ export default {
 </script>
 
 <style lang="scss">
+.tip-block {
+  user-select: none;
+}
 .donext-item {
   width: 220px;
 }
