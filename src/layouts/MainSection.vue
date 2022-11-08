@@ -16,7 +16,7 @@
   </div>
   <div class="text-center block-item">To Gameify your health!</div>
   <div class="text-center block-item">
-    With the latest scientific & medical research
+    Using the latest scientific & medical research
   </div>
 
   <div class="text-center block-item disclaimer q-pa-xl">

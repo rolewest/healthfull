@@ -11,6 +11,14 @@
       >se
     </div>
     <div class="row justify-center"></div>
+    <div
+      class="text-center text-white q-pa-sm q-mb-sm border-block"
+      :class="randomTipColor"
+      v-if="!isNewPlayer"
+    >
+      <div class="title-accent">Random Tip:</div>
+      <div v-html="currentTip" class="randomTip"></div>
+    </div>
     <div class="row justify-center bg-accent text-white">
       <div class="q-pa-lg" v-if="isNewPlayer">
         <div class="type-writer">
@@ -519,6 +527,9 @@ export default {
   },
   data() {
     return {
+      currentTip: this.randomTip,
+      randomTipTimer: null,
+      randomTipColor: "bg-primary",
       tackOnMsg: "  ...you really need to sweep up in here",
       d1Value: [],
       d1Die: 0,
@@ -870,6 +881,32 @@ export default {
       console.log("okay..");
       // }
     },
+    randomTip() {
+      let tips = [
+        `The sources icons <span class="mdi mdi-comment-quote-outline xcitation"></span> next to debatable topics show you the latest medical & scientific facts!`,
+        `In 2017 poor diet was the #1 killer world wide, with over 11 million victims... <a href="https://www.healthdata.org/sites/default/files/files/infographics/Infographic_Healthy-Eating-Saves-Lives_2019_0.pdf" target="_blank">full source</a>`,
+        `Use the sources icons <span class="mdi mdi-comment-quote-outline xcitation"></span> to verify the science for yourself!`,
+      ];
+      if (LocalStorage.getItem("user.body.goal") <= 0) {
+        // loose & maintain weight tips
+        // tips.push(`Eat healthy ya'll`);
+        // tips.push(`Eat healthy ya'll`);
+        // tips.push(`Eat healthy ya'll`);
+      }
+
+      const colors = [
+        "bg-positive",
+        "bg-secondary",
+        "bg-negative",
+        "bg-info",
+        "bg-warning",
+      ];
+
+      let itemNum = Math.floor(Math.random() * tips.length);
+      let colorNum = Math.floor(Math.random() * colors.length);
+      this.randomTipColor = colors[colorNum];
+      return tips[itemNum];
+    },
   },
   computed: {
     isNewPlayer() {
@@ -882,7 +919,14 @@ export default {
     },
   },
   mounted() {
+    this.currentTip = this.randomTip();
+    this.randomTipTimer = setInterval(() => {
+      this.currentTip = this.randomTip();
+    }, 10000);
     console.log("mmnt:", LocalStorage.getItem("user.points.xp"));
+  },
+  beforeUnmount() {
+    clearInterval(this.randomTipTimer);
   },
 };
 </script>
@@ -957,7 +1001,9 @@ export default {
 .fadeOut {
   opacity: 0;
 }
-
+.randomTip {
+  transition: all 1s;
+}
 .fadeIn {
   opacity: 1;
   transition: all 1s steps(1, end);
@@ -1216,5 +1262,45 @@ details[open] > .hold-details {
   100% {
     background-position: 100% 0%;
   }
+}
+.xcitation {
+  position: relative;
+  color: $primary;
+  font-size: 1.5em;
+  border: 1px solid $primary;
+  border-radius: 5px;
+  padding: 0.2em;
+  // opacity: 0.7;
+  filter: grayscale(100%);
+  transition: all 1s ease;
+  background: white;
+}
+.border-block {
+  box-shadow: 0px -4px 0px 0px $dark, 0px 5px 0px 0px $dark,
+    -4px 0px 0px 1px$dark, 4px 0px 0px 1px $dark;
+}
+.border-block-info {
+  box-shadow: 0px -4px 0px 0px $info, 0px 5px 0px 0px $info,
+    -4px 0px 0px 1px$info, 4px 0px 0px 1px $info;
+}
+.border-block-accent {
+  box-shadow: 0px -4px 0px 0px $accent, 0px 5px 0px 0px $accent,
+    -4px 0px 0px 1px$accent, 4px 0px 0px 1px $accent;
+}
+.border-block-positive {
+  box-shadow: 0px -4px 0px 0px $positive, 0px 5px 0px 0px $positive,
+    -4px 0px 0px 1px$positive, 4px 0px 0px 1px $positive;
+}
+.border-block-negative {
+  box-shadow: 0px -4px 0px 0px $negative, 0px 5px 0px 0px $negative,
+    -4px 0px 0px 1px$negative, 4px 0px 0px 1px $negative;
+}
+.border-block-warning {
+  box-shadow: 0px -4px 0px 0px $warning, 0px 5px 0px 0px $warning,
+    -4px 0px 0px 1px$warning, 4px 0px 0px 1px $warning;
+}
+.border-block-primary {
+  box-shadow: 0px -4px 0px 0px $primary, 0px 5px 0px 0px $primary,
+    -4px 0px 0px 1px$primary, 4px 0px 0px 1px $primary;
 }
 </style>

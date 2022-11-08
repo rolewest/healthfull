@@ -12,7 +12,7 @@
 
         <p v-if="isNewPlayer">
           Enter in your
-          <q-btn @click="this.$router.push({ name: 'measure' })"
+          <q-btn @click="this.$router.push({ name: 'measure' })" color="accent"
             >personal health goals</q-btn
           >
           to get started!
@@ -35,18 +35,58 @@
       <div class="bit8-doc"></div>
       <div class="paperSheetFlat shadow">
         <div v-if="userBodyGoal <= 0">
+          <span class="doctor-chat">Dr. Doctor</span>:Don't worry about eating
+          too much, if you're still hungry then eat more
+          <span
+            class="mdi mdi-comment-quote-outline citation"
+            @click="
+              citation(
+                6,
+                'Whole Food Plant Based',
+                'Eat More to Loose Weight',
+                `Test have shown that eating more whole plant based foods actually sped up weight loss even when subjects were told to eat <em>as much as they wanted</em>. So stop dieting and just eat healthy food until your full.`,
+                `Many patients are interested in making dietary changes, and the WFPB (Whole Food Plant Based) diet can be offered as a safe and effective option for losing weight and obtaining some reduction in cholesterol, without necessarily increasing exercise. The main advantage is in eating to satiation without restricting the amount of food eaten. This small study also showed several improvements with chronic disease risk factors and quality of life, which were largely maintained to 12 months... [PMID: 28319109, 2017 C.E.]
+                      `,
+                '',
+                'theme-checked'
+              )
+            "
+          ></span
+          ><br />
           <span class="doctor-chat">Dr. Doctor</span>:These satiating soups &
           salads will help to curb your appetite before every meal<br />
           <span class="doctor-chat">Dr. Doctor</span>:Also remember to have your
           two cups of water before every meal!
         </div>
-
+        <div v-if="userBodyGoal >= 1">
+          <span class="doctor-chat">Dr. Doctor</span>:These satiating soups &
+          salads will help to curb your appetite before every meal<br />
+          <span class="doctor-chat">Dr. Doctor</span>:Don't worry about too many
+          calories, worry about the type and exercise are an important part of a
+          nutritional diet!<span
+            class="mdi mdi-comment-quote-outline citation"
+            @click="
+              citation(
+                6,
+                'Alcohol & Cancer',
+                'Moderate Alcohol Consumption Is NOT Associated with Reduced All-cause Mortality',
+                `No level of regular alcohol consumption was associated with reduced all-cause mortality.  [PMID: 26524703, 2016 C.E.].
+                        Alcohol use, including light to moderate drinking, continues to cause considerable cancer burden...`,
+                `We found that high intake of total proteins was associated with a lower risk of mortality from all causes. Intake of plant protein was also associated with a lower risk of mortality from all causes and cardiovascular diseases, which is consistent with its beneficial effects on cardiometabolic risk factors, including blood lipid and lipoprotein profiles, blood pressure, and glycaemic regulation. These findings have important public health implications as intake of plant protein can be increased relatively easily by replacing animal protein and could have a large effect on longevity. Also, an additional 3% of energy from plant proteins a day was associated with a 5% lower risk of death from all causes. Our findings therefore strongly support the existing dietary recommendations to increase consumption of plant proteins in the general population.  [PMID: 33338220, 2020 C.E.]
+                      `,
+                '',
+                'theme-checked'
+              )
+            "
+          ></span>
+        </div>
         <details>
           <summary>
             <span class="title-warning">Tips</span>
           </summary>
           <ul v-if="userBodyGoal <= 0" class="text-left normal-ul">
             <!-- Loose or maintain weight -->
+
             <li>If you're rushed then have some fruit before each meal</li>
             <li>The salads are also quick!</li>
             <li>If you have time try a soup before your meal</li>
@@ -54,7 +94,6 @@
           <ul v-if="userBodyGoal >= 1" class="text-left normal-ul">
             <!-- gain weight -->
             <li>All Shakes and smoothies are quick & easy</li>
-            <li>If you have time try a soup before your meal</li>
             <li>High carbs are great if you're exercising</li>
           </ul>
         </details>
@@ -99,22 +138,182 @@
     @click="showLevelUp('center')"
     label="Show Notification"
   /> -->
+  <div v-if="showCitationModal">
+    <Modal @close="toggleCitationModal" :theme="citationTheme" cite="cite">
+      <template></template>
+      <template v-slot:cite>
+        <h4 class="title-h4">{{ citationName }}</h4>
+        <div class="title-h6 text-center title-warning">
+          {{ citationCaption }}
+        </div>
+        <div class="paperSheetFlat">
+          <div class="text-center">
+            <a :href="baseURL + '/citations/' + citationID" target="_blank"
+              >see full citations & sources here</a
+            ><br />
+            <div class="text-h5">Basic Overview</div>
+            <span class="title-negative">
+              {{
+                citationTheme === "theme-red"
+                  ? "WARNING: this method's use is questionable"
+                  : ""
+              }}</span
+            >
+            <span class="title-negative">
+              {{
+                citationTheme === "theme-notice"
+                  ? "WARNING: your data could be inaccurate"
+                  : ""
+              }}</span
+            >
+            <span class="title-warning">
+              {{
+                citationTheme === "theme-invitro"
+                  ? "WARNING: data is from tests done in vitro (in petri dishes or test tubes) this doesn't mean it's invalid, but be aware."
+                  : ""
+              }}</span
+            >
+            <span class="text-negative">
+              {{
+                citationTheme === "theme-animal"
+                  ? "WARNING: data is from tests done on lab animals, this is one of the least reliable studies as humans are very different from mice or rats."
+                  : ""
+              }}</span
+            >
+            <br />
+          </div>
+
+          <div>
+            <span v-html="citationShort"></span>
+          </div>
+          <br />
+          <span class="title-positive text-center">
+            {{
+              citationTheme === "theme-checked"
+                ? "FYI: data is from a verified meta analysis or random controlled trials with real human subjects."
+                : ""
+            }}</span
+          >
+          <span class="text-positive text-center">
+            {{
+              citationTheme === "theme-meta"
+                ? "FYI: data is from verified meta analysis with real human subjects."
+                : ""
+            }}</span
+          >
+          <span class="title-warning">
+            {{
+              citationTheme === "theme-quant"
+                ? "FYI: data is from quantitative tests done by collecting and testing samples taken by scientists or medical professionals"
+                : ""
+            }}</span
+          >
+          <span class="title-warning text-center">
+            {{
+              citationTheme === "theme-obs"
+                ? "FYI: data is from observational studies, as it would be impractical or unethical to perform controlled tests to verify this data."
+                : ""
+            }}</span
+          >
+          <span class="text-positive text-center">
+            {{
+              citationTheme === "theme-rct"
+                ? "FYI: data is from verified double blind randomized placebo controlled trial with real human subjects."
+                : ""
+            }}</span
+          >
+
+          <p>
+            <span v-html="citationWhy"></span>
+          </p>
+        </div>
+        <div class="paperSheetFlat" v-show="citationSummary">
+          <!-- [<router-link to="/about">abooot</router-link>] {{ citationName }} |
+            {{ citationID }} | {{ citationCaption }} | {{ citationShort }} -->
+          <div class="text-center text-h5">Sources / Excerpts</div>
+          <kbd class="cite-text">
+            <span v-html="citationSummary"></span> <br />
+            <a :href="baseURL + '/citations/' + citationID" target="_blank"
+              >full citations are here</a
+            >
+          </kbd>
+        </div>
+      </template>
+    </Modal>
+  </div>
 </template>
 
 <script>
 import { LocalStorage } from "quasar";
 import confetti from "https://cdn.skypack.dev/canvas-confetti";
 import { useQuasar } from "quasar";
+import Modal from "src/components/Modal.vue";
+// // Create the observer
+// const dtalk = document.querySelector(".doc-talk");
+// dtalk.classList.remove("slide-in");
+// const observer = new IntersectionObserver((entries) => {
+//   entries.forEach((entry) => {
+//     if (entry.isIntersecting) {
+//       dtalk.classList.add("slide-in");
+//       return;
+//     }
+
+//     dtalk.classList.remove("slide-in");
+//   });
+// });
+
+// observer.observe(document.querySelector(".doc-talk"));
+
 export default {
+  components: { Modal },
   data() {
     const $q = useQuasar();
     return {
+      showCitationModal: false,
       levelProgress: LocalStorage.getItem("user.level.progress"),
       levelNumber: LocalStorage.getItem("user.level.number"),
       completedMeals: 0,
     };
   },
   methods: {
+    toggleCitationModal() {
+      if (this.showCitationModal) {
+        setTimeout(() => {
+          this.showCitationModal = !this.showCitationModal;
+        }, 500);
+      } else {
+        this.showCitationModal = !this.showCitationModal;
+      }
+
+      console.log(
+        "toggleCITMod:",
+        this.showCitationModal,
+        this.showCitationModal
+      );
+    },
+    citation(
+      id = 0,
+      name = "",
+      caption = "",
+      short = "",
+      summary = "",
+      why = "",
+      theme = ""
+    ) {
+      this.showCitationModal = true;
+      this.citationName = name;
+      this.citationID = id;
+      this.citationCaption = caption;
+      this.citationShort = short;
+      this.citationSummary = summary;
+      this.citationWhy = why;
+      this.citationTheme = theme;
+      console.log("seding emitter", this.$route, this.$router);
+      console.log("CITE:", name, id, this.showCitationModal);
+      console.log("citation", id, name, caption, short, summary, why, theme);
+      console.log("parent:", this.$parent.$data);
+      this.$emit("citation", id, name, caption, short, summary, why, theme);
+    },
     showLevelUp(position) {
       this.$q.notify({
         message: `Congratulations! <em>You</em> are now on level ${this.levelNumber}!`,
@@ -591,6 +790,12 @@ export default {
 </script>
 
 <style lang="scss">
+.q-page-container {
+  margin: auto;
+  /* max-width: 1000px; */
+  /* background: hotpink; */
+  max-width: 95%;
+}
 .type-writer .text {
   animation: typing 3s steps(22), blink 0.5s step-end infinite alternate;
   white-space: nowrap;

@@ -28,6 +28,9 @@ export default {
       if (isFoot == 0) return this.footMessage;
       if (isFoot == 1) return this.quoteMessage;
     },
+    doitgod() {
+      alert("!!!");
+    },
   },
   computed: {
     randomAtYourFeetMsg() {

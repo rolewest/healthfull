@@ -4,7 +4,12 @@
       <video hidden id="webcam" width="640" height="480"></video>
       <canvas id="canvas" width="640" height="480"></canvas>
     </div> -->
-    <details class="user-input-area" :open="viewPrescriptionOnly != true">
+    <!-- [gender:{{ userGender }}|{{ userSex }}] -->
+    <!-- [newplayer:{{ isNewPlayer }}] -->
+    <details
+      class="user-input-area"
+      :open="viewPrescriptionOnly != true || isNewPlayer == true"
+    >
       <summary class="q-mt-sm">Edit My Details</summary>
       <!-- <div class="bit8-stethoscope"></div> -->
       <div class="questItem shadow-sm p-3" id="statsInput">
@@ -47,14 +52,14 @@
             >
               CM
             </button>
-            <button
+            <!-- <button
               type="button"
               class="btn btn-secondary bg-secondary"
               ref="userFTObj"
               @click="toggleCM(false)"
             >
               FT
-            </button>
+            </button> -->
           </div>
         </div>
         <label for="userHeight">Height</label>
@@ -83,14 +88,14 @@
             >
               KG
             </button>
-            <button
+            <!-- <button
               type="button"
               class="btn btn-secondary bg-secondary"
               ref="userLBObj"
               @click="toggleKG(false)"
             >
               LBS
-            </button>
+            </button> -->
           </div>
         </div>
         <label for="userWeight">Weight</label>
@@ -123,9 +128,9 @@
             :class="{
               'btn btn-secondary': true,
               'bg-secondary': this.userGender == 1,
-              'bg-info': this.userGender == 0,
+              'bg-info': this.userGender == 2,
             }"
-            @click="flipGender(0)"
+            @click="flipGender(2)"
           >
             <q-icon name="mdi-human-male" size="25px" /> male&nbsp;
           </q-btn>
@@ -133,7 +138,7 @@
             ref="flipFemale"
             :class="{
               'btn btn-secondary': true,
-              'bg-secondary': this.userGender == 0,
+              'bg-secondary': this.userGender == 2,
               'bg-info': this.userGender == 1,
             }"
             @click="flipGender(1)"
@@ -676,7 +681,7 @@
                 <option value="0">currently</option>
                 <option value="1">used to</option>
               </select>
-              eat seafood
+              eat seafood or fish oil
               <input type="number" v-model="userLifestyleSeafood" />
               <span class="check-label"></span>
             </label>
@@ -1047,7 +1052,8 @@
                     userUsedToMeat == 0)
                 "
               >
-                Try to incorporate a Meatless Monday<span
+                Try to incorporate a Meatless Monday
+                <!-- <span
                   v-if="
                     (userLifestyleSeafood >= 1 &&
                       userLifestyleSeafoodFreq >= 365 &&
@@ -1060,7 +1066,8 @@
                       userUsedToSeafood == 0)
                   "
                   >, and Fishless Fridays</span
-                >, and or a different vegetarian or vegan day each week.
+                >, and  -->
+                or a different vegetarian or vegan day each week
                 <span
                   class="mdi mdi-comment-quote-outline citation"
                   @click="
@@ -1068,10 +1075,53 @@
                       1,
                       'Meat & Mortality',
                       `Mortality & Cancer Risk from Unprocessed and Processed Meat`,
-                      `In conclusion, we found higher all-cause and CVD mortality to be associated with relatively low intake of red and processed meat (and of unprocessed red meat in particular), compared to zero intake. While caution is appropriate in inferring causation from observational data, these results suggest possible adverse effects of red and processed meat, even with low to moderate levels of intake.[PMID: 30875776, 2019 C.E.].`,
-                      `This comprehensive systematic review and meta-analysis study showed that high red meat intake was positively associated with risk of breast cancer, endometrial cancer, colorectal cancer, colon cancer, rectal cancer, lung cancer, and hepatocellular carcinoma, and high processed meat intake was positively associated with risk of breast, colorectal, colon, rectal, and lung cancers. Higher risk of colorectal, colon, rectal, lung, and renal cell cancers were also observed with high total red and processed meat consumption [PMID: 34455534, 2021 C.E.]`,
+                      `Eating red and especially process meat has been shown to increase chances of Coronary Heart Disease, Cancer, and other Non communicable diseases.
+                      <hr/>If you're worried about B12 then <q>[i]n the general population, vitamin B12 insufficiency is a relatively common finding, with an increased incidence with age. [PMID: 25824066, 2015 C.E.]</q> so we should all take B12 supplements. If you're worried about protein then eat more nuts and beans. All meat has <em>zero</em> fiber but most people think it does.`,
+                      `This comprehensive systematic review and meta-analysis study showed that high red meat intake was positively associated with risk of breast cancer, endometrial cancer, colorectal cancer, colon cancer, rectal cancer, lung cancer, and hepatocellular carcinoma, and high processed meat intake was positively associated with risk of breast, colorectal, colon, rectal, and lung cancers. Higher risk of colorectal, colon, rectal, lung, and renal cell cancers were also observed with high total red and processed meat consumption [PMID: 34455534, 2021 C.E.]
+                      <hr/>
+                      [...] we found higher all-cause and CVD (Cardiovascular Disease) mortality to be associated with relatively low intake of red and processed meat (and of unprocessed red meat in particular), compared to zero intake. While caution is appropriate in inferring causation from observational data, these results suggest possible adverse effects of red and processed meat, even with low to moderate levels of intake.[PMID: 30875776, 2019 C.E.].
+                      <hr/>
+
+                      `,
                       ``,
-                      'theme-meta'
+                      'theme-checked'
+                    )
+                  "
+                ></span>
+              </li>
+              <li
+                v-if="
+                  (userLifestyleSeafood >= 1 &&
+                    userLifestyleSeafoodFreq >= 365 &&
+                    userUsedToSeafood == 0) ||
+                  (userLifestyleSeafood >= 6 &&
+                    userLifestyleSeafoodFreq >= 52 &&
+                    userUsedToSeafood == 0) ||
+                  (userLifestyleSeafood >= 20 &&
+                    userLifestyleSeafoodFreq >= 12 &&
+                    userUsedToSeafood == 0)
+                "
+              >
+                Try incorporating a Fishless Fridays or generally lowering fish
+                and fish oil consumption due to high lead, mercury, and micro
+                plastics in our polluted oceans
+                <span
+                  class="mdi mdi-comment-quote-outline citation"
+                  @click="
+                    citation(
+                      1,
+                      'Seafood & Fish Oil',
+                      `Slower brain function, Lead & Mercury Poison, and ingested Micro plastics`,
+                      `Fish used to be healthy food for your body and brain, but due to high lead, mercury, and potentially cancer causing micro plastics (mostly from skin care products) fish has null effects (the bad cancels out the good) or negative effects due to all the pollutants in our oceans.
+                        <hr/>
+                        A table spoon of ground flax seed / day will provide the same omega-3 benefits without the risk, or if you can afford to you can buy algae based omega-3/dha and get it the same way that fish usually do: from algae but without the added pollution.`,
+                      `Overall, omega-3 PUFA supplementation was not associated with a lower risk of all-cause mortality, cardiac death, sudden death, myocardial infarction, or stroke based on relative and absolute measures of association [PMID: 22968891, 2012 C.E.]
+                        <hr/>
+                        Higher current fish consumption predicted worse performance on several cognitive speed constructs. Greater fish consumption in childhood predicted slower perceptual speed and simple/choice reaction time. We found no evidence to support the hypothesis that higher proportions of long-chain n-3 fatty acids or fish intake benefits cognitive performance in normal older adults. [PMID: 24353345, 2014 C.E.]
+                        <hr/>
+                        The majority of countries and global organizations now enforce a maximum concentration of mercury in fish of approximately 0.5 mg.kg<sup>-1</sup>. All of the 184 samples (50.52 % of the total fish samples studied) were above the maximum level set by the European Commission Regulation for mercury in fish. According to the findings of this study with analyzer AMA 254, the consumption is not recommended of fish, especially seafood (meat of shark, swordfish and king mackerel), for selected groups of the population: children, women of childbearing age, pregnant women and nursing mothers. [PMID: 30260185, 2018]`,
+                      ``,
+                      'theme-quant'
                     )
                   "
                 ></span>
@@ -1083,7 +1133,7 @@
             >
             <div class="border-double-1 graphPaper-2 q-pa-sm">
               <!-- Gain muscle -->
-              <span class="" v-if="this.userBodyGoal >= 1">
+              <span class="" v-if="userBodyGoal >= 1">
                 <span v-html="skillTo1RM(userSkill)"></span>
                 <details>
                   <summary>Your 60 day plan</summary>
@@ -1200,17 +1250,15 @@
       <div class="paperSheetFlat shadow">
         <span class="doctor-chat">Dr. Doctor</span>: I've updated your
         <q-btn
-          @click="this.$router.push({ name: 'player' })"
+          @click="this.$router.push({ name: 'home' })"
           color="info"
-          text-color="negative"
-          icon="mdi-home-heart"
-          icon-color="negative"
-        >
+          text-color="dark"
+          ><q-icon name="mdi-home-heart" size="2.5em" color="negative"></q-icon>
           <span>&nbsp;Homebase </span>
         </q-btn>
         Take a look if you're unsure what you should do next.
 
-        {{ riskFromDoctorMouth("all") }}
+        <!-- {{ riskFromDoctorMouth("all") }} -->
       </div>
 
       <!--  -->
@@ -2136,7 +2184,7 @@ needed for sets to failure for a specific repetition number[1].`,
               <tr :class="{ 'border-selection': userSkill <= -7 }">
                 <th scope="row">
                   <span class="mdi mdi-check-outline text-success"></span> 1RM
-                  40% @40reps
+                  40% @30+ reps
                 </th>
                 <td class="maleChart">~{{ show1RM(140) }}</td>
                 <td class="femaleChart">~{{ show1RM(240) }}</td>
@@ -2741,6 +2789,13 @@ needed for sets to failure for a specific repetition number[1].`,
                   : ""
               }}</span
             >
+            <span class="title-warning">
+              {{
+                citationTheme === "theme-quant"
+                  ? "FYI: data is from quantitative tests done by collecting and testing samples taken by scientists or medical professionals"
+                  : ""
+              }}</span
+            >
             <span class="title-warning text-center">
               {{
                 citationTheme === "theme-obs"
@@ -2799,6 +2854,7 @@ export default {
       showModal: false,
       showCitationModal: false,
       userGender: LocalStorage.getItem("userGender") || null,
+      userSex: LocalStorage.getItem("user.sex") || null,
       userLevel: LocalStorage.getItem("user.level.number") || 1,
       userAge: LocalStorage.getItem("userAge") || null,
       userHeight:
@@ -2880,65 +2936,34 @@ export default {
   },
   methods: {
     skillTo1RM(userSkill, table = false) {
-      //PMID: 31817252
+      console.log("exPLAN:", userSkill);
+      //PMID: 31817252/ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6950543/#sec4-ijerph-16-04897title
+      let basereps = 0; // 6-12+
+      let basesets = 0; // 3-6
+      let percent = 0; //
+
       if (userSkill >= 10) {
-        return `${this.show1RM(195)} to ${this.show1RM(295)}`;
+        basereps = 2;
+        basesets = 12;
+        percent = 95;
         //   `95% @02reps
         //   <td class="maleChart">~{{ show1RM(195) }}</td>
         // <td class="femaleChart">~{{ show1RM(295) }}</td>`
       }
       if (userSkill >= 5 && userSkill <= 9) {
+        basereps = 4;
+        basesets = 10;
+        percent = 90;
+
         //   `90% @04reps
         // </th>
         // <td class="maleChart">~{{ show1RM(190) }}</td>
         // <td class="femaleChart">~{{ show1RM(290) }}</td>`
       }
       if (userSkill >= 1 && userSkill <= 4) {
-        let lift = `${this.show1RM(280)} to ${this.show1RM(180)} (${(
-          this.show1RM(280, false) * 2.2
-        ).toFixed(1)} lbs to ${(this.show1RM(180, false) * 2.2).toFixed(
-          1
-        )} lbs) weights`;
-        if (this.userGender == 1) {
-          //female
-          lift = `${this.show1RM(280)} (${(
-            this.show1RM(280, false) * 2.2
-          ).toFixed(1)} lbs) weights`;
-        }
-        if (this.userGender == 0) {
-          //male
-          lift = `${this.show1RM(180)} (${(
-            this.show1RM(180, false) * 2.2
-          ).toFixed(1)} lbs) weights`;
-        }
-        if (table) {
-          return `<table border="1"><tr class="text-center"><th colspan="5">60 day Plan</th></tr>
-          <tr>
-            <th>Week Number</th><th>Days/Week</th><th>Reps</th><th>Sets</th><th>Rests</th>
-          </tr>
-          <tr class="text-center">
-            <td>1</td><td>3</td><td>8</td><td>6 + 1 / day</td><td>60s - 80s</td>
-          </tr><tr class="text-center">
-            <td>2</td><td>3</td><td>8</td><td>9 + 1 / day</td><td>60s - 80s</td>
-          </tr><tr class="text-center">
-            <td>3</td><td>3</td><td>8</td><td>12 + 1 / day</td><td>60s - 80s</td>
-          </tr><tr class="text-center">
-            <td>4</td><td>3</td><td>8</td><td>15 + 1 / day</td><td>60s - 80s</td>
-          </tr><tr class="text-center">
-            <td>5</td><td>3</td><td>8</td><td>18 + 1 / day</td><td>60s - 80s</td>
-          </tr><tr class="text-center">
-            <td>6</td><td>3</td><td>8</td><td>21 + 1 / day</td><td>60s - 80s</td>
-          </tr><tr class="text-center">
-            <td>7</td><td>3</td><td>8</td><td>24 + 1 / day</td><td>60s - 80s</td>
-          </tr><tr class="text-center">
-            <td>8</td><td>3</td><td>8</td><td>27 + 1 / day</td><td>60s - 80s</td>
-          </tr><tr class="text-center">
-            <td>9</td><td colspan="4">Rest Week</td>
-          </tr>
-        </table>`;
-        }
-        return `Start with 6 sets of 8 repetitions 3 days per week. Aim for around ${lift}, with 60-80 seconds rest between reps.<br/>Every day add 1 set for fast muscle and strength gains. If you miss a day then try to make up for it before the week ends. See your 60 day plan below.<br/>
-        `;
+        basereps = 8; //
+        basesets = 6;
+        percent = 80;
 
         //  ` 80% @08reps
         // </th>
@@ -2946,29 +2971,101 @@ export default {
         // <td class="femaleChart">~{{ show1RM(280) }}</td>`
       }
       if (userSkill == 0) {
+        basereps = 12;
+        basesets = 4;
+        percent = 70;
         //  `70% @12reps
         // </th>
         // <td class="maleChart">~{{ show1RM(170) }}</td>
         // <td class="femaleChart">~{{ show1RM(270) }}</td>`
       }
       if (userSkill <= -1 && userSkill >= -3) {
+        basereps = 20;
+        basesets = 3;
+        percent = 60;
         //   `60% @20reps
         // </th>
         // <td class="maleChart">~{{ show1RM(160) }}</td>
         // <td class="femaleChart">~{{ show1RM(260) }}</td>`
       }
       if (userSkill <= -4 && userSkill >= -6) {
-        `50% @30reps
-      </th>
-      <td class="maleChart">~{{ show1RM(150) }}</td>
-      <td class="femaleChart">~{{ show1RM(250) }}</td>`;
+        basereps = 30;
+        basesets = 2;
+        percent = 50;
+        //   `50% @30reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(150) }}</td>
+        // <td class="femaleChart">~{{ show1RM(250) }}</td>`;
       }
       if (userSkill <= -7) {
-        `40% @40reps
-      </th>
-      <td class="maleChart">~{{ show1RM(140) }}</td>
-      <td class="femaleChart">~{{ show1RM(240) }}</td>`;
+        basereps = 30;
+        basesets = 2;
+        percent = 40;
+        //   `40% @3+0reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(140) }}</td>
+        // <td class="femaleChart">~{{ show1RM(240) }}</td>`;
       }
+      // output
+      let lift = `${this.show1RM(100 + percent)} to ${this.show1RM(
+        100 + percent
+      )} (${(this.show1RM(200 + percent, false) * 2.2).toFixed(1)} lbs to ${(
+        this.show1RM(100 + percent, false) * 2.2
+      ).toFixed(1)} lbs) weights`;
+      if (this.userGender == 1) {
+        //female
+        lift = `${this.show1RM(200 + percent)} (${(
+          this.show1RM(200 + percent, false) * 2.2
+        ).toFixed(1)} lbs) weights`;
+      }
+      if (this.userGender == 2) {
+        //male
+        lift = `${this.show1RM(100 + percent)} (${(
+          this.show1RM(100 + percent, false) * 2.2
+        ).toFixed(1)} lbs) weights`;
+      }
+      if (table) {
+        return `<table border="1"><tr class="text-center"><th colspan="5">60 day Plan</th></tr>
+          <tr>
+            <th>Week Number</th><th>Days/Week</th><th>Reps</th><th>Sets</th><th>Rests</th>
+          </tr>
+          <tr class="text-center">
+            <td>1</td><td>3</td><td>${basereps}</td><td>${basesets} + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>2</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 3
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>3</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 6
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>4</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 9
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>5</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 12
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>6</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 15
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>7</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 18
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>8</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 21
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>9</td><td colspan="4">Rest Week</td>
+          </tr>
+        </table>`;
+      }
+      return `Start with ${basesets} sets of ${basereps} repetitions 3 days per week. Aim for around ${lift}, with 60-80 seconds rest between reps.<br/>Every day add 1 set for fast muscle and strength gains. If you miss a day then try to make up for it before the week ends. See your 60 day plan below.<br/>
+        `;
     },
     riskFromDoctorMouth(risk = "", type = 0) {
       console.log("risk-=", risk);
@@ -3753,6 +3850,7 @@ export default {
       LocalStorage.set("userExerciseLength", this.userExerciseLength);
       LocalStorage.set("user.level.number", this.userLevel);
       LocalStorage.set("userGender", this.userGender);
+      LocalStorage.set("user.sex", this.userSex);
       //points
       LocalStorage.set("user.points.xp", this.userBasePoints.xp);
       LocalStorage.set("user.points.hp", this.userBasePoints.hp);
@@ -3812,9 +3910,9 @@ export default {
       );
       LocalStorage.set("user.body.goal", this.userBodyGoal);
     },
-    flipGender(type = 0) {
+    flipGender(type = 2) {
       console.log("flipping to:", type);
-      if (type === 0) {
+      if (type === 2) {
         let allMale = document.querySelectorAll(".maleChart");
         let allFemale = document.querySelectorAll(".femaleChart");
         for (let index = 0; index < allMale.length; index++) {
@@ -3847,6 +3945,7 @@ export default {
         //document.querySelectorAll(".maleChart").classList.toggle("isHidden");
       }
       this.userGender = type;
+      this.userSex = `{type}`; //superfluous if gender works...
       this.saveUserData();
       console.log("flipped to:", this.userGender);
     },
@@ -4021,7 +4120,7 @@ export default {
       if (type === 6) return (userWeight * 1).toFixed(2) + `${unitKG}`;
 
       if (type === "guess") {
-        if (this.userGender === 0)
+        if (this.userGender === 2)
           return (this.userWeight - guessMaleAvg).toFixed(2);
         if (this.userGender === 1)
           return (this.userWeight - guessFemaleAvg).toFixed(2);
@@ -4361,10 +4460,14 @@ export default {
     //   console.log("filp!!?");
     //   this.flipGender(this.userGender);
     // }, 3000);
-    if (this.userGender == 0) this.$refs.flipMale.click();
+    if (this.userGender == 2) this.$refs.flipMale.click();
     if (this.userGender == 1) this.$refs.flipFemale.click();
   },
   computed: {
+    isNewPlayer() {
+      console.log("uage:", LocalStorage.getItem("userAge"));
+      return LocalStorage.getItem("userAge") == "null";
+    },
     // citationSummaryFormat() {
     //   return this.citationSummary.replaceAll("''", '"');
     // },
@@ -4410,11 +4513,11 @@ export default {
       )} to ${this.getBMR(
         4
       )} everyday</summary>Aim for lots of fruit (frozen or fresh), whole grains, and beans & nuts like: chickpeas, lentils, walnuts, peanuts, all beans, peas, edemame, Tempeh.</details>`;
-      const gain_protein = `<details class="q-ml-md noblink-details"><summary>Eat around ${
+      const gain_protein = `<details class="q-ml-md noblink-details"><summary>Eat around ${(
         this.userWeight * 1.9
-      } to ${
-        this.userWeight * 3.0
-      } grams of protein per day.</summary> E.g. A peanut butter sandwich (or almond etc.) is around ${pbs} grams of protein, a cup of lentils or hummus is around the same. So that's about ${protein_pbs_total} Peanut butter sandwiches / day, but try to have variety in what you eat!</details>`;
+      ).toFixed(0)} to ${(this.userWeight * 3.0).toFixed(
+        0
+      )} grams of protein per day.</summary> E.g. A peanut butter (or almond etc.) sandwich on whole grain bread is around ${pbs} grams of protein, a cup of lentils or hummus is around the same. So that's about ${protein_pbs_total} Peanut butter sandwiches / day, but try to have variety in what you eat!</details>`;
       if (this.userBodyGoal == -2) {
         // for loose weight
         return `<div class="q-ma-sm"><div class="bg-primary">•Before every meal:</div>${preload_water}${preload_salad}</div><div class="q-ma-sm"><div class="bg-warning">•Restrictions:</div>${fasting_after7}!</div>`;

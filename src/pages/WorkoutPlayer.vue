@@ -223,7 +223,7 @@
       <!-- Initialization step / Welcome! STEP 0 -->
       <div v-if="this.currentStep == 0">
         <div class="step">
-          <div class="title-h4 row">Start Conditioning?</div>
+          <div class="title-h4 row">Training Prescriptions</div>
           <div class="text-center">
             <div v-html="randomWelcome"></div>
             <div class="text-center row justify-center">
@@ -246,7 +246,7 @@
                   >Create a Custom Routine</q-btn
                 >
                 <hr />
-                <h5>Low Impact Exercises</h5>
+                <h5>Low Impact Supplementary Exercises</h5>
                 <p>No equipment needed!</p>
                 <q-btn
                   @click="
@@ -931,7 +931,7 @@ export default {
     repsCompleted() {
       if (this.stepsList[this.currentStep - 1]) {
         if (this.currentRepCount >= this.stepsList[this.currentStep - 1].reps) {
-          return `${this.currentRepCount}`;
+          return this.currentRepCount;
           // return `<span class="glower">${this.currentRepCount}</span>`; // why glower here?
         }
       }

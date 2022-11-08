@@ -11,9 +11,9 @@
         :class="{
           'btn btn-secondary': true,
           'bg-secondary': this.userGender == 1,
-          'bg-info': this.userGender == 0,
+          'bg-info': this.userGender == 2,
         }"
-        @click="flipGender(0)"
+        @click="flipGender(2)"
       >
         <q-icon name="mdi-human-male" size="25px" /> male&nbsp;
       </q-btn>
@@ -21,7 +21,7 @@
         ref="flipFemale"
         :class="{
           'btn btn-secondary': true,
-          'bg-secondary': this.userGender == 0,
+          'bg-secondary': this.userGender == 2,
           'bg-info': this.userGender == 1,
         }"
         @click="flipGender(1)"
@@ -1759,7 +1759,7 @@ export default {
       let foundAtIndex = null;
       let curGender = null;
 
-      if (type === 0) curGender = maleVals;
+      if (type === 2) curGender = maleVals;
       if (type === 1) curGender = femaleVals;
       console.log("CURG:", curGender, type);
       for (let index = 0; index < curGender.length; index++) {
