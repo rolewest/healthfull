@@ -884,7 +884,7 @@ export default {
     randomTip() {
       let tips = [
         `The sources icons <span class="mdi mdi-comment-quote-outline xcitation"></span> next to debatable topics show you the latest medical & scientific facts!`,
-        `In 2017 poor diet was the #1 killer world wide, with over 11 million victims... <a href="https://www.healthdata.org/sites/default/files/files/infographics/Infographic_Healthy-Eating-Saves-Lives_2019_0.pdf" target="_blank">full source</a>`,
+        `In 2017 poor diet was the #1 killer world wide, with over 11 million victims... <br/><a href="https://www.healthdata.org/sites/default/files/files/infographics/Infographic_Healthy-Eating-Saves-Lives_2019_0.pdf" target="_blank">see infographic</a>`,
         `Use the sources icons <span class="mdi mdi-comment-quote-outline xcitation"></span> to verify the science for yourself!`,
       ];
       if (LocalStorage.getItem("user.body.goal") <= 0) {
@@ -894,6 +894,32 @@ export default {
         // tips.push(`Eat healthy ya'll`);
       }
 
+      if (LocalStorage.getItem("userConcerns").includes("cancer")) {
+        // tips.push(`Eat healthy ya'll`);
+      }
+      if (LocalStorage.getItem("userConcerns").includes("heart")) {
+        // tips.push(`Eat healthy ya'll`);
+        tips.push(
+          `<b>Reverse Heart Disease</b>: [Diet] can restore the ability of endothelial cells to produce nitric oxide, which can halt and reverse disease without morbidity, mortality, or added expense..<br/><a href="https://pubmed.ncbi.nlm.nih.gov/28630609" target="_blank">[PMID: 28630609, 2017 C.E.]</a>`
+        );
+      }
+      if (LocalStorage.getItem("userConcerns").includes("diabetes")) {
+        tips.push(
+          `<b>Reverse T2 Diabetes</b>: Clinical and pathophysiological studies have shown type 2 diabetes to be a condition mainly caused by excess, yet reversible, fat accumulation in the liver and pancreas.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/31097391" target="_blank">[PMID: 31097391, 2019 AD]</a>`
+        );
+      }
+      if (LocalStorage.getItem("userConcerns").includes("alzheimers")) {
+        // tips.push(`Eat healthy ya'll`);
+        tips.push(
+          `Diets high in grains, fruits, vegetables, and fish are associated with reduced risk of AD (Alzheimer's Disease), but these factors cannot counter the effects of meat, eggs, and high-fat dairy.  <br/><a href="https://pubmed.ncbi.nlm.nih.gov/27454859" target="_blank">[PMID: 27454859, 2016 AD]</a>`
+        );
+        tips.push(
+          `Higher vitamin D status is associated with reduced risk of Alzheimer's Disease.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/27454859" target="_blank">[PMID: 27454859, 2016 AD]</a>`
+        );
+        // tips.push(
+        //   ``
+        // );
+      }
       const colors = [
         "bg-positive",
         "bg-secondary",
@@ -923,7 +949,7 @@ export default {
     this.randomTipTimer = setInterval(() => {
       this.currentTip = this.randomTip();
     }, 10000);
-    console.log("mmnt:", LocalStorage.getItem("user.points.xp"));
+    console.log("mmnt:", LocalStorage.getAll());
   },
   beforeUnmount() {
     clearInterval(this.randomTipTimer);

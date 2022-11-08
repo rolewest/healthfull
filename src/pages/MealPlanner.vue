@@ -43,10 +43,17 @@
               citation(
                 6,
                 'Whole Food Plant Based',
-                'Eat More to Loose Weight',
-                `Test have shown that eating more whole plant based foods actually sped up weight loss even when subjects were told to eat <em>as much as they wanted</em>. So stop dieting and just eat healthy food until your full.`,
+                'Eat More to Loose Weight & Boost Immunity',
+                `Test have shown that eating more whole foods plant based meals actually sped up weight loss, and can stop and reverse Cardiovascular disease & type 2 diabetes [see below], even when subjects were told to eat <em>as much as they wanted</em>. Diets don't work really work (do you want to count calories or weight out portions when your 90, if you're so lucky?) or just eat healthy food until your full.`,
                 `Many patients are interested in making dietary changes, and the WFPB (Whole Food Plant Based) diet can be offered as a safe and effective option for losing weight and obtaining some reduction in cholesterol, without necessarily increasing exercise. The main advantage is in eating to satiation without restricting the amount of food eaten. This small study also showed several improvements with chronic disease risk factors and quality of life, which were largely maintained to 12 months... [PMID: 28319109, 2017 C.E.]
-                      `,
+                <hr/>
+                <div class='title-h6 text-center'>Cardiovascular Disease</div>
+                In summary, current palliative cardiovascular medicine consisting of drugs, stents, and bypass surgery cannot cure or halt the vascular disease epidemic and is financially unsustainable. WFPB can restore the ability of endothelial cells to produce nitric oxide, which can halt and reverse disease without morbidity, mortality, or added expense. As powerful as the data are, it is unconscionable not to inform the cardiovascular disease patient of this option for disease resolution. To begin to eliminate chronic illness, the public needs to be made aware that a pathway to this goal is through WFPBN [PMID: 28630609, 2017 C.E.].
+                <hr/>
+                <div class='title-h6 text-center'>Cardiovascular Disease, Type 2 Diabetes, and more</div>
+                This paper demonstrates proof of concept by detailing four cases that utilized an intensive, therapeutic lifestyle intervention change to dramatically reverse disease and reduce healthcare costs. Type 2 diabetes remission, though now known to be possible for many patients, is a relatively unusual outcome for most individuals because they do not pursue lifestyle changes that would enable it. [PMID: 34769879, 2021 C.E.]<hr/>
+                <div class='title-h6 text-center'>Reversal of Type 2 Diabetes</div>
+                Clinical and pathophysiological studies have shown type 2 diabetes to be a condition mainly caused by excess, yet reversible, fat accumulation in the liver and pancreas. [PMID: 31097391, 2019]`,
                 '',
                 'theme-checked'
               )
@@ -82,7 +89,7 @@
         </div>
         <details>
           <summary>
-            <span class="title-warning">Tips</span>
+            <span class="title-warning">Additional Tips</span>
           </summary>
           <ul v-if="userBodyGoal <= 0" class="text-left normal-ul">
             <!-- Loose or maintain weight -->
@@ -201,13 +208,13 @@
                 : ""
             }}</span
           >
-          <span class="title-warning">
+          `<span class="title-warning">
             {{
               citationTheme === "theme-quant"
                 ? "FYI: data is from quantitative tests done by collecting and testing samples taken by scientists or medical professionals"
                 : ""
             }}</span
-          >
+          >`
           <span class="title-warning text-center">
             {{
               citationTheme === "theme-obs"

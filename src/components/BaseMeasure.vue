@@ -1119,7 +1119,9 @@
                         <hr/>
                         Higher current fish consumption predicted worse performance on several cognitive speed constructs. Greater fish consumption in childhood predicted slower perceptual speed and simple/choice reaction time. We found no evidence to support the hypothesis that higher proportions of long-chain n-3 fatty acids or fish intake benefits cognitive performance in normal older adults. [PMID: 24353345, 2014 C.E.]
                         <hr/>
-                        The majority of countries and global organizations now enforce a maximum concentration of mercury in fish of approximately 0.5 mg.kg<sup>-1</sup>. All of the 184 samples (50.52 % of the total fish samples studied) were above the maximum level set by the European Commission Regulation for mercury in fish. According to the findings of this study with analyzer AMA 254, the consumption is not recommended of fish, especially seafood (meat of shark, swordfish and king mackerel), for selected groups of the population: children, women of childbearing age, pregnant women and nursing mothers. [PMID: 30260185, 2018]`,
+                        The majority of countries and global organizations now enforce a maximum concentration of mercury in fish of approximately 0.5 mg.kg<sup>-1</sup>. All of the 184 samples (50.52 % of the total fish samples studied) were above the maximum level set by the European Commission Regulation for mercury in fish. According to the findings of this study with analyzer AMA 254, the consumption is not recommended of fish, especially seafood (meat of shark, swordfish and king mackerel), for selected groups of the population: children, women of childbearing age, pregnant women and nursing mothers. [PMID: 30260185, 2018]
+                        <hr/>
+                        Considering that the symptoms recorded during intoxication with mercury and arsenic are in many respects similar to those of Parkinson's and Alzheimer's diseases, and their pathogenetic mechanisms (oxidative stress and neuroinflammation) coincide, then the toxic effects of mercury and arsenic in neurodegenerative diseases analyzed in this review can be characterized as the influence of the most significant risk factors. <a href='https://pubmed.ncbi.nlm.nih.gov/36178224' target='_blank'>[PMID: 36178224, 2022 AD]</a>`,
                       ``,
                       'theme-quant'
                     )
@@ -3139,7 +3141,7 @@ export default {
         if (this.getHabitRisk(risk, 1) >= 1)
           return `${
             risk.charAt(0).toUpperCase() + risk.slice(1)
-          } disease risk is ${this.getHabitRisk(risk)}.`;
+          } disease and Dementia risk is ${this.getHabitRisk(risk)}.`;
       }
       if (risk == "diabetes") {
         if (this.getHabitRisk(risk, 1) < 1) return `No signs of ${risk}.`;
