@@ -4,18 +4,18 @@
     <br />
     The only patient simulator game where you play the patient...
   </div>
-  <div class="text-h4 rpgClickCursor" @click="pressedStart()" v-if="isNewUser">
+  <div class="title-h4 rpgClickCursor" @click="pressedStart()" v-if="isNewUser">
     <!-- Health<JustHeart />Full
       <div class="powerBar powerBarGlow"></div> -->
     <div
       class="pressStartArrow rpgClickCursor block-item"
       @click="pressedStart()"
     >
-      {{ isNewUser ? "Start a New" : "Continue" }} Game
+      Start
     </div>
   </div>
   <div
-    class="text-h4 rpgClickCursor"
+    class="title-h4 rpgClickCursor"
     @click="pressedContinue()"
     v-if="!isNewUser"
   >
@@ -25,7 +25,7 @@
       class="pressStartArrow rpgClickCursor block-item"
       @click="pressedContinue()"
     >
-      Continue Game
+      Continue
     </div>
   </div>
   <div class="text-center block-item">To Gameify your health!</div>
@@ -233,5 +233,12 @@ body {
   100% {
     transform: scale(1);
   }
+}
+.title-h4:active,
+.title-h4:hover {
+  color: $accent;
+  text-shadow: 2px 2px 0 $positive, 2px -2px 0 $positive, -2px 2px 0 $positive,
+    -2px -2px 0 $positive, 2px 0px 0 $positive, 0px 2px 0 $positive,
+    -2px 0px 0 $positive, 0px -2px 0 $positive;
 }
 </style>
