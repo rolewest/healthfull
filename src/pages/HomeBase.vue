@@ -896,25 +896,50 @@ export default {
 
       if (LocalStorage.getItem("userConcerns").includes("cancer")) {
         // tips.push(`Eat healthy ya'll`);
+        tips.push(
+          `The proposition that wholistic nutrition controls and even reverses disease development suggests that cancer may be treated by nutritional intervention. <a href="https://pubmed.ncbi.nlm.nih.gov/29057328" target="_blank">[PMID: 29057328, 2017 AD]</a>`
+        );
+        tips.push(
+          `...lung cancer incidence among heavy smokers decreases almost to that of non-smokers, in a dose response manner, with increased β-carotene consumption (in food). <a href="https://pubmed.ncbi.nlm.nih.gov/29057328" target="_blank">[PMID: 29057328, 2017 AD]</a>`
+        );
+        tips.push(
+          `Some relatively recent studies showed reverse correlation between dietary fiber and the development of several types of cancers such as colorectal, small intestine, oral, larynx and breast.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/28469951" target="_blank">[PMID: 28469951, 2017 AD]</a>`
+        );
+
+        tips.push(
+          `High fiber diet prevents prostate cancer progression in early stages based on Asian and Western cultures.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/28469951" target="_blank">[PMID: 28469951, 2017 AD]</a>`
+        );
+        tips.push(
+          `...vitamin C, for the protective impact of fruit, especially citrus fruit, on esophageal cancer.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/28469951" target="_blank">[PMID: 28469951, 2017 AD]</a>`
+        );
+        tips.push(
+          `This association, showed apigenin [fruit & veggies] prevents growth of pancreatic cancer cells.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/28469951" target="_blank">[PMID: 28469951, 2017 AD]</a>`
+        );
+        tips.push(
+          `...fasting was seen to reduce chemotherapy side effects and suppress tumour progression.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/28469951" target="_blank">[PMID: 31416430, 2019 AD]</a>`
+        );
       }
       if (LocalStorage.getItem("userConcerns").includes("heart")) {
         // tips.push(`Eat healthy ya'll`);
         tips.push(
-          `<b>Reverse Heart Disease</b>: [Diet] can restore the ability of endothelial cells to produce nitric oxide, which can halt and reverse disease without morbidity, mortality, or added expense..<br/><a href="https://pubmed.ncbi.nlm.nih.gov/28630609" target="_blank">[PMID: 28630609, 2017 C.E.]</a>`
+          `<b>Reverse Heart Disease</b>: [Diet] can restore the ability of endothelial cells to produce nitric oxide, which can halt and reverse disease without morbidity, mortality, or added expense.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/28630609" target="_blank">[PMID: 28630609, 2017 C.E.]</a>`
         );
       }
       if (LocalStorage.getItem("userConcerns").includes("diabetes")) {
         tips.push(
           `<b>Reverse T2 Diabetes</b>: Clinical and pathophysiological studies have shown type 2 diabetes to be a condition mainly caused by excess, yet reversible, fat accumulation in the liver and pancreas.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/31097391" target="_blank">[PMID: 31097391, 2019 AD]</a>`
         );
+        tips.push(
+          `There are several studies showing reverse correlation between β-cryptoxanthin contents and disease morbidity such as liver disorders.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/28469951" target="_blank">[PMID: 28469951, 2017 AD]</a>`
+        );
       }
       if (LocalStorage.getItem("userConcerns").includes("alzheimers")) {
         // tips.push(`Eat healthy ya'll`);
         tips.push(
-          `Diets high in grains, fruits, vegetables, and fish are associated with reduced risk of AD (Alzheimer's Disease), but these factors cannot counter the effects of meat, eggs, and high-fat dairy.  <br/><a href="https://pubmed.ncbi.nlm.nih.gov/27454859" target="_blank">[PMID: 27454859, 2016 AD]</a>`
+          `Diets high in grains, fruits, vegetables, and fish [see info on <a href="https://pubmed.ncbi.nlm.nih.gov/30260185" target="_blank">mercury in fish</a> etc.] are associated with reduced risk of AD (Alzheimer's Disease), but these factors cannot counter the effects of meat, eggs, and high-fat dairy.  <br/><a href="https://pubmed.ncbi.nlm.nih.gov/27454859" target="_blank">[PMID: 27454859, 2016 AD]</a>`
         );
         tips.push(
-          `Higher vitamin D status is associated with reduced risk of Alzheimer's Disease.<br/><a href="https://pubmed.ncbi.nlm.nih.gov/27454859" target="_blank">[PMID: 27454859, 2016 AD]</a>`
+          `Higher vitamin D status is associated with reduced risk of Alzheimer's Disease. 🌞 <br/><a href="https://pubmed.ncbi.nlm.nih.gov/27454859" target="_blank">[PMID: 27454859, 2016 AD]</a>`
         );
         // tips.push(
         //   ``

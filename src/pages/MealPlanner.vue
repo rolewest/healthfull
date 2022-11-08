@@ -36,8 +36,7 @@
       <div class="paperSheetFlat shadow">
         <div v-if="userBodyGoal <= 0">
           <span class="doctor-chat">Dr. Doctor</span>:Don't worry about eating
-          too much, if you're still hungry then eat more
-          <span
+          too much<span
             class="mdi mdi-comment-quote-outline citation"
             @click="
               citation(
@@ -59,9 +58,10 @@
               )
             "
           ></span
-          ><br />
+          >, if you're still hungry then eat more of the below foods.
+          <br />
           <span class="doctor-chat">Dr. Doctor</span>:These satiating soups &
-          salads will help to curb your appetite before every meal<br />
+          salads will help to curb your appetite before every meal.<br />
           <span class="doctor-chat">Dr. Doctor</span>:Also remember to have your
           two cups of water before every meal!
         </div>
