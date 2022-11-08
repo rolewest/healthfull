@@ -973,7 +973,7 @@ export default {
     this.currentTip = this.randomTip();
     this.randomTipTimer = setInterval(() => {
       this.currentTip = this.randomTip();
-    }, 10000);
+    }, 15000);
     console.log("mmnt:", LocalStorage.getAll());
   },
   beforeUnmount() {
@@ -1076,6 +1076,7 @@ export default {
   //animation: name duration timing-function delay iteration-count direction fill-mode;
 }
 body {
+  overflow: scroll !important;
   // background: #e8dcb8 !important;
 
   // background-image: linear-gradient(135deg, $primary 25%, transparent 25%),

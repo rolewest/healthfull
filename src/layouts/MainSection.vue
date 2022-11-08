@@ -4,7 +4,7 @@
     <br />
     The only patient simulator game where you play the patient...
   </div>
-  <div class="text-h4 rpgClickCursor" @click="pressedStart()">
+  <div class="text-h4 rpgClickCursor" @click="pressedStart()" v-if="isNewUser">
     <!-- Health<JustHeart />Full
       <div class="powerBar powerBarGlow"></div> -->
     <div
@@ -12,6 +12,20 @@
       @click="pressedStart()"
     >
       {{ isNewUser ? "Start a New" : "Continue" }} Game
+    </div>
+  </div>
+  <div
+    class="text-h4 rpgClickCursor"
+    @click="pressedContinue()"
+    v-if="!isNewUser"
+  >
+    <!-- Health<JustHeart />Full
+      <div class="powerBar powerBarGlow"></div> -->
+    <div
+      class="pressStartArrow rpgClickCursor block-item"
+      @click="pressedContinue()"
+    >
+      Continue Game
     </div>
   </div>
   <div class="text-center block-item">To Gameify your health!</div>
@@ -89,12 +103,24 @@ export default {
       }, 300);
 
       setTimeout(() => {
+        this.$router.push({ name: "intro" });
+      }, 1000);
+    },
+    pressedContinue() {
+      setTimeout(() => {
+        this.startConfetti();
+      }, 100);
+      setTimeout(() => {
+        this.startConfetti();
+      }, 300);
+
+      setTimeout(() => {
         this.$router.push({ name: "home" });
       }, 1000);
     },
-    citation(id, name, caption, short, show = true) {
-      this.$emit("citation", id, name, caption, short, show);
-    },
+    // citation(id, name, caption, short, show = true) {
+    //   this.$emit("citation", id, name, caption, short, show);
+    // },
     saveUserData() {
       LocalStorage.set("userHeight", this.userHeight); //save it
       LocalStorage.set("userWeight", this.userWeight); //save it
