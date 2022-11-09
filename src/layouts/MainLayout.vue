@@ -152,6 +152,34 @@
           <q-item-section
             clickable
             @click="
+              this.$router.push({ name: 'shopping' });
+              this.toggleLeftDrawer();
+            "
+            avatar
+          >
+            <q-icon
+              name="mdi-cart-heart"
+            /><!-- should also have ability to add another character here -->
+          </q-item-section>
+
+          <q-item-section
+            @click="
+              // this.toggleModal();
+              this.$router.push({ name: 'shopping' });
+              this.toggleLeftDrawer();
+            "
+          >
+            <q-item-label>Shopping List</q-item-label>
+
+            <q-item-label caption> Shopping List </q-item-label>
+          </q-item-section>
+        </q-item>
+        <!--  -->
+        <!--  -->
+        <q-item class="menu-option">
+          <q-item-section
+            clickable
+            @click="
               this.$router.push({ name: 'prefs' });
               this.toggleLeftDrawer();
             "
@@ -325,6 +353,16 @@
               @click="$router.push({ name: 'planner' })"
             >
               <q-icon name="restaurant_menu" class="text-h2"></q-icon>
+            </button>
+            <!--  -->
+            <button
+              :class="{
+                'btn-info btn-primary travelModeButton text-h2': true,
+                'bg-info travelModeNegative': this.$route.name == 'shopping',
+              }"
+              @click="$router.push({ name: 'shopping' })"
+            >
+              <q-icon name="mdi-cart-heart" class="text-h2"></q-icon>
             </button>
             <!--  -->
             <HeartPulse />

@@ -1,0 +1,149 @@
+{
+  "allFoods": [
+    {
+      "title": "A+ Foods",
+      "caption": "Whole Plant Foods",
+      "value": 100,
+      "grade": "Ap",
+      "color": "positive",
+      "data": [
+        {
+          "section": "Whole Fruit & Berries",
+          "list": "Acai, Apples, Apricots, Avocados, Bananas, Blackberries, Blueberries, Cantaloupe, Cherries, Cranberries, Dates, Grapes, Goji, Kiwi, Kumquats, Lemons, Limes, Mangoes, Mulberries, Oranges, Peaches, Pears, Plums, Prunes, Raspberries, Strawberries, Tangerines, Water melon, etc. "
+        },
+        {
+          "section": "Whole Vegetables & Lettuces",
+          "list": "Arugula, Asparagus, Beets, Bell Peppers, Bok Choy, Broccoli, Cabbage, Carrots, Cauliflower, Collard Greens, Corn, Garlic, Horseradish, Kale, Mushrooms, Mustard Greens, Okra, Onions, Potatoes, Swiss Chard, Pumpkin, Radish, Rocket, Snap Peas, Sorrel, Spinach, Squash, Sweet Potatoes, Tomatoes, Turnip, Watercress, Yams, Zucchini, etc."
+        },
+        {
+          "section": "Whole Grains",
+          "list": "Barley, Buckwheat, Corns, Kamut / Khorasan, Nillet, Oats, Popcorn, Quinoa, Rice, Rye, Teff, Wheatberry, etc."
+        },
+        {
+          "section": "Nuts & Seeds",
+          "list": "Almond, <s>Brazil Nut</s>, Cashew, Chestnut, Chia, <s>Coconut</s>,Flax, Hazelnut, Hemp, Macadamia, Mustard Seed, Peanut, Pecan, Pine,Pistachio, Sesame, Soy, Sunflower, Tahini, Walnut, etc."
+        },
+        {
+          "section": "Beans, Peas & Legumes",
+          "list": "Black beans, Cannellini Beans, Chickpeas / Garbanzo Beans, Edamame, Peas, Peanuts, Kidney Beans, Lentils, Miso, Navy Beans, Pinto, Split Peas, Tempeh, etc."
+        }
+      ]
+    },
+    {
+      "title": "A Foods",
+      "caption": "Slightly Processed Plant Foods",
+      "value": 92,
+      "grade": "A",
+      "color": "positive",
+      "data": [
+        {
+          "section": "Breads",
+          "list": "Brown /Black Rice, Chickpea, Ezekiel, Flax / Flaxseed, Multigrain, Nutritional Yeast., Oat, Rye, Rye, Sprouted, Whole grain"
+        },
+        {
+          "section": "Pasta",
+
+          "list": "Almond, Black bean, Buckwheat, Chickpea, Edamame, Einkorn, Lentil, Mung Bean, Quinoa, Rice, Squash, Wheat Durum, Wholewheat, Zucchini, etc."
+        },
+        {
+          "section": "Cereals & Crackers",
+          "nb": "without added sugars, oils, or salt",
+          "list": "Flax / Flaxseed, Muesli, Oats, Popcorn, Shredded Wheat, Spelt Flakes, Sprouted Grain, Quinoa."
+        },
+        {
+          "section": "Nut & Seed Butters & Powders",
+          "nb": "without added sugars, oils, or salt",
+          "list": "Almond, <s>Brazil Nut</s>, Cashew, Chestnut, <s>Coconut</s>, Cocoa Powder Hazelnut, Macadamia, Miso (paste), Mustard, Peanut, Pecan, Pine, Pistachio, Soy, Sunflower, Tahini, Walnut, etc."
+        },
+        {
+          "section": "Drinks",
+          "nb": "without added sugars, oils, or salt",
+          "list": "Whole Plant / Fruit Smoothies, Tea, Black Coffee."
+        }
+      ]
+    },
+    {
+      "title": "B Foods",
+      "caption": "Processed Plant Foods",
+      "value": 80,
+      "grade": "B",
+      "color": "warning",
+      "data": [
+        {
+          "section": "Plant Milk",
+          "list": "Almond, Cashew, Chestnut, <s>Coconut</s>, Hazelnut, Macadamia, Peanut, Pecan, Pine, Pistachio, Soy, Sunflower, Tahini, Walnut, etc."
+        },
+        {
+          "section": "Plant Based Junk Food",
+          "nb": "watch for added sugars, oils, and salt",
+          "list": "Rice Ice Cream, Soy Ice Cream, Veggie Burgers, Veggie Cheese, Veggie Dogs, Veggie Meat, etc."
+        }
+      ]
+    },
+    {
+      "title": "C Foods",
+      "caption": "Ultra Processed Plant Foods",
+      "value": 60,
+      "grade": "C",
+      "color": "negative",
+      "data": [
+        {
+          "section": "Oils & Fats",
+          "list": "Avocado, Canola, <s>Coconut</s>, <s>Cottonseed</s>, Flaxseed, Grapeseed, Hemp, <s>Hydrogenated</s>, <s>Margarine</s>, Olive, <s>Palm</s>, Peanut, Pumpkin Seed, Sesame, Sunflower, <s>Vegetable</s>, Walnut."
+        }
+      ]
+    },
+    {
+      "title": "D Foods",
+      "caption": "Whole Animal Foods",
+      "value": 40,
+      "grade": "D",
+      "color": "negative",
+      "data": [
+        {
+          "section": "Meat, Fish & Eggs",
+          "list": "Beef, Bison Chicken, Duck, Eggs, Goat, Lamb, Pork, Seafood, Sheep, Turkey, Veal, etc."
+        },
+        {
+          "section": "Plant Based Junk Food",
+          "nb": "watch for added sugars, oils, and salt",
+          "list": "Rice Ice Cream, Soy Ice Cream, Veggie Burgers, Veggie Cheese, Veggie Dogs, Veggie Meat, etc."
+        }
+      ]
+    },
+    {
+      "title": "F Foods",
+      "caption": "Processed Animal Foods",
+      "value": 20,
+      "grade": "F",
+      "color": "negative",
+      "data": [
+        {
+          "section": "Dairy & Eggs",
+          "list": "Butter, Buttermilk, Casein, Cheese, Clotted Cream, Condensed milk, Cottage Cheese, Cream Cheese, Crème Fraîche, Curds, Custard, Eggnog, Evaporated Milk, Gelato, Ghee, Goat Milk, Hamburgers, Infant Formula, Mayo / Mayonnaise, Milk, Paneer, Pizza, Ricotta, Skyr, Soft Serve, Sour Cream, Whey, Whipped Cream, Yogurt / Yoghurt, etc."
+        },
+        {
+          "section": "Processed Meat",
+          "list": "Anchovies, Bacon, Canned Fish, Canned Meat, Canned Tuna, Corned Beef, Deli Meats, Ham, Hot Dogs, Jerky, Pepperoni, Salami, Sardines, Sausages, Spam, etc."
+        }
+      ]
+    },
+    {
+      "title": "F- Foods",
+      "caption": "Ultra Processed & Fried Foods",
+      "value": 12,
+      "grade": "Fm",
+      "color": "negative",
+      "data": [
+        {
+          "section": "Junk Food",
+          "list": "Biscuits, Boxed Food, Breakfast Cereals, Cains, Cakes, Candy / Sweets, Candy Macaroni and Cheese, Carbonated Drinks, Chicken Chocolate, Chicken Strips, Chips / Crisps, Cookies, Deep Fried, Doughnuts, Energy Drinks, Fast Nuggets, Fish Strips, French Fries, Fried Chicken, Fried Foods, Frozen Burritos, Frozen Entree, Frozen Pizza, Frozen Prepared Meals, Fruit Juice, Ice Cream, Instant Soups, Meals, Microwave Popcorn, Microwave Soda / Pop, Muffins, Onion Rings, Pancake / Maple Syrup, Pastries, Prepared Meats, Salted Pretzels, Slurpee's, Sports Drinks, Sugar, White Bread, White Flour, etc."
+        },
+        {
+          "section": "Alcohol",
+          "list": "Alcohol, Beer, Highball, Rum, Rye, Vodka, Whisky, Wine, etc."
+        }
+      ]
+    }
+  ]
+}

@@ -205,6 +205,11 @@ export default {
     -2px -2px 0 $primary, 2px 0px 0 $primary, 0px 2px 0 $primary,
     -2px 0px 0 $primary, 0px -2px 0 $primary;
 }
+.title-secondary {
+  text-shadow: 2px 2px 0 $secondary, 2px -2px 0 $secondary,
+    -2px 2px 0 $secondary, -2px -2px 0 $secondary, 2px 0px 0 $secondary,
+    0px 2px 0 $secondary, -2px 0px 0 $secondary, 0px -2px 0 $secondary;
+}
 .title-negative {
   text-shadow: 2px 2px 0 $negative, 2px -2px 0 $negative, -2px 2px 0 $negative,
     -2px -2px 0 $negative, 2px 0px 0 $negative, 0px 2px 0 $negative,
@@ -224,6 +229,11 @@ export default {
   text-shadow: 2px 2px 0 $accent, 2px -2px 0 $accent, -2px 2px 0 $accent,
     -2px -2px 0 $accent, 2px 0px 0 $accent, 0px 2px 0 $accent,
     -2px 0px 0 $accent, 0px -2px 0 $accent;
+}
+.title-info {
+  text-shadow: 2px 2px 0 $info, 2px -2px 0 $info, -2px 2px 0 $info,
+    -2px -2px 0 $info, 2px 0px 0 $info, 0px 2px 0 $info, -2px 0px 0 $info,
+    0px -2px 0 $info;
 }
 .cite-text {
   font-family: "Courier New", Courier, monospace !important;

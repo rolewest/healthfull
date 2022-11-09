@@ -21,8 +21,17 @@
         <h2>On January 19, 2038 at 3:14 UTC</h2>
         <h5>
           The newly created A.I. mainframe for Non communicable disease
-          prevention was hit with radiation from a massive solar flair. At the
-          same time many computer systems malfunctioned due to the 2038 Bug.
+          prevention was first turned on seconds after 3:14 and hit with
+          radiation from a massive solar flair. At the same time many computer
+          systems malfunctioned due to the 2038 Bug.
+        </h5>
+        <p>
+          <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+        </p>
+        <h5>
+          The last date in the system is for November 2nd 1988 which is the day
+          that the Morris worm entered DARPA and other connected networks all
+          over the world.
         </h5>
         <p>
           <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
@@ -30,8 +39,11 @@
         <h5>
           The A.I., code named DR.DOCTor, or the
           <em>Digital Records of Disease Origins & Corrective Therapies</em>
-          inexplicably arrived on public digital devices in the year 2023...
+          inexplicably arrived on public digital devices in the year 2023.
+          Traces of the Morris worm were also found and removed from the Dr.
+          Doctor system.
         </h5>
+
         <p>
           <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </p>
@@ -48,7 +60,7 @@
            and free them from the confusion
         </h5>
         <p><br /><br /><br /><br /></p> -->
-        <h5>Click continue to become the next patient of Dr.Doctor...</h5>
+        <h5>Click continue to become enroll as a patient...</h5>
         <p>
           <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </p>

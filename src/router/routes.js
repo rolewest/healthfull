@@ -14,6 +14,7 @@ const routes = [
       { path: "/home", name: "home", component: () => import("pages/HomeBase.vue") },
       { path: "/prescription", name: "prescription", hash: "prescription", component: () => import("components/BaseMeasure.vue") },
       { path: "/intro", name: "intro", component: () => import("pages/Intro.vue") },
+      { path: "/shopping", name: "shopping", component: () => import("pages/Shopping.vue") },
 
       { path: "/prefs", name: "prefs", component: () => import("pages/Prefs.vue") },
 

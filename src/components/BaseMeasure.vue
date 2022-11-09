@@ -1,4 +1,5 @@
 <template>
+  <!--  >5% animal products daily = cancer -->
   <div class="blockCursor">
     <!-- <div>
       <video hidden id="webcam" width="640" height="480"></video>
@@ -5186,6 +5187,7 @@ hr {
   position: relative;
   // left: -15%;
   left: -1.5em;
+  z-index: 100;
 }
 .bit8-flask {
   box-shadow: 18px 2px 0 0 rgba(121, 85, 72, 1),

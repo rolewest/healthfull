@@ -4,18 +4,22 @@
     <br />
     The only patient simulator game where you play the patient...
   </div>
-  <div class="title-h4 rpgClickCursor" @click="pressedStart()" v-if="isNewUser">
+  <div
+    class="start-title-h4 rpgClickCursor"
+    @click="pressedStart()"
+    v-if="isNewUser"
+  >
     <!-- Health<JustHeart />Full
       <div class="powerBar powerBarGlow"></div> -->
     <div
       class="pressStartArrow rpgClickCursor block-item"
       @click="pressedStart()"
     >
-      Start
+      <span>Start</span>
     </div>
   </div>
   <div
-    class="title-h4 rpgClickCursor"
+    class="start-title-h4 rpgClickCursor"
     @click="pressedContinue()"
     v-if="!isNewUser"
   >
@@ -25,7 +29,7 @@
       class="pressStartArrow rpgClickCursor block-item"
       @click="pressedContinue()"
     >
-      Continue
+      <span>Continue</span>
     </div>
   </div>
   <div class="text-center block-item">To Gameify your health!</div>
@@ -234,11 +238,21 @@ body {
     transform: scale(1);
   }
 }
-.title-h4:active,
-.title-h4:hover {
-  color: $accent;
-  text-shadow: 2px 2px 0 $positive, 2px -2px 0 $positive, -2px 2px 0 $positive,
-    -2px -2px 0 $positive, 2px 0px 0 $positive, 0px 2px 0 $positive,
-    -2px 0px 0 $positive, 0px -2px 0 $positive;
+.start-title-h4 {
+  font-size: 1.8em;
+  text-align: center;
+  text-decoration: double;
+  // border: 1px solid $primary;
+  display: block;
+  text-shadow: 2px 2px 0 $info, 2px -2px 0 $info, -2px 2px 0 $info,
+    -2px -2px 0 $info, 2px 0px 0 $info, 0px 2px 0 $info, -2px 0px 0 $info,
+    0px -2px 0 $info;
+}
+.start-title-h4:active,
+.start-title-h4:hover {
+  color: $positive;
+  text-shadow: 2px 2px 0 $info, 2px -2px 0 $info, -2px 2px 0 $info,
+    -2px -2px 0 $info, 2px 0px 0 $info, 0px 2px 0 $info, -2px 0px 0 $info,
+    0px -2px 0 $info;
 }
 </style>
