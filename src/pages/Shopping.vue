@@ -58,7 +58,7 @@ F+20;F12;F5;
           foods</q-item-label
         >
       </q-item-label>
-      <div class="text-center">
+      <div class="text-center q-pa-sm">
         <q-btn
           label="Empty My Cart"
           color="negative"
@@ -78,15 +78,24 @@ F+20;F12;F5;
       </div>
 
       <!-- Loop -->
-      <div v-for="row in resultFoods" :key="row.title">
-        <q-separator spaced v-show="row.data[0]?.list.length" />
+      <div
+        v-for="row in resultFoods"
+        :key="row.title"
+        class="border-block q-mb-md q-pa-xm bg-white"
+      >
+        <!-- <q-separator spaced v-show="row.data[0]?.list.length" /> -->
         <q-item-label
           header
           :class="`title-${row.color}`"
           class="text-h4 hold-foodscore"
           v-show="row.data[0]?.list.length"
           >{{ row.title }}<q-item-label caption>{{ row.caption }}</q-item-label>
-          <q-item-section class="food-type" right top>
+          <q-item-section
+            class="food-type grade-score-text"
+            right
+            top
+            v-if="getScoreFor(row.grade) > 0"
+          >
             {{ getScoreFor(row.grade) }}</q-item-section
           >
         </q-item-label>
@@ -353,7 +362,16 @@ s {
   text-align: right;
 }
 .food-type::before {
+  text-shadow: none;
   content: "Total:";
+}
+.no-text-shadow {
+  text-shadow: none;
+}
+.grade-score-text {
+  text-shadow: none;
+  font-weight: bold;
+  border-bottom: $info;
 }
 .hold-foodscore {
   position: relative;
