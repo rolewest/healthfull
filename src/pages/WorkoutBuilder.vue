@@ -225,7 +225,7 @@ export default {
     },
     mobilityConverter(type = 0, data) {
       const values = [
-        "In bed only",
+        "In bed or floor only",
         "Sitting & in bed only",
         "Sitting only",
         "Sitting, standing & in bed only",

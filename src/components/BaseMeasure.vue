@@ -789,7 +789,7 @@
           <div>
             <br />
             <label>
-              Usually, I sit/lie around (sedentary) for
+              Usually, I sit/lay around (sedentary) for
               <input type="number" v-model="userLifestyleSedentary" />
               <span class="check-label"></span>
             </label>
@@ -1147,7 +1147,7 @@
               <span class="" v-if="userBodyGoal >= 1">
                 <span v-html="skillTo1RM(userSkill)"></span>
                 <details>
-                  <summary>Your 60 day plan</summary>
+                  <summary class="title-h6">Your 60 day plan</summary>
                   <span v-html="skillTo1RM(userSkill, true)"></span>
                 </details>
               </span>
@@ -2944,6 +2944,7 @@ export default {
       userLifestyleSedentaryFreq:
         LocalStorage.getItem("user.lifestyle.sedentary.freq") || 52.177457,
       userBodyGoal: LocalStorage.getItem("user.body.goal") || 0,
+      userStartDate:LocalStorage.getItem("user.start.date") || null,
     };
   },
   methods: {

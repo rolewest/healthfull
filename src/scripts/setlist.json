@@ -6,7 +6,7 @@
       "title": "Lying Bridge",
       "caption": "Low Impact Resistance",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 4, "cp": 4, "xp": 20, "sp": 2 },
       "tags": [
@@ -29,7 +29,7 @@
       "title": "Lying Squeeze",
       "caption": "Low Impact Resistance",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 4, "cp": 4, "xp": 22, "sp": 3 },
       "tags": [
@@ -52,7 +52,7 @@
       "title": "Soleus Push-up",
       "caption": "Ultra Low Impact Cardio",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 20, "cp": 8, "xp": 21, "sp": 2 },
       "tags": ["Cardio", "Low Impact", "Sitting Only", "All Ages"],
@@ -68,7 +68,7 @@
       "title": "Seated Chair March",
       "caption": "Low Impact Cardio",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "You can use soup cans or weights if you want to up the difficulty level",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 6, "cp": 6, "xp": 20, "sp": 1 },
       "tags": ["Cardio", "Low Impact", "Sitting Only", "All Ages", "Tone"],
@@ -86,7 +86,7 @@
       "title": "Seated Arm Raise",
       "caption": "Low Impact Resistance",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "You can use soup cans or weights if you want to up the difficulty level",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 2, "cp": 1, "xp": 11, "sp": 4 },
       "tags": [
@@ -97,7 +97,7 @@
         "Ab Workout"
       ],
       "reps": 8,
-      "mobility": 2,
+      "mobility": 8,
       "difficulty": 1,
       "mets": 2,
       "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Sit at the back of the chair</li><li>Keep your back as straight as you can</li><li>Lift one arm directly above your head</li><li>Return your arm to your side</li><li>Repeat with the opposite side<ul><li>this counts as 1 rep (repitition)</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
@@ -133,7 +133,7 @@
       "title": "Seated No Rope Jump Rope",
       "caption": "Low Impact Cardio",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "You can use soup cans or weights if you want to up the difficulty level",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 9, "cp": 8, "xp": 18, "sp": 4 },
       "tags": [
@@ -158,7 +158,7 @@
       "title": "Seated Row & Calf Raise",
       "caption": "Low Impact Resistance",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "You can use soup cans or weights if you want to up the difficulty level",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 5, "cp": 1, "xp": 17, "sp": 5 },
       "tags": [
@@ -174,7 +174,7 @@
         "Ab Workout"
       ],
       "reps": 4,
-      "mobility": 2,
+      "mobility": 4,
       "difficulty": 1.1,
       "mets": 4,
       "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Sit at the front of the chair</li><li>Keep your back as straight as you can</li><li>Pretend strings are attached from your arms to your knees</li><li>Lift your arms (like rowing) and raise on to the balls of your feet<ul><li>try to pinch your shoulder blades at the top for better results</li></ul></li><li>Return your arms to your side while you lower your feet back to the floor<ul><li>this counts as 1 rep (repitition)</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra rep, go for it!</li></ol>"
@@ -185,7 +185,7 @@
       "title": "Seated Chair Jog",
       "caption": "Low Impact Cardio",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "You can use soup cans or weights if you want to up the difficulty level",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 7, "cp": 6, "xp": 20, "sp": 1 },
       "tags": ["Cardio", "Low Impact", "Sitting Only", "All Ages"],
@@ -202,7 +202,7 @@
       "title": "Single Leg Deadlift",
       "caption": "Low Impact Resistance",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "You can hold soup cans or weights in one hand if you want to up the difficulty level",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 20, "cp": 8, "xp": 22, "sp": 4 },
       "tags": [
@@ -217,8 +217,8 @@
         "Hamstring"
       ],
       "reps": 6,
-      "mobility": 5,
-      "difficulty": 2.7,
+      "mobility": 2,
+      "difficulty": 2.9,
       "mets": 2,
       "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand up and grasp on to the top of a chair</li><li>Keep your back as straight as you can</li><li>Bend at the hips towards the floor, raise one leg behind you, and the opposite arm in front of you</li><li>Now return to standing position and lower your arm and leg</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
     },
@@ -228,7 +228,7 @@
       "title": "Holding Chair Squat",
       "caption": "Low Impact Resistance",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 20, "cp": 8, "xp": 23, "sp": 5 },
       "tags": [
@@ -250,11 +250,11 @@
     },
     {
       "id": 12,
-      "video": { "id": "8IwNI8r-jo0", "start": 197, "end": 235, "mute": 1 },
-      "title": "Wall Push-up",
+      "video": { "id": "5NPvv40gd3Q", "start": 10, "end": 59, "mute": 1 },
+      "title": "Wall Push-ups",
       "caption": "Low Impact Resistance",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 20, "cp": 9, "xp": 24, "sp": 12 },
       "tags": [
@@ -266,6 +266,7 @@
         "Shoulders",
         "Tone",
         "Chest",
+        "Core",
         "Biceps",
         "All Ages"
       ],
@@ -273,7 +274,7 @@
       "mobility": 5,
       "difficulty": 2.6,
       "mets": 2.6,
-      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand up close to a wall (about two foot lengths back)</li><li>Keep your back as straight as you can with legs shoulder width apart</li><li>Place hands on wall and lower yourself towards the wall</li><li>Now return back to the starting position by pressing up (if it's too difficult then walk closer to the wall to avoid injury)</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand up close to a wall (about two foot lengths back, the further you go the harder it is)</li><li>Keep your back as straight as you can with legs shoulder width apart</li><li>Place hands on wall and lower yourself towards the wall</li><li>Now return back to the starting position by pressing up (if it's too difficult then walk closer to the wall to avoid injury)</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
     },
     {
       "id": 13,
@@ -281,7 +282,7 @@
       "title": "Marching on the Spot",
       "caption": "Low Impact Cardio",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "You can use soup cans or weights if you want to up the difficulty level",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 20, "cp": 11, "xp": 20, "sp": 1 },
       "tags": ["Cardio", "Low Impact", "Standing Only", "All Ages"],
@@ -297,7 +298,7 @@
       "title": "Heel Lifts",
       "caption": "Low Impact Resistance",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "You can use soup cans or weights if you want to up the difficulty level",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 16, "cp": 10, "xp": 18, "sp": 8 },
       "tags": [
@@ -320,7 +321,7 @@
       "title": "Walking Jacks",
       "caption": "Low Impact Cardio",
       "icon": { "name": null, "color": "accent", "font": "" },
-
+      "weights": "You can use soup cans or weights if you want to up the difficulty level",
       "badge": { "caption": null, "color": "red", "font": "blue" },
       "points": { "hp": 18, "cp": 20, "xp": 22, "sp": 5 },
       "tags": [
@@ -337,6 +338,325 @@
       "difficulty": 2.4,
       "mets": 2.8,
       "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand up with legs together</li><li>Keep your back as straight as you can</li><li>Step out with one leg to one side and raise the same side arm above your head</li><li>Now return back to the starting position</li><li>Do the same on the other side and return to the start position</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 16,
+      "video": { "id": "SwkrlF2e7RY", "start": 2, "end": 30, "mute": 0 },
+      "title": "Deadlift to Upright Row",
+      "caption": "Low Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "You can use soup cans or weights if you want to up the difficulty level",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 18, "cp": 20, "xp": 22, "sp": 5 },
+      "tags": [
+        "Resistance Training",
+        "Low Impact",
+        "Standing Only",
+        "Glutes",
+        "Legs",
+        "Thighs",
+        "Quads",
+        "Back",
+        "Shoulders",
+        "Hip Flexors",
+        "All Ages"
+      ],
+      "reps": 20,
+      "mobility": 5,
+      "difficulty": 2.2,
+      "mets": 2.8,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand up with legs shoulder width apart</li><li>Keep your back as straight as you can</li><li>Start with arms relaxed in front of you</li><li>Keep hands/fists together and slide them down as low as you can</li><li>Now slide hands back up all the way to your chest</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 17,
+      "video": { "id": "aq6uN_bMEEE", "start": 509, "end": 525, "mute": 0 },
+      "title": "Bent Over Rear Fly",
+      "caption": "Low Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "You can use soup cans or weights if you want to up the difficulty level",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 18, "cp": 20, "xp": 22, "sp": 5 },
+      "tags": [
+        "Resistance Training",
+        "Low Impact",
+        "Standing Only",
+        "Glutes",
+        "Legs",
+        "Thighs",
+        "Quads",
+        "Back",
+        "Shoulders",
+        "Arms",
+        "Triceps",
+        "Hip Flexors",
+        "All Ages"
+      ],
+      "reps": 20,
+      "mobility": 5,
+      "difficulty": 2.2,
+      "mets": 2.8,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand up with legs shoulder width apart</li><li>Keep your back as straight as you can while bending at the hips</li><li>Start with arms relaxed in front of you</li><li>Put your hand together then left them out to the sides and squeeze shoulders and back when you reach the top</li><li>Lower arms back down to relaxed in front of you</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 18,
+      "video": { "id": "w5vcbapJQsk", "start": 80, "end": 160, "mute": 0 },
+      "title": "Kneeling Push Up",
+      "caption": "Medium Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 18, "cp": 20, "xp": 22, "sp": 5 },
+      "tags": [
+        "Resistance Training",
+        "Low Impact",
+        "On Floor",
+        "Back",
+        "Shoulders",
+        "Arms",
+        "Triceps",
+        "Biceps",
+        "All Ages"
+      ],
+      "reps": 20,
+      "mobility": 0,
+      "difficulty": 3,
+      "mets": 2.8,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Kneel on floor</li><li>Keep your back as straight as you can with legs together, or crossed at the ankles</li><li>Place hands on the floor and lower yourself towards the ground</li><li>Now return back to the starting position by pressing up, try to keep your elbows close to your body and not like chicken wings</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 19,
+      "video": { "id": "w5vcbapJQsk", "start": 80, "end": 160, "mute": 0 },
+      "title": "Regular Push Up",
+      "caption": "Regular Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 18, "cp": 20, "xp": 22, "sp": 5 },
+      "tags": [
+        "Resistance Training",
+        "Low Impact",
+        "On Floor",
+        "Back",
+        "Shoulders",
+        "Arms",
+        "Triceps",
+        "Biceps",
+        "All Ages"
+      ],
+      "reps": 5,
+      "mobility": 0,
+      "difficulty": 3.8,
+      "mets": 2.8,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Lie on floor keeping your back as straight as you can with legs together</li><li>Place hands on the floor at chest height</li><li>Raise your self up off the ground keeping your back as straight as possible</li><li>Now return back to the starting position lowering yourself, try to keep your elbows close to your body and not like chicken wings</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 22,
+      "video": { "id": "f0gBihkbvt0", "start": 4, "end": 106, "mute": 1 },
+      "title": "Lying Down Squats",
+      "caption": "Low Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 20, "cp": 8, "xp": 23, "sp": 5 },
+      "tags": [
+        "Resistance Training",
+        "Low Impact",
+        "Standing Only",
+        "Glutes",
+        "Back",
+        "Legs",
+        "Tone",
+        "Hamstring",
+        "All Ages"
+      ],
+      "reps": 10,
+      "mobility": 0,
+      "difficulty": 2.1,
+      "mets": 2.6,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Lye on floor</li><li>Keep your back as straight as you can</li><li>Bend at the hips keeping the knees also bent, try to keep your back flat on the floor and flex all your muscles</li><li>Straighten out your legs bringing them close to the floor</li><li>Now bring your knees back up to the starting position</li>This counts a 1 repetition</li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 20,
+      "video": { "id": "pmiuA7S_t4I", "start": 61, "end": 87, "mute": 1 },
+      "title": "Door Frame Squat",
+      "caption": "Medium Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 20, "cp": 8, "xp": 23, "sp": 5 },
+      "tags": [
+        "Resistance Training",
+        "Low Impact",
+        "Standing Only",
+        "Glutes",
+        "Back",
+        "Legs",
+        "Tone",
+        "Hamstring",
+        "All Ages"
+      ],
+      "reps": 10,
+      "mobility": 5,
+      "difficulty": 3.1,
+      "mets": 2.6,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand up and grasp on to a door frame, about 1 step away from the frame</li><li>Keep your back as straight as you can</li><li>Bend at the hips towards the floor, try to keep your feet flat on the floor and flex all your muscles</li><li>Now return back to the starting position</li>This counts a 1 repetition</li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 21,
+      "video": { "id": "UkLIKLV7gOk", "start": 38, "end": 144, "mute": 1 },
+      "title": "Full Squat",
+      "caption": "Normal Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 20, "cp": 8, "xp": 23, "sp": 5 },
+      "tags": [
+        "Resistance Training",
+        "Low Impact",
+        "Standing Only",
+        "Glutes",
+        "Back",
+        "Legs",
+        "Tone",
+        "Hamstring",
+        "All Ages"
+      ],
+      "reps": 10,
+      "mobility": 5,
+      "difficulty": 4.1,
+      "mets": 3.1,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand up keep your back as straight as you can</li><li>Bend at the hips towards the floor, try to keep your feet flat on the floor and flex all your muscles</li><li>Now return back to the starting position</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 23,
+      "video": { "id": "Ya9dwTMQJOM", "start": 5, "end": 50, "mute": 1 },
+      "title": "Back Widow (Elbow Press)",
+      "caption": "Low Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 20, "cp": 8, "xp": 23, "sp": 5 },
+      "tags": [
+        "Resistance Training",
+        "Low Impact",
+        "Lying Down Only",
+        "Shoulders",
+        "Biceps",
+        "Back",
+        "Arms",
+        "Tone",
+        "All Ages"
+      ],
+      "reps": 10,
+      "mobility": 0,
+      "difficulty": 4.1,
+      "mets": 3.1,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Lie on your back with your knees bent</li><li>Use your elbows to raise then lower yourself off the floor/bed</li><li>Now return back to the starting position</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 24,
+      "video": { "id": "zsly6y-wr7k", "start": 71, "end": 212, "mute": 1 },
+      "title": "Leg Raise",
+      "caption": "Low Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 4, "cp": 4, "xp": 22, "sp": 3 },
+      "tags": [
+        "Resistance",
+        "Ultra Low Impact",
+        "Lying Down Only",
+        "All Ages",
+        "In Bed",
+        "Ab Workout",
+        "Back",
+        "Core",
+        "Tone",
+        "On Floor"
+      ],
+      "reps": 10,
+      "mobility": 0.5,
+      "difficulty": 2,
+      "mets": 3.1,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Lie in bed (or on the floor) facing the ceiling with legs straight an together</li><li>Put your hands below your buttocks or at your sides, whatever is more comfortable</li><li>Lift legs off the floor, trying to keep legs straight, while bringing legs to waist height.</li><li>Keeping legs straight bring back to starting position</li><li>Hold for 1 second<ul><li>This counts as one rep.</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 25,
+      "video": { "id": "-xARG7q3u-0", "start": 8, "end": 51, "mute": 1 },
+      "title": "Side Bends",
+      "caption": "Medium Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 4, "cp": 4, "xp": 22, "sp": 3 },
+      "tags": [
+        "Resistance",
+        "Ultra Low Impact",
+        "Standing Only",
+        "All Ages",
+        "Waist",
+        "Obliques",
+        "Ab Workout",
+        "Core",
+        "Tone"
+      ],
+      "reps": 10,
+      "mobility": 0.5,
+      "difficulty": 2,
+      "mets": 3.1,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Stand with feet should width a part with hands on hips</li><li>Raise one are in a straight line above your head</li><li>Lower the arm back to the starting position<li>This counts as one rep.</li><li>Repeat on the other side</li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 26,
+      "video": { "id": "vGAK2-_kn1U", "start": 101, "end": 192, "mute": 1 },
+      "title": "Towel Pull Up Row",
+      "caption": "Medium Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 4, "cp": 4, "xp": 22, "sp": 3 },
+      "tags": [
+        "Resistance",
+        "Medium Impact",
+        "Standing Only",
+        "All Ages",
+        "Waist",
+        "Obliques",
+        "Ab Workout",
+        "Core",
+        "Tone"
+      ],
+      "reps": 10,
+      "mobility": 5,
+      "difficulty": 4.2,
+      "mets": 3.1,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Lie in bed (or on the floor) facing the ceiling with legs straight an together</li><li>Put your hands below your buttocks or at your sides, whatever is more comfortable</li><li>Lift legs off the floor, trying to keep legs straight, while bringing legs to waist height.</li><li>Keeping legs straight bring back to starting position</li><li>Hold for 1 second<ul><li>This counts as one rep.</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
+    },
+    {
+      "id": 27,
+      "video": { "id": "wxLmD5nsK_M", "start": 0, "end": 32, "mute": 1 },
+      "title": "Half Cobra Push Up",
+      "caption": "Medium Impact Resistance",
+      "icon": { "name": null, "color": "accent", "font": "" },
+      "weights": "",
+      "badge": { "caption": null, "color": "red", "font": "blue" },
+      "points": { "hp": 4, "cp": 4, "xp": 22, "sp": 3 },
+      "tags": [
+        "Resistance Training",
+        "Low Impact",
+        "On Floor",
+        "Back",
+        "Shoulders",
+        "Arms",
+        "Triceps",
+        "Biceps",
+        "All Ages"
+      ],
+      "reps": 20,
+      "mobility": 0,
+      "difficulty": 3,
+      "mets": 2.8,
+      "body": "<h5 class=\"text-center\">How to do it:</h5><ol><li>Lie on floor</li><li>Keep your legs together, or crossed at the ankles</li><li>Place hands on the floor at chest height and raise yourself towards the ceiling while arching your back when you reach the top</li><li>Lower youself back down</li><li>This counts a 1 repetition</li></ul></li><li>Go at your own pace</li><li>If you feel you can do [xtra-reps] extra reps, go for it!</li></ol>"
     }
   ],
 
@@ -372,6 +692,33 @@
       "long": "Long",
       "science": "Science",
       "set": "[14, 15, 12, 13,  10, 11]"
+    },
+    {
+      "id": 10,
+      "type": "Muscle Gain - Low impact",
+      "name": "In Bed or Floor Only",
+      "short": "Short",
+      "long": "Long",
+      "science": "Science",
+      "set": "[23, 18, 22, 24]"
+    },
+    {
+      "id": 11,
+      "type": "Muscle Gain - Medium impact",
+      "name": "Standing Only",
+      "short": "Short",
+      "long": "Long",
+      "science": "Science",
+      "set": "[12, 16, 17, 25, 20]"
+    },
+    {
+      "id": 12,
+      "type": "Muscle Gain - Normal impact",
+      "name": "Standing & Floor",
+      "short": "Short",
+      "long": "Long",
+      "science": "Science",
+      "set": "[19,27,26,21]"
     }
   ]
 }

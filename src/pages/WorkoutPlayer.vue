@@ -246,6 +246,88 @@
                   >Create a Custom Routine</q-btn
                 >
                 <hr />
+                <!-- Gain muscle -->
+                <span class="" v-if="userBodyGoal >= 1">
+                  <details>
+                    <summary class="title-h6">Your 60 day plan</summary>
+                    <tr>
+                      <th scope="row">
+                        <span class="mdi mdi-check-outline text-success"></span>
+                        Push-up - Standard
+                      </th>
+                      <td class="maleChart">
+                        ~{{ (showIdealWeight(-1) * 0.7504).toFixed(1)
+                        }}{{ userKG ? " KG" : " LB" }}
+                      </td>
+                      <td class="femaleChart">
+                        ~{{ (showIdealWeight(-1) * 0.7504).toFixed(1)
+                        }}{{ userKG ? " KG" : " LB" }}
+                      </td>
+                      <td class="text-center"></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <span class="mdi mdi-check-outline text-success"></span>
+                        Push-up - On Knees
+                      </th>
+                      <td class="maleChart">
+                        ~{{ (show1RM(0) * 0.618).toFixed(1)
+                        }}{{ userKG ? " KG" : " LB" }}
+                      </td>
+                      <td class="femaleChart">
+                        ~{{ (show1RM(1) * 0.618).toFixed(1)
+                        }}{{ userKG ? " KG" : " LB" }}
+                      </td>
+                      <td class="text-center"></td>
+                    </tr>
+                    <span v-html="skillTo1RM(userSkill)"></span>
+
+                    <span v-html="skillTo1RM(userSkill, true)"></span>
+                  </details>
+                  <q-btn
+                    @click="
+                      buildRoutine(1, 10);
+                      startConditioning();
+                    "
+                    color="accent"
+                    text-color=""
+                    ><q-icon name="medication" class="h2"></q-icon> In Bed or
+                    Floor Only
+                    <q-icon name="medication" class="h2"></q-icon>
+                    <div class="text-sm block full-width">
+                      Low Impact
+                    </div></q-btn
+                  >
+                  <q-btn
+                    @click="
+                      buildRoutine(1, 11);
+                      startConditioning();
+                    "
+                    color="accent"
+                    text-color=""
+                    ><q-icon name="medication" class="h2"></q-icon> Standing
+                    Only
+                    <q-icon name="medication" class="h2"></q-icon>
+                    <div class="text-sm block full-width">
+                      Medium Impact
+                    </div></q-btn
+                  >
+                  <q-btn
+                    @click="
+                      buildRoutine(1, 12);
+                      startConditioning();
+                    "
+                    color="accent"
+                    text-color=""
+                    ><q-icon name="medication" class="h2"></q-icon> Full
+                    Mobility
+                    <q-icon name="medication" class="h2"></q-icon>
+                    <div class="text-sm block full-width">
+                      Regular Impact
+                    </div></q-btn
+                  >
+                </span>
+                <hr />
                 <h5>Low Impact Supplementary Exercises</h5>
                 <p>No equipment needed!</p>
                 <q-btn
@@ -581,9 +663,248 @@ export default {
       ytUrl: "",
       currentRepCount: 0,
       userStepRep: "",
+      userBodyGoal: LocalStorage.getItem("user.body.goal") || 0,
+      userSkill: LocalStorage.getItem("userSkill") || 2,
+      userKG: LocalStorage.getItem("userKG") || true,
+      userCM: LocalStorage.getItem("userKG") || true,
+      userAge: LocalStorage.getItem("userAge") || null,
+      userHeight:
+        LocalStorage.getItem("userHeightImp") != "null"
+          ? LocalStorage.getItem("userHeightImp") || 0
+          : LocalStorage.getItem("userHeight") || 170,
+      userWeight: LocalStorage.getItem("userWeight") || 55,
+      userGender: LocalStorage.getItem("userGender") || null,
+      userStartDate: LocalStorage.getItem("user.start.date") || null,
     };
   },
   methods: {
+    showIdealWeight(type = 0) {
+      let useLB = this.userKG ? 1 : 2.20462;
+      let userHeight = this.convertHeightToCM();
+      let userWeight = this.userWeight;
+      let guessMale1 = 48 + (2.7 * (userHeight - 152)) / 2.64;
+      let guessMale2 = 50 + (2.3 * (userHeight - 152)) / 2.64;
+      let guessMale3 = 52 + (1.9 * (userHeight - 152)) / 2.64;
+      let guessMale4 = 56.2 + (1.41 * (userHeight - 152)) / 2.64;
+
+      let guessFemale1 = 45.5 + (2.2 * (userHeight - 152)) / 2.64;
+      let guessFemale2 = 45.5 + (2.3 * (userHeight - 152)) / 2.64;
+      let guessFemale3 = 49 + (1.7 * (userHeight - 152)) / 2.64;
+      let guessFemale4 = 53.1 + (1.36 * (userHeight - 152)) / 2.64;
+
+      let guessMaleAvg =
+        (guessMale1 + guessMale2 + guessMale3 + guessMale4) / 4;
+      let guessFemaleAvg =
+        (guessFemale1 + guessFemale2 + guessFemale3 + guessFemale4) / 4;
+
+      let unitKG = this.userKG ? " KG" : " LB";
+      let maleWeightDiff = this.userWeight - guessMaleAvg * useLB;
+      let femaleWeightDiff = this.userWeight - guessFemaleAvg * useLB;
+
+      let difMod = "";
+      if (maleWeightDiff > 0) difMod = "+";
+
+      if (type === 0) return (guessMaleAvg * useLB).toFixed(2) + `${unitKG}`;
+      if (type === 1) return (guessFemaleAvg * useLB).toFixed(2) + `${unitKG}`;
+      if (type === 2) return difMod + maleWeightDiff.toFixed(2) + `${unitKG}`;
+      if (type === 3) return difMod + femaleWeightDiff.toFixed(2) + `${unitKG}`;
+      if (type === 4) return maleWeightDiff.toFixed(2);
+      if (type === 5) return femaleWeightDiff.toFixed(2);
+
+      if (type === 6) return (userWeight * 1).toFixed(2) + `${unitKG}`;
+
+      if (type === "guess") {
+        if (this.userGender === 2)
+          return (this.userWeight - guessMaleAvg).toFixed(2);
+        if (this.userGender === 1)
+          return (this.userWeight - guessFemaleAvg).toFixed(2);
+      }
+
+      if (type === -1) return userWeight * useLB;
+    },
+    convertHeightToCM() {
+      if (String(this.userHeight).includes("'")) {
+        let usrhv = String(this.userHeight).split("'");
+
+        return usrhv[0] * 30.48 + usrhv[1] * 2.54;
+      } else {
+        // this.saveUserData();
+        return this.userHeight;
+      }
+    },
+    skillTo1RM(userSkill, table = false) {
+      console.log("exPLAN:", userSkill);
+      //PMID: 31817252/ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6950543/#sec4-ijerph-16-04897title
+      let basereps = 0; // 6-12+
+      let basesets = 0; // 3-6
+      let percent = 0; //
+
+      if (userSkill >= 10) {
+        basereps = 2;
+        basesets = 12;
+        percent = 95;
+        //   `95% @02reps
+        //   <td class="maleChart">~{{ show1RM(195) }}</td>
+        // <td class="femaleChart">~{{ show1RM(295) }}</td>`
+      }
+      if (userSkill >= 5 && userSkill <= 9) {
+        basereps = 4;
+        basesets = 10;
+        percent = 90;
+
+        //   `90% @04reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(190) }}</td>
+        // <td class="femaleChart">~{{ show1RM(290) }}</td>`
+      }
+      if (userSkill >= 1 && userSkill <= 4) {
+        basereps = 8; //
+        basesets = 6;
+        percent = 80;
+
+        //  ` 80% @08reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(180) }}</td>
+        // <td class="femaleChart">~{{ show1RM(280) }}</td>`
+      }
+      if (userSkill == 0) {
+        basereps = 12;
+        basesets = 4;
+        percent = 70;
+        //  `70% @12reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(170) }}</td>
+        // <td class="femaleChart">~{{ show1RM(270) }}</td>`
+      }
+      if (userSkill <= -1 && userSkill >= -3) {
+        basereps = 20;
+        basesets = 3;
+        percent = 60;
+        //   `60% @20reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(160) }}</td>
+        // <td class="femaleChart">~{{ show1RM(260) }}</td>`
+      }
+      if (userSkill <= -4 && userSkill >= -6) {
+        basereps = 30;
+        basesets = 2;
+        percent = 50;
+        //   `50% @30reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(150) }}</td>
+        // <td class="femaleChart">~{{ show1RM(250) }}</td>`;
+      }
+      if (userSkill <= -7) {
+        basereps = 30;
+        basesets = 2;
+        percent = 40;
+        //   `40% @3+0reps
+        // </th>
+        // <td class="maleChart">~{{ show1RM(140) }}</td>
+        // <td class="femaleChart">~{{ show1RM(240) }}</td>`;
+      }
+      // output
+      let lift = `${this.show1RM(100 + percent)} to ${this.show1RM(
+        100 + percent
+      )} (${(this.show1RM(200 + percent, false) * 2.2).toFixed(1)} lbs to ${(
+        this.show1RM(100 + percent, false) * 2.2
+      ).toFixed(1)} lbs) weights`;
+      if (this.userGender == 1) {
+        //female
+        lift = `${this.show1RM(200 + percent)} (${(
+          this.show1RM(200 + percent, false) * 2.2
+        ).toFixed(1)} lbs) weights`;
+      }
+      if (this.userGender == 2) {
+        //male
+        lift = `${this.show1RM(100 + percent)} (${(
+          this.show1RM(100 + percent, false) * 2.2
+        ).toFixed(1)} lbs) weights`;
+      }
+      if (table) {
+        return `<table border="1"><tr class="text-center"><th colspan="5">60 day Plan</th></tr>
+          <tr>
+            <th>Week Number</th><th>Days/Week</th><th>Reps</th><th>Sets</th><th>Rests</th>
+          </tr>
+          <tr class="text-center">
+            <td>1</td><td>3</td><td>${basereps}</td><td>${basesets} + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>2</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 3
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>3</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 6
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>4</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 9
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>5</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 12
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>6</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 15
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>7</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 18
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>8</td><td>3</td><td>${basereps}</td><td>${
+          basesets + 21
+        } + 1 / day</td><td>60s - 80s</td>
+          </tr><tr class="text-center">
+            <td>9</td><td colspan="4">Rest Week</td>
+          </tr>
+        </table>`;
+      }
+      return `Start with ${basesets} sets of ${basereps} repetitions 3 days per week. Aim for around ${lift}, with 60-80 seconds rest between reps.<br/>Every day add 1 set for fast muscle and strength gains. If you miss a day then try to make up for it before the week ends. See your 60 day plan below.<br/>
+        `;
+    },
+    show1RM(type = 0, showUnit = true) {
+      let useLB = this.userKG ? 1 : 1; //
+      let guessMale =
+        this.userWeight *
+        (0.676 * (0.149 * (this.userSkill * 0.46) + 1)) *
+        useLB;
+      let guessFemale =
+        this.userWeight *
+        (0.434 * (0.149 * (this.userSkill * 0.64) + 1)) *
+        useLB;
+      let lossOfStrength =
+        this.userAge - 39 < 0 ? 0 : (this.userAge - 39) * 1.5;
+      let unitKG = this.userKG ? " KG" : " LB";
+
+      // let unitCM = this.userCM ? ' CM' : ' FT'
+      let guessMale2 = guessMale - guessMale * (lossOfStrength * 0.01);
+      let guessFemale2 = guessFemale - guessFemale * (lossOfStrength * 0.01);
+
+      // get percentages from guessMale & guessFemale bases
+      if (showUnit == false) {
+        if (type > 100 && type < 201) {
+          return (guessMale2 * ((type - 100) * 0.01)).toFixed(0);
+        }
+        if (type > 200 && type < 301) {
+          return (guessFemale2 * ((type - 200) * 0.01)).toFixed(0);
+        }
+      }
+      if (type > 100 && type < 201) {
+        return (guessMale2 * ((type - 100) * 0.01)).toFixed(0) + `${unitKG}`;
+      }
+      if (type > 200 && type < 301) {
+        return (guessFemale2 * ((type - 200) * 0.01)).toFixed(0) + `${unitKG}`;
+      }
+
+      if (type === 0) return guessMale;
+      if (type === 1) return guessFemale;
+      if (type === 2) return guessMale2.toFixed(2) + `${unitKG}`;
+      if (type === 3) return guessFemale2.toFixed(2) + `${unitKG}`;
+      if (type === 4) return guessMale2.toFixed(0) + `${unitKG}`;
+      if (type === 5) return guessFemale2.toFixed(0) + `${unitKG}`;
+    },
     addRemoveRep(amount) {
       if (amount == "done") {
         console.log("isdone");
