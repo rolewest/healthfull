@@ -1067,7 +1067,29 @@ export default {
       this.popupTitle = "Saved!";
       this.popupCaption = "Your set list was saved!.";
     },
+    startConfetti() {
+      confetti({
+        spread: 360,
+        ticks: 50,
+        gravity: 0,
+        decay: 0.94,
+        startVelocity: 30,
+        shapes: ["star"],
+        colors: ["FFE400", "FFBD00", "E89400", "FFCA6C", "FDFFB8"],
+        particleCount: 300,
+        scalar: 1.2,
+        shapes: ["star"],
+        // origin: { y: 0.5, x: 0.6 },
+      });
+    },
+
     showCompleted() {
+      setTimeout(() => {
+        this.startConfetti();
+      }, 100);
+      setTimeout(() => {
+        this.startConfetti();
+      }, 300);
       // this.userBasePoints = null;
       console.log(
         "donec:",
@@ -1091,6 +1113,9 @@ export default {
       let vibdata = [500, 200, 100, 200, 100, 200, 100, 200, 1000];
       this.bmpToVibrate(vibdata, 1);
       this.pointsAdd();
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 100);
     },
     animateValue(obj, start, end, duration) {
       let startTimestamp = null;
