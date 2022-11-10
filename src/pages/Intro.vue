@@ -112,7 +112,7 @@ body {
   margin: auto;
   /* max-width: 1000px; */
   /* background: hotpink; */
-  max-width: 95%;
+  // max-width: 95%;
 }
 .float-btn {
   z-index: 1000;

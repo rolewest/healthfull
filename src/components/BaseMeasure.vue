@@ -18,12 +18,17 @@
           <span class="title-text">Baseline Measurements</span>
         </div>
         <div class="row no-wrap justify-between is-retro-icon">
-          <div class="mdi mdi-tape-measure text-h2 pr-5 text-left"></div>
+          <!-- <div class="mdi mdi-tape-measure text-h2 pr-5 text-left"></div> -->
           <p class="text-center text-h5">
-            Let's find out some of your basic info so you can tell me your
-            health goals!
+            Please fill out your basic info below, the more you add the more
+            accurate it will be.
           </p>
-          <div class="mdi mdi-scale-bathroom text-h2 pr-5 text-right"></div>
+
+          <!-- <div class="mdi mdi-scale-bathroom text-h2 pr-5 text-right"></div> -->
+        </div>
+        <div class="tiny-text">
+          All of your data is saved locally and not saved online or shared in
+          any way.
         </div>
         <div class="input-group mb-3 w-75 shadow-sm">
           <div class="input-group-prepend">
@@ -33,7 +38,7 @@
           </div>
 
           <input
-            type="text"
+            type="number"
             id="userHeight"
             ref="userHeight"
             class="form-control graphPaper-2"
@@ -53,6 +58,7 @@
             >
               CM
             </button>
+            {{ convertThisToFT(userHeight) }}
             <!-- <button
               type="button"
               class="btn btn-secondary bg-secondary"
@@ -89,6 +95,7 @@
             >
               KG
             </button>
+            {{ convertThisToLBS(userWeight) }}
             <!-- <button
               type="button"
               class="btn btn-secondary bg-secondary"
@@ -319,6 +326,7 @@
             aria-label="Exercise Length"
             aria-describedby="basic-addon1"
           >
+            <option value="0">None</option>
             <option value="1">Less than 15 min.</option>
             <option value="1.01">16 to 30 min.</option>
             <option value="1.5">30 to 60 min.</option>
@@ -429,12 +437,12 @@
           <span class="title-text">Personal Health Goals</span>
         </div>
         <div class="row no-wrap justify-between is-retro-icon">
-          <div class="mdi mdi-account-heart text-h2 pr-5 text-left"></div>
+          <!-- <div class="mdi mdi-account-heart text-h2 pr-5 text-left"></div> -->
           <p class="text-center text-h5">
             Now tell me what's the reason for your visit today, and how you want
             to improve your health?
           </p>
-          <div class="mdi mdi-calendar-star text-h2 pr-5 text-right"></div>
+          <!-- <div class="mdi mdi-calendar-star text-h2 pr-5 text-right"></div> -->
         </div>
         <div>
           <q-icon class="text-h3" name="mdi-human-edit"></q-icon><br />
@@ -1274,7 +1282,7 @@
     <!-- <Clipboard /> -->
     <!-- Can I remove this below now that I included PrescriptionComponent? -->
 
-    <div class="title-h4 q-mb-sm">Your Chart</div>
+    <div class="title-h4 q-mb-sm">Your Full Chart</div>
     <details>
       <summary class="text-center">Show me my chart</summary>
       <div class="clip shadow"></div>
@@ -2729,6 +2737,7 @@ needed for sets to failure for a specific repetition number[1].`,
       </div>
       <!-- end of clipboard -->
     </details>
+    <br />
     <div v-if="showCitationModal">
       <Modal @close="toggleCitationModal" :theme="citationTheme" cite="cite">
         <template></template>
@@ -2862,10 +2871,10 @@ export default {
       userAge: LocalStorage.getItem("userAge") || null,
       userHeight:
         LocalStorage.getItem("userHeightImp") != "null"
-          ? LocalStorage.getItem("userHeightImp")
+          ? LocalStorage.getItem("userHeightImp") || 0
           : LocalStorage.getItem("userHeight") || 170,
       userWeight: LocalStorage.getItem("userWeight") || 55,
-      userSkill: LocalStorage.getItem("userSkill") || 0,
+      userSkill: LocalStorage.getItem("userSkill") || 2,
       baseMobility: 4,
       userKG: LocalStorage.getItem("userKG") || true,
       userCM: LocalStorage.getItem("userKG") || true,
@@ -3962,6 +3971,17 @@ export default {
         return this.userHeight;
       }
     },
+    convertThisToFT(cm) {
+      if (cm > 0) {
+        let usrhv = String(String(cm) * 0.0328084).split(".");
+        return (
+          usrhv[0] + "'" + (parseFloat("0." + usrhv[1]) * 12).toFixed(0) + '"'
+        );
+      }
+    },
+    convertThisToLBS(kg) {
+      if (kg > 0) return parseFloat((kg * 2.2).toFixed(2)) + " lbs";
+    },
     convertHeightToFT() {
       if (String(this?.userHeight).includes("'")) {
         this.saveUserData();
@@ -4430,6 +4450,7 @@ export default {
         this.$refs.userHeight.type = "text";
       }
     },
+
     toggleKG(yes) {
       this.userKG = yes;
       if (yes) {
@@ -4603,13 +4624,18 @@ body {
   position: relative;
   top: -0.5em;
   font-size: 1.2em;
-  border-bottom: 6px double $secondary;
-
+  border-bottom: 6px double $accent;
+  color: $info;
   text-align: center;
 
   text-shadow: 2px 2px 0 $accent, 2px -2px 0 $accent, -2px 2px 0 $accent,
     -2px -2px 0 $accent, 2px 0px 0 $accent, 0px 2px 0 $accent,
     -2px 0px 0 $accent, 0px -2px 0 $accent;
+}
+.tiny-text {
+  font-size: 1em;
+  color: $dark;
+  text-align: center;
 }
 .is-retro-icon {
   overflow-wrap: break-word;

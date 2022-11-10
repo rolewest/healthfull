@@ -26,6 +26,11 @@
         {
           "section": "Beans, Peas & Legumes",
           "list": "Black beans, Cannellini Beans, Chickpeas / Garbanzo Beans, Edamame, Peas, Peanuts, Kidney Beans, Lentils, Miso, Navy Beans, Pinto, Split Peas, Tempeh, etc."
+        },
+        {
+          "section": "Whole Food Comfort food",
+          "nb": "without added sugars, oils, or salt",
+          "list": "Cabbage Leaf Bun Whole Bean Burger, Cabbage Rolls, Lettuce Bun Portobello Burger, Cabbage Shell Bean Taco, Lettuce Shell Bean Burrito, etc."
         }
       ]
     },
@@ -54,6 +59,11 @@
           "section": "Nut & Seed Butters & Powders",
           "nb": "without added sugars, oils, or salt",
           "list": "Almond, <s>Brazil Nut</s>, Cashew, Chestnut, <s>Coconut</s>, Cocoa Powder Hazelnut, Macadamia, Miso (paste), Mustard, Peanut, Pecan, Pine, Pistachio, Soy, Sunflower, Tahini, Walnut, etc."
+        },
+        {
+          "section": "Self Blended Comfort Food",
+          "nb": "without added sugars, oils, or salt",
+          "list": "Acai Bowl, Banana Fruit Nice Cream, Corn Tortilla Bean Burrito, Smoothy Bowl, Whole Blended Veggie Burger, etc."
         },
         {
           "section": "Drinks",

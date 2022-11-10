@@ -68,6 +68,8 @@ F+20;F12;F5;
           <input
             type="text"
             @keyup="searchForFood()"
+            @change="searchForFood()"
+            @input="searchForFood()"
             v-model="searchText"
             placeholder="Find Item"
             aria-label="Find Item"
@@ -100,7 +102,7 @@ F+20;F12;F5;
             <q-item-label>{{ subrow.section }}</q-item-label
             ><em>{{ subrow.nb }}</em>
             <q-item-label caption>
-              <span v-html="subrow.list"></span>
+              <span v-html="subrow.list.toLowerCase()"></span>
             </q-item-label>
           </q-item-section>
 
@@ -129,6 +131,13 @@ F+20;F12;F5;
 <script>
 import { LocalStorage } from "quasar";
 import { ref } from "vue";
+window.addEventListener("keydown", (event) => {
+  if (event.key == 13 || event.key == "Enter") {
+    event.preventDefault();
+    event.target.blur();
+    console.log("clickENTER");
+  }
+});
 export default {
   data() {
     return {
@@ -171,7 +180,7 @@ export default {
             .toLowerCase()
             .replaceAll(
               text.toLowerCase(),
-              `<b class='highlight-search'>${text}</b>`
+              `<b class='highlight-search'>${text.toLowerCase()}</b>`
             );
           asText = asText.replaceAll(row.data[0]?.list, highlightMatch);
           console.log("FIXED:", asText);

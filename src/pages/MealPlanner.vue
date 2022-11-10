@@ -69,23 +69,8 @@
           <span class="doctor-chat">Dr. Doctor</span>:These satiating soups &
           salads will help to curb your appetite before every meal<br />
           <span class="doctor-chat">Dr. Doctor</span>:Don't worry about too many
-          calories, worry about the type and exercise are an important part of a
-          nutritional diet!<span
-            class="mdi mdi-comment-quote-outline citation"
-            @click="
-              citation(
-                6,
-                'Alcohol & Cancer',
-                'Moderate Alcohol Consumption Is NOT Associated with Reduced All-cause Mortality',
-                `No level of regular alcohol consumption was associated with reduced all-cause mortality.  [PMID: 26524703, 2016 C.E.].
-                        Alcohol use, including light to moderate drinking, continues to cause considerable cancer burden...`,
-                `We found that high intake of total proteins was associated with a lower risk of mortality from all causes. Intake of plant protein was also associated with a lower risk of mortality from all causes and cardiovascular diseases, which is consistent with its beneficial effects on cardiometabolic risk factors, including blood lipid and lipoprotein profiles, blood pressure, and glycaemic regulation. These findings have important public health implications as intake of plant protein can be increased relatively easily by replacing animal protein and could have a large effect on longevity. Also, an additional 3% of energy from plant proteins a day was associated with a 5% lower risk of death from all causes. Our findings therefore strongly support the existing dietary recommendations to increase consumption of plant proteins in the general population.  [PMID: 33338220, 2020 C.E.]
-                      `,
-                '',
-                'theme-checked'
-              )
-            "
-          ></span>
+          calories, worry about the type of foods and exercise are an important
+          part of a nutritional diet!
         </div>
         <details>
           <summary>
@@ -801,7 +786,7 @@ export default {
   margin: auto;
   /* max-width: 1000px; */
   /* background: hotpink; */
-  max-width: 95%;
+  // max-width: 95%;
 }
 .type-writer .text {
   animation: typing 3s steps(22), blink 0.5s step-end infinite alternate;

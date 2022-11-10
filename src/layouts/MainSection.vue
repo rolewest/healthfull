@@ -177,7 +177,7 @@ body {
   margin: auto;
   /* max-width: 1000px; */
   /* background: hotpink; */
-  max-width: 95%;
+  // max-width: 95%;
 }
 .opacity-50 {
   opacity: 0.5;

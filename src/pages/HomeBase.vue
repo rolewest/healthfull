@@ -800,7 +800,7 @@ export default {
       this.userChallenges.daily.rolled = yourNumber;
       this.userChallenges.daily.face = faceValue;
       this.$refs.d1elm.focus(); // use focus trick without setTimeOut
-      this.$refs.d1elm.className = ` fadeIn text-dark glower ${randomTransition}`;
+      this.$refs.d1elm.className = ` fadeIn text-dark ${randomTransition}`;
       this.$refs.d1elm.style.transform = `rotate(${Math.floor(
         Math.random() * 360
       )}deg) scale(0.9)`;
@@ -984,6 +984,10 @@ export default {
 </script>
 
 <style lang="scss">
+.glower {
+  animation: colorCycle 2s ease infinite;
+  //border-bottom: 4px double $info;
+}
 .tip-block {
   user-select: none;
 }
@@ -1042,6 +1046,27 @@ export default {
 
   /* border-right:2px solid rgba(255,165,0,.75); */
 }
+@keyframes colorCycle {
+  0% {
+    color: $primary !important;
+  }
+  25% {
+    color: $accent !important;
+  }
+  50% {
+    color: $warning !important;
+  }
+  60% {
+    color: $dark !important;
+  }
+
+  75% {
+    color: $positive !important;
+  }
+  100% {
+    color: $info !important;
+  }
+}
 @keyframes typing {
   from {
     width: 0;
@@ -1095,7 +1120,7 @@ body {
   position: relative;
 }
 .q-layout {
-  max-width: 95%;
+  // max-width: 95%;
   margin: auto;
 }
 .flip-scale-up-hor {
