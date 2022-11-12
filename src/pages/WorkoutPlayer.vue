@@ -1086,10 +1086,10 @@ export default {
     showCompleted() {
       setTimeout(() => {
         this.startConfetti();
-      }, 100);
+      }, 300);
       setTimeout(() => {
         this.startConfetti();
-      }, 300);
+      }, 600);
       // this.userBasePoints = null;
       console.log(
         "donec:",
