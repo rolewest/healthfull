@@ -1,5 +1,5 @@
 <template>
-  {{}}
+  // a lot of this is "hacky" and needs cleaning up. {{}}
   <span v-if="this.$route.name == 'prescription'" class="hidden">
     <!-- Current Gender -->
     <div class="input-group mb-3 w-75 shadow-sm">
