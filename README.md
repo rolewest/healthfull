@@ -4,6 +4,8 @@ Gameify your health based on the latest peer reviewed scientific medical researc
 
 (This game does not constitute medical advice please consult your medical professional.)
 
+Live demo at: [https://rmatter.com/health-full/beta/](https://rmatter.com/health-full/beta/)
+
 ## Install the dependencies
 
 ```bash
