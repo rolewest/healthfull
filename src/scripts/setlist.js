@@ -21,8 +21,8 @@ const setList = [
       <li>March by lifting up your knees and moving your arms</li>
       <li>Go at your own pace</li>
       <li>If you feel you can do ${Math.floor(
-      Math.random() * (4 - 1 + 1) + 1
-    )} extra reps, go for it!</li>
+        Math.random() * (4 - 1 + 1) + 1
+      )} extra reps, go for it!</li>
 
       </ol>`,
   },
@@ -58,8 +58,8 @@ const setList = [
       </li>
       <li>Go at your own pace</li>
       <li>If you feel you can do ${Math.floor(
-      Math.random() * (4 - 1 + 1) + 1
-    )} extra reps, go for it!</li>
+        Math.random() * (4 - 1 + 1) + 1
+      )} extra reps, go for it!</li>
 
       </ol>`,
   },
@@ -102,8 +102,8 @@ const setList = [
       </li>
       <li>Go at your own pace</li>
       <li>If you feel you can do ${Math.floor(
-      Math.random() * (4 - 1 + 1) + 1
-    )} extra reps, go for it!</li>
+        Math.random() * (4 - 1 + 1) + 1
+      )} extra reps, go for it!</li>
 
       </ol>`,
   },
@@ -142,8 +142,8 @@ const setList = [
       </li>
       <li>Go at your own pace</li>
       <li>${Math.floor(
-      Math.random() * (4 - 1 + 1) + 1
-    )} extra reps, go for it!</li>
+        Math.random() * (4 - 1 + 1) + 1
+      )} extra reps, go for it!</li>
 
       </ol>`,
   },
@@ -189,8 +189,8 @@ const setList = [
       </li>
       <li>Go at your own pace</li>
       <li>If you feel you can do ${Math.floor(
-      Math.random() * (4 - 1 + 1) + 1
-    )} extra rep, go for it!</li>
+        Math.random() * (4 - 1 + 1) + 1
+      )} extra rep, go for it!</li>
 
       </ol>`,
   },
@@ -219,8 +219,8 @@ const setList = [
 
       <li>Go at your own pace</li>
       <li>If you feel you can do ${Math.floor(
-      Math.random() * (4 - 1 + 1) + 1
-    )} extra reps, go for it!</li>
+        Math.random() * (4 - 1 + 1) + 1
+      )} extra reps, go for it!</li>
 
       </ol>`,
   },
@@ -258,8 +258,8 @@ const setList = [
 
       <li>Go at your own pace</li>
       <li>If you feel you can do ${Math.floor(
-      Math.random() * (4 - 1 + 1) + 1
-    )} extra reps, go for it!</li>
+        Math.random() * (4 - 1 + 1) + 1
+      )} extra reps, go for it!</li>
 
       </ol>`,
   },
@@ -297,8 +297,8 @@ const setList = [
 
       <li>Go at your own pace</li>
       <li>If you feel you can do ${Math.floor(
-      Math.random() * (4 - 1 + 1) + 1
-    )} extra reps, go for it!</li>
+        Math.random() * (4 - 1 + 1) + 1
+      )} extra reps, go for it!</li>
 
       </ol>`,
   },
@@ -332,12 +332,12 @@ const setList = [
 
       <li>Go at your own pace</li>
       <li>If you feel you can do ${Math.floor(
-      Math.random() * (4 - 1 + 1) + 1
-    )} extra reps, go for it!</li>
+        Math.random() * (4 - 1 + 1) + 1
+      )} extra reps, go for it!</li>
 
       </ol>`,
   },
-]
+];
 
 const doctorSets = [
   {
@@ -346,7 +346,7 @@ const doctorSets = [
     short: `Short`,
     long: `Long`,
     science: `Science`,
-    set: "[9]"
+    set: "[9]",
   },
   {
     id: 1,
@@ -354,7 +354,7 @@ const doctorSets = [
     short: `Short`,
     long: `Long`,
     science: `Science`,
-    set: "[7,8]"
+    set: "[7,8]",
   },
   {
     id: 2,
@@ -362,7 +362,7 @@ const doctorSets = [
     short: `Short`,
     long: `Long`,
     science: `Science`,
-    set: "[1, 2, 3, 4, 5, 6]"
+    set: "[1, 2, 3, 4, 5, 6]",
   },
-]
-export { setList, doctorSets }
+];
+export { setList, doctorSets };

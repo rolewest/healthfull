@@ -1,26 +1,26 @@
-import { Heartbeat } from './heartbeat.js';
+import { Heartbeat } from "./heartbeat.js";
 
 const OPENCV_URI = "https://docs.opencv.org/master/opencv.js";
-const HAARCASCADE_URI = "../haarcascade_frontalface_alt.xml"
+const HAARCASCADE_URI = "../haarcascade_frontalface_alt.xml";
 
 // Load opencv when needed
 async function loadOpenCv(uri) {
   return new Promise(function (resolve, reject) {
     console.log("starting to load opencv");
-    var tag = document.createElement('script');
+    var tag = document.createElement("script");
     tag.src = uri;
     tag.async = true;
-    tag.type = 'text/javascript'
+    tag.type = "text/javascript";
     tag.onload = () => {
-      cv['onRuntimeInitialized'] = () => {
+      cv["onRuntimeInitialized"] = () => {
         console.log("opencv ready");
         resolve();
-      }
+      };
     };
     tag.onerror = () => {
       throw new URIError("opencv didn't load correctly.");
     };
-    var firstScriptTag = document.getElementsByTagName('script')[0];
+    var firstScriptTag = document.getElementsByTagName("script")[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   });
 }

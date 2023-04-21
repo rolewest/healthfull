@@ -1588,23 +1588,14 @@ export default {
         this.userLifestyleAlcoholFreq
       );
       LocalStorage.set("user.lifestyle.soda.count", this.userLifestyleSoda);
-      LocalStorage.set(
-        "user.lifestyle.soda.freq",
-        this.userLifestyleSodaFreq
-      );
-      LocalStorage.set(
-        "user.lifestyle.smokes.count",
-        this.userLifestyleSmokes
-      );
+      LocalStorage.set("user.lifestyle.soda.freq", this.userLifestyleSodaFreq);
+      LocalStorage.set("user.lifestyle.smokes.count", this.userLifestyleSmokes);
       LocalStorage.set(
         "user.lifestyle.smokes.freq",
         this.userLifestyleSmokesFreq
       );
       LocalStorage.set("user.lifestyle.meat.count", this.userLifestyleMeat);
-      LocalStorage.set(
-        "user.lifestyle.meat.freq",
-        this.userLifestyleMeatFreq
-      );
+      LocalStorage.set("user.lifestyle.meat.freq", this.userLifestyleMeatFreq);
       LocalStorage.set(
         "user.lifestyle.seafood.count",
         this.userLifestyleSeafood
@@ -1613,10 +1604,7 @@ export default {
         "user.lifestyle.seafood.freq",
         this.userLifestyleSeafoodFreq
       );
-      LocalStorage.set(
-        "user.lifestyle.dairy.count",
-        this.userLifestyleDairy
-      );
+      LocalStorage.set("user.lifestyle.dairy.count", this.userLifestyleDairy);
       LocalStorage.set(
         "user.lifestyle.dairy.freq",
         this.userLifestyleDairyFreq
