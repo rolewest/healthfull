@@ -119,5 +119,4 @@ const glycemicIndex = [
     gload: 0,
     category: null,
   },
-
-]
+];

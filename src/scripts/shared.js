@@ -15,4 +15,4 @@ function saveUserData() {
   window.localStorage.set("user.points.hp", this.userBasePoints.hp);
   window.localStorage.set("user.points.cp", this.userBasePoints.cp);
 }
-export { saveUserData }
+export { saveUserData };

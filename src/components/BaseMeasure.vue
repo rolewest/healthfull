@@ -11,7 +11,7 @@
       class="user-input-area"
       :open="viewPrescriptionOnly != true || isNewPlayer == true"
     >
-      <summary class="q-mt-sm">Edit My Details</summary>
+      <summary class="q-mt-sm q-ml-md">Edit My Details</summary>
       <!-- <div class="bit8-stethoscope"></div> -->
       <div class="questItem shadow-sm p-3" id="statsInput">
         <div class="is-card-type">
@@ -795,7 +795,6 @@
             </label>
             hours every <b>day</b> (at home, work/school, watching tv, sitting,
             etc. don't include your regular sleep)
-
             <hr />
           </div>
         </fieldset>
@@ -2944,7 +2943,7 @@ export default {
       userLifestyleSedentaryFreq:
         LocalStorage.getItem("user.lifestyle.sedentary.freq") || 52.177457,
       userBodyGoal: LocalStorage.getItem("user.body.goal") || 0,
-      userStartDate:LocalStorage.getItem("user.start.date") || null,
+      userStartDate: LocalStorage.getItem("user.start.date") || null,
     };
   },
   methods: {
